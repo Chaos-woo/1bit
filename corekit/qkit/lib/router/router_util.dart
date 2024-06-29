@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class QRouterKit {
+class RouteProxyKit {
   /// 转向至指定路由
   Future<R?>? to<R>(
     String route, {

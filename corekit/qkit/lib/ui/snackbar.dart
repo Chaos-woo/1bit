@@ -10,7 +10,7 @@ const _defaultSnackbarBorderRadius = 5.0;
 const _defaultSnackbarMargin = EdgeInsets.symmetric(vertical: 5, horizontal: 10);
 const _defaultSnackbarPadding = EdgeInsets.all(8);
 
-class QSnackbar {
+class Snackbar {
   SnackbarController show({
     String? title,
     String? message,

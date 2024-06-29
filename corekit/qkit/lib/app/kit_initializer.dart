@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
 /// 框架初始化器
-class QKitInitializer {
+class KitInitializer {
   /// 启动框架
   /// - [preprocessed] : 应用数据初始化前回调自定义处理
   /// - [initCompleted] : 应用数据初始化完成回调自定义处理
@@ -27,18 +27,18 @@ class QKitInitializer {
     ScreenUtil.getInstance();
 
     /// 初始化设备信息
-    await QMobileDevice.init();
+    await MobileDevice.init();
 
     /// 初始化应用包信息
-    await QPackage.init();
+    await AppPackage.init();
 
     /// 初始化外部存储信息
-    await QStorageDirectory.init();
+    await StorageDirectory.init();
 
     /// 初始化本地缓存信息，SpUtil不做封装
     await SpUtil.getInstance();
 
     /// 初始化路由
-    QDispatcher.dispatch();
+    RouteProxyDispatcher.dispatch();
   }
 }

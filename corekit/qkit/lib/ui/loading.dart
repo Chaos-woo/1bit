@@ -1,7 +1,7 @@
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class QLoading {
+class Loader {
   /// 样式设置参考：https://github.com/nslogx/flutter_easyloading/blob/develop/README-zh_CN.md
   /// EasyLoading.instance
   ///   ..displayDuration = const Duration(milliseconds: 2000)

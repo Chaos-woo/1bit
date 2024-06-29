@@ -1,7 +1,7 @@
 
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeMoneyUtilExt on MoneyUtil {
+extension MoneyUtilBridge on MoneyUtil {
   /// fen to yuan, format output.
   /// 分 转 元, format格式输出.
   String changeF2Y(int amount,

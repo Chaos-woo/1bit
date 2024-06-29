@@ -1,7 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 
 /// 系统权限
-class QPermission {
+class Permissions {
   Future<void> check(
     Permission permission, {
     Function()? onGranted,

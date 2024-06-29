@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 /// https://pub.dev/packages/adaptive_dialog
 /// 需要更多样式时，参照adaptive_dialog的pubdev封装
-class QDialog {
+class KitDialog {
   Future<T?> showOkDialog<T>({
     String? title,
     String? message,

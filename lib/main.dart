@@ -8,7 +8,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:qkit/qkit.dart';
 
 void main() {
-  DefaultAppInitializer.run(
+  AppStarter.run(
     const MyApp(),
     preprocessed: () {
       /// 初始化路由
@@ -27,7 +27,7 @@ void main() {
 
 void _errorReporter(FlutterErrorDetails details) {
   FlutterError.dumpErrorToConsole(details);
-  QKit.logger.error(details);
+  QKit.log.error(details);
 }
 
 class MyApp extends StatelessWidget {
@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
             // fallbackLocale: AppTranslation.fallbackLocale,
             // translations: AppTranslation(),
             initialRoute: AppRoutes.kHome,
-            getPages: QDispatcher.pageRoutes,
-            debugShowCheckedModeBanner: !QUtils.isReleaseMode,
-            enableLog: !QUtils.isReleaseMode,
+            getPages: RouteProxyDispatcher.pageRoutes,
+            debugShowCheckedModeBanner: !QKitUtils.isReleaseMode,
+            enableLog: !QKitUtils.isReleaseMode,
             builder: EasyLoading.init())
         .smartRefreshConfiguration(
           headerBuilder: () => const ClassicHeader(),

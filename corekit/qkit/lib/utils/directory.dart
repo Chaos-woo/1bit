@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 /// 存储目录
-class QStorageDirectory {
+class StorageDirectory {
   /// 临时目录
   static late Directory _temporaryDirectory;
 

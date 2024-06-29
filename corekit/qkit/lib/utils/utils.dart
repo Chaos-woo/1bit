@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:qkit/qkit.dart';
 
 /// 公共工具类
-class QUtils {
-  QUtils._();
+class QKitUtils {
+  QKitUtils._();
 
   /// 当前运行环境是否为Release环境
   static const bool isReleaseMode = kReleaseMode;

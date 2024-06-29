@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:qkit/qkit.dart';
 
 /// [SystemChrome]工具
-class QSystemChrome {
+class SystemChromes {
   /// 设置应用程序方向：竖直上
   void setDeviceOrientationPortraitUp() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

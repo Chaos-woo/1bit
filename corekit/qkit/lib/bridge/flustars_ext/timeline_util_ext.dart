@@ -1,7 +1,7 @@
 
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeTimelineUtilExt on TimelineUtil {
+extension TimelineUtilBridge on TimelineUtil {
   /// format time by DateTime.
   /// dateTime
   /// locDateTime: current time or schedule time.

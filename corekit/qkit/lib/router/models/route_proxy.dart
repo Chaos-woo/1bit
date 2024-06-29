@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 /// 路由对象
-class QRoute {
+class RouteProxy {
   String routeName;
   GetPageBuilder pageBuilder;
   Bindings? binding;
@@ -11,7 +11,7 @@ class QRoute {
   CustomTransition? customTransition;
   List<GetMiddleware>? middlewares;
 
-  QRoute(
+  RouteProxy(
     this.routeName,
     this.pageBuilder, {
     this.binding,

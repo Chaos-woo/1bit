@@ -1,6 +1,8 @@
 import 'package:cw2bit/domain/home/homepage/binding.dart';
 import 'package:cw2bit/domain/home/homepage/view.dart';
 import 'package:cw2bit/domain/tool/flutter_flow/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit_issues/binding.dart';
+import 'package:cw2bit/domain/tool/github_1bit_issues/view.dart';
 import 'package:qkit/qkit.dart';
 
 class AppRoutes {
@@ -13,15 +15,21 @@ class AppRoutes {
 
 class AppPageRouter {
   static void initRoutePage() {
-    QDispatcher.addRoute(
+    RouteProxyDispatcher.addRoute(
       AppRoutes.kHome,
       () => HomepagePage(),
       bindings: [HomepageBinding()],
     );
 
-    QDispatcher.createGroup('tool').addRoute(
-      AppRoutes.kToolFlutterFlow,
-      () => const FlutterFlowPage(),
-    );
+    RouteProxyDispatcher.createGroup('tool')
+        .addRoute(
+          AppRoutes.kToolFlutterFlow,
+          () => const FlutterFlowPage(),
+        )
+        .addRoute(
+          AppRoutes.kToolGithubIssuesHome,
+          () => Github1bitIssuesPage(),
+          binding: Github1bitIssuesBinding(),
+        );
   }
 }

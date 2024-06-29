@@ -4,7 +4,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:qkit/qkit.dart';
 
-class QEventBus {
+class Eventbus {
   static final EventBus _bus = EventBus();
 
   /// 立即触发一个事件

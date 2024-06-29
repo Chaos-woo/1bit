@@ -1,7 +1,7 @@
 
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgetTextUtilExt on TextUtil {
+extension TextUtilBridge on TextUtil {
   /// isEmpty
   bool isEmpty(String? text) => TextUtil.isEmpty(text);
 

@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:qkit/qkit.dart';
 
+import 'my_app.dart';
+
 typedef FlutterErrorReporter = void Function(FlutterErrorDetails details);
 
 /// 默认应用初始化处理器
-class DefaultAppInitializer {
+class AppStarter {
   /// 自定义异常处理器
   static FlutterErrorReporter? _errorReporter;
 
@@ -26,7 +28,7 @@ class DefaultAppInitializer {
     _errorReporter = errorReporter;
 
     /// 异常捕获处理
-    _exceptionCapture(() => DefaultApp.run(
+    _exceptionCapture(() => MyApp.run(
           myApp,
           preprocessed: preprocessed,
           initCompleted: initCompleted,
@@ -37,7 +39,7 @@ class DefaultAppInitializer {
   ///
   static void _exceptionCapture(void Function() executor) {
     FlutterError.onError = (FlutterErrorDetails details) {
-      if (QUtils.isReleaseMode) {
+      if (QKitUtils.isReleaseMode) {
         /// release模式异常由Zone处理
         Zone.current.handleUncaughtError(details.exception, details.stack!);
         _reportErrorLog(details);

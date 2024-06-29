@@ -1,17 +1,17 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/material.dart';
 
-class QDimens {
+class Dimens {
   double font(double size) => ScreenUtil().getSp(size);
 }
 
-class QGap {
+class Gap {
   Widget h(double size) => SizedBox(width: ScreenUtil().getWidth(size));
 
   Widget v(double size) => SizedBox(height: ScreenUtil().getHeight(size));
 }
 
-class QDivider {
+class MyDivider {
   Widget h({
     double? size,
     Color? color,

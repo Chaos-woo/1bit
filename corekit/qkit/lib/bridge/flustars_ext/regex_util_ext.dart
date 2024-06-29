@@ -1,6 +1,6 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeRegexUtilExt on RegexUtil {
+extension RegexUtilBridge on RegexUtil {
   ///Return whether input matches regex of simple mobile.
   bool isMobileSimple(String input) => RegexUtil.isMobileSimple(input);
 

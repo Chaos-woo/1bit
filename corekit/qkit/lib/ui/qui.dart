@@ -1,12 +1,12 @@
 import 'package:qkit/qkit.dart';
 
 class QUi {
-  static final QDimens dimens = QDimens();
-  static final QGap gap = QGap();
-  static final QImage image = QImage();
-  static final QLoading loading = QLoading();
-  static final QToast toast = QToast();
-  static final QSnackbar snackbar = QSnackbar();
-  static final QDialog dialog = QDialog();
+  static final Dimens dimens = Dimens();
+  static final Gap gap = Gap();
+  static final Image image = Image();
+  static final Loader loading = Loader();
+  static final Toast toast = Toast();
+  static final Snackbar snackbar = Snackbar();
+  static final KitDialog dialog = KitDialog();
   static final QBottomSheet bottomSheet = QBottomSheet();
 }

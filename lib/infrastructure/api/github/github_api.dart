@@ -6,10 +6,10 @@ final class GithubApi extends GetxService {
 
   static GithubApi get singl => Get.find(tag: tag);
 
-  late DioClientKit _api;
+  late DioApi doClient;
 
   GithubApi() {
-    _api = DioClientKit(
+    doClient = DioApi(
       'https://api.github.com',
     );
   }

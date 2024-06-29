@@ -114,7 +114,9 @@ class ToolHomepagePage extends StatelessWidget {
                           subtitle: 'Github仓库issues',
                           type: ToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          onTap: () => {},
+                          onTap: () => {
+                            QKit.route.to(AppRoutes.kToolGithubIssuesHome)
+                          },
                         ),
                         ToolGroupItemRouter(
                           title: '疑问随手记',

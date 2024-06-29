@@ -3,7 +3,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import 'paging_state.dart';
 
-abstract class QPagingController<S extends QPagingState> extends GetxController {
+abstract class PagingController<S extends PagingState> extends GetxController {
   /// 状态
   late S state;
 
@@ -15,13 +15,13 @@ abstract class QPagingController<S extends QPagingState> extends GetxController 
   void onInit() {
     super.onInit();
 
-    state = initPagingState();
+    state = createPagingState();
     /// 初始化每次最大请求数量
     state.fetchTotal = state.pageSize;
   }
 
   /// 初始化分页状态
-  S initPagingState();
+  S createPagingState();
 
   void onRefresh() {
     _fetchDataList(isRefresh: true).then((_) {
@@ -71,3 +71,19 @@ abstract class QPagingController<S extends QPagingState> extends GetxController 
     refreshController.dispose();
   }
 }
+
+// class D {}
+//
+// class PCtrl extends PagingController<SimplePageState<D>> {
+//   @override
+//   SimplePageState<D> createPagingState() {
+//     return SimplePageState<D>.create();
+//   }
+//
+//   @override
+//   Future<List> fetchData() {
+//     // TODO: implement fetchData
+//     throw UnimplementedError();
+//   }
+//
+// }

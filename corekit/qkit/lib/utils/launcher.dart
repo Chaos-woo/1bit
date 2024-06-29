@@ -1,7 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
 /// 启动器
-class QLauncher {
+class Launcher {
   /// 打开链接
   Future<void> launch(
     String url, {

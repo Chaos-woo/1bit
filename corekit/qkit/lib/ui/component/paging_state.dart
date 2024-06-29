@@ -1,9 +1,9 @@
-
 import 'package:get/get.dart';
 
-abstract class QPagingState<T> {
+abstract class PagingState<T> {
   /// 当前页
   int currPage = 1;
+
   /// 分页数量，可修改
   int get pageSize => 20;
 
@@ -18,4 +18,15 @@ abstract class QPagingState<T> {
 
   /// 是否需要请求更多
   bool isLoadMore() => dataList.length < fetchTotal;
+}
+
+class SimplePageState<T> extends PagingState<T> {
+  int size;
+
+  SimplePageState.create({
+    this.size = 20,
+  });
+
+  @override
+  int get pageSize => size;
 }

@@ -4,7 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 /// 移动网络信号
-class QMobileNetwork {
+class MobileNetwork {
   /// 网络信息
   static final NetworkInfo _network = NetworkInfo();
 

@@ -4,7 +4,7 @@ import 'package:qkit/bridge/index.dart';
 /// 三方包桥接主类
 /// 大多数为静态方法，在此声明仅为开发时提示已引入的工具类
 /// 少部分可以通过该实例获取三方工具类中的成员属性或成员方法
-class QBridge {
+class KitBridge {
   /// flustars_flutter
   final FlustarsBridge flustars = FlustarsBridge();
 }
@@ -39,5 +39,5 @@ class FlustarsBridge {
   final TimelineUtil timeline = TimelineUtil();
 
   /// 桥接SpUtil
-  final QSpUtilExt sp = QSpUtilExt();
+  final SpUtilBridge preferences = SpUtilBridge();
 }

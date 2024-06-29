@@ -4,7 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 
 /// 应用终端设备信息
-class QMobileDevice {
+class MobileDevice {
   /// 安卓设备信息
   static late AndroidDeviceInfo _androidInfo;
 

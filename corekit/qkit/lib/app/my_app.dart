@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:qkit/application/initializer.dart';
+
+import 'kit_initializer.dart';
 
 /// 默认应用处理器
-class DefaultApp {
+class MyApp {
   /// 启动默认应用
   /// - [myApp] : 用户应用
   /// - [preprocessed] : 应用数据初始化前回调自定义处理
@@ -16,7 +17,7 @@ class DefaultApp {
   }) async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    await QKitInitializer.startup(
+    await KitInitializer.startup(
       preprocessed: preprocessed,
       initCompleted: initCompleted,
     );

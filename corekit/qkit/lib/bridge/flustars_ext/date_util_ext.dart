@@ -1,6 +1,6 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeDateUtilExt on DateUtil {
+extension DateUtilBridge on DateUtil {
   /// get DateTime By DateStr.
   DateTime? getDateTime(String dateStr, {bool? isUtc}) => DateUtil.getDateTime(dateStr, isUtc: isUtc);
 

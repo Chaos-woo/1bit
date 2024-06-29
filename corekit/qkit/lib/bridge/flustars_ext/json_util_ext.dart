@@ -1,7 +1,7 @@
 
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeJsonUtilExt on JsonUtil {
+extension JsonUtilBridge on JsonUtil {
   /// Converts object [value] to a JSON string.
   String? encodeObj(dynamic value) => JsonUtil.encodeObj(value);
 

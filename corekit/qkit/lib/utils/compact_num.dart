@@ -1,7 +1,7 @@
 import 'package:number_display/number_display.dart';
 
 /// 紧凑数字工具
-class QCompactNumber {
+class CompactNumber {
   static final _innerCompactDisplay = createDisplay();
 
   Display customDisplayConfig({

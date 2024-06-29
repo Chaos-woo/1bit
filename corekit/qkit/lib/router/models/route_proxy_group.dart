@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
-import 'package:qkit/router/models/route.dart';
+import 'package:qkit/router/models/route_proxy.dart';
 
 /// 命名路由组
-class QRouteGroup {
+class RouteProxyGroup {
   final String name;
-  final List<QRoute> routes = [];
+  final List<RouteProxy> routes = [];
 
-  QRouteGroup(this.name);
+  RouteProxyGroup(this.name);
 
   /// 项路由组中添加路由
-  QRouteGroup addRoute(
+  RouteProxyGroup addRoute(
     String routeName,
     GetPageBuilder pageBuilder, {
     Bindings? binding,
@@ -19,7 +19,7 @@ class QRouteGroup {
     CustomTransition? customTransition,
     List<GetMiddleware>? middlewares,
   }) {
-    QRoute route = QRoute(
+    RouteProxy route = RouteProxy(
       routeName,
       pageBuilder,
       binding: binding,

@@ -1,6 +1,6 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeObjectUtilExt on ObjectUtil {
+extension ObjectUtilBridge on ObjectUtil {
   /// Returns true if the string is null or 0-length.
   bool isEmptyString(String? str) => ObjectUtil.isEmptyString(str);
 

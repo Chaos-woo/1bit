@@ -5,10 +5,10 @@ import 'package:qkit/qkit.dart';
 class WalabagApi extends GetxService {
   static WalabagApi singl = Get.find();
 
-  late DioClientKit _qClient;
+  late DioApi _qClient;
 
   WalabagApi() {
-    _qClient = DioClientKit('');
+    _qClient = DioApi('');
   }
 
   /// 获取文章列表

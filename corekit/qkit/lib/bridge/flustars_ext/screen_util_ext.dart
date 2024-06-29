@@ -2,7 +2,7 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/material.dart';
 
-extension QBridgeRKitScreenUtilExt on ScreenUtil {
+extension ScreenUtilBridge on ScreenUtil {
   /// screen width
   /// 屏幕 宽
   double get screenWidthExt => ScreenUtil.getInstance().screenWidth;

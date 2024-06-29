@@ -1,6 +1,6 @@
 import 'package:oktoast/oktoast.dart';
 
-class QToast {
+class Toast {
   void show(String msg) {
     showToast(msg);
   }

@@ -1,6 +1,6 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-class QSpUtilExt {
+class SpUtilBridge {
   /// put object.
   static Future<bool>? putObject(String key, Object value) {
     return SpUtil.putObject(key, value);

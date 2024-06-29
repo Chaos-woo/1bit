@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-extension QBridgeNumUtilExt on NumUtil {
+extension NumUtilBridge on NumUtil {
   /// The parameter [fractionDigits] must be an integer satisfying: `0 <= fractionDigits <= 20`.
   num? getNumByValueStr(String valueStr, {int? fractionDigits}) =>
       NumUtil.getNumByValueStr(valueStr, fractionDigits: fractionDigits);

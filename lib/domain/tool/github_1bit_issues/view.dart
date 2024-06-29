@@ -10,7 +10,6 @@ class Github1bitIssuesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Get.find<Github1bitIssuesLogic>();
     final state = Get.find<Github1bitIssuesLogic>().state;
-
     return Container();
   }
 }

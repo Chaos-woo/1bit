@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 /// 延时工具
-class QDelay {
+class Delayer {
   Future<void> delay(VoidCallback callback) => delayAny(callback);
 
   Future<void> delayAny(

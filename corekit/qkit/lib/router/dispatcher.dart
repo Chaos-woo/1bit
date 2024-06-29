@@ -4,24 +4,24 @@ import 'package:qkit/qkit.dart';
 /// 页面路由辅助生成工具
 ///
 /// 使用[createGroup]、[addRoute]添加路由后，框架初始化时自动调用
-/// [dispatch]方法初始化页面路由，即可通过[QDispatcher.pageRoutes]
+/// [dispatch]方法初始化页面路由，即可通过[RouteProxyDispatcher.pageRoutes]
 /// 获取GetX全部配置的路由
-class QDispatcher {
+class RouteProxyDispatcher {
   static final List<GetPage> pageRoutes = [];
 
   /// 用户自定义分组路由
-  static final List<QRouteGroup> namedRouteGroups = [];
+  static final List<RouteProxyGroup> namedRouteGroups = [];
 
   /// 默认路由分组
-  static final QRouteGroup defaultRouteGroup = QRouteGroup('#default');
+  static final RouteProxyGroup defaultRouteGroup = RouteProxyGroup('#default');
 
-  static QRouteGroup createGroup(String name) {
-    QRouteGroup group = QRouteGroup(name);
+  static RouteProxyGroup createGroup(String name) {
+    RouteProxyGroup group = RouteProxyGroup(name);
     namedRouteGroups.add(group);
     return group;
   }
 
-  static void addGroup(QRouteGroup group) {
+  static void addGroup(RouteProxyGroup group) {
     namedRouteGroups.add(group);
   }
 
@@ -50,7 +50,7 @@ class QDispatcher {
   /// 初始化路由，并生成GetX页面路由
   static void dispatch() {
     Set<String> routeNames = {};
-    List<QRoute> routes = [];
+    List<RouteProxy> routes = [];
     for (var route in defaultRouteGroup.routes) {
       if (routeNames.contains(route.routeName)) {
         continue;
@@ -74,7 +74,7 @@ class QDispatcher {
   }
 
   /// 创建GetX页面路由
-  static GetPage _newGetPage(QRoute route) {
+  static GetPage _newGetPage(RouteProxy route) {
     return GetPage(
       name: route.routeName,
       page: route.pageBuilder,

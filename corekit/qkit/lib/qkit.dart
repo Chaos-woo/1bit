@@ -1,6 +1,6 @@
 library qkit;
 
-export 'application/index.dart';
+export 'app/index.dart';
 export 'bridge/index.dart';
 export 'ext/index.dart';
 export 'log/index.dart';

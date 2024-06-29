@@ -18,7 +18,7 @@ class RawData {
   T as<T>({T Function(Map<String, dynamic>)? objectConvertor}) {
     _nullDataCheck();
 
-    if (QUtils.isBaseType(T)) {
+    if (QKitUtils.isBaseType(T)) {
       return _data as T;
     }
     return _asObject<T>(_data, objectConvertor: objectConvertor);
@@ -37,7 +37,7 @@ class RawData {
     _nullDataCheck();
 
     List<dynamic> list = _data as List<dynamic>;
-    if (QUtils.isBaseType(T)) {
+    if (QKitUtils.isBaseType(T)) {
       return list.map((item) => item as T).toList();
     }
 
