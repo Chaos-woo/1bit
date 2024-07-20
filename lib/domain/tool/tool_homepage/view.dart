@@ -26,7 +26,7 @@ class ToolHomepagePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '我的工坊',
+              '1bit工坊',
               style: FlutterFlowTheme.of(context).headlineMedium.override(
                     fontFamily: 'Outfit',
                     color: Colors.white,
@@ -114,18 +114,14 @@ class ToolHomepagePage extends StatelessWidget {
                           subtitle: 'Github仓库issues',
                           type: ToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          onTap: () => {
-                            QKit.route.to(rt_toolGithubIssuesHome)
-                          },
+                          onTap: () => {QKit.route.to(rt_toolGithubIssuesHome)},
                         ),
                         ToolGroupItemRouter(
                           title: '疑问随手记',
                           subtitle: '想法，BUG，改进点记录（本地）',
                           type: ToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          onTap: () async {
-
-                          },
+                          onTap: () async {},
                         ),
                       ],
                     ),

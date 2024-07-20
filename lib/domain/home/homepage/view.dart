@@ -35,7 +35,7 @@ class HomepagePage extends StatelessWidget {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.token),
-              label: '工坊',
+              label: '试验坊',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.attach_email_rounded),
