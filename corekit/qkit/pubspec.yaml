@@ -1,7 +1,6 @@
 name: qkit
 description: "core tiny framework."
 version: 0.0.1
-homepage:
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
