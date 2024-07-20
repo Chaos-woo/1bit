@@ -7,7 +7,7 @@ import 'paging_controller.dart';
 /// 刷新组件构造器
 typedef PagingRefreshWidgetBuilder<T extends PagingController> = Widget Function(T controller);
 
-class PagingBuilder {
+class PagingWidgetBuilder {
   static Widget buildRefresher<T extends PagingController>(
     T controller, {
     required PagingRefreshWidgetBuilder builder,

@@ -7,6 +7,6 @@ final class Apis {
 
   /// 初始化所有API客户端
   static void initApis() {
-    // Get.put(GithubApi(), tag: GithubApi.tag);
+    Get.put(GithubApi(), tag: GithubApi.tag);
   }
 }

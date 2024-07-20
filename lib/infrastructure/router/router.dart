@@ -1,35 +1,62 @@
 import 'package:cw2bit/domain/home/homepage/binding.dart';
 import 'package:cw2bit/domain/home/homepage/view.dart';
 import 'package:cw2bit/domain/tool/flutter_flow/view.dart';
-import 'package:cw2bit/domain/tool/github_1bit_issues/binding.dart';
-import 'package:cw2bit/domain/tool/github_1bit_issues/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit/comment_edit/binding.dart';
+import 'package:cw2bit/domain/tool/github_1bit/comment_edit/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/binding.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_setting/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues_detail/binding.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues_detail/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues_edit/view.dart';
+import 'package:cw2bit/public/text_ocr/view.dart';
 import 'package:qkit/qkit.dart';
 
-class AppRoutes {
-  static const kHome = '/home';
+/// 命名路由
+const rt_home = '/home';
 
-  static const kToolFlutterFlow = '/tool/flutterflow/home';
-  static const kToolGithubIssuesHome = '/tool/github/issues/home';
-  static const kToolGithubIssuesDetail = '/tool/github/issues/detail';
-}
+/// # 公共路由
+const rt_publicTextOcr = '/public/textorc/home';
+
+/// # 工具模块路由
+const rt_toolFlutterFlowHome = '/tool/flutterflow/home';
+const rt_toolGithubSetting = '/tool/github/setting';
+const rt_toolGithubIssuesHome = '/tool/github/issues/home';
+const rt_toolGithubIssuesDetail = '/tool/github/issues/detail';
+const rt_toolGithubIssuesEdit = '/tool/github/issues/edit';
+const rt_toolGithubCommentEdit = '/tool/github/comment/edit';
 
 class AppPageRouter {
   static void initRoutePage() {
     RouteProxyDispatcher.addRoute(
-      AppRoutes.kHome,
+      rt_home,
       () => HomepagePage(),
       bindings: [HomepageBinding()],
     );
 
     RouteProxyDispatcher.createGroup('tool')
+        .addRoute(rt_toolFlutterFlowHome, () => const FlutterFlowPage())
         .addRoute(
-          AppRoutes.kToolFlutterFlow,
-          () => const FlutterFlowPage(),
-        )
-        .addRoute(
-          AppRoutes.kToolGithubIssuesHome,
+          rt_toolGithubIssuesHome,
           () => Github1bitIssuesPage(),
           binding: Github1bitIssuesBinding(),
+        )
+        .addRoute(rt_toolGithubSetting, () => const GithubSettingPage())
+        .addRoute(
+          rt_toolGithubIssuesDetail,
+          () => const Github1bitIssuesDetailPage(),
+          binding: Github1bitIssuesDetailBinding(),
+        )
+        .addRoute(rt_toolGithubIssuesEdit, () => const Github1bitIssuesEditPage())
+        .addRoute(
+          rt_toolGithubCommentEdit,
+          () => const Github1bitCommentEditPage(),
+          binding: Github1bitCommentEditPageBinding(),
         );
+
+    RouteProxyDispatcher.createGroup('public').addRoute(
+      rt_publicTextOcr,
+      () => const TextOcrPage(),
+    );
   }
 }

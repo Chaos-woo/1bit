@@ -4,8 +4,8 @@ import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
-import '../components/tool_group/models/tool_group.dart';
-import '../components/tool_group/view.dart';
+import 'components/tool_group/models/tool_group.dart';
+import 'components/tool_group/view.dart';
 import 'logic.dart';
 
 class ToolHomepagePage extends StatelessWidget {
@@ -115,15 +115,17 @@ class ToolHomepagePage extends StatelessWidget {
                           type: ToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
                           onTap: () => {
-                            QKit.route.to(AppRoutes.kToolGithubIssuesHome)
+                            QKit.route.to(rt_toolGithubIssuesHome)
                           },
                         ),
                         ToolGroupItemRouter(
                           title: '疑问随手记',
-                          subtitle: '想法，BUG，改进点记录',
+                          subtitle: '想法，BUG，改进点记录（本地）',
                           type: ToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          onTap: () => {},
+                          onTap: () async {
+
+                          },
                         ),
                       ],
                     ),
@@ -140,12 +142,29 @@ class ToolHomepagePage extends StatelessWidget {
                           subtitle: 'FlutterFlow的组件测试合集',
                           type: ToolGroupItemType.router,
                           icon: Icon(Icons.flourescent_rounded),
-                          onTap: () => QKit.route.to(AppRoutes.kToolFlutterFlow),
+                          onTap: () => QKit.route.to(rt_toolFlutterFlowHome),
                         )
                       ],
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ToolGroupComponent(
+                    toolGroup: ToolGroup(
+                      name: '小工具',
+                      items: [
+                        ToolGroupItemRouter(
+                          title: 'OCR-文字识别',
+                          subtitle: 'Google ML-Kit识别工具',
+                          type: ToolGroupItemType.router,
+                          icon: Icon(Icons.content_paste_search_rounded),
+                          onTap: () => QKit.route.to(rt_publicTextOcr),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ],

@@ -20,7 +20,7 @@ class PPLog extends GetxService implements LogWriter {
         lineLength: 120,
         colors: colors,
         printEmojis: true,
-        printTime: false,
+        printTime: true,
       ),
     );
 

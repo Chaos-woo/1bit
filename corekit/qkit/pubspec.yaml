@@ -62,9 +62,10 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.0
   # json序列化/反序列化代码生成处理器
-  json_serializable: 6.3.1
+  json_serializable: 6.6.2
   # flutter packages pub run build_runner build --delete-conflicting-outputs
   build_runner: any #^2.1.11
+  build_runner_core: ^7.2.9
 
 # dart脚本运行IDE插件
 scripts:

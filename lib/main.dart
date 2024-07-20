@@ -45,14 +45,29 @@ class MyApp extends StatelessWidget {
             // locale: AppTranslation.locale,
             // fallbackLocale: AppTranslation.fallbackLocale,
             // translations: AppTranslation(),
-            initialRoute: AppRoutes.kHome,
-            getPages: RouteProxyDispatcher.pageRoutes,
+            initialRoute: rt_home,
+            getPages: RouteProxyDispatcher.s_pageRoutes,
             debugShowCheckedModeBanner: !QKitUtils.isReleaseMode,
             enableLog: !QKitUtils.isReleaseMode,
             builder: EasyLoading.init())
         .smartRefreshConfiguration(
-          headerBuilder: () => const ClassicHeader(),
-          footerBuilder: () => const ClassicFooter(),
+          hideFooterWhenNotFull: false,
+          enableLoadingWhenNoData: true,
+          headerBuilder: () => const ClassicHeader(
+            releaseText: '释放开始刷新...',
+            refreshingText: '刷新中...',
+            completeText: '刷新完成...',
+            failedText: '刷新失败...',
+            idleText: '继续深潜...',
+          ),
+          footerBuilder: () => ClassicFooter(
+            loadingText: '加载中...',
+            noDataText: '已经没有更多啦...',
+            idleText: '',
+            idleIcon: null,
+            failedText: '加载失败...',
+            canLoadingText: '释放开始加载...',
+          ),
         )
         .okToast();
   }

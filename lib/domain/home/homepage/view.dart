@@ -1,8 +1,8 @@
 import 'package:cw2bit/domain/tool/tool_homepage/view.dart';
+import 'package:cw2bit/domain/wallabag/wallabag_homepage/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
-import 'package:cw2bit/domain/wallabag/wallabag_homepage/view.dart';
 
 import 'logic.dart';
 
@@ -38,15 +38,15 @@ class HomepagePage extends StatelessWidget {
               label: '工坊',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.gradient_outlined),
-              label: '文字簿',
+              icon: Icon(Icons.attach_email_rounded),
+              label: '朝闻道',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.live_tv_rounded),
               label: '媒体流',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.tag_rounded),
+              icon: Icon(Icons.addchart_rounded),
               label: '标签站',
             ),
           ],

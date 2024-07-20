@@ -4,7 +4,7 @@ import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
-import 'components/custom_sample_widget.dart';
+import 'widgets/custom_sample_widget.dart';
 import 'logic.dart';
 
 class FlutterFlowPage extends StatelessWidget {

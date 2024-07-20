@@ -90,15 +90,21 @@ dependencies:
   # https://github.com/FlutterFlow/flutterflow-ui
   flutterflow_ui: ^0.2.0+1
   auto_size_text: 3.0.0
+  # 文字识别ocr
+  google_mlkit_text_recognition: ^0.8.1
+  ocr_scan_text: 1.3.1
+  # 可折叠文字 https://github.com/fweinaug/expandable_text
+  expandable_text: ^2.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+#  flutter_lints: ^3.0.0
   # json序列化/反序列化代码生成处理器
-  json_serializable: 6.3.1
+  json_serializable: 6.6.2
   # flutter packages pub run build_runner build --delete-conflicting-outputs
   build_runner: any #^2.1.11
+  build_runner_core: ^7.2.9
 
 # dart脚本运行IDE插件
 scripts:

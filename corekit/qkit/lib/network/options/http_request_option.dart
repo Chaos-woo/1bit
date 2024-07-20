@@ -20,6 +20,8 @@ class RequestOption {
     readTimeout = 30000;
     writeTimeout = 10000;
     sendContentType = Headers.jsonContentType;
+    responseType = ResponseType.json;
+    httpClientAdapter = null;
     jsonDecodeCallback = _parseJson;
   }
 

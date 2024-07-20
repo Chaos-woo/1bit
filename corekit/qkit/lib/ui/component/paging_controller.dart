@@ -1,7 +1,7 @@
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
-
-import 'paging_state.dart';
+import 'package:qkit/qkit.dart';
 
 abstract class PagingController<S extends PagingState> extends GetxController {
   /// 状态
@@ -16,6 +16,7 @@ abstract class PagingController<S extends PagingState> extends GetxController {
     super.onInit();
 
     state = createPagingState();
+
     /// 初始化每次最大请求数量
     state.fetchTotal = state.pageSize;
   }
@@ -26,7 +27,11 @@ abstract class PagingController<S extends PagingState> extends GetxController {
   void onRefresh() {
     _fetchDataList(isRefresh: true).then((_) {
       refreshController.refreshCompleted(resetFooterState: true);
-    }).catchError((_) {
+      if (!state.isLoadMore()) {
+        refreshController.loadNoData();
+      }
+    }).catchError((err) {
+      QKit.log.error(err);
       refreshController.refreshFailed();
     });
   }
@@ -50,6 +55,7 @@ abstract class PagingController<S extends PagingState> extends GetxController {
 
     if (isRefresh == true) {
       state.currPage = 1;
+
       /// 记录每次刷新
       state.fetchTotal = result.length;
       state.dataList.clear();
@@ -62,6 +68,14 @@ abstract class PagingController<S extends PagingState> extends GetxController {
 
   /// 获取数据
   Future<List> fetchData();
+
+  /// 请求刷新
+  void requestRefresh() {
+    refreshController.requestRefresh(
+      duration: 100.milliseconds,
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
+  }
 
   @override
   void dispose() {

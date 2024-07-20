@@ -26,8 +26,8 @@ android {
     namespace "me.cw2.cw2bit"
 //    compileSdkVersion flutter.compileSdkVersion
     compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
-//    ndkVersion "25.1.8937393"
+//    ndkVersion flutter.ndkVersion
+    ndkVersion "25.1.8937393"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,7 +47,7 @@ android {
         applicationId "me.cw2.cw2bit"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -66,4 +66,10 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Add language package you need to use : OCR
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0-beta6'
+    implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0-beta6'
+    implementation 'com.google.mlkit:text-recognition-japanese:16.0.0-beta6'
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta6'
+}

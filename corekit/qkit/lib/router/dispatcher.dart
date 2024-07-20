@@ -4,25 +4,25 @@ import 'package:qkit/qkit.dart';
 /// 页面路由辅助生成工具
 ///
 /// 使用[createGroup]、[addRoute]添加路由后，框架初始化时自动调用
-/// [dispatch]方法初始化页面路由，即可通过[RouteProxyDispatcher.pageRoutes]
+/// [dispatch]方法初始化页面路由，即可通过[RouteProxyDispatcher.s_pageRoutes]
 /// 获取GetX全部配置的路由
 class RouteProxyDispatcher {
-  static final List<GetPage> pageRoutes = [];
+  static final List<GetPage> s_pageRoutes = [];
 
   /// 用户自定义分组路由
-  static final List<RouteProxyGroup> namedRouteGroups = [];
+  static final List<RouteProxyGroup> m_namedRouteGroups = [];
 
   /// 默认路由分组
-  static final RouteProxyGroup defaultRouteGroup = RouteProxyGroup('#default');
+  static final RouteProxyGroup m_defaultRouteGroup = RouteProxyGroup('#default');
 
   static RouteProxyGroup createGroup(String name) {
     RouteProxyGroup group = RouteProxyGroup(name);
-    namedRouteGroups.add(group);
+    m_namedRouteGroups.add(group);
     return group;
   }
 
   static void addGroup(RouteProxyGroup group) {
-    namedRouteGroups.add(group);
+    m_namedRouteGroups.add(group);
   }
 
   static void addRoute(
@@ -35,7 +35,7 @@ class RouteProxyDispatcher {
     CustomTransition? customTransition,
     List<GetMiddleware>? middlewares,
   }) {
-    defaultRouteGroup.addRoute(
+    m_defaultRouteGroup.addRoute(
       routeName,
       pageBuilder,
       binding: binding,
@@ -51,7 +51,7 @@ class RouteProxyDispatcher {
   static void dispatch() {
     Set<String> routeNames = {};
     List<RouteProxy> routes = [];
-    for (var route in defaultRouteGroup.routes) {
+    for (var route in m_defaultRouteGroup.routes) {
       if (routeNames.contains(route.routeName)) {
         continue;
       }
@@ -59,7 +59,7 @@ class RouteProxyDispatcher {
       routes.add(route);
     }
 
-    for (var group in namedRouteGroups) {
+    for (var group in m_namedRouteGroups) {
       for (var route in group.routes) {
         if (routeNames.contains(route.routeName)) {
           continue;
@@ -70,7 +70,7 @@ class RouteProxyDispatcher {
     }
 
     var pages = routes.map(_newGetPage).toList();
-    pageRoutes.addAll(pages);
+    s_pageRoutes.addAll(pages);
   }
 
   /// 创建GetX页面路由
