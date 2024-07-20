@@ -1,7 +1,7 @@
 # 自动打包参考：https://github.com/LeetaoGoooo/discussion-blog/discussions/53
 # main.yml
 # 自动构建 Apk
-name: Test, Build and Release apk
+name: Build and Release apk
 
 # 工作流程触发的时机，这里是当一个版本标签推送到仓库时触发
 on:
@@ -45,5 +45,5 @@ jobs:
       - name: Release apk
         uses: ncipollo/release-action@v1.5.0
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk"
+          artifacts: "build/app/outputs/apk/release/1bit-release.apk"
           token: ${{ secrets.RELEASE_TOKEN }}
