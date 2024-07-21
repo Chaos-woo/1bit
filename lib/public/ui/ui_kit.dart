@@ -40,7 +40,7 @@ class Bit1Ui {
               ),
         ),
         duration: duration ?? Duration(milliseconds: 4000),
-        backgroundColor: Color(0x80000000),
+        // backgroundColor: Color(0x80000000),
       ),
     );
   }

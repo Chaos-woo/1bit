@@ -43,7 +43,7 @@ class HomepagePage extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.live_tv_rounded),
-              label: '媒体流',
+              label: '流媒体',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.addchart_rounded),

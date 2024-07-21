@@ -12,8 +12,8 @@ class GithubInterceptor extends Interceptor {
       handler.reject(DioError(
         requestOptions: options,
         response: null,
-        type: DioErrorType.other,
-        error: 'Not found Github AccessToken',
+        type: DioErrorType.cancel,
+        error: 'Not found Github Personal Access Token(classic)',
       ));
     }
 
@@ -21,6 +21,7 @@ class GithubInterceptor extends Interceptor {
       "Accept": "application/vnd.github+json",
       "Authorization": "Bearer ${accessToken!}",
       "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": "1bit-app:Chaos-woo"
     });
 
     super.onRequest(options, handler);
