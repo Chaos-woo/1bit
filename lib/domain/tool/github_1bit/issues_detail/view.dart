@@ -2,6 +2,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_comment_widget.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_detail_widget.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';

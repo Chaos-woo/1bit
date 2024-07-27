@@ -1,7 +1,7 @@
 import 'package:cw2bit/domain/tool/tool_homepage/view.dart';
 import 'package:cw2bit/domain/wallabag/wallabag_homepage/view.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';
