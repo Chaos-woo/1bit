@@ -1,4 +1,5 @@
 import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class GithubSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.put(GithubSettingLogic());
+    final logic = Get.find<GithubSettingLogic>();
     final state = Get.find<GithubSettingLogic>().state;
 
     return Scaffold(
@@ -72,118 +73,120 @@ class GithubSettingPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: TextFormField(
-                  controller: logic.repoOwnerTextController,
-                  autofocus: false,
-                  readOnly: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    isDense: false,
-                    labelText: '1bit Repository Owner',
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+              if (logic.show1bitRepository)
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: logic.repoOwnerTextController,
+                    autofocus: false,
+                    readOnly: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      isDense: false,
+                      labelText: '1bit Repository Owner',
+                      labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Readex Pro',
+                            letterSpacing: 0,
+                          ),
+                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Readex Pro',
+                            letterSpacing: 0,
+                          ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).alternate,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primary,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.power,
+                      ),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.power,
-                    ),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        letterSpacing: 0,
-                      ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: TextFormField(
-                  controller: logic.repoTextController,
-                  autofocus: false,
-                  readOnly: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    isDense: false,
-                    labelText: '1bit Repository',
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+              if (logic.show1bitRepository)
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextFormField(
+                    controller: logic.repoTextController,
+                    autofocus: false,
+                    readOnly: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      isDense: false,
+                      labelText: '1bit Repository',
+                      labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Readex Pro',
+                            letterSpacing: 0,
+                          ),
+                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Readex Pro',
+                            letterSpacing: 0,
+                          ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).alternate,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primary,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.store_mall_directory_rounded,
+                      ),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.store_mall_directory_rounded,
-                    ),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        letterSpacing: 0,
-                      ),
                 ),
-              ),
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Row(
@@ -192,7 +195,7 @@ class GithubSettingPage extends StatelessWidget {
                     Expanded(
                       child: TextFormField(
                         controller: logic.accessTokenTextController,
-                        autofocus: true,
+                        autofocus: false,
                         obscureText: false,
                         maxLines: 2,
                         decoration: InputDecoration(
@@ -273,11 +276,53 @@ class GithubSettingPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: FFButtonWidget(
+                        onPressed: () async {
+                          bool isValidToken = await logic.checkAccessToken();
+                          if (isValidToken) {
+                            Bit1Ui.showSimpleSnackBar('当前【访问密钥】有效');
+                          } else {
+                            Bit1Ui.showSimpleSnackBar('当前【访问密钥】无效，请重新设置');
+                          }
+                        },
+                        text: '访问密钥有效性检查',
+                        icon: Icon(
+                          Icons.save_as_rounded,
+                          size: 15,
+                        ),
+                        options: FFButtonOptions(
+                          height: 40,
+                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Readex Pro',
+                                color: Colors.white,
+                                letterSpacing: 0,
+                              ),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: FFButtonWidget(
                         onPressed: () {
                           logic.saveAccessToken();
+                          Bit1Ui.showSimpleSnackBar('设置【访问密钥】完成');
                           QKit.route.back();
                         },
-                        text: '保存',
+                        text: '保存访问密钥',
                         icon: Icon(
                           Icons.save_as_rounded,
                           size: 15,

@@ -16,7 +16,7 @@ abstract class DioErrorHandle {
 
 /// 网络请求响应错误处理器
 abstract class DioResponseErrorHandle {
-  Function(String? responseStatusMessage)? handle;
+  ContinuePaasErrorSelection? Function(String? responseStatusMessage)? handle;
 
   DioResponseErrorHandle({this.handle});
 
@@ -31,7 +31,7 @@ abstract class DioResponseErrorHandle {
 class DefaultDioErrorHandle extends DioErrorHandle {
   DefaultDioErrorHandle()
       : super(handle: (error) {
-          PPLog.singl.info(error.message);
+          PPLog.singl.error(error.message);
         });
 
   @override
@@ -45,10 +45,14 @@ class DefaultDioErrorHandle extends DioErrorHandle {
 
 /// 默认处理器
 class DefaultDioResponseErrorHandle extends DioResponseErrorHandle {
-  DefaultDioResponseErrorHandle(): super(handle: (errorMessage) {
-    PPLog.singl.info(errorMessage);
-  });
+  DefaultDioResponseErrorHandle()
+      : super(handle: (errorMessage) {
+          PPLog.singl.error(errorMessage);
+        });
 
   @override
   List<int> get httpStatusCodes => throw UnimplementedError();
 }
+
+/// 是否继续向上传递错误
+enum ContinuePaasErrorSelection { yes, no }

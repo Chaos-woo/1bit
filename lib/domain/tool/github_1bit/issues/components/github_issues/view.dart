@@ -1,12 +1,12 @@
+import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/issues/issues_model.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
 import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
-import '../../values/constant.dart';
 import 'logic.dart';
-import 'models/github_models.dart';
 
 class GithubIssuesWidget extends StatelessWidget {
   final IssuesModel issues;

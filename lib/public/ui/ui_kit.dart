@@ -26,7 +26,12 @@ class Bit1Ui {
   }
 
   /// 展示snackbar
-  static void showSnackBar(String text, {BuildContext? context, Duration? duration}) {
+  static void showSimpleSnackBar(
+    String text, {
+    BuildContext? context,
+    Duration? duration,
+    Color? textColor = Colors.white,
+  }) {
     var bContext = context ?? Get.context!;
     ScaffoldMessenger.of(bContext).clearSnackBars();
     ScaffoldMessenger.of(bContext).showSnackBar(
@@ -35,7 +40,7 @@ class Bit1Ui {
           text,
           style: FlutterFlowTheme.of(bContext).labelLarge.override(
                 fontFamily: 'Readex Pro',
-                color: FlutterFlowTheme.of(bContext).primaryText,
+                color: textColor,
                 letterSpacing: 0,
               ),
         ),

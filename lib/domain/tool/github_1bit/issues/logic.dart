@@ -1,6 +1,6 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_1bit_issues_list/logic.dart';
 import 'package:cw2bit/infrastructure/api/apis.dart';
-import 'package:cw2bit/infrastructure/api/github/models/github_do.dart';
+import 'package:cw2bit/infrastructure/api/github/models/issues/github_label.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +26,7 @@ class Github1bitIssuesLogic extends GetxController {
 
   @override
   void onReady() async {
-    List<Label> labels = await Apis.github.listLabels(state.owner, state.repo);
+    List<GithubLabel> labels = await Apis.github.listLabels(state.owner, state.repo);
     state.setRepoLabels(labels);
 
     drawerKey.currentState?.refreshState();

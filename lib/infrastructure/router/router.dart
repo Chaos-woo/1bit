@@ -4,6 +4,7 @@ import 'package:cw2bit/domain/tool/flutter_flow/view.dart';
 import 'package:cw2bit/domain/tool/github_1bit/comment_edit/binding.dart';
 import 'package:cw2bit/domain/tool/github_1bit/comment_edit/view.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues/binding.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_setting/binding.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_setting/view.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues/view.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/binding.dart';
@@ -15,10 +16,10 @@ import 'package:qkit/qkit.dart';
 /// 命名路由
 const rt_home = '/home';
 
-/// # 公共路由
+/// 公共路由
 const rt_publicTextOcr = '/public/textorc/home';
 
-/// # 工具模块路由
+/// 工具模块路由
 const rt_toolFlutterFlowHome = '/tool/flutterflow/home';
 const rt_toolGithubSetting = '/tool/github/setting';
 const rt_toolGithubIssuesHome = '/tool/github/issues/home';
@@ -41,7 +42,11 @@ class AppPageRouter {
           () => Github1bitIssuesPage(),
           binding: Github1bitIssuesBinding(),
         )
-        .addRoute(rt_toolGithubSetting, () => const GithubSettingPage())
+        .addRoute(
+          rt_toolGithubSetting,
+          () => GithubSettingPage(),
+          binding: GithubSettingBinding(),
+        )
         .addRoute(
           rt_toolGithubIssuesDetail,
           () => const Github1bitIssuesDetailPage(),

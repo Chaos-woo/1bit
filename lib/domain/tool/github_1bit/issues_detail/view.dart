@@ -1,4 +1,4 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/github_api_handle.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_comment_widget.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_detail_widget.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
@@ -21,9 +21,10 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String postResult =
-              await QKit.route.to(rt_toolGithubCommentEdit, arguments: state.issuesModel) as String;
-          if (GithubPostResult.posted == postResult) {
+          GithubApiDataPostAction postResult =
+              await QKit.route.to(rt_toolGithubCommentEdit, arguments: state.issuesModel)
+                  as GithubApiDataPostAction;
+          if (postResult == GithubApiDataPostAction.postedDataThenBack) {
             logic.requestRefresh();
           }
         },

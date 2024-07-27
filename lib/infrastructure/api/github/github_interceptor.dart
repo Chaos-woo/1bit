@@ -5,8 +5,12 @@ import 'package:qkit/qkit.dart';
 class GithubInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    String? accessToken =
-        QKit.bridge.flustars.preferences.getString(k_githubAccessKey, defValue: '');
+    String? accessToken;
+    if (options.extra.containsKey(k_githubOverrideAccessKey)) {
+      accessToken = options.extra[k_githubOverrideAccessKey];
+    } else {
+      accessToken = QKit.bridge.flustars.preferences.getString(k_githubAccessKey, defValue: '');
+    }
 
     if (null == accessToken || accessToken.isEmpty) {
       handler.reject(DioError(

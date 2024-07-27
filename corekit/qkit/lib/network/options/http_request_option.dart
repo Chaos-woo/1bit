@@ -49,9 +49,15 @@ class OverrideRequestOption {
   int? readTimeout;
   int? writeTimeout;
   String? sendContentType;
-  Map<String, dynamic> extra = const [] as Map<String, dynamic>;
-}
+  Map<String, dynamic>? extra;
 
+  OverrideRequestOption({
+    this.readTimeout,
+    this.writeTimeout,
+    this.sendContentType,
+    this.extra,
+  });
+}
 
 /// 必须为顶级函数
 _parseJson(String text) {

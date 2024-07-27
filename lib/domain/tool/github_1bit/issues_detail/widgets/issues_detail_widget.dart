@@ -1,4 +1,4 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/github_models.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/issues/issues_model.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/public/ui/ui_kit.dart';

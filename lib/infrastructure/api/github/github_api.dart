@@ -1,9 +1,12 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/state.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
+import 'package:cw2bit/infrastructure/api/github/github_error_handle.dart';
 import 'package:cw2bit/infrastructure/api/github/github_interceptor.dart';
+import 'package:cw2bit/infrastructure/api/github/models/comment/github_comment.dart';
+import 'package:cw2bit/infrastructure/api/github/models/issues/github_issues.dart';
+import 'package:cw2bit/infrastructure/api/github/models/issues/github_label.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
-
-import 'models/github_do.dart';
 
 final class GithubApi extends GetxService {
   static const String tag = '#githubApi';
@@ -13,11 +16,17 @@ final class GithubApi extends GetxService {
   late DioApi _m_api;
 
   GithubApi() {
-    _m_api = DioApi('https://api.github.com', interceptors: [GithubInterceptor()]);
+    _m_api = DioApi(
+      'https://api.github.com',
+      interceptors: [GithubInterceptor()],
+      dioResponseErrorHandle: [
+        Github401ErrorHandle(),
+      ],
+    );
   }
 
   /// 获取仓库issues列表
-  Future<List<Issues>> listIssues(
+  Future<List<GithubIssues>> listIssues(
     String owner,
     String repo, {
     int page = 1,
@@ -39,27 +48,27 @@ final class GithubApi extends GetxService {
       params['labels'] = labels.join(",");
     }
 
-    List<Issues>? issues = await _m_api.get(
+    List<GithubIssues>? issues = await _m_api.get(
       '/repos/$owner/$repo/issues',
       params: params,
-      objectConvertor: (rawData) => rawData.asList(objectConvertor: Issues.fromJson),
+      objectConvertor: (rawData) => rawData.asList(objectConvertor: GithubIssues.fromJson),
     );
 
     return issues ?? [];
   }
 
   /// 获取仓库标签列表
-  Future<List<Label>> listLabels(String owner, String repo) async {
-    List<Label>? labels = await _m_api.get(
+  Future<List<GithubLabel>> listLabels(String owner, String repo) async {
+    List<GithubLabel>? labels = await _m_api.get(
       '/repos/$owner/$repo/labels',
-      objectConvertor: (rawData) => rawData.asList(objectConvertor: Label.fromJson),
+      objectConvertor: (rawData) => rawData.asList(objectConvertor: GithubLabel.fromJson),
     );
 
     return labels ?? [];
   }
 
   /// 获取仓库下指定issues的评论列表
-  Future<List<Comment>> listComments(
+  Future<List<GithubComment>> listComments(
     String owner,
     String repo,
     int issuesNumber, {
@@ -70,10 +79,10 @@ final class GithubApi extends GetxService {
       'page': page,
       'per_page': pageSize,
     };
-    List<Comment> comments = await _m_api.get(
+    List<GithubComment> comments = await _m_api.get(
       '/repos/$owner/$repo/issues/$issuesNumber/comments',
       params: params,
-      objectConvertor: (rawData) => rawData.asList(objectConvertor: Comment.fromJson),
+      objectConvertor: (rawData) => rawData.asList(objectConvertor: GithubComment.fromJson),
     );
 
     return comments ?? [];
@@ -100,6 +109,17 @@ final class GithubApi extends GetxService {
     await _m_api.post(
       '/repos/$owner/$repo/issues/$issuesNumber/comments',
       data: data,
+    );
+  }
+
+  /// 获取仓库标签列表接口校验Token有效性
+  Future<void> checkAccessToken(String owner, String repo, String? overrideAccessKey) async {
+    await _m_api.get(
+      '/repos/$owner/$repo/labels',
+      objectConvertor: (rawData) => rawData.asList(objectConvertor: GithubLabel.fromJson),
+      requestOption: OverrideRequestOption(
+        extra: {}..[k_githubOverrideAccessKey] = overrideAccessKey,
+      ),
     );
   }
 }

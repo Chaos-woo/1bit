@@ -70,7 +70,7 @@ class DioApi {
     Map<String, dynamic>? params,
     dynamic data,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? requestOption,
+    OverrideRequestOption? overrideRequestOption,
     CancelToken? cancelToken,
     ObjectConvertor? objectConvertor,
   }) async {
@@ -79,17 +79,17 @@ class DioApi {
         ..method = method
         ..headers = headers;
 
-      if (null != requestOption) {
-        if (null != requestOption.writeTimeout) {
-          options.sendTimeout = requestOption.writeTimeout;
+      if (null != overrideRequestOption) {
+        if (null != overrideRequestOption.writeTimeout) {
+          options.sendTimeout = overrideRequestOption.writeTimeout;
         }
-        if (null != requestOption.readTimeout) {
-          options.receiveTimeout = requestOption.readTimeout;
+        if (null != overrideRequestOption.readTimeout) {
+          options.receiveTimeout = overrideRequestOption.readTimeout;
         }
-        if (null != requestOption.sendContentType) {
-          options.contentType = requestOption.sendContentType;
+        if (null != overrideRequestOption.sendContentType) {
+          options.contentType = overrideRequestOption.sendContentType;
         }
-        options.extra = requestOption.extra;
+        options.extra = overrideRequestOption.extra;
       }
 
       if (data != null) {
@@ -123,18 +123,27 @@ class DioApi {
           return null;
         } else if (ex.type == DioErrorType.response) {
           if (null == ex.response) {
-            (defaultDioResponseErrorHandle ?? DefaultDioResponseErrorHandle())
-                .handle
-                ?.call(ex.message);
-            return null;
+            ContinuePaasErrorSelection? paasError =
+                (defaultDioResponseErrorHandle ?? DefaultDioResponseErrorHandle())
+                    .handle
+                    ?.call(ex.message);
+            if ((paasError ?? ContinuePaasErrorSelection.no) == ContinuePaasErrorSelection.yes) {
+              rethrow;
+            } else {
+              return null;
+            }
           }
 
           DioResponseErrorHandle errorHandle = _dioResponseErrorHandle.firstWhere(
             (handle) => handle.match(ex.response!.statusCode!),
             orElse: () => DefaultDioResponseErrorHandle(),
           );
-          errorHandle.handle?.call(ex.message);
-          return null;
+          ContinuePaasErrorSelection? paasError = errorHandle.handle?.call(ex.message);
+          if ((paasError ?? ContinuePaasErrorSelection.no) == ContinuePaasErrorSelection.yes) {
+            rethrow;
+          } else {
+            return null;
+          }
         }
       }
       rethrow;
@@ -156,7 +165,7 @@ class DioApi {
       params: params,
       headers: headers,
       objectConvertor: objectConvertor,
-      requestOption: requestOption,
+      overrideRequestOption: requestOption,
     );
   }
 
@@ -177,7 +186,7 @@ class DioApi {
       data: data,
       headers: headers,
       objectConvertor: objectConvertor,
-      requestOption: requestOption,
+      overrideRequestOption: requestOption,
     );
   }
 
@@ -197,7 +206,7 @@ class DioApi {
         data: data,
         headers: headers,
         objectConvertor: objectConvertor,
-        requestOption: requestOption);
+        overrideRequestOption: requestOption);
   }
 
   Future<T?> put<T>(
@@ -216,7 +225,7 @@ class DioApi {
         data: data,
         headers: headers,
         objectConvertor: objectConvertor,
-        requestOption: requestOption);
+        overrideRequestOption: requestOption);
   }
 
   Future<T?> patch<T>(
@@ -236,7 +245,7 @@ class DioApi {
       data: data,
       headers: headers,
       objectConvertor: objectConvertor,
-      requestOption: requestOption,
+      overrideRequestOption: requestOption,
     );
   }
 

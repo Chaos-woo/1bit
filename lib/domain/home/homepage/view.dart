@@ -30,24 +30,33 @@ class HomepagePage extends StatelessWidget {
         return BottomNavigationBar(
           currentIndex: logic.selectedIndex.value,
           onTap: logic.changeIndex,
+          type: BottomNavigationBarType.shifting,
           selectedItemColor: FlutterFlowTheme.of(context).primary,
           unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
+          selectedLabelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                fontFamily: 'Outfit',
+                fontWeight: FontWeight.w500,
+              ),
+          unselectedLabelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                fontFamily: 'Outfit',
+                fontWeight: FontWeight.w500,
+              ),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.token),
-              label: '试验坊',
+              icon: Icon(Icons.token_outlined),
+              label: '1Bit',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.attach_email_rounded),
+              icon: Icon(Icons.data_exploration_outlined),
               label: '朝闻道',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.live_tv_rounded),
-              label: '流媒体',
+              label: 'TV.SO',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.addchart_rounded),
-              label: '标签站',
+              label: '数千签',
             ),
           ],
         );

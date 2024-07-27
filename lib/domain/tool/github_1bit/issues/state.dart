@@ -1,10 +1,10 @@
-import 'package:cw2bit/infrastructure/api/github/models/github_do.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/issues/label_model.dart';
+import 'package:cw2bit/infrastructure/api/github/models/issues/github_label.dart';
 
-import 'components/github_issues/models/github_models.dart';
 import 'values/constant.dart';
 
 class Github1bitIssuesState {
-  final String owner = c_1bitOwner;
+  final String owner = c_1bitRepoOwner;
   final String repo = c_1bitRepo;
 
   List<IssuesFiltered> stateValues = [
@@ -42,7 +42,7 @@ class Github1bitIssuesState {
   List<String> get choiceChipSortDirectionInitVal =>
       choiceChipsSortDirectionValue != null ? [choiceChipsSortDirectionValue!] : [];
 
-  void setRepoLabels(List<Label> labels) {
+  void setRepoLabels(List<GithubLabel> labels) {
     labelValues = labels.map((e) => LabelModel.fromJson(e.toJson())).toList();
   }
 
