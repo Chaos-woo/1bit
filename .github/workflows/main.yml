@@ -6,7 +6,7 @@ name: Build and Release apk
 # 工作流程触发的时机，手动触发
 # https://docs.github.com/zh/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflow
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 # 这个工作流程需要执行的任务
 jobs:
