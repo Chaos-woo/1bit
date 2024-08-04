@@ -41,11 +41,16 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD}}
+      # 获取发布时间
+      - name: Get current date
+        id: date
+        run: | 
+          echo "{date}={$(date +'%Y-%m-%dT%H:%M')}" >> $GITHUB_STATE
       # 发布到 Release
       - name: Release apk
         uses: ncipollo/release-action@v1.5.0
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
-          name: "1bit-app-release"
-          tag: "1bit"
+          name: 1bit-R-${{ env.date }}
+          tag: 1bit
           token: ${{ secrets.RELEASE_TOKEN }}
