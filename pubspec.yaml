@@ -101,9 +101,12 @@ dependencies:
   simple_gradient_text: 1.2.3
   # webview
   flutter_inappwebview: ^6.0.0
-  #
+  # 动画图标
   flutter_animated_icons: ^1.0.1
+  # hooks
   flutter_hooks: ^0.20.5
+  # 底部导航栏
+  flutter_snake_navigationbar: ^0.6.1
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本

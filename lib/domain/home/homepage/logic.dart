@@ -5,9 +5,11 @@ import 'state.dart';
 class HomepageLogic extends GetxController {
   final HomepageState state = HomepageState();
 
-  var selected_index = 1.obs;
+  var m_selected_index = 1.obs;
 
-  void changeIndex(int index) {
-    selected_index.value = index;
+  int get selected_index => m_selected_index.value;
+
+  void update_page_index(int index) {
+    m_selected_index.value = index;
   }
 }

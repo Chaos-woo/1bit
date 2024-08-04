@@ -43,14 +43,14 @@ class AppHotSearchListLogic extends GetxController {
       return;
     }
 
-    m_fetching_hot_search = true;
-    state.set_original_hot_search_list([]);
-    update([k_app_hot_search_view_id, k_app_hot_search_progress_indicator_view_id]);
-
     if (state.app.isEmpty) {
       update([k_app_hot_search_progress_indicator_view_id]);
       return;
     }
+
+    m_fetching_hot_search = true;
+    state.set_original_hot_search_list([]);
+    update([k_app_hot_search_view_id, k_app_hot_search_progress_indicator_view_id]);
 
     if (_m_fetching_hot_search_timer != null) {
       _m_fetching_hot_search_timer!.cancel();
