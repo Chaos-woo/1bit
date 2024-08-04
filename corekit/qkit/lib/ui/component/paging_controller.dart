@@ -70,7 +70,7 @@ abstract class PagingController<S extends PagingState> extends GetxController {
   Future<List> fetchData();
 
   /// 请求刷新
-  void requestRefresh() {
+  void request_refresh() {
     refreshController.requestRefresh(
       duration: 100.milliseconds,
       curve: Curves.fastLinearToSlowEaseIn,

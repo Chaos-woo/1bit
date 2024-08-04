@@ -1,8 +1,8 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/github_models.dart';
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
+import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/comment/comment_model.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:qkit/qkit.dart';
 
 class IssuesCommentCompWidget extends StatelessWidget {
@@ -44,7 +44,7 @@ class IssuesCommentCompWidget extends StatelessWidget {
                       child: Text(
                         QKit.bridge.flustars.date.formatDate(
                           comment.createdAt,
-                          format: c_issuesDateTimeFormat,
+                          format: c_issues_date_time_format,
                         ),
                         style: FlutterFlowTheme.of(context).labelSmall.override(
                               fontFamily: 'Readex Pro',

@@ -1,11 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
-import 'widgets/custom_sample_widget.dart';
 import 'logic.dart';
+import 'widgets/custom_sample_widget.dart';
 
 class FlutterFlowPage extends StatelessWidget {
   const FlutterFlowPage({Key? key}) : super(key: key);

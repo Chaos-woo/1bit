@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:qkit/qkit.dart';
 
-import 'my_app.dart';
-
 typedef FlutterErrorReporter = void Function(FlutterErrorDetails details);
 
 /// 默认应用初始化处理器
@@ -39,7 +37,7 @@ class AppStarter {
   ///
   static void _exceptionCapture(void Function() executor) {
     FlutterError.onError = (FlutterErrorDetails details) {
-      if (QKitUtils.isReleaseMode) {
+      if (QKitUtils.is_release_mode) {
         /// release模式异常由Zone处理
         Zone.current.handleUncaughtError(details.exception, details.stack!);
         _reportErrorLog(details);

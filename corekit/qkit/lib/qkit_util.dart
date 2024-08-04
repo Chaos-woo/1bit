@@ -1,4 +1,3 @@
-
 import 'package:qkit/qkit.dart';
 
 class QKit {
@@ -32,7 +31,7 @@ class QKit {
   static final Launcher launcher = Launcher();
 
   /// id生成器
-  static final IdGenerator idGen = IdGenerator();
+  static final IdGenerator id_gen = IdGenerator();
 
   /// 移动网络信号
   static final MobileNetwork network = MobileNetwork();
@@ -45,7 +44,7 @@ class QKit {
 
   /// 主题
   static final Themes theme = Themes();
-  
+
   /// 简单的UI小工具
   static final ui = QUi();
 

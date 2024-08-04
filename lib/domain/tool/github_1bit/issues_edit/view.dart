@@ -1,4 +1,5 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/github_api_handle.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -31,7 +32,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back(backValue: GithubPostResult.quitPage);
+            QKit.route.back(backValue: GithubApiDataPostAction.no_action_then_back);
           },
         ),
         title: Text(
@@ -323,10 +324,11 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                               onPressed: () async {
                                 var postResult = await logic.post();
                                 if (postResult) {
-                                  Bit1Ui.showSnackBar('提交成功');
-                                  QKit.route.back(backValue: GithubPostResult.posted);
+                                  Bit1Ui.showSimpleSnackbar('提交成功');
+                                  QKit.route.back(
+                                      backValue: GithubApiDataPostAction.posted_data_then_back);
                                 } else {
-                                  Bit1Ui.showSnackBar('提交失败');
+                                  Bit1Ui.showSimpleSnackbar('提交失败');
                                 }
                               },
                               text: '提交 Github',

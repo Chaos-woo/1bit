@@ -1,6 +1,5 @@
-
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 
 class CustomSampleCompWidget extends StatelessWidget {
   const CustomSampleCompWidget({super.key});
@@ -28,9 +27,9 @@ class CustomSampleCompWidget extends StatelessWidget {
               child: Text(
                 'No Activity',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  letterSpacing: 0,
-                ),
+                      fontFamily: 'Outfit',
+                      letterSpacing: 0,
+                    ),
               ),
             ),
             Padding(
@@ -39,9 +38,9 @@ class CustomSampleCompWidget extends StatelessWidget {
                 'It seems that you don\'t have any recent activity.',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                  fontFamily: 'Readex Pro',
-                  letterSpacing: 0,
-                ),
+                      fontFamily: 'Readex Pro',
+                      letterSpacing: 0,
+                    ),
               ),
             ),
           ],

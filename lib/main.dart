@@ -41,14 +41,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
             title: '1bit',
             scrollBehavior: const CupertinoScrollBehavior(),
-            themeMode: ThemeMode.system,
-            // locale: AppTranslation.locale,
-            // fallbackLocale: AppTranslation.fallbackLocale,
-            // translations: AppTranslation(),
+            themeMode: ThemeMode.light,
             initialRoute: rt_home,
             getPages: RouteProxyDispatcher.s_pageRoutes,
-            debugShowCheckedModeBanner: !QKitUtils.isReleaseMode,
-            enableLog: !QKitUtils.isReleaseMode,
+            debugShowCheckedModeBanner: !QKitUtils.is_release_mode,
+            enableLog: !QKitUtils.is_release_mode,
             builder: EasyLoading.init())
         .smartRefreshConfiguration(
           hideFooterWhenNotFull: false,

@@ -1,6 +1,7 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_1bit_issues_list/view.dart';
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/github_api_handle.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -26,8 +27,9 @@ class Github1bitIssuesPage extends StatelessWidget {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          String postResult = QKit.route.to(rt_toolGithubIssuesEdit) as String;
-          if (postResult == GithubPostResult.posted) {
+          GithubApiDataPostAction postResult =
+              QKit.route.to(rt_toolGithubIssuesEdit) as GithubApiDataPostAction;
+          if (postResult == GithubApiDataPostAction.posted_data_then_back) {
             logic.markRefreshList();
             logic.refreshIssuesListByNewFiltered(isDrawerOpened: false);
           }
@@ -88,7 +90,7 @@ class Github1bitIssuesPage extends StatelessWidget {
                 size: 24,
               ),
               onPressed: () async {
-                QKit.route.to(rt_toolGithubSetting);
+                QKit.route.to(rt_tool_github_setting);
               },
             ),
           ),
