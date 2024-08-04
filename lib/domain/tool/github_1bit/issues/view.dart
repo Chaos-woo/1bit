@@ -90,7 +90,7 @@ class Github1bitIssuesPage extends StatelessWidget {
                 size: 24,
               ),
               onPressed: () async {
-                QKit.route.to(rt_toolGithubSetting);
+                QKit.route.to(rt_tool_github_setting);
               },
             ),
           ),

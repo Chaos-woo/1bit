@@ -5,12 +5,12 @@ class RouteProxyKit {
   /// 转向至指定路由
   Future<R?>? to<R>(
     String route, {
-    dynamic arguments,
+    dynamic argument,
     Map<String, String>? pathVariables,
   }) {
     return Get.toNamed<R>(
       route,
-      arguments: arguments,
+      arguments: argument,
       parameters: pathVariables,
     );
   }
@@ -18,12 +18,12 @@ class RouteProxyKit {
   /// 弹出当前路由并转向至指定路由
   Future<R?>? popAndTo<R>(
     String route, {
-    dynamic arguments,
+    dynamic argument,
     Map<String, String>? pathVariables,
   }) {
     return Get.offAndToNamed<R>(
       route,
-      arguments: arguments,
+      arguments: argument,
       parameters: pathVariables,
     );
   }
@@ -32,13 +32,13 @@ class RouteProxyKit {
   Future<R?>? pushAndRemoveUntil<R>(
     String route, {
     RoutePredicate? predicate,
-    dynamic arguments,
+    dynamic argument,
     Map<String, String>? pathVariables,
   }) {
     return Get.offAllNamed<R>(
       route,
       predicate: predicate,
-      arguments: arguments,
+      arguments: argument,
       parameters: pathVariables,
     );
   }

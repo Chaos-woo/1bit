@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/domain/app_hot_search/app_hot_search_tabbar_page/components/app_hot_search_list/view.dart';
+import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
+import 'package:qkit/qkit.dart';
 
 import 'logic.dart';
 
@@ -54,6 +56,7 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       /// 设置
+                                      QKit.route.to(rt_tool_github_setting, argument: false);
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -165,96 +168,111 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                               child: GetBuilder<AppHotSearchTabbarPageLogic>(
                                 id: logic.k_app_scroll_view_view_id,
                                 builder: (controller) {
-                                  return SingleChildScrollView(
-                                    key: app_scroll_view_key,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        for (var app in state.apps)
-                                          if (state.app == app)
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              onTap: () async {
-                                                /// 切换APP
-                                                logic.update_select_app(app);
-                                              },
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: 40,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(8),
-                                                    bottomRight: Radius.circular(0),
-                                                    topLeft: Radius.circular(8),
-                                                    topRight: Radius.circular(0),
-                                                  ),
-                                                ),
-                                                child: Align(
-                                                  alignment: AlignmentDirectional(0, 0),
-                                                  child: AutoSizeText(
-                                                    app,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 1,
-                                                    minFontSize: 10,
-                                                    style: FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Readex Pro',
-                                                          color:
-                                                              FlutterFlowTheme.of(context).primary,
-                                                          letterSpacing: 0,
-                                                          fontWeight: FontWeight.bold,
+                                  return !state.apps.isEmpty
+                                      ? SingleChildScrollView(
+                                          key: app_scroll_view_key,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              for (var app in state.apps)
+                                                if (state.app == app)
+                                                  InkWell(
+                                                    splashColor: Colors.transparent,
+                                                    focusColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    onTap: () async {
+                                                      /// 切换APP
+                                                      logic.update_select_app(app);
+                                                    },
+                                                    child: Container(
+                                                      width: double.infinity,
+                                                      height: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme.of(context)
+                                                            .primaryBackground,
+                                                        borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(8),
+                                                          bottomRight: Radius.circular(0),
+                                                          topLeft: Radius.circular(8),
+                                                          topRight: Radius.circular(0),
                                                         ),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          else
-                                            Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 3, 0),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor: Colors.transparent,
-                                                onTap: () async {
-                                                  /// 切换APP
-                                                  logic.update_select_app(app);
-                                                },
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  height: 40,
-                                                  decoration: BoxDecoration(),
-                                                  child: Align(
-                                                    alignment: AlignmentDirectional(0, 0),
-                                                    child: AutoSizeText(
-                                                      app,
-                                                      textAlign: TextAlign.center,
-                                                      maxLines: 1,
-                                                      minFontSize: 10,
-                                                      style: FlutterFlowTheme.of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Readex Pro',
-                                                            letterSpacing: 0,
+                                                      ),
+                                                      child: Align(
+                                                        alignment: AlignmentDirectional(0, 0),
+                                                        child: AutoSizeText(
+                                                          app,
+                                                          textAlign: TextAlign.center,
+                                                          maxLines: 1,
+                                                          minFontSize: 10,
+                                                          style: FlutterFlowTheme.of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: FlutterFlowTheme.of(context)
+                                                                    .primary,
+                                                                letterSpacing: 0,
+                                                                fontWeight: FontWeight.bold,
+                                                              ),
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                else
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional.fromSTEB(0, 0, 3, 0),
+                                                    child: InkWell(
+                                                      splashColor: Colors.transparent,
+                                                      focusColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      onTap: () async {
+                                                        /// 切换APP
+                                                        logic.update_select_app(app);
+                                                      },
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        height: 40,
+                                                        decoration: BoxDecoration(),
+                                                        child: Align(
+                                                          alignment: AlignmentDirectional(0, 0),
+                                                          child: AutoSizeText(
+                                                            app,
+                                                            textAlign: TextAlign.center,
+                                                            maxLines: 1,
+                                                            minFontSize: 10,
+                                                            style: FlutterFlowTheme.of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: 'Readex Pro',
+                                                                  letterSpacing: 0,
+                                                                ),
+                                                            overflow: TextOverflow.ellipsis,
                                                           ),
-                                                      overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ),
+                                            ]
+                                                .addToStart(SizedBox(height: 10))
+                                                .addToEnd(SizedBox(height: 10)),
+                                          ),
+                                        )
+                                      : InkWell(
+                                          onTap: logic.fetch_app_list,
+                                          child: Center(
+                                            child: Text(
+                                              '无APP，点击刷新',
+                                              style:
+                                                  FlutterFlowTheme.of(context).bodySmall.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
                                             ),
-                                      ]
-                                          .addToStart(SizedBox(height: 10))
-                                          .addToEnd(SizedBox(height: 10)),
-                                    ),
-                                  );
+                                          ),
+                                        );
                                 },
                               ),
                             ),

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -12,6 +13,9 @@ Future<void> show_webview_dialog({
   required String url,
   String? title,
   BuildContext? context,
+
+  /// 不需要webview导航的scheme
+  List<String>? not_navigation_action_scheme,
 }) async {
   var b_context = context ?? Get.context!;
   await showDialog(
@@ -28,6 +32,7 @@ Future<void> show_webview_dialog({
           child: AppWebviewDialog(
             url,
             title: title,
+            not_navigation_action_scheme: not_navigation_action_scheme,
           ),
         ),
       );
@@ -39,7 +44,15 @@ class AppWebviewDialog extends StatefulWidget {
   final String url;
   final String? title;
 
-  AppWebviewDialog(this.url, {super.key, this.title});
+  /// 不需要webview导航的scheme
+  final List<String>? not_navigation_action_scheme;
+
+  AppWebviewDialog(
+    this.url, {
+    super.key,
+    this.title,
+    this.not_navigation_action_scheme,
+  });
 
   @override
   State<AppWebviewDialog> createState() => _AppWebviewDialogState();
@@ -48,11 +61,12 @@ class AppWebviewDialog extends StatefulWidget {
 class _AppWebviewDialogState extends State<AppWebviewDialog> {
   InAppWebViewController? webViewController;
   InAppWebViewSettings settings = InAppWebViewSettings(
-      isInspectable: QKitUtils.is_release_mode,
-      mediaPlaybackRequiresUserGesture: false,
-      allowsInlineMediaPlayback: true,
-      iframeAllow: "camera; microphone",
-      iframeAllowFullscreen: true);
+    isInspectable: QKitUtils.is_release_mode,
+    mediaPlaybackRequiresUserGesture: false,
+    allowsInlineMediaPlayback: true,
+    iframeAllow: "camera; microphone",
+    iframeAllowFullscreen: true,
+  );
 
   PullToRefreshController? pullToRefreshController;
   double progress = 0;
@@ -192,6 +206,11 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                           "javascript",
                                           "about"
                                         ].contains(uri.scheme)) {
+                                          if ((widget.not_navigation_action_scheme ?? <String>[])
+                                              .containsCaseInsensitive(uri.scheme)) {
+                                            return NavigationActionPolicy.CANCEL;
+                                          }
+
                                           if (await canLaunchUrl(uri)) {
                                             // Launch the App
                                             await launchUrl(

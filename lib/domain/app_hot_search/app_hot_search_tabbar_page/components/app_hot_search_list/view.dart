@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/domain/app_hot_search/app_hot_search_tabbar_page/models/hot_search_model.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/webview/app_webview_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -351,7 +350,7 @@ class AppHotSearchListComponent extends StatelessWidget {
         highlightColor: Colors.transparent,
         onTap: () async {
           // 点击
-          await show_webview_dialog(url: model.url, title: '正在浏览：(${state.app})${model.content}');
+          await logic.open_hot_search_webview(model);
         },
         child: Material(
           color: Colors.transparent,
@@ -419,7 +418,7 @@ class AppHotSearchListComponent extends StatelessWidget {
         highlightColor: Colors.transparent,
         onTap: () async {
           // 点击
-          await show_webview_dialog(url: model.url, title: '正在浏览：(${state.app})${model.content}');
+          await logic.open_hot_search_webview(model);
         },
         child: Material(
           color: Colors.transparent,
@@ -487,7 +486,7 @@ class AppHotSearchListComponent extends StatelessWidget {
         highlightColor: Colors.transparent,
         onTap: () async {
           // 点击
-          await show_webview_dialog(url: model.url, title: '正在浏览：(${state.app})${model.content}');
+          await logic.open_hot_search_webview(model);
         },
         child: Material(
           color: Colors.transparent,
@@ -555,7 +554,7 @@ class AppHotSearchListComponent extends StatelessWidget {
         highlightColor: Colors.transparent,
         onTap: () async {
           // 点击
-          await show_webview_dialog(url: model.url, title: '正在浏览：(${state.app})${model.content}');
+          await logic.open_hot_search_webview(model);
         },
         child: Material(
           color: Colors.transparent,

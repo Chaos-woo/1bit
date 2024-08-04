@@ -19,33 +19,33 @@ class FadeIndexedStack extends StatefulWidget {
 }
 
 class _FadeIndexedStackState extends State<FadeIndexedStack> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late AnimationController _m_controller;
 
   @override
   void didUpdateWidget(FadeIndexedStack oldWidget) {
     if (widget.index != oldWidget.index) {
-      _controller.forward(from: 0.4);
+      _m_controller.forward(from: 0.4);
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: widget.duration);
-    _controller.forward();
+    _m_controller = AnimationController(vsync: this, duration: widget.duration);
+    _m_controller.forward();
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _m_controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: _controller,
+      opacity: _m_controller,
       child: IndexedStack(
         index: widget.index,
         children: widget.children,

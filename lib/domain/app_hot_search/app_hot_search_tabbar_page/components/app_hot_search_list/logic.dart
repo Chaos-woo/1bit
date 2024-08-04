@@ -6,6 +6,7 @@ import 'package:cw2bit/domain/app_hot_search/app_hot_search_tabbar_page/models/h
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/apis.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
+import 'package:cw2bit/public/webview/app_webview_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
@@ -32,12 +33,25 @@ class AppHotSearchListLogic extends GetxController {
     fetch_app_hot_search_list();
   }
 
+  /// 使用webview打开热搜内容
+  Future<void> open_hot_search_webview(HotSearchModel model) async {
+    await show_webview_dialog(
+      url: model.url,
+      title: '正在浏览：(${state.app})${model.content}',
+      not_navigation_action_scheme: [
+        'bilibili',
+        'acfun',
+      ],
+    );
+  }
+
   /// 更换APP
   void update_hot_search_app(String app) {
     state.app = app;
     fetch_app_hot_search_list();
   }
 
+  /// 获取APP热搜列表
   void fetch_app_hot_search_list() async {
     if (m_fetching_hot_search) {
       return;

@@ -22,7 +22,7 @@ const rt_publicTextOcr = '/public/textorc/home';
 
 /// 1bit模块路由
 const rt_toolFlutterFlowHome = '/tool/flutterflow/home';
-const rt_toolGithubSetting = '/tool/github/setting';
+const rt_tool_github_setting = '/tool/github/setting';
 const rt_toolGithubIssuesHome = '/tool/github/issues/home';
 const rt_toolGithubIssuesDetail = '/tool/github/issues/detail';
 const rt_toolGithubIssuesEdit = '/tool/github/issues/edit';
@@ -47,7 +47,7 @@ class AppPageRouter {
           binding: Github1bitIssuesBinding(),
         )
         .addRoute(
-          rt_toolGithubSetting,
+          rt_tool_github_setting,
           () => GithubSettingPage(),
           binding: GithubSettingBinding(),
         )

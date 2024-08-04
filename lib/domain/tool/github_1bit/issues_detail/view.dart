@@ -22,9 +22,8 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          GithubApiDataPostAction postResult =
-              await QKit.route.to(rt_toolGithubCommentEdit, arguments: state.issuesModel)
-                  as GithubApiDataPostAction;
+          GithubApiDataPostAction postResult = await QKit.route
+              .to(rt_toolGithubCommentEdit, argument: state.issuesModel) as GithubApiDataPostAction;
           if (postResult == GithubApiDataPostAction.posted_data_then_back) {
             logic.request_refresh();
           }

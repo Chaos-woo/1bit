@@ -195,7 +195,7 @@ class GithubSettingPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: logic.accessTokenTextController,
+                        controller: logic.access_token_text_Controller,
                         autofocus: false,
                         obscureText: false,
                         maxLines: 2,
@@ -263,7 +263,7 @@ class GithubSettingPage extends StatelessWidget {
                         ),
                         onPressed: () async {
                           String? ocrText = await QKit.route.to(rt_publicTextOcr) as String?;
-                          logic.accessTokenTextController.text = ocrText ?? '';
+                          logic.access_token_text_Controller.text = ocrText ?? '';
                         },
                       ),
                     ),
@@ -278,7 +278,7 @@ class GithubSettingPage extends StatelessWidget {
                     Expanded(
                       child: FFButtonWidget(
                         onPressed: () async {
-                          bool isValidToken = await logic.checkAccessToken();
+                          bool isValidToken = await logic.check_access_token();
                           if (isValidToken) {
                             Bit1Ui.showSimpleSnackbar('当前【访问密钥】有效');
                           } else {
@@ -319,7 +319,7 @@ class GithubSettingPage extends StatelessWidget {
                     Expanded(
                       child: FFButtonWidget(
                         onPressed: () {
-                          logic.saveAccessToken();
+                          logic.save_github_access_token();
                           Bit1Ui.showSimpleSnackbar('设置【访问密钥】完成');
                           QKit.route.back();
                         },

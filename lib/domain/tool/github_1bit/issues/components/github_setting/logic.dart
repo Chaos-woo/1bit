@@ -15,7 +15,7 @@ class GithubSettingLogic extends GetxController {
 
   late TextEditingController repoOwnerTextController;
   late TextEditingController repoTextController;
-  late TextEditingController accessTokenTextController;
+  late TextEditingController access_token_text_Controller;
 
   void set show1bitRepository(bool? show) => _show1bitRepository = show ?? true;
 
@@ -29,16 +29,16 @@ class GithubSettingLogic extends GetxController {
 
     repoOwnerTextController = TextEditingController(text: state.owner);
     repoTextController = TextEditingController(text: state.repo);
-    accessTokenTextController = TextEditingController(text: accessTokenPfs);
+    access_token_text_Controller = TextEditingController(text: accessTokenPfs);
   }
 
-  void saveAccessToken() {
-    String accessToken = accessTokenTextController.text;
+  void save_github_access_token() {
+    String accessToken = access_token_text_Controller.text;
     QKit.bridge.flustars.preferences.putString(k_pref_github_access_key, accessToken);
   }
 
-  Future<bool> checkAccessToken() async {
-    String accessToken = accessTokenTextController.text;
+  Future<bool> check_access_token() async {
+    String accessToken = access_token_text_Controller.text;
     try {
       await Apis.github.check_access_token(state.owner, state.repo, accessToken);
       return true;

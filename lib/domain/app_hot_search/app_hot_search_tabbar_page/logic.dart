@@ -16,6 +16,10 @@ class AppHotSearchTabbarPageLogic extends GetxController {
   void onReady() async {
     super.onReady();
 
+    await fetch_app_list();
+  }
+
+  Future<void> fetch_app_list() async {
     List<GithubContent> contents =
         await Apis.github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, 'archives');
     List<String> apps = contents
