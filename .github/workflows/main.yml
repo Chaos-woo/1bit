@@ -21,7 +21,9 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
-          java-version: "11.x"
+          # Java版本问题：androidx/annotation/experimental/lint/ExperimentalIssueRegistry has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 55.0
+          # 解决方法：https://www.baeldung.com/java-lang-unsupportedclassversion
+          java-version: "17.x"
       # 建立 Flutter 环境
       - name: Flutter action
         uses: subosito/flutter-action@v2
