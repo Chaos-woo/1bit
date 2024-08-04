@@ -35,6 +35,7 @@ class AppHotSearchListLogic extends GetxController {
 
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(HotSearchModel model) async {
+    state.last_reading = model;
     await show_webview_dialog(
       url: model.url,
       title: '正在浏览：(${state.app})${model.content}',
@@ -43,6 +44,7 @@ class AppHotSearchListLogic extends GetxController {
         'acfun',
       ],
     );
+    update([k_app_hot_search_view_id]);
   }
 
   /// 更换APP

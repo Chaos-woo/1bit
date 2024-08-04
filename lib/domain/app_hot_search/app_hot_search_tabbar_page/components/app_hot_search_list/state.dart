@@ -12,9 +12,18 @@ class AppHotSearchListState {
 
   List<HotSearchModel> get hot_search_list => _m_hot_search_list;
 
+  /// 最后一次查看的热搜
+  HotSearchModel? _m_last_reading;
+
+  void set last_reading(HotSearchModel model) => _m_last_reading = model;
+
+  bool is_last_reading(HotSearchModel model) =>
+      _m_last_reading != null && _m_last_reading!.index == model.index;
+
   void set_original_hot_search_list(List<HotSearchModel> models) {
     _m_original_hot_search_list = models;
     _m_hot_search_list = models;
+    _m_last_reading = null;
   }
 
   AppHotSearchListState() {

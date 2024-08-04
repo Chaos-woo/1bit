@@ -376,6 +376,18 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
@@ -444,6 +456,18 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
@@ -512,6 +536,18 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
@@ -580,6 +616,18 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
