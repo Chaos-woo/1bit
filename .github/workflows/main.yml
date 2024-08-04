@@ -47,4 +47,5 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
           name: "cw2bit-1bit."
+          tag: "1bit"
           token: ${{ secrets.RELEASE_TOKEN }}

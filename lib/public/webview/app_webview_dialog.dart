@@ -70,7 +70,6 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
 
   PullToRefreshController? pullToRefreshController;
   double progress = 0;
-  final urlController = TextEditingController();
   final GlobalKey webViewKey = GlobalKey();
 
   late String url;
@@ -185,7 +184,6 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                       onLoadStart: (controller, url) {
                                         setState(() {
                                           this.url = url.toString();
-                                          urlController.text = this.url;
                                         });
                                       },
                                       onPermissionRequest: (controller, request) async {
@@ -227,7 +225,6 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         pullToRefreshController?.endRefreshing();
                                         setState(() {
                                           this.url = url.toString();
-                                          urlController.text = this.url;
                                         });
                                       },
                                       onReceivedError: (controller, request, error) {
@@ -239,13 +236,11 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         }
                                         setState(() {
                                           this.progress = progress / 100;
-                                          urlController.text = url;
                                         });
                                       },
                                       onUpdateVisitedHistory: (controller, url, androidIsReload) {
                                         setState(() {
                                           this.url = url.toString();
-                                          urlController.text = this.url;
                                         });
                                       },
                                       onConsoleMessage: (controller, consoleMessage) {
