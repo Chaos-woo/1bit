@@ -46,6 +46,6 @@ jobs:
         uses: ncipollo/release-action@v1.5.0
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
-          name: "cw2bit-1bit."
+          name: "1bit-app-release"
           tag: "1bit"
           token: ${{ secrets.RELEASE_TOKEN }}
