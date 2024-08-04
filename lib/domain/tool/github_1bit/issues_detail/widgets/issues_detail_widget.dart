@@ -38,7 +38,6 @@ class IssuesDetailCompWidget extends StatelessWidget {
                     Text(
                       issues.user.login,
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),
@@ -50,7 +49,6 @@ class IssuesDetailCompWidget extends StatelessWidget {
                           format: c_issues_date_time_format,
                         ),
                         style: FlutterFlowTheme.of(context).labelSmall.override(
-                              fontFamily: 'Readex Pro',
                               letterSpacing: 0,
                             ),
                       ),
@@ -75,7 +73,6 @@ class IssuesDetailCompWidget extends StatelessWidget {
                         ? Color(0xFFFF0000)
                         : Colors.blue,
                     textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                          fontFamily: 'Readex Pro',
                           color: Colors.white,
                           fontSize: 12,
                           letterSpacing: 0,
@@ -102,7 +99,6 @@ class IssuesDetailCompWidget extends StatelessWidget {
                     child: Bit1Ui.expandableText(
                       issues.title,
                       textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),
@@ -131,7 +127,6 @@ class IssuesDetailCompWidget extends StatelessWidget {
                       iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       color: label.color.toColor,
                       textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                            fontFamily: 'Readex Pro',
                             color: Colors.white,
                             fontSize: 12,
                             letterSpacing: 0,

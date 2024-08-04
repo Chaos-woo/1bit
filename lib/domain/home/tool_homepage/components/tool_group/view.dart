@@ -34,7 +34,6 @@ class ToolGroupComponent extends StatelessWidget {
             child: Text(
               toolGroup.name,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
                     color: FlutterFlowTheme.of(context).secondaryText,
                     letterSpacing: 0,
                   ),
@@ -88,14 +87,12 @@ class ToolGroupComponent extends StatelessWidget {
       title: Text(
         item.title,
         style: FlutterFlowTheme.of(context).titleLarge.override(
-              fontFamily: 'Outfit',
               letterSpacing: 0,
             ),
       ),
       subtitle: Text(
         item.subtitle,
         style: FlutterFlowTheme.of(context).labelSmall.override(
-              fontFamily: 'Readex Pro',
               letterSpacing: 0,
             ),
       ),
@@ -120,7 +117,6 @@ class ToolGroupComponent extends StatelessWidget {
       title: Text(
         switcher.title,
         style: FlutterFlowTheme.of(context).titleLarge.override(
-              fontFamily: 'Outfit',
               fontSize: 18,
               letterSpacing: 0,
               fontWeight: FontWeight.w600,
@@ -129,7 +125,6 @@ class ToolGroupComponent extends StatelessWidget {
       subtitle: Text(
         switcher.subtitle,
         style: FlutterFlowTheme.of(context).labelSmall.override(
-              fontFamily: 'Readex Pro',
               letterSpacing: 0,
             ),
       ),
@@ -152,7 +147,6 @@ class ToolGroupComponent extends StatelessWidget {
         title: Text(
           router.title,
           style: FlutterFlowTheme.of(context).titleLarge.override(
-                fontFamily: 'Outfit',
                 fontSize: 18,
                 letterSpacing: 0,
                 fontWeight: FontWeight.w600,
@@ -161,7 +155,6 @@ class ToolGroupComponent extends StatelessWidget {
         subtitle: Text(
           router.subtitle,
           style: FlutterFlowTheme.of(context).labelSmall.override(
-                fontFamily: 'Readex Pro',
                 letterSpacing: 0,
               ),
         ),

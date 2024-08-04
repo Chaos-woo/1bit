@@ -56,7 +56,6 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
         title: Text(
           '1bit issues 详情',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 22,
                 letterSpacing: 0,
@@ -93,7 +92,6 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
                         '讨论列表',
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).labelMedium.override(
-                              fontFamily: 'Readex Pro',
                               fontSize: 14,
                               letterSpacing: 0,
                             ),

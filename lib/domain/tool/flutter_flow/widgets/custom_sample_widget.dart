@@ -27,7 +27,6 @@ class CustomSampleCompWidget extends StatelessWidget {
               child: Text(
                 'No Activity',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Outfit',
                       letterSpacing: 0,
                     ),
               ),
@@ -38,7 +37,6 @@ class CustomSampleCompWidget extends StatelessWidget {
                 'It seems that you don\'t have any recent activity.',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Readex Pro',
                       letterSpacing: 0,
                     ),
               ),

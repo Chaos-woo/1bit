@@ -39,7 +39,6 @@ class Github1bitCommentEditPage extends StatelessWidget {
         title: Text(
           '编辑 1bit issues 评论',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 22,
                 letterSpacing: 0,
@@ -71,11 +70,9 @@ class Github1bitCommentEditPage extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: '评论内容',
                   labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
                         letterSpacing: 0,
                       ),
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Readex Pro',
                         letterSpacing: 0,
                       ),
                   enabledBorder: OutlineInputBorder(
@@ -108,7 +105,6 @@ class Github1bitCommentEditPage extends StatelessWidget {
                   ),
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
                       letterSpacing: 0,
                     ),
                 maxLines: 20,
@@ -143,7 +139,6 @@ class Github1bitCommentEditPage extends StatelessWidget {
                               iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
                                     color: Colors.white,
                                     letterSpacing: 0,
                                   ),

@@ -157,7 +157,6 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                   minFontSize: 12,
                                   overflow: TextOverflow.ellipsis,
                                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: 'Readex Pro',
                                         letterSpacing: 0,
                                       ),
                                 ),

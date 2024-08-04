@@ -74,7 +74,6 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                           Text(
                                             '设置',
                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Readex Pro',
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -106,7 +105,6 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                           Text(
                                             '排序',
                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Readex Pro',
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -138,7 +136,6 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                           Text(
                                             '收藏',
                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Readex Pro',
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -208,7 +205,6 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                                           style: FlutterFlowTheme.of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                fontFamily: 'Readex Pro',
                                                                 color: FlutterFlowTheme.of(context)
                                                                     .primary,
                                                                 letterSpacing: 0,
@@ -246,7 +242,6 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                                             style: FlutterFlowTheme.of(context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily: 'Readex Pro',
                                                                   letterSpacing: 0,
                                                                 ),
                                                             overflow: TextOverflow.ellipsis,
@@ -267,7 +262,6 @@ class AppHotSearchTabbarPagePage extends StatelessWidget {
                                               '无APP，点击刷新',
                                               style:
                                                   FlutterFlowTheme.of(context).bodySmall.override(
-                                                        fontFamily: 'Readex Pro',
                                                         letterSpacing: 0,
                                                       ),
                                             ),

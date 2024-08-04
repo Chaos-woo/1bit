@@ -48,7 +48,6 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
             Text(
               '朝闻道',
               style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Outfit',
                     color: Colors.white,
                     fontSize: 22,
                     letterSpacing: 0,
@@ -57,7 +56,6 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
             Text(
               '，夕死可矣',
               style: FlutterFlowTheme.of(context).titleSmall.override(
-                    fontFamily: 'Readex Pro',
                     letterSpacing: 0,
                   ),
             ),
@@ -83,7 +81,6 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                       labelColor: FlutterFlowTheme.of(context).primary,
                       unselectedLabelColor: FlutterFlowTheme.of(context).secondaryText,
                       labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       unselectedLabelStyle: TextStyle(),

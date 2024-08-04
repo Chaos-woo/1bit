@@ -38,7 +38,6 @@ class FlutterFlowPage extends StatelessWidget {
         title: Text(
           'FlutterFlow测试库',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 22,
                 letterSpacing: 0,
@@ -84,7 +83,6 @@ class FlutterFlowPage extends StatelessWidget {
                                 content: Text(
                                   'FlutterFlow snackbar test',
                                   style: FlutterFlowTheme.of(context).labelLarge.override(
-                                        fontFamily: 'Readex Pro',
                                         color: FlutterFlowTheme.of(context).primaryText,
                                         letterSpacing: 0,
                                       ),
@@ -147,7 +145,6 @@ class FlutterFlowPage extends StatelessWidget {
                                                 maxLines: 2,
                                                 style:
                                                     FlutterFlowTheme.of(context).bodySmall.override(
-                                                          fontFamily: 'Readex Pro',
                                                           letterSpacing: 0,
                                                         ),
                                               ),
@@ -236,7 +233,6 @@ class FlutterFlowPage extends StatelessWidget {
                                                 maxLines: 2,
                                                 style:
                                                     FlutterFlowTheme.of(context).bodySmall.override(
-                                                          fontFamily: 'Readex Pro',
                                                           letterSpacing: 0,
                                                         ),
                                               ),
@@ -331,7 +327,6 @@ class FlutterFlowPage extends StatelessWidget {
                                                 maxLines: 2,
                                                 style:
                                                     FlutterFlowTheme.of(context).bodySmall.override(
-                                                          fontFamily: 'Readex Pro',
                                                           letterSpacing: 0,
                                                         ),
                                               ),
@@ -421,7 +416,6 @@ class FlutterFlowPage extends StatelessWidget {
                                                 maxLines: 2,
                                                 style:
                                                     FlutterFlowTheme.of(context).bodySmall.override(
-                                                          fontFamily: 'Readex Pro',
                                                           letterSpacing: 0,
                                                         ),
                                               ),
@@ -515,7 +509,6 @@ class FlutterFlowPage extends StatelessWidget {
                                                   style: FlutterFlowTheme.of(context)
                                                       .bodySmall
                                                       .override(
-                                                        fontFamily: 'Readex Pro',
                                                         letterSpacing: 0,
                                                       ),
                                                 ),

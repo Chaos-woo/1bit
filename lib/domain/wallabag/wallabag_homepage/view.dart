@@ -150,7 +150,6 @@ class WallabagHomepagePage extends StatelessWidget {
                                       Text(
                                         '可筛选域名',
                                         style: FlutterFlowTheme.of(context).labelMedium.override(
-                                              fontFamily: 'Readex Pro',
                                               letterSpacing: 0,
                                             ),
                                       ),
@@ -170,7 +169,6 @@ class WallabagHomepagePage extends StatelessWidget {
                                                 style: FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Readex Pro',
                                                       fontSize: 12,
                                                       letterSpacing: 0,
                                                       fontWeight: FontWeight.normal,
@@ -197,7 +195,6 @@ class WallabagHomepagePage extends StatelessWidget {
                                           backgroundColor: FlutterFlowTheme.of(context).secondary,
                                           textStyle:
                                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontFamily: 'Readex Pro',
                                                     color: FlutterFlowTheme.of(context).primaryText,
                                                     letterSpacing: 0,
                                                   ),
@@ -211,7 +208,6 @@ class WallabagHomepagePage extends StatelessWidget {
                                           textStyle: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Readex Pro',
                                                 color: FlutterFlowTheme.of(context).secondaryText,
                                                 fontSize: 12,
                                                 letterSpacing: 0,
