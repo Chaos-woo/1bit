@@ -1,5 +1,5 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/issues/issues_model.dart';
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui_kit.dart';
@@ -47,7 +47,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                       child: Text(
                         QKit.bridge.flustars.date.formatDate(
                           issues.createdAt,
-                          format: c_issuesDateTimeFormat,
+                          format: c_issues_date_time_format,
                         ),
                         style: FlutterFlowTheme.of(context).labelSmall.override(
                               fontFamily: 'Readex Pro',
@@ -71,7 +71,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                     height: 20,
                     padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: c_issuesStateOpen.isCaseInsensitiveContains(issues.state)
+                    color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
                         ? Color(0xFFFF0000)
                         : Colors.blue,
                     textStyle: FlutterFlowTheme.of(context).labelSmall.override(

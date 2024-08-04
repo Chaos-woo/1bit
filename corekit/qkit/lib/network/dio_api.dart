@@ -6,7 +6,8 @@ import 'package:qkit/qkit.dart';
 
 import 'errors/error_handle.dart';
 
-typedef ObjectConvertor<R> = R Function(RawData rawData);
+/// 对象数据转换器
+typedef ObjectConvertor<R> = R Function(RawData raw_data);
 
 final class HttpApiMethod {
   static const String get = 'GET';
@@ -16,53 +17,55 @@ final class HttpApiMethod {
   static const String patch = 'PATCH';
 }
 
-class DioApi {
+class IOApi {
   late final Dio _dio;
-  late final RequestOption _baseHttpOption;
-  late final List<DioErrorHandle> _dioErrorHandle;
-  late final List<DioResponseErrorHandle> _dioResponseErrorHandle;
-  DioResponseErrorHandle? defaultDioResponseErrorHandle;
+  late final RequestOption _base_http_option;
+  late final List<DioErrorHandle> _io_error_handle;
+  late final List<DioResponseErrorHandle> _io_response_error_handle;
+  DioResponseErrorHandle? default_io_response_error_handle;
 
-  DioApi(
-    String baseUrl, {
-    RequestOption? baseRequestOption,
+  IOApi(
+    String base_url, {
+    RequestOption? base_request_option,
     List<Interceptor>? interceptors,
-    List<DioErrorHandle>? dioErrorHandle,
-    List<DioResponseErrorHandle>? dioResponseErrorHandle,
-    this.defaultDioResponseErrorHandle,
+    List<DioErrorHandle>? dio_error_handle,
+    List<DioResponseErrorHandle>? dio_response_error_handle,
+    this.default_io_response_error_handle,
   }) {
-    RequestOption option = baseRequestOption ?? RequestOption.option();
-    _baseHttpOption = option;
+    RequestOption option = base_request_option ?? RequestOption.option();
+    _base_http_option = option;
     BaseOptions options = BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: option.connectTimeout,
-      receiveTimeout: option.readTimeout,
-      sendTimeout: option.writeTimeout,
-      responseType: option.responseType,
-      contentType: option.sendContentType,
+      baseUrl: base_url,
+      connectTimeout: option.connect_timeout,
+      receiveTimeout: option.read_timeout,
+      sendTimeout: option.write_timeout,
+      responseType: option.response_type,
+      contentType: option.send_content_type,
     );
     _dio = Dio(options);
 
     /// http适配器设置
-    if (option.httpClientAdapter != null) {
-      _dio.httpClientAdapter = option.httpClientAdapter!;
+    if (option.http_client_adapter != null) {
+      _dio.httpClientAdapter = option.http_client_adapter!;
     }
 
     /// 解码
-    _dio.transformer = DefaultTransformer()..jsonDecodeCallback = option.jsonDecodeCallback;
+    _dio.transformer = DefaultTransformer()..jsonDecodeCallback = option.json_decoder;
 
     _dio.interceptors.addAll(interceptors ?? const []);
-    if (!QKitUtils.isReleaseMode) {
+    if (!QKitUtils.is_release_mode) {
       _dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
     }
 
-    _dioErrorHandle = (null == dioErrorHandle || dioErrorHandle.isEmpty) ? [] : dioErrorHandle;
-    _dioResponseErrorHandle = (null == dioResponseErrorHandle || dioResponseErrorHandle.isEmpty)
-        ? []
-        : dioResponseErrorHandle;
+    _io_error_handle =
+        (null == dio_error_handle || dio_error_handle.isEmpty) ? [] : dio_error_handle;
+    _io_response_error_handle =
+        (null == dio_response_error_handle || dio_response_error_handle.isEmpty)
+            ? []
+            : dio_response_error_handle;
   }
 
-  RequestOption get baseHttpOption => _baseHttpOption.copyWith();
+  RequestOption get base_http_option => _base_http_option.copyWith();
 
   Future<T?> request<T>(
     String path, {
@@ -70,26 +73,26 @@ class DioApi {
     Map<String, dynamic>? params,
     dynamic data,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? overrideRequestOption,
-    CancelToken? cancelToken,
-    ObjectConvertor? objectConvertor,
+    OverrideRequestOption? override_request_option,
+    CancelToken? cancel_token,
+    ObjectConvertor? object_convertor,
   }) async {
     try {
       Options options = Options()
         ..method = method
         ..headers = headers;
 
-      if (null != overrideRequestOption) {
-        if (null != overrideRequestOption.writeTimeout) {
-          options.sendTimeout = overrideRequestOption.writeTimeout;
+      if (null != override_request_option) {
+        if (null != override_request_option.write_timeout) {
+          options.sendTimeout = override_request_option.write_timeout;
         }
-        if (null != overrideRequestOption.readTimeout) {
-          options.receiveTimeout = overrideRequestOption.readTimeout;
+        if (null != override_request_option.read_timeout) {
+          options.receiveTimeout = override_request_option.read_timeout;
         }
-        if (null != overrideRequestOption.sendContentType) {
-          options.contentType = overrideRequestOption.sendContentType;
+        if (null != override_request_option.send_content_type) {
+          options.contentType = override_request_option.send_content_type;
         }
-        options.extra = overrideRequestOption.extra;
+        options.extra = override_request_option.extra;
       }
 
       if (data != null) {
@@ -100,12 +103,12 @@ class DioApi {
         path,
         queryParameters: params,
         data: data,
-        cancelToken: cancelToken,
+        cancelToken: cancel_token,
         options: options,
       );
 
-      return null != objectConvertor
-          ? objectConvertor.call(RawData(response.data))
+      return null != object_convertor
+          ? object_convertor.call(RawData(response.data))
           : RawData(response.data);
     } catch (ex) {
       if (ex is DioError) {
@@ -115,31 +118,32 @@ class DioApi {
           DioErrorType.sendTimeout,
           DioErrorType.receiveTimeout
         ].contains(ex.type)) {
-          DioErrorHandle errorHandle = _dioErrorHandle.firstWhere(
+          DioErrorHandle error_handle = _io_error_handle.firstWhere(
             (handle) => handle.match(ex.type),
             orElse: () => DefaultDioErrorHandle(),
           );
-          errorHandle.handle?.call(ex);
+          error_handle.handle?.call(ex);
           return null;
         } else if (ex.type == DioErrorType.response) {
           if (null == ex.response) {
-            ContinuePaasErrorSelection? paasError =
-                (defaultDioResponseErrorHandle ?? DefaultDioResponseErrorHandle())
+            ContinuePaasErrorSelection? pass_selection =
+                (default_io_response_error_handle ?? DefaultDioResponseErrorHandle())
                     .handle
                     ?.call(ex.message);
-            if ((paasError ?? ContinuePaasErrorSelection.no) == ContinuePaasErrorSelection.yes) {
+            if ((pass_selection ?? ContinuePaasErrorSelection.no) ==
+                ContinuePaasErrorSelection.yes) {
               rethrow;
             } else {
               return null;
             }
           }
 
-          DioResponseErrorHandle errorHandle = _dioResponseErrorHandle.firstWhere(
+          DioResponseErrorHandle error_handle = _io_response_error_handle.firstWhere(
             (handle) => handle.match(ex.response!.statusCode!),
             orElse: () => DefaultDioResponseErrorHandle(),
           );
-          ContinuePaasErrorSelection? paasError = errorHandle.handle?.call(ex.message);
-          if ((paasError ?? ContinuePaasErrorSelection.no) == ContinuePaasErrorSelection.yes) {
+          ContinuePaasErrorSelection? pass_selection = error_handle.handle?.call(ex.message);
+          if ((pass_selection ?? ContinuePaasErrorSelection.no) == ContinuePaasErrorSelection.yes) {
             rethrow;
           } else {
             return null;
@@ -154,18 +158,18 @@ class DioApi {
     String path, {
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? requestOption,
-    CancelToken? cancelToken,
-    ObjectConvertor? objectConvertor,
+    OverrideRequestOption? request_option,
+    CancelToken? cancel_token,
+    ObjectConvertor? object_convertor,
   }) async {
     return request<T>(
       path,
       method: HttpApiMethod.get,
-      cancelToken: cancelToken,
+      cancel_token: cancel_token,
       params: params,
       headers: headers,
-      objectConvertor: objectConvertor,
-      overrideRequestOption: requestOption,
+      object_convertor: object_convertor,
+      override_request_option: request_option,
     );
   }
 
@@ -174,19 +178,19 @@ class DioApi {
     Map<String, dynamic>? params,
     data,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? requestOption,
-    CancelToken? cancelToken,
-    ObjectConvertor? objectConvertor,
+    OverrideRequestOption? request_option,
+    CancelToken? cancel_token,
+    ObjectConvertor? object_convertor,
   }) async {
     return request<T>(
       path,
       method: HttpApiMethod.post,
-      cancelToken: cancelToken,
+      cancel_token: cancel_token,
       params: params,
       data: data,
       headers: headers,
-      objectConvertor: objectConvertor,
-      overrideRequestOption: requestOption,
+      object_convertor: object_convertor,
+      override_request_option: request_option,
     );
   }
 
@@ -195,18 +199,18 @@ class DioApi {
     Map<String, dynamic>? params,
     data,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? requestOption,
-    CancelToken? cancelToken,
-    ObjectConvertor? objectConvertor,
+    OverrideRequestOption? request_option,
+    CancelToken? cancel_token,
+    ObjectConvertor? object_convertor,
   }) async {
     return request<T>(path,
         method: HttpApiMethod.delete,
-        cancelToken: cancelToken,
+        cancel_token: cancel_token,
         params: params,
         data: data,
         headers: headers,
-        objectConvertor: objectConvertor,
-        overrideRequestOption: requestOption);
+        object_convertor: object_convertor,
+        override_request_option: request_option);
   }
 
   Future<T?> put<T>(
@@ -214,18 +218,18 @@ class DioApi {
     Map<String, dynamic>? params,
     data,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? requestOption,
-    CancelToken? cancelToken,
-    ObjectConvertor? objectConvertor,
+    OverrideRequestOption? request_option,
+    CancelToken? cancel_token,
+    ObjectConvertor? object_convertor,
   }) async {
     return request<T>(path,
         method: HttpApiMethod.put,
-        cancelToken: cancelToken,
+        cancel_token: cancel_token,
         params: params,
         data: data,
         headers: headers,
-        objectConvertor: objectConvertor,
-        overrideRequestOption: requestOption);
+        object_convertor: object_convertor,
+        override_request_option: request_option);
   }
 
   Future<T?> patch<T>(
@@ -233,43 +237,43 @@ class DioApi {
     Map<String, dynamic>? params,
     data,
     Map<String, dynamic>? headers,
-    OverrideRequestOption? requestOption,
-    CancelToken? cancelToken,
-    ObjectConvertor? objectConvertor,
+    OverrideRequestOption? request_option,
+    CancelToken? cancel_token,
+    ObjectConvertor? object_convertor,
   }) async {
     return request<T>(
       path,
       method: HttpApiMethod.patch,
-      cancelToken: cancelToken,
+      cancel_token: cancel_token,
       params: params,
       data: data,
       headers: headers,
-      objectConvertor: objectConvertor,
-      overrideRequestOption: requestOption,
+      object_convertor: object_convertor,
+      override_request_option: request_option,
     );
   }
 
   /// 下载
   Future download(
     String path,
-    String localPath, {
-    ProgressCallback? progressCallback,
+    String local_path, {
+    ProgressCallback? progress_callback,
     Map<String, dynamic>? params,
-    CancelToken? cancelToken,
-    bool deleteOnError = true,
-    String lengthHeader = Headers.contentLengthHeader,
+    CancelToken? cancel_token,
+    bool delete_on_error = true,
+    String length_header = Headers.contentLengthHeader,
     Object? data,
     Options? options,
   }) async {
     try {
       await _dio.download(
         path,
-        localPath,
-        onReceiveProgress: progressCallback,
+        local_path,
+        onReceiveProgress: progress_callback,
         queryParameters: params,
-        cancelToken: cancelToken,
-        deleteOnError: deleteOnError,
-        lengthHeader: lengthHeader,
+        cancelToken: cancel_token,
+        deleteOnError: delete_on_error,
+        lengthHeader: length_header,
         data: data,
         options: options,
       );

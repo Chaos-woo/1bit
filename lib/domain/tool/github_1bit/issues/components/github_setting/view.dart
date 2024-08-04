@@ -280,9 +280,9 @@ class GithubSettingPage extends StatelessWidget {
                         onPressed: () async {
                           bool isValidToken = await logic.checkAccessToken();
                           if (isValidToken) {
-                            Bit1Ui.showSimpleSnackBar('当前【访问密钥】有效');
+                            Bit1Ui.showSimpleSnackbar('当前【访问密钥】有效');
                           } else {
-                            Bit1Ui.showSimpleSnackBar('当前【访问密钥】无效，请重新设置');
+                            Bit1Ui.showSimpleSnackbar('当前【访问密钥】无效，请重新设置');
                           }
                         },
                         text: '访问密钥有效性检查',
@@ -320,7 +320,7 @@ class GithubSettingPage extends StatelessWidget {
                       child: FFButtonWidget(
                         onPressed: () {
                           logic.saveAccessToken();
-                          Bit1Ui.showSimpleSnackBar('设置【访问密钥】完成');
+                          Bit1Ui.showSimpleSnackbar('设置【访问密钥】完成');
                           QKit.route.back();
                         },
                         text: '保存访问密钥',

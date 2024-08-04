@@ -5,66 +5,66 @@ import 'package:flutter/foundation.dart';
 
 /// HTTP请求配置选项
 class RequestOption {
-  late int connectTimeout;
-  late int readTimeout;
-  late int writeTimeout;
-  late String sendContentType;
-  late ResponseType responseType;
-  late HttpClientAdapter? httpClientAdapter;
-  late JsonDecodeCallback jsonDecodeCallback;
+  late int connect_timeout;
+  late int read_timeout;
+  late int write_timeout;
+  late String send_content_type;
+  late ResponseType response_type;
+  late HttpClientAdapter? http_client_adapter;
+  late JsonDecodeCallback json_decoder;
 
   RequestOption();
 
   RequestOption.option() {
-    connectTimeout = 5000;
-    readTimeout = 30000;
-    writeTimeout = 10000;
-    sendContentType = Headers.jsonContentType;
-    responseType = ResponseType.json;
-    httpClientAdapter = null;
-    jsonDecodeCallback = _parseJson;
+    connect_timeout = 5000;
+    read_timeout = 30000;
+    write_timeout = 10000;
+    send_content_type = Headers.jsonContentType;
+    response_type = ResponseType.json;
+    http_client_adapter = null;
+    json_decoder = _parse_json;
   }
 
   RequestOption copyWith({
-    int? connectTimeout,
-    int? readTimeout,
-    int? writeTimeout,
-    String? sendContentType,
-    ResponseType? responseType,
-    HttpClientAdapter? httpClientAdapter,
-    JsonDecodeCallback? jsonDecodeCallback,
+    int? connect_timeout,
+    int? read_timeout,
+    int? write_timeout,
+    String? send_content_type,
+    ResponseType? response_type,
+    HttpClientAdapter? http_client_adapter,
+    JsonDecodeCallback? json_decoder,
   }) {
     return (RequestOption()
-      ..connectTimeout = connectTimeout ?? this.connectTimeout
-      ..readTimeout = readTimeout ?? this.readTimeout
-      ..writeTimeout = writeTimeout ?? this.writeTimeout
-      ..sendContentType = sendContentType ?? this.sendContentType
-      ..responseType = responseType ?? this.responseType
-      ..httpClientAdapter = httpClientAdapter ?? this.httpClientAdapter
-      ..jsonDecodeCallback = jsonDecodeCallback ?? this.jsonDecodeCallback);
+      ..connect_timeout = connect_timeout ?? this.connect_timeout
+      ..read_timeout = read_timeout ?? this.read_timeout
+      ..write_timeout = write_timeout ?? this.write_timeout
+      ..send_content_type = send_content_type ?? this.send_content_type
+      ..response_type = response_type ?? this.response_type
+      ..http_client_adapter = http_client_adapter ?? this.http_client_adapter
+      ..json_decoder = json_decoder ?? this.json_decoder);
   }
 }
 
 class OverrideRequestOption {
-  int? readTimeout;
-  int? writeTimeout;
-  String? sendContentType;
+  int? read_timeout;
+  int? write_timeout;
+  String? send_content_type;
   Map<String, dynamic>? extra;
 
   OverrideRequestOption({
-    this.readTimeout,
-    this.writeTimeout,
-    this.sendContentType,
+    this.read_timeout,
+    this.write_timeout,
+    this.send_content_type,
     this.extra,
   });
 }
 
 /// 必须为顶级函数
-_parseJson(String text) {
-  return compute(_parseAndDecode, text);
+_parse_json(String text) {
+  return compute(_parse_and_decode, text);
 }
 
 /// 必须为顶级函数
-_parseAndDecode(String response) {
+_parse_and_decode(String response) {
   return jsonDecode(response);
 }

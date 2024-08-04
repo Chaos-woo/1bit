@@ -1,5 +1,5 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_edit/view.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/apis.dart';
 import 'package:cw2bit/infrastructure/api/github/models/issues/github_label.dart';
 import 'package:flutter/material.dart';
@@ -45,16 +45,16 @@ class Github1bitIssuesEditLogic extends GetxController {
   void useContentTemplateByIssuesLabel(IssuesLabelTemplate template) {
     switch (template) {
       case IssuesLabelTemplate.bug:
-        bodyTextEditingController.text = c_issuesBugTemplate;
+        bodyTextEditingController.text = c_issues_bug_template;
         break;
       case IssuesLabelTemplate.feature:
-        bodyTextEditingController.text = c_issuesFeatureTemplate;
+        bodyTextEditingController.text = c_issues_feature_template;
         break;
       case IssuesLabelTemplate.enhance:
-        bodyTextEditingController.text = c_issuesEnhanceTemplate;
+        bodyTextEditingController.text = c_issues_enhance_template;
         break;
       case IssuesLabelTemplate.question:
-        bodyTextEditingController.text = c_issuesQuestionTemplate;
+        bodyTextEditingController.text = c_issues_question_template;
         break;
       default:
         break;

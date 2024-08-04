@@ -15,36 +15,35 @@ class RawData {
   }
 
   /// 反序列化为T类型数据，存在反序列化器时返回对象
-  T as<T>({T Function(Map<String, dynamic>)? objectConvertor}) {
+  T as<T>({T Function(Map<String, dynamic>)? object_convertor}) {
     _nullDataCheck();
 
-    if (QKitUtils.isBaseType(T)) {
+    if (QKitUtils.is_dart_base_data_type(T)) {
       return _data as T;
     }
-    return _asObject<T>(_data, objectConvertor: objectConvertor);
+    return _asObject<T>(_data, objectConvertor: object_convertor);
   }
 
   /// 依据是否存在返回序列化器处理反序列化数据
-  T _asObject<T>(dynamic data,
-      {T Function(Map<String, dynamic>)? objectConvertor}) {
+  T _asObject<T>(dynamic data, {T Function(Map<String, dynamic>)? objectConvertor}) {
     return null != objectConvertor
         ? objectConvertor.call((data as Map<String, dynamic>))
         : data as T;
   }
 
   /// 反序列化为T类型数据数组，存在反序列化器时返回对象数组
-  List<T> asList<T>({T Function(Map<String, dynamic>)? objectConvertor}) {
+  List<T> asList<T>({T Function(Map<String, dynamic>)? object_convertor}) {
     _nullDataCheck();
 
     List<dynamic> list = _data as List<dynamic>;
-    if (QKitUtils.isBaseType(T)) {
+    if (QKitUtils.is_dart_base_data_type(T)) {
       return list.map((item) => item as T).toList();
     }
 
     return list
         .map((item) => _asObject<T>(
               item,
-              objectConvertor: objectConvertor,
+              objectConvertor: object_convertor,
             ))
         .toList();
   }

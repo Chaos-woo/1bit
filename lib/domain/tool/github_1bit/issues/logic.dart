@@ -40,7 +40,7 @@ class Github1bitIssuesLogic extends GetxController {
       return;
     }
 
-    Get.find<Github1bitIssuesListLogic>().requestRefresh();
+    Get.find<Github1bitIssuesListLogic>().request_refresh();
     _markRefreshList = false;
   }
 

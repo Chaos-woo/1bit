@@ -1,4 +1,5 @@
-import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/toast/snackbar_widget.dart';
+import 'package:cw2bit/public/toast/title_snackbar_widget.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,26 +27,37 @@ class Bit1Ui {
   }
 
   /// 展示snackbar
-  static void showSimpleSnackBar(
+  static void showSimpleSnackbar(
     String text, {
     BuildContext? context,
     Duration? duration,
-    Color? textColor = Colors.white,
+    Color? backgroundColor,
+    int? maxLines,
+    TextOverflow? textOverflow,
+    String? title,
+    bool showCloseButton = false,
   }) {
     var bContext = context ?? Get.context!;
     ScaffoldMessenger.of(bContext).clearSnackBars();
     ScaffoldMessenger.of(bContext).showSnackBar(
       SnackBar(
-        content: Text(
-          text,
-          style: FlutterFlowTheme.of(bContext).labelLarge.override(
-                fontFamily: 'Readex Pro',
-                color: textColor,
-                letterSpacing: 0,
+        content: (title == null || title.isEmpty)
+            ? SnackbarWidget(
+                text,
+                backgroundColor: backgroundColor,
+                maxLines: maxLines,
+                textOverflow: textOverflow,
+              )
+            : TitleSnackbarWidget(
+                text,
+                title: title,
+                backgroundColor: backgroundColor,
+                maxLines: maxLines,
+                textOverflow: textOverflow,
               ),
-        ),
         duration: duration ?? Duration(milliseconds: 4000),
-        // backgroundColor: Color(0x80000000),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
     );
   }

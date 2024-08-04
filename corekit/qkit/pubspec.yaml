@@ -59,7 +59,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+#  flutter_lints: ^3.0.0
   # json序列化/反序列化代码生成处理器
   json_serializable: 6.6.2
   # flutter packages pub run build_runner build --delete-conflicting-outputs

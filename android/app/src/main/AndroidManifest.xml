@@ -2,7 +2,9 @@
     <application
         android:label="1bit"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -32,6 +34,7 @@
 
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <!-- 可恶的FlutterFlow_UI版本升级集成了google-ad-sdk       -->
+        <!--https://developers.google.com/admob/android/quick-start?hl=zh-cn        -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>

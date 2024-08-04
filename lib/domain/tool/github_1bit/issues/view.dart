@@ -1,5 +1,5 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_1bit_issues_list/view.dart';
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class Github1bitIssuesPage extends StatelessWidget {
         onPressed: () async {
           GithubApiDataPostAction postResult =
               QKit.route.to(rt_toolGithubIssuesEdit) as GithubApiDataPostAction;
-          if (postResult == GithubApiDataPostAction.postedDataThenBack) {
+          if (postResult == GithubApiDataPostAction.posted_data_then_back) {
             logic.markRefreshList();
             logic.refreshIssuesListByNewFiltered(isDrawerOpened: false);
           }

@@ -1,5 +1,5 @@
-import 'package:cw2bit/domain/tool/tool_homepage/view.dart';
-import 'package:cw2bit/domain/wallabag/wallabag_homepage/view.dart';
+import 'package:cw2bit/domain/home/textbook_homepage/view.dart';
+import 'package:cw2bit/domain/home/tool_homepage/view.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,10 +17,10 @@ class HomepagePage extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         return IndexedStack(
-          index: logic.selectedIndex.value,
+          index: logic.selected_index.value,
           children: [
             ToolHomepagePage(),
-            WallabagHomepagePage(),
+            TextbookHomepagePage(),
             Container(),
             Container(),
           ],
@@ -28,7 +28,7 @@ class HomepagePage extends StatelessWidget {
       }),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
-          currentIndex: logic.selectedIndex.value,
+          currentIndex: logic.selected_index.value,
           onTap: logic.changeIndex,
           type: BottomNavigationBarType.shifting,
           selectedItemColor: FlutterFlowTheme.of(context).primary,

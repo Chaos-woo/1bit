@@ -24,10 +24,10 @@ class Github1bitIssuesListLogic extends PagingController<Github1bitIssuesListSta
       homeState.owner,
       homeState.repo,
       page: state.currPage,
-      pageSize: state.pageSize,
+      page_size: state.pageSize,
       state: IssuesFiltered.labelBy(homeState.choiceChipsStateValue),
-      sortField: IssuesFiltered.labelBy(homeState.choiceChipsSortFieldsValue),
-      sortDirection: IssuesFiltered.labelBy(homeState.choiceChipsSortDirectionValue),
+      sort_field: IssuesFiltered.labelBy(homeState.choiceChipsSortFieldsValue),
+      sort_direction: IssuesFiltered.labelBy(homeState.choiceChipsSortDirectionValue),
       labels: homeState.choiceChipsLabelValue ?? [],
     );
     List<IssuesModel> issuesModelList =

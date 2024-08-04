@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             initialRoute: rt_home,
             getPages: RouteProxyDispatcher.s_pageRoutes,
-            debugShowCheckedModeBanner: !QKitUtils.isReleaseMode,
-            enableLog: !QKitUtils.isReleaseMode,
+            debugShowCheckedModeBanner: !QKitUtils.is_release_mode,
+            enableLog: !QKitUtils.is_release_mode,
             builder: EasyLoading.init())
         .smartRefreshConfiguration(
           hideFooterWhenNotFull: false,

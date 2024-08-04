@@ -1,4 +1,4 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/values/constant.dart';
+import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/apis.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +25,7 @@ class GithubSettingLogic extends GetxController {
   void onInit() {
     super.onInit();
 
-    String? accessTokenPfs = QKit.bridge.flustars.preferences.getString(k_githubAccessKey);
+    String? accessTokenPfs = QKit.bridge.flustars.preferences.getString(k_pref_github_access_key);
 
     repoOwnerTextController = TextEditingController(text: state.owner);
     repoTextController = TextEditingController(text: state.repo);
@@ -34,13 +34,13 @@ class GithubSettingLogic extends GetxController {
 
   void saveAccessToken() {
     String accessToken = accessTokenTextController.text;
-    QKit.bridge.flustars.preferences.putString(k_githubAccessKey, accessToken);
+    QKit.bridge.flustars.preferences.putString(k_pref_github_access_key, accessToken);
   }
 
   Future<bool> checkAccessToken() async {
     String accessToken = accessTokenTextController.text;
     try {
-      await Apis.github.checkAccessToken(state.owner, state.repo, accessToken);
+      await Apis.github.check_access_token(state.owner, state.repo, accessToken);
       return true;
     } catch (ex) {
       return false;
