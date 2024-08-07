@@ -50,24 +50,24 @@ class GithubIssuesWidget extends StatelessWidget {
                         size: 10,
                       ),
                       options: FFButtonOptions(
-                        height: 20,
-                        padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                        color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
-                            ? Color(0xFFFF0000)
-                            : Colors.blue,
-                        textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                              color: Colors.white,
-                              fontSize: 12,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.w300,
-                            ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(3),
-                      ),
+                          height: 20,
+                          padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
+                              ? Color(0xFFFF5353)
+                              : Colors.blue,
+                          textStyle: FlutterFlowTheme.of(context).labelSmall.override(
+                                color: Colors.white,
+                                fontSize: 12,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w300,
+                              ),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(3),
+                          elevation: 0.0),
                       showLoadingIndicator: false,
                     ),
                     Column(
@@ -75,7 +75,7 @@ class GithubIssuesWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '${issues.user.login} 创建',
+                          '${issues.user.login} | UP.',
                           style: FlutterFlowTheme.of(context).labelSmall.override(
                                 fontSize: 12,
                                 letterSpacing: 0,

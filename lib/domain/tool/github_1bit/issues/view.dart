@@ -345,7 +345,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                         alignment: AlignmentDirectional(-1, 0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                          child: (state.labelValues.isEmpty)
+                          child: (state.label_values.isEmpty)
                               ? Text(
                                   '正在获取标签...',
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -354,7 +354,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                                       ),
                                 )
                               : FlutterFlowChoiceChips(
-                                  options: state.labelValues
+                                  options: state.label_values
                                       .map((label) => ChipData(label.name))
                                       .toList(),
                                   onChanged: (val) => logic.choiceChipsLabelValue = val,

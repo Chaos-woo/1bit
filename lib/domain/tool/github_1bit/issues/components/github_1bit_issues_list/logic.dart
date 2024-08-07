@@ -20,7 +20,7 @@ class Github1bitIssuesListLogic extends PagingController<Github1bitIssuesListSta
   Future<List<IssuesModel>> fetchData() async {
     final homeState = Get.find<Github1bitIssuesLogic>().state;
 
-    List<GithubIssues> issues = await Apis.github.listIssues(
+    List<GithubIssues> issues = await Apis.github.list_issues(
       homeState.owner,
       homeState.repo,
       page: state.currPage,

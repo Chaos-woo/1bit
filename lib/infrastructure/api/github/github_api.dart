@@ -27,7 +27,7 @@ final class GithubApi extends GetxService {
   }
 
   /// 获取仓库issues列表
-  Future<List<GithubIssues>> listIssues(
+  Future<List<GithubIssues>> list_issues(
     String owner,
     String repo, {
     int page = 1,
