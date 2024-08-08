@@ -27,10 +27,10 @@ class Github1bitIssuesPage extends StatelessWidget {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          GithubApiDataPostAction postResult =
-              QKit.route.to(rt_toolGithubIssuesEdit) as GithubApiDataPostAction;
-          if (postResult == GithubApiDataPostAction.posted_data_then_back) {
-            logic.markRefreshList();
+          GithubApiDataPostAction back_action =
+              await QKit.route.to(rt_toolGithubIssuesEdit) as GithubApiDataPostAction;
+          if (back_action == GithubApiDataPostAction.posted_data_then_back) {
+            logic.mark_refresh_list();
             logic.refreshIssuesListByNewFiltered(isDrawerOpened: false);
           }
         },
@@ -225,7 +225,7 @@ class IssuesFilteredDrawerWidget extends StatefulWidget {
 }
 
 class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> {
-  void refreshState() {
+  void refresh_state() {
     setState(() {});
   }
 

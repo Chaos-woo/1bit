@@ -51,5 +51,5 @@ jobs:
         uses: ncipollo/release-action@v1.5.0
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
-          tag: 1bit-${{ env.CURR_DATE }}-snap
+          tag: 1bit-${{ env.CURR_DATE }}-beta
           token: ${{ secrets.RELEASE_TOKEN }}

@@ -16,7 +16,7 @@ import 'state.dart';
 class AppHotSearchListLogic extends GetxController {
   final AppHotSearchListState state = AppHotSearchListState();
 
-  final RegExp title_regex = RegExp(r'\[(.*?)\]');
+  final RegExp title_regex = RegExp(r'\[(.*)\]');
   final RegExp url_regex = RegExp(r'\((.*?)\)');
 
   final k_app_hot_search_view_id = '#kAppHotSearch';
@@ -101,11 +101,11 @@ class AppHotSearchListLogic extends GetxController {
     List<HotSearchModel> models = [];
     for (String line in LineSplitter.split(decoded_string)) {
       Match? title_match = title_regex.firstMatch(line);
-      Match? url_match = url_regex.firstMatch(line);
+      Iterable<RegExpMatch> url_match = url_regex.allMatches(line);
 
-      if (title_match != null && url_match != null) {
+      if (title_match != null && url_match.isNotEmpty) {
         String title = title_match.group(1)!;
-        String url = url_match.group(1)!;
+        String url = url_match.last.group(1)!;
         models.add(HotSearchModel(index: index, content: title, url: url));
         index++;
       }

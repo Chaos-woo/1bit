@@ -203,7 +203,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                     children: [
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.bug);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.bug);
                         },
                         text: 'Bug模板',
                         options: FFButtonOptions(
@@ -226,7 +226,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.feature);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.feature);
                         },
                         text: 'Feature模板',
                         options: FFButtonOptions(
@@ -249,7 +249,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.enhance);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.enhance);
                         },
                         text: 'Enhance模板',
                         options: FFButtonOptions(
@@ -272,7 +272,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.question);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.question);
                         },
                         text: 'Question模板',
                         options: FFButtonOptions(
@@ -309,8 +309,8 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                           Expanded(
                             child: FFButtonWidget(
                               onPressed: () async {
-                                var postResult = await logic.post();
-                                if (postResult) {
+                                var post_result = await logic.post();
+                                if (post_result) {
                                   Bit1Ui.showSimpleSnackbar('提交成功');
                                   QKit.route.back(
                                       backValue: GithubApiDataPostAction.posted_data_then_back);

@@ -22,30 +22,30 @@ class Github1bitIssuesLogic extends GetxController {
   String? choiceChipsSortDirectionValue;
 
   /// 标记请求刷新issues列表
-  bool _markRefreshList = false;
+  bool _m_mark_refresh_list = false;
 
   @override
   void onReady() async {
     List<GithubLabel> labels = await Apis.github.listLabels(state.owner, state.repo);
     state.setRepoLabels(labels);
 
-    drawerKey.currentState?.refreshState();
+    drawerKey.currentState?.refresh_state();
   }
 
   /// 刷新issues列表
   /// 1. drawer关闭并且设置需要刷新列表时请求接口
   /// 2. 提交新的issues也需要刷新接口
   void refreshIssuesListByNewFiltered({bool isDrawerOpened = true}) async {
-    if (isDrawerOpened || !_markRefreshList) {
+    if (isDrawerOpened || !_m_mark_refresh_list) {
       return;
     }
 
     Get.find<Github1bitIssuesListLogic>().request_refresh();
-    _markRefreshList = false;
+    _m_mark_refresh_list = false;
   }
 
-  void markRefreshList() {
-    _markRefreshList = true;
+  void mark_refresh_list() {
+    _m_mark_refresh_list = true;
   }
 
   /// 获取当前已选中的所有选项
@@ -75,7 +75,7 @@ class Github1bitIssuesLogic extends GetxController {
     state.choiceChipsSortDirectionValue = choiceChipsSortDirectionValue;
 
     update([k_selectedChoiceRowViewId]);
-    _markRefreshList = true;
+    _m_mark_refresh_list = true;
     refreshIssuesListByNewFiltered(isDrawerOpened: false);
   }
 
