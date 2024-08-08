@@ -78,7 +78,7 @@ class GithubIssues {
   String authorAssociation;
 
   /// body
-  String body;
+  String? body;
 
   /// timeline_url
   @JsonKey(name: 'timeline_url')

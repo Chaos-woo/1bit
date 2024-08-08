@@ -75,7 +75,7 @@ class GithubIssuesWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '${issues.user.login} | UP.',
+                          '${issues.user.login}',
                           style: FlutterFlowTheme.of(context).labelSmall.override(
                                 fontSize: 12,
                                 letterSpacing: 0,
@@ -87,7 +87,7 @@ class GithubIssuesWidget extends StatelessWidget {
                             format: c_issues_date_time_format,
                           ),
                           style: FlutterFlowTheme.of(context).labelSmall.override(
-                                fontSize: 12,
+                                fontSize: 10,
                                 letterSpacing: 0,
                               ),
                         ),

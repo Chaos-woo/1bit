@@ -22,8 +22,10 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          GithubApiDataPostAction postResult = await QKit.route
-              .to(rt_toolGithubCommentEdit, argument: state.issuesModel) as GithubApiDataPostAction;
+          GithubApiDataPostAction postResult = await QKit.route.to(
+            rt_tool_github_comment_edit,
+            argument: state.issues_model,
+          ) as GithubApiDataPostAction;
           if (postResult == GithubApiDataPostAction.posted_data_then_back) {
             logic.request_refresh();
           }
@@ -72,7 +74,7 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              IssuesDetailCompWidget(issues: state.issuesModel),
+              IssuesDetailCompWidget(issues: state.issues_model),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: Row(

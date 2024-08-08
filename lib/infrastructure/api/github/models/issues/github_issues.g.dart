@@ -29,7 +29,7 @@ GithubIssues _$GithubIssuesFromJson(Map<String, dynamic> json) => GithubIssues(
       updatedAt: const YYYY_MM_dd_T_HH_mm_ss_Z_DateTimeConverter()
           .fromJson(json['updated_at'] as String),
       authorAssociation: json['author_association'] as String,
-      body: json['body'] as String,
+      body: json['body'] as String?,
       timelineUrl: json['timeline_url'] as String,
     );
 

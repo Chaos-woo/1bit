@@ -20,7 +20,7 @@ class Github1bitIssuesDetailLogic extends PagingController<Github1bitIssuesDetai
     List<GithubComment> comments = await Apis.github.listComments(
       c_1bit_repo_owner,
       c_1bit_repo,
-      state.issuesModel.number,
+      state.issues_model.number,
       page: state.currPage,
       pageSize: state.pageSize,
     );

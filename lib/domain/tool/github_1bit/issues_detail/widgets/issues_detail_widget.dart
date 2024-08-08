@@ -117,7 +117,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Bit1Ui.expandableText(
-                      '${issues.body}',
+                      issues.body ?? '',
                       maxLines: 15,
                       textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                             letterSpacing: 0,
