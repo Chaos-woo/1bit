@@ -38,7 +38,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
         title: Text(
           '编辑 1bit issues',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 22,
                 letterSpacing: 0,
@@ -71,7 +70,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                         child: Text(
                           '# 标签',
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                               ),
                         ),
@@ -95,11 +93,9 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: '标题',
                     labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
                     hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
                     enabledBorder: OutlineInputBorder(
@@ -132,7 +128,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                     ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
                         letterSpacing: 0,
                       ),
                   maxLines: 2,
@@ -148,11 +143,9 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: '内容',
                     labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
                     hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
                     enabledBorder: OutlineInputBorder(
@@ -185,7 +178,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                     ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
                         letterSpacing: 0,
                       ),
                   maxLines: 20,
@@ -197,7 +189,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                 child: Text(
                   '快速创建模板',
                   style: FlutterFlowTheme.of(context).labelSmall.override(
-                        fontFamily: 'Readex Pro',
                         letterSpacing: 0,
                       ),
                 ),
@@ -212,7 +203,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                     children: [
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.bug);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.bug);
                         },
                         text: 'Bug模板',
                         options: FFButtonOptions(
@@ -221,7 +212,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: Color(0xFFD73A4A),
                           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                                 fontWeight: FontWeight.w300,
                               ),
@@ -236,7 +226,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.feature);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.feature);
                         },
                         text: 'Feature模板',
                         options: FFButtonOptions(
@@ -245,7 +235,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: Color(0xFF0075CA),
                           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                                 fontWeight: FontWeight.w300,
                               ),
@@ -260,7 +249,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.enhance);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.enhance);
                         },
                         text: 'Enhance模板',
                         options: FFButtonOptions(
@@ -269,7 +258,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: Color(0xFF8FD5D6),
                           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                                 fontWeight: FontWeight.w300,
                               ),
@@ -284,7 +272,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                       FFButtonWidget(
                         onPressed: () {
-                          logic.useContentTemplateByIssuesLabel(IssuesLabelTemplate.question);
+                          logic.use_content_template_by_issues_label(IssuesLabelTemplate.question);
                         },
                         text: 'Question模板',
                         options: FFButtonOptions(
@@ -293,7 +281,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: Color(0xFFD876E3),
                           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                                 fontWeight: FontWeight.w300,
                               ),
@@ -322,8 +309,8 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                           Expanded(
                             child: FFButtonWidget(
                               onPressed: () async {
-                                var postResult = await logic.post();
-                                if (postResult) {
+                                var post_result = await logic.post();
+                                if (post_result) {
                                   Bit1Ui.showSimpleSnackbar('提交成功');
                                   QKit.route.back(
                                       backValue: GithubApiDataPostAction.posted_data_then_back);
@@ -338,7 +325,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                      fontFamily: 'Readex Pro',
                                       color: Colors.white,
                                       letterSpacing: 0,
                                     ),
@@ -385,7 +371,6 @@ class SelectedIssuesLabelChoiceState extends State<SelectedIssuesLabelChoice> {
         ? Text(
             '正在获取标签...',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Readex Pro',
                   color: FlutterFlowTheme.of(context).secondaryText,
                   letterSpacing: 0,
                 ),
@@ -398,7 +383,6 @@ class SelectedIssuesLabelChoiceState extends State<SelectedIssuesLabelChoice> {
             selectedChipStyle: ChipStyle(
               backgroundColor: FlutterFlowTheme.of(context).secondary,
               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
                     color: FlutterFlowTheme.of(context).primaryText,
                     letterSpacing: 0,
                   ),
@@ -410,7 +394,6 @@ class SelectedIssuesLabelChoiceState extends State<SelectedIssuesLabelChoice> {
             unselectedChipStyle: ChipStyle(
               backgroundColor: FlutterFlowTheme.of(context).alternate,
               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
                     color: FlutterFlowTheme.of(context).secondaryText,
                     fontSize: 12,
                     letterSpacing: 0,

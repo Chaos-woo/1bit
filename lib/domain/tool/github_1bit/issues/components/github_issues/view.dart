@@ -50,25 +50,24 @@ class GithubIssuesWidget extends StatelessWidget {
                         size: 10,
                       ),
                       options: FFButtonOptions(
-                        height: 20,
-                        padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                        color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
-                            ? Color(0xFFFF0000)
-                            : Colors.blue,
-                        textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                              fontFamily: 'Readex Pro',
-                              color: Colors.white,
-                              fontSize: 12,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.w300,
-                            ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(3),
-                      ),
+                          height: 20,
+                          padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
+                              ? Color(0xFFFF5353)
+                              : Colors.blue,
+                          textStyle: FlutterFlowTheme.of(context).labelSmall.override(
+                                color: Colors.white,
+                                fontSize: 12,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w300,
+                              ),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(3),
+                          elevation: 0.0),
                       showLoadingIndicator: false,
                     ),
                     Column(
@@ -76,9 +75,8 @@ class GithubIssuesWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '${issues.user.login} 创建',
+                          '${issues.user.login}',
                           style: FlutterFlowTheme.of(context).labelSmall.override(
-                                fontFamily: 'Readex Pro',
                                 fontSize: 12,
                                 letterSpacing: 0,
                               ),
@@ -89,8 +87,7 @@ class GithubIssuesWidget extends StatelessWidget {
                             format: c_issues_date_time_format,
                           ),
                           style: FlutterFlowTheme.of(context).labelSmall.override(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 12,
+                                fontSize: 10,
                                 letterSpacing: 0,
                               ),
                         ),
@@ -112,7 +109,6 @@ class GithubIssuesWidget extends StatelessWidget {
                           issues.title,
                           maxLines: 3,
                           textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                               ),
                         ),
@@ -132,7 +128,6 @@ class GithubIssuesWidget extends StatelessWidget {
                       child: Text(
                         '${issues.comments} · 评论',
                         style: FlutterFlowTheme.of(context).labelSmall.override(
-                              fontFamily: 'Readex Pro',
                               letterSpacing: 0,
                             ),
                       ),
@@ -147,7 +142,6 @@ class GithubIssuesWidget extends StatelessWidget {
                             issues.labels.map((e) => e.name).toList().join(', '),
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context).labelSmall.override(
-                                  fontFamily: 'Readex Pro',
                                   letterSpacing: 0,
                                 ),
                           ),

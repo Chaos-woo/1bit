@@ -44,7 +44,6 @@ class SnackbarWidget extends StatelessWidget {
                     maxLines: maxLines ?? 4,
                     overflow: textOverflow ?? TextOverflow.ellipsis,
                     style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Figtree',
                           color: Color(0xD8FFFFFF),
                           fontSize: 14,
                           letterSpacing: 0,

@@ -38,7 +38,6 @@ class GithubSettingPage extends StatelessWidget {
         title: Text(
           'Github客户端设置',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 22,
                 letterSpacing: 0,
@@ -67,7 +66,6 @@ class GithubSettingPage extends StatelessWidget {
                   ''',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
                           color: FlutterFlowTheme.of(context).secondaryText,
                           letterSpacing: 0,
                         ),
@@ -86,11 +84,9 @@ class GithubSettingPage extends StatelessWidget {
                       isDense: false,
                       labelText: '1bit Repository Owner',
                       labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       enabledBorder: OutlineInputBorder(
@@ -126,7 +122,6 @@ class GithubSettingPage extends StatelessWidget {
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
                   ),
@@ -143,11 +138,9 @@ class GithubSettingPage extends StatelessWidget {
                       isDense: false,
                       labelText: '1bit Repository',
                       labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       enabledBorder: OutlineInputBorder(
@@ -183,7 +176,6 @@ class GithubSettingPage extends StatelessWidget {
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
                   ),
@@ -203,12 +195,10 @@ class GithubSettingPage extends StatelessWidget {
                           isDense: false,
                           labelText: 'Access token',
                           labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                               ),
                           hintText: 'Personal access tokens(classic)',
                           hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0,
                               ),
                           enabledBorder: OutlineInputBorder(
@@ -244,7 +234,6 @@ class GithubSettingPage extends StatelessWidget {
                           ),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
                               letterSpacing: 0,
                             ),
                       ),
@@ -296,7 +285,6 @@ class GithubSettingPage extends StatelessWidget {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
                                 color: Colors.white,
                                 letterSpacing: 0,
                               ),
@@ -334,7 +322,6 @@ class GithubSettingPage extends StatelessWidget {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
                                 color: Colors.white,
                                 letterSpacing: 0,
                               ),

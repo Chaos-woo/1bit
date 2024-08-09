@@ -29,7 +29,6 @@ class ToolHomepagePage extends StatelessWidget {
             Text(
               '1bit工坊',
               style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Outfit',
                     color: Colors.white,
                     fontSize: 22,
                     letterSpacing: 0,
@@ -46,7 +45,6 @@ class ToolHomepagePage extends StatelessWidget {
                 child: Text(
                   'version' + ' >',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
                         color: FlutterFlowTheme.of(context).alternate,
                         letterSpacing: 0,
                       ),

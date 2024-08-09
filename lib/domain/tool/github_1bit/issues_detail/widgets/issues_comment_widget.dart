@@ -35,7 +35,6 @@ class IssuesCommentCompWidget extends StatelessWidget {
                     Text(
                       comment.user.login,
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),
@@ -47,7 +46,6 @@ class IssuesCommentCompWidget extends StatelessWidget {
                           format: c_issues_date_time_format,
                         ),
                         style: FlutterFlowTheme.of(context).labelSmall.override(
-                              fontFamily: 'Readex Pro',
                               letterSpacing: 0,
                             ),
                       ),
@@ -72,7 +70,6 @@ class IssuesCommentCompWidget extends StatelessWidget {
                     child: Bit1Ui.expandableText(
                       comment.body,
                       textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),

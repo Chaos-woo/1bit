@@ -55,7 +55,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                     child: Text(
                       '历史归档',
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),
@@ -68,7 +67,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                       child: Text(
                         '2023.09~至今',
                         style: FlutterFlowTheme.of(context).labelSmall.override(
-                              fontFamily: 'Readex Pro',
                               letterSpacing: 0,
                             ),
                       ),
@@ -118,7 +116,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                               child: Text(
                                 '1b-Trending',
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -159,7 +156,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                               child: Text(
                                 '1b-Discover',
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -200,7 +196,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                               child: Text(
                                 '1b-Tracking',
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -236,7 +231,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                       child: Text(
                         '实时热搜',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
                               letterSpacing: 0,
                             ),
                       ),
@@ -244,7 +238,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                     Text(
                       '(小时更新，1b-Trending)',
                       style: FlutterFlowTheme.of(context).labelSmall.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),
@@ -308,14 +301,12 @@ class AppHotSearchListComponent extends StatelessWidget {
                                 Text(
                                   '暂无数据...',
                                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: 'Readex Pro',
                                         letterSpacing: 0,
                                       ),
                                 ),
                                 Text(
                                   '可能正在刷新...',
                                   style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: 'Readex Pro',
                                         letterSpacing: 0,
                                       ),
                                 )
@@ -376,12 +367,23 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
                       '1',
                       style: FlutterFlowTheme.of(context).headlineMedium.override(
-                            fontFamily: 'Roboto',
                             color: Color(0xFFDB5969),
                             fontSize: 26,
                             letterSpacing: 0,
@@ -398,7 +400,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                       maxLines: 2,
                       minFontSize: 12,
                       style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       overflow: TextOverflow.ellipsis,
@@ -444,12 +445,23 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
                       '2',
                       style: FlutterFlowTheme.of(context).headlineMedium.override(
-                            fontFamily: 'Roboto',
                             color: Color(0xFFDB5969),
                             fontSize: 22,
                             letterSpacing: 0,
@@ -466,7 +478,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                       maxLines: 2,
                       minFontSize: 12,
                       style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       overflow: TextOverflow.ellipsis,
@@ -512,12 +523,23 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
                       '3',
                       style: FlutterFlowTheme.of(context).headlineMedium.override(
-                            fontFamily: 'Roboto',
                             color: Color(0xFFB24452),
                             fontSize: 20,
                             letterSpacing: 0,
@@ -534,7 +556,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                       maxLines: 2,
                       minFontSize: 12,
                       style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       overflow: TextOverflow.ellipsis,
@@ -580,12 +601,23 @@ class AppHotSearchListComponent extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  if (state.is_last_reading(model))
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Container(
+                        height: 4,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 15, 0),
                     child: GradientText(
                       model.index.toString(),
                       style: FlutterFlowTheme.of(context).titleLarge.override(
-                            fontFamily: 'Outfit',
                             color: Color(0xFFFEA443),
                             fontSize: 18,
                             letterSpacing: 0,
@@ -602,7 +634,6 @@ class AppHotSearchListComponent extends StatelessWidget {
                       maxLines: 2,
                       minFontSize: 12,
                       style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                       overflow: TextOverflow.ellipsis,

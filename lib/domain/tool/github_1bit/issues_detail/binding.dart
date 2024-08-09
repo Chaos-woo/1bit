@@ -10,7 +10,7 @@ class Github1bitIssuesDetailBinding extends Bindings {
     IssuesModel issuesModel = QKit.route.argument() as IssuesModel;
     Get.lazyPut(() {
       var logic = Github1bitIssuesDetailLogic();
-      logic.state.issuesModel = issuesModel;
+      logic.state.issues_model = issuesModel;
       return logic;
     });
   }

@@ -26,7 +26,7 @@ const rt_tool_github_setting = '/tool/github/setting';
 const rt_toolGithubIssuesHome = '/tool/github/issues/home';
 const rt_toolGithubIssuesDetail = '/tool/github/issues/detail';
 const rt_toolGithubIssuesEdit = '/tool/github/issues/edit';
-const rt_toolGithubCommentEdit = '/tool/github/comment/edit';
+const rt_tool_github_comment_edit = '/tool/github/comment/edit';
 
 /// 朝闻道模块路由
 const rt_newsWallabagHome = '/news/wallabag/home';
@@ -58,7 +58,7 @@ class AppPageRouter {
         )
         .addRoute(rt_toolGithubIssuesEdit, () => const Github1bitIssuesEditPage())
         .addRoute(
-          rt_toolGithubCommentEdit,
+          rt_tool_github_comment_edit,
           () => const Github1bitCommentEditPage(),
           binding: Github1bitCommentEditPageBinding(),
         );

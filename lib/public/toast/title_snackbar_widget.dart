@@ -55,7 +55,6 @@ class TitleSnackbarWidget extends StatelessWidget {
                       Text(
                         title,
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Figtree',
                               color: Colors.white,
                               fontSize: 16,
                               letterSpacing: 0,
@@ -69,7 +68,6 @@ class TitleSnackbarWidget extends StatelessWidget {
                     maxLines: maxLines ?? 4,
                     overflow: textOverflow ?? TextOverflow.ellipsis,
                     style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Figtree',
                           color: Color(0xD8FFFFFF),
                           fontSize: 14,
                           letterSpacing: 0,

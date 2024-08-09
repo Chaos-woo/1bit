@@ -37,8 +37,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                   children: [
                     Text(
                       issues.user.login,
-                      style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Readex Pro',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                             letterSpacing: 0,
                           ),
                     ),
@@ -49,10 +48,9 @@ class IssuesDetailCompWidget extends StatelessWidget {
                           issues.createdAt,
                           format: c_issues_date_time_format,
                         ),
-                        style: FlutterFlowTheme.of(context).labelSmall.override(
-                              fontFamily: 'Readex Pro',
-                              letterSpacing: 0,
-                            ),
+                        style: FlutterFlowTheme.of(context)
+                            .labelSmall
+                            .override(letterSpacing: 0, color: Colors.grey),
                       ),
                     ),
                   ],
@@ -68,25 +66,24 @@ class IssuesDetailCompWidget extends StatelessWidget {
                     size: 10,
                   ),
                   options: FFButtonOptions(
-                    height: 20,
-                    padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
-                    iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
-                        ? Color(0xFFFF0000)
-                        : Colors.blue,
-                    textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                          fontFamily: 'Readex Pro',
-                          color: Colors.white,
-                          fontSize: 12,
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w300,
-                        ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
+                      height: 20,
+                      padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
+                      iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
+                          ? Color(0xFFFF5353)
+                          : Colors.blue,
+                      textStyle: FlutterFlowTheme.of(context).labelSmall.override(
+                            color: Colors.white,
+                            fontSize: 12,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w300,
+                          ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(3),
+                      elevation: 0.0),
                   showLoadingIndicator: false,
                 ),
               ],
@@ -100,9 +97,29 @@ class IssuesDetailCompWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Bit1Ui.expandableText(
-                      issues.title,
+                      '${issues.title}',
+                      maxLines: 2,
+                      textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Bit1Ui.expandableText(
+                      issues.body ?? '',
+                      maxLines: 15,
                       textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
                             letterSpacing: 0,
                           ),
                     ),
@@ -131,7 +148,6 @@ class IssuesDetailCompWidget extends StatelessWidget {
                       iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       color: label.color.toColor,
                       textStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                            fontFamily: 'Readex Pro',
                             color: Colors.white,
                             fontSize: 12,
                             letterSpacing: 0,

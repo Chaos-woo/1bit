@@ -37,7 +37,6 @@ class TextOcrPage extends StatelessWidget {
         title: Text(
           'OCR-文字识别',
           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 22,
                 letterSpacing: 0,
@@ -113,7 +112,6 @@ class TextOcrPage extends StatelessWidget {
                           child: Text(
                             '文字识别（扫描）结果：',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Readex Pro',
                                   letterSpacing: 0,
                                 ),
                           ),
@@ -128,12 +126,10 @@ class TextOcrPage extends StatelessWidget {
                             decoration: InputDecoration(
                               isDense: true,
                               labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Readex Pro',
                                     letterSpacing: 0,
                                   ),
                               hintText: 'OCR文字识别（扫描）结果，示例：12345678',
                               hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Readex Pro',
                                     letterSpacing: 0,
                                   ),
                               enabledBorder: OutlineInputBorder(
@@ -166,7 +162,6 @@ class TextOcrPage extends StatelessWidget {
                               ),
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Readex Pro',
                                   letterSpacing: 0,
                                 ),
                             maxLines: 4,
@@ -193,7 +188,6 @@ class TextOcrPage extends StatelessWidget {
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                          fontFamily: 'Readex Pro',
                                           color: Colors.white,
                                           letterSpacing: 0,
                                         ),
@@ -230,7 +224,6 @@ class TextOcrPage extends StatelessWidget {
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                     color: FlutterFlowTheme.of(context).secondary,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                          fontFamily: 'Readex Pro',
                                           color: Colors.white,
                                           letterSpacing: 0,
                                         ),
@@ -267,7 +260,6 @@ class TextOcrPage extends StatelessWidget {
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                     color: FlutterFlowTheme.of(context).tertiary,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                          fontFamily: 'Readex Pro',
                                           color: Colors.white,
                                           letterSpacing: 0,
                                         ),

@@ -3,7 +3,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/m
 import 'package:qkit/qkit.dart';
 
 class Github1bitIssuesDetailState extends PagingState<CommentModel> {
-  late IssuesModel issuesModel;
+  late IssuesModel issues_model;
 
   Github1bitIssuesDetailState() {
     ///Initialize variables

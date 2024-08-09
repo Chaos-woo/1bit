@@ -21,7 +21,7 @@ class Github1bitIssuesState {
     IssuesFiltered.direction_asc
   ];
 
-  List<LabelModel> labelValues = [];
+  List<LabelModel> label_values = [];
 
   /// 过滤器选项
   String? choiceChipsStateValue;
@@ -42,7 +42,7 @@ class Github1bitIssuesState {
       choiceChipsSortDirectionValue != null ? [choiceChipsSortDirectionValue!] : [];
 
   void setRepoLabels(List<GithubLabel> labels) {
-    labelValues = labels.map((e) => LabelModel.fromJson(e.toJson())).toList();
+    label_values = labels.map((e) => LabelModel.fromJson(e.toJson())).toList();
   }
 
   Github1bitIssuesState() {}

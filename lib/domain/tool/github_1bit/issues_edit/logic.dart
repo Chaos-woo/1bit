@@ -42,7 +42,7 @@ class Github1bitIssuesEditLogic extends GetxController {
   }
 
   /// 使用内容模板
-  void useContentTemplateByIssuesLabel(IssuesLabelTemplate template) {
+  void use_content_template_by_issues_label(IssuesLabelTemplate template) {
     switch (template) {
       case IssuesLabelTemplate.bug:
         bodyTextEditingController.text = c_issues_bug_template;

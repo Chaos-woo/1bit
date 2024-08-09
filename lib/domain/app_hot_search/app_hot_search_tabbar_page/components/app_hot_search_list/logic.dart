@@ -16,7 +16,7 @@ import 'state.dart';
 class AppHotSearchListLogic extends GetxController {
   final AppHotSearchListState state = AppHotSearchListState();
 
-  final RegExp title_regex = RegExp(r'\[(.*?)\]');
+  final RegExp title_regex = RegExp(r'\[(.*)\]');
   final RegExp url_regex = RegExp(r'\((.*?)\)');
 
   final k_app_hot_search_view_id = '#kAppHotSearch';
@@ -35,6 +35,7 @@ class AppHotSearchListLogic extends GetxController {
 
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(HotSearchModel model) async {
+    state.last_reading = model;
     await show_webview_dialog(
       url: model.url,
       title: '正在浏览：(${state.app})${model.content}',
@@ -43,6 +44,7 @@ class AppHotSearchListLogic extends GetxController {
         'acfun',
       ],
     );
+    update([k_app_hot_search_view_id]);
   }
 
   /// 更换APP
@@ -99,11 +101,11 @@ class AppHotSearchListLogic extends GetxController {
     List<HotSearchModel> models = [];
     for (String line in LineSplitter.split(decoded_string)) {
       Match? title_match = title_regex.firstMatch(line);
-      Match? url_match = url_regex.firstMatch(line);
+      Iterable<RegExpMatch> url_match = url_regex.allMatches(line);
 
-      if (title_match != null && url_match != null) {
+      if (title_match != null && url_match.isNotEmpty) {
         String title = title_match.group(1)!;
-        String url = url_match.group(1)!;
+        String url = url_match.last.group(1)!;
         models.add(HotSearchModel(index: index, content: title, url: url));
         index++;
       }
