@@ -1,4 +1,5 @@
-import 'package:cw2bit/domain/app_hot_search/app_hot_search_tabbar_page/view.dart';
+import 'package:cw2bit/domain/app_hot_search/history_hot_search/index/view.dart';
+import 'package:cw2bit/domain/app_hot_search/today_hot_search/index/view.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -23,7 +24,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
 
     logic.tabbar_controller = TabController(
       vsync: this,
-      length: 3,
+      length: 4,
       initialIndex: 1,
     );
   }
@@ -63,7 +64,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
         ),
         actions: [],
         centerTitle: false,
-        elevation: 2,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
@@ -110,7 +111,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                               ),
                             ),
                             Tab(
-                              text: '百站热搜',
+                              text: '今日看点',
                             ),
                           ],
                         ),
@@ -124,7 +125,21 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                               ),
                             ),
                             Tab(
-                              text: 'Ai 资讯',
+                              text: '看点记录',
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 3, 0),
+                              child: Icon(
+                                Icons.egg_alt,
+                              ),
+                            ),
+                            Tab(
+                              text: '昨日旧闻',
                             ),
                           ],
                         ),
@@ -143,10 +158,16 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
                           child: KeepAliveWidgetWrapper(
-                            builder: (context) => AppHotSearchTabbarPagePage(),
+                            builder: (context) => TodayHotSearchPage(),
                           ),
                         ),
                         Container(),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                          child: KeepAliveWidgetWrapper(
+                            builder: (context) => HistoryHotSearchPage(),
+                          ),
+                        ),
                       ],
                     ),
                   ),

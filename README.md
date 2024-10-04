@@ -34,4 +34,4 @@ samples, guidance on mobile development, and a full API reference.
 * 1Bit：应用小工具，应用测试，1bit仓库问题提交
 * 朝闻道：稍后读，热搜资讯，Ai资讯
 * TV.SO：BiliBili经常关注，UP主追踪等
-* 数千签：各类标签数据
+* 标签站：各类标签数据

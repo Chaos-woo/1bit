@@ -135,56 +135,6 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
-                child: TextFormField(
-                  controller: logic.bodyTextEditingController,
-                  autofocus: false,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: '内容',
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          letterSpacing: 0,
-                        ),
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                          letterSpacing: 0,
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        letterSpacing: 0,
-                      ),
-                  maxLines: 20,
-                  minLines: 1,
-                ),
-              ),
-              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 20, 0, 0),
                 child: Text(
                   '快速创建模板',
@@ -295,6 +245,56 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                       ),
                     ].divide(SizedBox(width: 10)),
                   ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
+                child: TextFormField(
+                  controller: logic.bodyTextEditingController,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: '内容',
+                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                          letterSpacing: 0,
+                        ),
+                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                          letterSpacing: 0,
+                        ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primary,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        letterSpacing: 0,
+                      ),
+                  maxLines: 20,
+                  minLines: 1,
                 ),
               ),
               Padding(

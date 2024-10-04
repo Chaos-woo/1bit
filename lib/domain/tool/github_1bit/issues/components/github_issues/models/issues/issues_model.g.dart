@@ -13,9 +13,9 @@ IssuesModel _$IssuesModelFromJson(Map<String, dynamic> json) => IssuesModel(
       commentsUrl: json['comments_url'] as String,
       eventsUrl: json['events_url'] as String,
       htmlUrl: json['html_url'] as String,
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       nodeId: json['node_id'] as String,
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       title: json['title'] as String,
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
       labels: (json['labels'] as List<dynamic>)
@@ -23,7 +23,7 @@ IssuesModel _$IssuesModelFromJson(Map<String, dynamic> json) => IssuesModel(
           .toList(),
       state: json['state'] as String,
       locked: json['locked'] as bool,
-      comments: json['comments'] as int,
+      comments: (json['comments'] as num).toInt(),
       createdAt: const YYYY_MM_dd_T_HH_mm_ss_Z_DateTimeConverter()
           .fromJson(json['created_at'] as String),
       updatedAt: const YYYY_MM_dd_T_HH_mm_ss_Z_DateTimeConverter()

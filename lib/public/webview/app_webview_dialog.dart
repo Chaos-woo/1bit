@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/webview/app_webview_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -13,6 +14,7 @@ Future<void> show_webview_dialog({
   required String url,
   String? title,
   BuildContext? context,
+  AppWebviewListener? onWebviewListener,
 
   /// 不需要webview导航的scheme
   List<String>? not_navigation_action_scheme,
@@ -33,6 +35,7 @@ Future<void> show_webview_dialog({
             url,
             title: title,
             not_navigation_action_scheme: not_navigation_action_scheme,
+            onWebviewListener: onWebviewListener,
           ),
         ),
       );
@@ -47,11 +50,15 @@ class AppWebviewDialog extends StatefulWidget {
   /// 不需要webview导航的scheme
   final List<String>? not_navigation_action_scheme;
 
+  /// 监听WebView的滚动事件
+  final AppWebviewListener? onWebviewListener;
+
   AppWebviewDialog(
     this.url, {
     super.key,
     this.title,
     this.not_navigation_action_scheme,
+    this.onWebviewListener,
   });
 
   @override
@@ -66,6 +73,8 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
     allowsInlineMediaPlayback: true,
     iframeAllow: "camera; microphone",
     iframeAllowFullscreen: true,
+    applicationNameForUserAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0',
   );
 
   PullToRefreshController? pullToRefreshController;
@@ -87,7 +96,6 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
         onRefresh: () async {
           // 仅使用了Android的加载
           webViewController?.reload();
-
           // if (defaultTargetPlatform == TargetPlatform.android) {
           //   webViewController?.reload();
           // } else if (defaultTargetPlatform == TargetPlatform.iOS) {
@@ -187,24 +195,15 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                       },
                                       onPermissionRequest: (controller, request) async {
                                         return PermissionResponse(
-                                            resources: request.resources,
-                                            action: PermissionResponseAction.GRANT);
+                                            resources: request.resources, action: PermissionResponseAction.GRANT);
                                       },
-                                      shouldOverrideUrlLoading:
-                                          (controller, navigationAction) async {
+                                      shouldOverrideUrlLoading: (controller, navigationAction) async {
                                         var uri = navigationAction.request.url!;
 
-                                        if (![
-                                          "http",
-                                          "https",
-                                          "file",
-                                          "chrome",
-                                          "data",
-                                          "javascript",
-                                          "about"
-                                        ].contains(uri.scheme)) {
+                                        if (!["http", "https", "file", "chrome", "data", "javascript", "about"]
+                                            .contains(uri.scheme)) {
                                           if ((widget.not_navigation_action_scheme ?? <String>[])
-                                              .containsCaseInsensitive(uri.scheme)) {
+                                              .contains_case_insensitive(uri.scheme)) {
                                             return NavigationActionPolicy.CANCEL;
                                           }
 
@@ -225,6 +224,10 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         setState(() {
                                           this.url = url.toString();
                                         });
+                                        // controller.evaluateJavascript(
+                                        //     source: "document.documentElement.scrollTo(0, 5000)");
+                                        // QKit.ui.toast.show('跳转到上次阅读位置');
+                                        widget.onWebviewListener?.onWebviewLoaded?.call(controller, url.toString());
                                       },
                                       onReceivedError: (controller, request, error) {
                                         pullToRefreshController?.endRefreshing();
@@ -246,6 +249,25 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         if (!QKitUtils.is_release_mode) {
                                           print(consoleMessage);
                                         }
+                                      },
+                                      onScrollChanged: (controller, x, y) async {
+                                        var get_total_height_command = "document.body.scrollHeight";
+                                        var get_scroll_top_height_command =
+                                            "document.documentElement.scrollTop || document.body.scrollTop";
+                                        controller
+                                            .evaluateJavascript(source: get_total_height_command)
+                                            .then((totalHeight) {
+                                          controller
+                                              .evaluateJavascript(source: get_scroll_top_height_command)
+                                              .then((clientHeight) {
+                                            if (totalHeight != null && clientHeight != null) {
+                                              double totalHeightDouble = totalHeight.toDouble();
+                                              double scrollTopDouble = clientHeight.toDouble();
+                                              widget.onWebviewListener?.onViewScrollChanged
+                                                  ?.call(controller, scrollTopDouble, totalHeightDouble);
+                                            }
+                                          });
+                                        });
                                       },
                                     ),
                                     progress < 1.0
@@ -336,6 +358,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                             size: 24,
                           ),
                           onPressed: () {
+                            widget.onWebviewListener?.onWebviewClosed?.call(url);
                             // 关闭dialog
                             QKit.route.back();
                           },

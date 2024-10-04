@@ -1,4 +1,5 @@
 import 'package:cw2bit/infrastructure/api/apis.dart';
+import 'package:cw2bit/infrastructure/database/ra1db.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,11 @@ void main() {
       AppPageRouter.initRoutePage();
     },
     initCompleted: () {
+      /// 初始化数据库
+      Ra1DBs.createDatabaseAndRepos();
+
       /// 初始化业务数据
-      Apis.initApis();
+      Apis.createApis();
     },
     afterRunAppProcessed: () {
       /// 配置easyloading配置
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-            title: '1bit',
+            title: 'R1bit',
             scrollBehavior: const CupertinoScrollBehavior(),
             themeMode: ThemeMode.light,
             initialRoute: rt_home,

@@ -4,7 +4,7 @@
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'app_hot_search_repo_content_model.g.dart';
+part 'hot_search_content_model.g.dart';
 
 /// Github content
 @JsonSerializable()

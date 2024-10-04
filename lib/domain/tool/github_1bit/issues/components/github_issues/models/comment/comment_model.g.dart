@@ -7,7 +7,7 @@ part of 'comment_model.dart';
 // **************************************************************************
 
 CommentModel _$CommentModelFromJson(Map<String, dynamic> json) => CommentModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       nodeId: json['node_id'] as String,
       url: json['url'] as String,
       htmlUrl: json['html_url'] as String,

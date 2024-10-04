@@ -7,7 +7,7 @@ part of 'github_label.dart';
 // **************************************************************************
 
 GithubLabel _$GithubLabelFromJson(Map<String, dynamic> json) => GithubLabel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       nodeId: json['node_id'] as String,
       url: json['url'] as String,
       name: json['name'] as String,

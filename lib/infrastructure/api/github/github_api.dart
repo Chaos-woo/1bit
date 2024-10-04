@@ -14,10 +14,10 @@ final class GithubApi extends GetxService {
 
   static GithubApi get singl => Get.find(tag: tag);
 
-  late IOApi _m_api;
+  late NetDioApi _m_api;
 
   GithubApi() {
-    _m_api = IOApi(
+    _m_api = NetDioApi(
       'https://api.github.com',
       interceptors: [GithubInterceptor()],
       dio_response_error_handle: [
@@ -89,7 +89,7 @@ final class GithubApi extends GetxService {
     return comments ?? [];
   }
 
-  /// 提交1个issues
+  /// 提交1个issues到指定仓
   Future<void> postIssues(
     String owner,
     String repo,
@@ -104,7 +104,7 @@ final class GithubApi extends GetxService {
     );
   }
 
-  /// 提交1条评论到指定issues
+  /// 提交1条评论到指定仓库的issues
   Future<void> postComment(String owner, String repo, int issues_number, String text) async {
     Map<String, dynamic> data = {'body': text};
     await _m_api.post(
@@ -124,7 +124,7 @@ final class GithubApi extends GetxService {
     );
   }
 
-  /// 获取仓库的内容
+  /// 列出指定路径下的内容，一般为罗列出文件夹下的所有内容，包含子文件夹和文件
   Future<List<GithubContent>> list_contents(String owner, String repo, String path) async {
     return await _m_api.get(
       '/repos/$owner/$repo/contents/$path',
@@ -132,7 +132,7 @@ final class GithubApi extends GetxService {
     );
   }
 
-  /// 获取仓库的内容
+  /// 获取指定路径下的内容，一般为文件内容
   Future<GithubContent> get_content(String owner, String repo, String path) async {
     return await _m_api.get(
       '/repos/$owner/$repo/contents/$path',

@@ -17,10 +17,10 @@ class HomepagePage extends StatelessWidget {
 
   /// 底部导航栏item
   final items = [
-    {'icon': Icons.token_outlined, 'label': '1Bit'},
-    {'icon': Icons.data_exploration_outlined, 'label': '朝闻道'},
-    {'icon': Icons.live_tv_rounded, 'label': 'TV.SO'},
-    {'icon': Icons.addchart_rounded, 'label': '数千签'},
+    {'icon': Icons.token_outlined, 'label': 'R.1ib'},
+    {'icon': Icons.data_exploration_outlined, 'label': '文字小站'},
+    {'icon': Icons.live_tv_rounded, 'label': '流媒体'},
+    {'icon': Icons.addchart_rounded, 'label': '标签站'},
   ];
 
   HomepagePage({Key? key}) : super(key: key);
@@ -46,22 +46,24 @@ class HomepagePage extends StatelessWidget {
           behaviour: SnakeBarBehaviour.floating,
           snakeShape: SnakeShape.circle,
           shape: const RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           ),
           // padding: const EdgeInsets.all(12),
           backgroundColor: Colors.white,
-          snakeViewColor: FlutterFlowTheme.of(context).primary,
+          snakeViewColor: FlutterFlowTheme.of(context).primary.withOpacity(0.8),
           selectedItemColor: null,
           unselectedItemColor: Colors.blueGrey,
           showUnselectedLabels: true,
           showSelectedLabels: true,
           currentIndex: logic.selected_index,
           onTap: (index) => logic.update_page_index(index),
-          height: 55,
+          height: 45,
           items: items.map((item) {
             return BottomNavigationBarItem(
-                icon: Icon(item['icon'] as IconData), label: item['label'] as String);
+                icon: Icon(
+              item['icon'] as IconData,
+              size: 18,
+            ));
           }).toList(),
         );
       }),

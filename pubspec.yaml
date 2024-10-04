@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.2.0
+version: 0.2.1
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -107,6 +107,10 @@ dependencies:
   flutter_hooks: ^0.20.5
   # 底部导航栏
   flutter_snake_navigationbar: ^0.6.1
+  # 数据库
+  drift_model_generator: ^0.7.0
+  drift: ^2.19.0
+  drift_flutter: '>=0.1.0 <0.2.0'
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本
@@ -120,10 +124,11 @@ dev_dependencies:
     sdk: flutter
 #  flutter_lints: ^3.0.0
   # json序列化/反序列化代码生成处理器
-  json_serializable: 6.6.2
+  json_serializable: ^6.8.0
   # flutter packages pub run build_runner build --delete-conflicting-outputs
   build_runner: any #^2.1.11
   build_runner_core: ^7.2.9
+  drift_dev: ^2.19.1
 
 # dart脚本运行IDE插件
 scripts:

@@ -48,9 +48,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                           issues.createdAt,
                           format: c_issues_date_time_format,
                         ),
-                        style: FlutterFlowTheme.of(context)
-                            .labelSmall
-                            .override(letterSpacing: 0, color: Colors.grey),
+                        style: FlutterFlowTheme.of(context).labelSmall.override(letterSpacing: 0, color: Colors.grey),
                       ),
                     ),
                   ],
@@ -69,9 +67,8 @@ class IssuesDetailCompWidget extends StatelessWidget {
                       height: 20,
                       padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
                       iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      color: c_issues_state_open.isCaseInsensitiveContains(issues.state)
-                          ? Color(0xFFFF5353)
-                          : Colors.blue,
+                      color:
+                          c_issues_state_open.isCaseInsensitiveContains(issues.state) ? Color(0xFFFF5353) : Colors.blue,
                       textStyle: FlutterFlowTheme.of(context).labelSmall.override(
                             color: Colors.white,
                             fontSize: 12,
@@ -146,7 +143,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                       height: 20,
                       padding: EdgeInsetsDirectional.fromSTEB(3, 0, 3, 0),
                       iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      color: label.color.toColor,
+                      color: label.color.to_color,
                       textStyle: FlutterFlowTheme.of(context).labelSmall.override(
                             color: Colors.white,
                             fontSize: 12,

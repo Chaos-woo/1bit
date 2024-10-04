@@ -8,7 +8,7 @@ part of 'hot_search_model.dart';
 
 HotSearchModel _$HotSearchModelFromJson(Map<String, dynamic> json) =>
     HotSearchModel(
-      index: json['index'] as int,
+      index: (json['index'] as num).toInt(),
       content: json['content'] as String,
       url: json['url'] as String,
     );

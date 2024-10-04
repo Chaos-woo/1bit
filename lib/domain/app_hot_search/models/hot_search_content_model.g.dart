@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_hot_search_repo_content_model.dart';
+part of 'hot_search_content_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -12,7 +12,7 @@ AppHotSearchRepoContentModel _$AppHotSearchRepoContentModelFromJson(
       name: json['name'] as String,
       path: json['path'] as String,
       sha: json['sha'] as String,
-      size: json['size'] as int,
+      size: (json['size'] as num).toInt(),
       url: json['url'] as String,
       htmlUrl: json['html_url'] as String,
       gitUrl: json['git_url'] as String,
