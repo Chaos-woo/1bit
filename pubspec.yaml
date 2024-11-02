@@ -111,6 +111,8 @@ dependencies:
   drift_model_generator: ^0.7.0
   drift: ^2.19.0
   drift_flutter: '>=0.1.0 <0.2.0'
+  # 可拖拽列表
+  animated_reorderable_list: ^1.1.1
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本

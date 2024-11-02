@@ -111,16 +111,16 @@ class ToolHomepagePage extends StatelessWidget {
                         ToolGroupItemRouter(
                           title: '1bit Github issues',
                           subtitle: 'Github仓库issues',
-                          type: ToolGroupItemType.router,
+                          type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          onTap: () => {QKit.route.to(rt_toolGithubIssuesHome)},
+                          on_tap: () => {QKit.route.to(rt_tool_github_issues_home)},
                         ),
                         ToolGroupItemRouter(
                           title: '疑问随手记',
                           subtitle: '想法，BUG，改进点记录（本地）',
-                          type: ToolGroupItemType.router,
+                          type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          onTap: () async {},
+                          on_tap: () async {},
                         ),
                       ],
                     ),
@@ -135,9 +135,9 @@ class ToolHomepagePage extends StatelessWidget {
                         ToolGroupItemRouter(
                           title: 'FlutterFlow 测试库',
                           subtitle: 'FlutterFlow的组件测试合集',
-                          type: ToolGroupItemType.router,
+                          type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.flourescent_rounded),
-                          onTap: () => QKit.route.to(rt_toolFlutterFlowHome),
+                          on_tap: () => QKit.route.to(rt_tool_flutter_flow_home),
                         )
                       ],
                     ),
@@ -152,9 +152,9 @@ class ToolHomepagePage extends StatelessWidget {
                         ToolGroupItemRouter(
                           title: 'OCR-文字识别',
                           subtitle: 'Google ML-Kit识别工具',
-                          type: ToolGroupItemType.router,
+                          type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.content_paste_search_rounded),
-                          onTap: () => QKit.route.to(rt_publicTextOcr),
+                          on_tap: () => QKit.route.to(rt_publicTextOcr),
                         )
                       ],
                     ),

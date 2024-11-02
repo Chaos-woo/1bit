@@ -38,7 +38,7 @@ class GithubContent {
 
   /// type
   @GithubContentTypeConverter()
-  GithubContentTypeEnum type;
+  EnumGithubContentType type;
 
   /// content
   String? content;

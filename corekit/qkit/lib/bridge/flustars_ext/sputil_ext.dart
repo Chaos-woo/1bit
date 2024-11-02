@@ -22,8 +22,7 @@ class SpUtilBridge {
   }
 
   /// get obj list.
-  List<T>? getObjList<T>(String key, T Function(Map v) converter,
-      {List<T>? defValue = const []}) {
+  List<T>? getObjList<T>(String key, T Function(Map v) converter, {List<T>? defValue = const []}) {
     return SpUtil.getObjList(key, converter, defValue: defValue);
   }
 
@@ -73,9 +72,8 @@ class SpUtilBridge {
   }
 
   /// get string list.
-  List<String>? getStringList(String key,
-      {List<String>? defValue = const []}) {
-    return SpUtil.getStringList(key, defValue: defValue);
+  List<String>? getStringList(String key, {List<String>? default_value = const []}) {
+    return SpUtil.getStringList(key, defValue: default_value);
   }
 
   /// put string list.

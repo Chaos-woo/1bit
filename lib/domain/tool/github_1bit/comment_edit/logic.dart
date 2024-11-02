@@ -21,7 +21,7 @@ class Github1bitCommentEditLogic extends GetxController {
       return false;
     }
 
-    await Apis.github.postComment(
+    await Apis.github.post_comment(
       state.owner,
       state.repo,
       state.issuesModel.number,

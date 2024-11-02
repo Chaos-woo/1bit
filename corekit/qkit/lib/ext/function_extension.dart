@@ -84,12 +84,12 @@ extension FutureExt on Future {
 
   /// 超时节流：超时时间后，响应下一次的调用，无论前一次调用是否已完成
   Future<void> throttleWithTimeout({
-    int? timeoutMs,
+    int? timeout_mill,
     Function(dynamic value)? onCompleted,
     Function(dynamic error)? onError,
     Function? onNotComplete,
   }) async {
-    await FutureProxy(this, timeoutMs: timeoutMs).throttleWithTimeout(
+    await FutureProxy(this, timeoutMs: timeout_mill).throttleWithTimeout(
       onCompleted: onCompleted,
       onError: onError,
       onNotComplete: onNotComplete,

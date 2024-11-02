@@ -67,7 +67,7 @@ class IssuesCommentCompWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Bit1Ui.expandableText(
+                    child: R1Ui.text.expandable_text(
                       comment.body,
                       textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                             letterSpacing: 0,

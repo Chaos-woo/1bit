@@ -17,10 +17,11 @@ class HomepagePage extends StatelessWidget {
 
   /// 底部导航栏item
   final items = [
-    {'icon': Icons.token_outlined, 'label': 'R.1ib'},
-    {'icon': Icons.data_exploration_outlined, 'label': '文字小站'},
-    {'icon': Icons.live_tv_rounded, 'label': '流媒体'},
-    {'icon': Icons.addchart_rounded, 'label': '标签站'},
+    {'icon': Icons.token_outlined, 'label': 'Cr-1bi'},
+    {'icon': Icons.connect_without_contact_rounded, 'label': 'Connector'},
+    {'icon': Icons.videogame_asset_rounded, 'label': 'Gaming'},
+    {'icon': Icons.ondemand_video_rounded, 'label': 'Live'},
+    {'icon': Icons.book_outlined, 'label': 'Tags'},
   ];
 
   HomepagePage({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class HomepagePage extends StatelessWidget {
             TextbookHomepagePage(),
             Container(),
             Container(),
+            Container(),
           ],
         );
       }),
@@ -50,20 +52,22 @@ class HomepagePage extends StatelessWidget {
           ),
           // padding: const EdgeInsets.all(12),
           backgroundColor: Colors.white,
-          snakeViewColor: FlutterFlowTheme.of(context).primary.withOpacity(0.8),
+          snakeViewColor: FlutterFlowTheme.of(context).primary.withOpacity(0.9),
           selectedItemColor: null,
           unselectedItemColor: Colors.blueGrey,
           showUnselectedLabels: true,
           showSelectedLabels: true,
           currentIndex: logic.selected_index,
           onTap: (index) => logic.update_page_index(index),
-          height: 45,
+          height: 50,
           items: items.map((item) {
             return BottomNavigationBarItem(
-                icon: Icon(
-              item['icon'] as IconData,
-              size: 18,
-            ));
+              icon: Icon(
+                item['icon'] as IconData,
+                size: 18,
+              ),
+              label: item['label'] as String,
+            );
           }).toList(),
         );
       }),

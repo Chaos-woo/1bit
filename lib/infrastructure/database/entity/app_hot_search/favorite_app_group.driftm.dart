@@ -10,7 +10,8 @@ part of "favorite_app_group.dart";
 class FavoriteAppGroups extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
-  DateTimeColumn get createTime => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get create_time =>
+      dateTime().withDefault(currentDateAndTime)();
   IntColumn get order => integer().withDefault(const Constant(0))();
 }
 
@@ -23,8 +24,8 @@ extension FavoriteAppGroupsDriftModelGeneratorExtension on FavoriteAppGroup {
     return FavoriteAppGroupsCompanion(
       id: _passNullableInput('id', id, allowNulls, false),
       name: _passNullableInput('name', name, allowNulls, false),
-      createTime:
-          _passNullableInput('createTime', createTime, allowNulls, false),
+      create_time:
+          _passNullableInput('create_time', create_time, allowNulls, false),
       order: _passNullableInput('order', order, allowNulls, false),
     );
   }

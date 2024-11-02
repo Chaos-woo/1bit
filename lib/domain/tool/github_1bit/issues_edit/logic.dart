@@ -24,7 +24,7 @@ class Github1bitIssuesEditLogic extends GetxController {
 
   @override
   void onReady() async {
-    List<GithubLabel> labels = await Apis.github.listLabels(state.owner, state.repo);
+    List<GithubLabel> labels = await Apis.github.list_labels(state.owner, state.repo);
     state.setRepoLabels(labels);
     labelChoiceKey.currentState?.refreshState();
   }
@@ -69,7 +69,7 @@ class Github1bitIssuesEditLogic extends GetxController {
       return false;
     }
 
-    await Apis.github.postIssues(
+    await Apis.github.post_issues(
       state.owner,
       state.repo,
       titleTextEditingController.text,

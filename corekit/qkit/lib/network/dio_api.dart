@@ -57,12 +57,9 @@ class NetDioApi {
       _dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
     }
 
-    _io_error_handle =
-        (null == dio_error_handle || dio_error_handle.isEmpty) ? [] : dio_error_handle;
+    _io_error_handle = (null == dio_error_handle || dio_error_handle.isEmpty) ? [] : dio_error_handle;
     _io_response_error_handle =
-        (null == dio_response_error_handle || dio_response_error_handle.isEmpty)
-            ? []
-            : dio_response_error_handle;
+        (null == dio_response_error_handle || dio_response_error_handle.isEmpty) ? [] : dio_response_error_handle;
   }
 
   RequestOption get base_http_option => _base_http_option.copyWith();
@@ -107,17 +104,11 @@ class NetDioApi {
         options: options,
       );
 
-      return null != object_convertor
-          ? object_convertor.call(RawData(response.data))
-          : RawData(response.data);
+      return null != object_convertor ? object_convertor.call(RawData(response.data)) : RawData(response.data);
     } catch (ex) {
       if (ex is DioError) {
-        if ([
-          DioErrorType.cancel,
-          DioErrorType.connectTimeout,
-          DioErrorType.sendTimeout,
-          DioErrorType.receiveTimeout
-        ].contains(ex.type)) {
+        if ([DioErrorType.cancel, DioErrorType.connectTimeout, DioErrorType.sendTimeout, DioErrorType.receiveTimeout]
+            .contains(ex.type)) {
           DioErrorHandle error_handle = _io_error_handle.firstWhere(
             (handle) => handle.match(ex.type),
             orElse: () => DefaultDioErrorHandle(),
@@ -126,12 +117,9 @@ class NetDioApi {
           return null;
         } else if (ex.type == DioErrorType.response) {
           if (null == ex.response) {
-            ContinuePaasErrorSelection? pass_selection =
-                (default_io_response_error_handle ?? DefaultDioResponseErrorHandle())
-                    .handle
-                    ?.call(ex.message);
-            if ((pass_selection ?? ContinuePaasErrorSelection.no) ==
-                ContinuePaasErrorSelection.yes) {
+            EnumContinuePaasErrorSelection? pass_selection =
+                (default_io_response_error_handle ?? DefaultDioResponseErrorHandle()).handle?.call(ex.message);
+            if ((pass_selection ?? EnumContinuePaasErrorSelection.no) == EnumContinuePaasErrorSelection.yes) {
               rethrow;
             } else {
               return null;
@@ -142,8 +130,8 @@ class NetDioApi {
             (handle) => handle.match(ex.response!.statusCode!),
             orElse: () => DefaultDioResponseErrorHandle(),
           );
-          ContinuePaasErrorSelection? pass_selection = error_handle.handle?.call(ex.message);
-          if ((pass_selection ?? ContinuePaasErrorSelection.no) == ContinuePaasErrorSelection.yes) {
+          EnumContinuePaasErrorSelection? pass_selection = error_handle.handle?.call(ex.message);
+          if ((pass_selection ?? EnumContinuePaasErrorSelection.no) == EnumContinuePaasErrorSelection.yes) {
             rethrow;
           } else {
             return null;

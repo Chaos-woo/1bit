@@ -65,29 +65,33 @@ class ToolGroupComponent extends StatelessWidget {
     );
   }
 
-  Widget buildItem(ToolGroupItem toolItem, BuildContext context) {
-    Widget itemWidget;
-    switch (toolItem.type) {
-      case ToolGroupItemType.router:
-        itemWidget = buildRouterItem(context, toolItem as ToolGroupItemRouter);
-      case ToolGroupItemType.display:
-        itemWidget = buildDisplayItem(context, toolItem);
-      case ToolGroupItemType.switcher:
-        itemWidget = buildSwitcherItem(context, toolItem as ToolGroupItemSwitcher);
+  Widget buildItem(ToolGroupItem item, BuildContext context) {
+    Widget widget;
+    switch (item.type) {
+      case EnumToolGroupItemType.router:
+        widget = build_router_item(context, item as ToolGroupItemRouter);
+      case EnumToolGroupItemType.display:
+        widget = build_display_item(context, item);
+      case EnumToolGroupItemType.switcher:
+        widget = build_switcher_item(context, item as ToolGroupItemSwitcher);
+      case EnumToolGroupItemType.clicker:
+        widget = build_clicker_item(context, item as ToolGroupItemClicker);
     }
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-      child: itemWidget,
+      child: widget,
     );
   }
 
-  ListTile buildDisplayItem(BuildContext context, ToolGroupItem item) {
+  ListTile build_display_item(BuildContext context, ToolGroupItem item) {
     return ListTile(
       leading: item.icon,
       title: Text(
         item.title,
         style: FlutterFlowTheme.of(context).titleLarge.override(
+              fontSize: 18,
               letterSpacing: 0,
+              fontWeight: FontWeight.w600,
             ),
       ),
       subtitle: Text(
@@ -101,7 +105,35 @@ class ToolGroupComponent extends StatelessWidget {
     );
   }
 
-  ListTile buildSwitcherItem(BuildContext context, ToolGroupItemSwitcher switcher) {
+  ListTile build_clicker_item(BuildContext context, ToolGroupItemClicker item) {
+    return ListTile(
+      leading: item.icon,
+      title: Text(
+        item.title,
+        style: FlutterFlowTheme.of(context).titleLarge.override(
+              fontSize: 18,
+              letterSpacing: 0,
+              fontWeight: FontWeight.w600,
+            ),
+      ),
+      subtitle: Text(
+        item.subtitle,
+        style: FlutterFlowTheme.of(context).labelSmall.override(
+              letterSpacing: 0,
+            ),
+      ),
+      trailing: Icon(
+        Icons.settings_backup_restore_rounded,
+        color: FlutterFlowTheme.of(context).secondaryText,
+        size: 16,
+      ),
+      tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+      dense: false,
+      onTap: () async => await item.on_tap?.call(),
+    );
+  }
+
+  ListTile build_switcher_item(BuildContext context, ToolGroupItemSwitcher switcher) {
     return ListTile(
       leading: switcher.icon,
       trailing: Obx(() => SwitchListTile.adaptive(
@@ -133,14 +165,14 @@ class ToolGroupComponent extends StatelessWidget {
     );
   }
 
-  InkWell buildRouterItem(BuildContext context, ToolGroupItemRouter router) {
+  InkWell build_router_item(BuildContext context, ToolGroupItemRouter router) {
     return InkWell(
       splashColor: Colors.transparent,
       focusColor: Colors.transparent,
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () async {
-        router.onTap?.call();
+        router.on_tap?.call();
       },
       child: ListTile(
         leading: router.icon,

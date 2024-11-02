@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
+import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -55,7 +56,8 @@ class TodayHotSearchPage extends StatelessWidget {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          /// TODO：跳转设置页
+                          /// 跳转设置页
+                          await QKit.route.to(rt_news_apphotsearch_settings_home);
                         },
                         child: Container(
                           decoration: BoxDecoration(),
@@ -103,14 +105,22 @@ class TodayHotSearchPage extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(-1, 0),
-                                    child: Text(
-                                      '组',
-                                      style: FlutterFlowTheme.of(context).bodySmall.override(
-                                            letterSpacing: 0.0,
-                                          ),
+                                  InkWell(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          '组',
+                                          style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
                                     ),
+                                    onTap: () async {
+                                      await logic.m_refresh_group_apps_and_hot_search_list();
+                                    },
                                   ),
                                   for (var group in state.favorite_app_groups)
                                     InkWell(
@@ -125,7 +135,9 @@ class TodayHotSearchPage extends StatelessWidget {
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context).secondary,
+                                          color: state.group_id == group.id
+                                              ? FlutterFlowTheme.of(context).secondary
+                                              : FlutterFlowTheme.of(context).primaryBackground,
                                           borderRadius: BorderRadius.circular(4),
                                         ),
                                         child: Padding(
@@ -137,9 +149,13 @@ class TodayHotSearchPage extends StatelessWidget {
                                               Text(
                                                 group.name,
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                      color: Colors.white,
+                                                      color: state.group_id == group.id
+                                                          ? Colors.white
+                                                          : FlutterFlowTheme.of(context).primaryText,
                                                       letterSpacing: 0.0,
                                                     ),
+                                                overflow: TextOverflow.clip,
+                                                maxLines: 1,
                                               )
                                             ],
                                           ),
@@ -193,7 +209,7 @@ class TodayHotSearchPage extends StatelessWidget {
                                               onTap: () async {
                                                 /// 切换app，刷新热搜列表
                                                 await logic.fetch_app_hot_search_list_noUi(app).throttleWithTimeout(
-                                                    timeoutMs: 3000,
+                                                    timeout_mill: 3000,
                                                     onCompleted: (_) {
                                                       logic.update([
                                                         logic.k_app_scroll_view_view_id,

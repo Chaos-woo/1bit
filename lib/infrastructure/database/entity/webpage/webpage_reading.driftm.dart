@@ -10,12 +10,15 @@ part of "webpage_reading.dart";
 class WebpageReadings extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get url => text()();
-  DateTimeColumn get createTime => dateTime().withDefault(currentDateAndTime)();
-  DateTimeColumn get updateTime => dateTime().withDefault(currentDateAndTime)();
-  RealColumn get readingScrollTop => real().withDefault(const Constant(0.0))();
-  RealColumn get readingProgress => real().withDefault(const Constant(0.0))();
+  DateTimeColumn get create_time =>
+      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get update_time =>
+      dateTime().withDefault(currentDateAndTime)();
+  RealColumn get reading_scroll_top =>
+      real().withDefault(const Constant(0.0))();
+  RealColumn get reading_progress => real().withDefault(const Constant(0.0))();
   TextColumn get app => text().withDefault(const Constant(""))();
-  TextColumn get articleAnalysis => text().nullable()();
+  TextColumn get article_analysis => text().nullable()();
   TextColumn get source => text().nullable()();
 }
 
@@ -28,17 +31,17 @@ extension WebpageReadingsDriftModelGeneratorExtension on WebpageReading {
     return WebpageReadingsCompanion(
       id: _passNullableInput('id', id, allowNulls, false),
       url: _passNullableInput('url', url, allowNulls, false),
-      createTime:
-          _passNullableInput('createTime', createTime, allowNulls, false),
-      updateTime:
-          _passNullableInput('updateTime', updateTime, allowNulls, false),
-      readingScrollTop: _passNullableInput(
-          'readingScrollTop', readingScrollTop, allowNulls, false),
-      readingProgress: _passNullableInput(
-          'readingProgress', readingProgress, allowNulls, false),
+      create_time:
+          _passNullableInput('create_time', create_time, allowNulls, false),
+      update_time:
+          _passNullableInput('update_time', update_time, allowNulls, false),
+      reading_scroll_top: _passNullableInput(
+          'reading_scroll_top', reading_scroll_top, allowNulls, false),
+      reading_progress: _passNullableInput(
+          'reading_progress', reading_progress, allowNulls, false),
       app: _passNullableInput('app', app, allowNulls, false),
-      articleAnalysis: _passNullableInput(
-          'articleAnalysis', articleAnalysis, allowNulls, true),
+      article_analysis: _passNullableInput(
+          'article_analysis', article_analysis, allowNulls, true),
       source: _passNullableInput('source', source, allowNulls, true),
     );
   }

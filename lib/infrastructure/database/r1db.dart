@@ -9,17 +9,17 @@ import 'package:get/get.dart' hide Value;
 
 import 'entity/webpage/webpage_repo.dart';
 
-part 'ra1db.g.dart';
+part 'r1db.g.dart';
 
 /// 数据库管理器
-final class Ra1DBs {
+final class R1DatabaseMgr {
   /// 数据库实例
   static AppDatabase get singl => Get.find(tag: AppDatabase.tag);
 
   /// 数据库仓库
   static _Repos get repos => _Repos.singl;
 
-  Ra1DBs._();
+  R1DatabaseMgr._();
 
   static void createDatabaseAndRepos() {
     /// 初始化数据库

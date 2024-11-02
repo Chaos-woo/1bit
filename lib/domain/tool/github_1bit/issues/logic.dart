@@ -26,7 +26,7 @@ class Github1bitIssuesLogic extends GetxController {
 
   @override
   void onReady() async {
-    List<GithubLabel> labels = await Apis.github.listLabels(state.owner, state.repo);
+    List<GithubLabel> labels = await Apis.github.list_labels(state.owner, state.repo);
     state.setRepoLabels(labels);
 
     drawerKey.currentState?.refresh_state();

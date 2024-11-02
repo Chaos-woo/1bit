@@ -1,4 +1,4 @@
-import 'package:cw2bit/infrastructure/database/ra1db.dart';
+import 'package:cw2bit/infrastructure/database/r1db.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_model_generator/drift_model_generator.dart';
 
@@ -17,21 +17,21 @@ class WebpageReading {
 
   @WithDefault('now()')
   @NotNull()
-  final DateTime createTime;
+  final DateTime create_time;
 
   @WithDefault('now()')
   @NotNull()
-  final DateTime updateTime;
+  final DateTime update_time;
 
   /// 网页阅读进度，用于记录网页的阅读进度，单位为像素px，用于JS代码执行滚动条滚动
   @WithDefault(0.0)
   @NotNull()
-  final double readingScrollTop;
+  final double reading_scroll_top;
 
   /// 网页阅读进度，用于记录网页的阅读进度，单位为百分比%，与readingScrollTop配合计算获得网页的总Y轴长度
   @WithDefault(0.0)
   @NotNull()
-  final double readingProgress;
+  final double reading_progress;
 
   /// 特殊的冗余数据，用于区分不同app的记录
   /// 一般来说，用于表示该网页所属的应用
@@ -40,7 +40,7 @@ class WebpageReading {
   final String app;
 
   /// 网页文章分析，用于记录网页的内容阅读和分析情况
-  final String? articleAnalysis;
+  final String? article_analysis;
 
   /// URL来源，一般来说是获得这个URL的来源地址
   final String? source;
@@ -48,12 +48,12 @@ class WebpageReading {
   WebpageReading({
     required this.id,
     required this.url,
-    required this.createTime,
-    required this.updateTime,
-    required this.readingScrollTop,
-    required this.readingProgress,
+    required this.create_time,
+    required this.update_time,
+    required this.reading_scroll_top,
+    required this.reading_progress,
     required this.app,
-    required this.articleAnalysis,
+    required this.article_analysis,
     required this.source,
   });
 }

@@ -1,5 +1,5 @@
 import 'package:cw2bit/infrastructure/api/apis.dart';
-import 'package:cw2bit/infrastructure/database/ra1db.dart';
+import 'package:cw2bit/infrastructure/database/r1db.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,11 @@ void main() {
     },
     initCompleted: () {
       /// 初始化数据库
-      Ra1DBs.createDatabaseAndRepos();
+      R1DatabaseMgr.createDatabaseAndRepos();
 
       /// 初始化业务数据
       Apis.createApis();
+      Apis.initServices();
     },
     afterRunAppProcessed: () {
       /// 配置easyloading配置

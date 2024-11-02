@@ -38,12 +38,16 @@ class TodayHotSearchLogic extends GetxController {
     await _init_app_list();
   }
 
+  Future<void> m_refresh_group_apps_and_hot_search_list() async {
+    await _init_app_list();
+  }
+
   Future<void> _init_app_list() async {
     /// 获取APP组列表
-    var f_groups = HotSearchRepo.singl.listGroups();
+    var f_groups = HotSearchRepo.singl.list_groups();
 
     /// 获取本地APP列表
-    var f_apps = HotSearchRepo.singl.listApps();
+    var f_apps = HotSearchRepo.singl.list_apps();
 
     /// 获取”全部”组的APP列表
     var f_all_apps = fetch_app_list_noUi();
@@ -58,16 +62,16 @@ class TodayHotSearchLogic extends GetxController {
       state.group_id = -1;
       state.favorite_app_group = LocalAppGroups.from([
         LocalAppGroup(
-          group: FavoriteAppGroup(name: '全部', order: -1, id: -1, createTime: DateTime.now()),
+          group: FavoriteAppGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now()),
           apps: all_apps
-              .map((e) => FavoriteApp(id: -1, name: e, createTime: DateTime.now(), groupId: -1, order: -1))
+              .map((e) => FavoriteApp(id: -1, name: e, create_time: DateTime.now(), group_id: -1, order: -1))
               .toList(),
         ),
         ...groups
             .map(
               (e) => LocalAppGroup(
                 group: e,
-                apps: apps.where((app) => app.groupId == e.id).toList(),
+                apps: apps.where((app) => app.group_id == e.id).toList(),
               ),
             )
             .toList(),
@@ -87,7 +91,7 @@ class TodayHotSearchLogic extends GetxController {
     }
 
     /// 将阅读进度double小数保留两位
-    double reading_progress = reading.readingProgress.toStringAsFixed(2) as double;
+    double reading_progress = reading.reading_progress.toStringAsFixed(2) as double;
     int be_read = min((reading_progress * 100).toInt(), 100);
     be_read = be_read > 92 ? 100 : be_read;
     return (be_read, 100 - be_read);
@@ -115,7 +119,7 @@ class TodayHotSearchLogic extends GetxController {
   /// 获取最后阅读的URL
   String? get_last_read_url() {
     var history = state.webpage_reading_history.webpages;
-    history.sort((a, b) => b.updateTime.compareTo(a.updateTime));
+    history.sort((a, b) => b.update_time.compareTo(a.update_time));
     if (history.isEmpty) {
       return null;
     }
@@ -127,14 +131,15 @@ class TodayHotSearchLogic extends GetxController {
     List<FavoriteApp> apps = state.favorite_apps_by_group_id(group_id);
     state.app = '';
     state.apps = apps.map((e) => e.name).toList();
+    state.group_id = group_id;
   }
 
   Future<List<String>> fetch_app_list_noUi() async {
     List<GithubContent> contents =
-        await Apis.github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, 'archives');
+        await Apis.github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, c_hot_search_repo_root_dir);
     List<String> apps = contents
         // 过滤出项目中目录类型的内容，即APP，APP的归档内容都被放置到对应的APP目录下
-        .where((content) => GithubContentTypeEnum.dir == content.type)
+        .where((content) => EnumGithubContentType.dir == content.type)
         .map((content) => content.name)
         .toList();
     return Future.value(apps);

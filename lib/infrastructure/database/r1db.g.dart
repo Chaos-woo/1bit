@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ra1db.dart';
+part of 'r1db.dart';
 
 // ignore_for_file: type=lint
 class $WebpageReadingsTable extends WebpageReadings
@@ -23,34 +23,34 @@ class $WebpageReadingsTable extends WebpageReadings
   late final GeneratedColumn<String> url = GeneratedColumn<String>(
       'url', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createTimeMeta =
-      const VerificationMeta('createTime');
+  static const VerificationMeta _create_timeMeta =
+      const VerificationMeta('create_time');
   @override
-  late final GeneratedColumn<DateTime> createTime = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<DateTime> create_time = GeneratedColumn<DateTime>(
       'create_time', aliasedName, false,
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
-  static const VerificationMeta _updateTimeMeta =
-      const VerificationMeta('updateTime');
+  static const VerificationMeta _update_timeMeta =
+      const VerificationMeta('update_time');
   @override
-  late final GeneratedColumn<DateTime> updateTime = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<DateTime> update_time = GeneratedColumn<DateTime>(
       'update_time', aliasedName, false,
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
-  static const VerificationMeta _readingScrollTopMeta =
-      const VerificationMeta('readingScrollTop');
+  static const VerificationMeta _reading_scroll_topMeta =
+      const VerificationMeta('reading_scroll_top');
   @override
-  late final GeneratedColumn<double> readingScrollTop = GeneratedColumn<double>(
-      'reading_scroll_top', aliasedName, false,
-      type: DriftSqlType.double,
-      requiredDuringInsert: false,
-      defaultValue: const Constant(0.0));
-  static const VerificationMeta _readingProgressMeta =
-      const VerificationMeta('readingProgress');
+  late final GeneratedColumn<double> reading_scroll_top =
+      GeneratedColumn<double>('reading_scroll_top', aliasedName, false,
+          type: DriftSqlType.double,
+          requiredDuringInsert: false,
+          defaultValue: const Constant(0.0));
+  static const VerificationMeta _reading_progressMeta =
+      const VerificationMeta('reading_progress');
   @override
-  late final GeneratedColumn<double> readingProgress = GeneratedColumn<double>(
+  late final GeneratedColumn<double> reading_progress = GeneratedColumn<double>(
       'reading_progress', aliasedName, false,
       type: DriftSqlType.double,
       requiredDuringInsert: false,
@@ -62,10 +62,10 @@ class $WebpageReadingsTable extends WebpageReadings
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultValue: const Constant(""));
-  static const VerificationMeta _articleAnalysisMeta =
-      const VerificationMeta('articleAnalysis');
+  static const VerificationMeta _article_analysisMeta =
+      const VerificationMeta('article_analysis');
   @override
-  late final GeneratedColumn<String> articleAnalysis = GeneratedColumn<String>(
+  late final GeneratedColumn<String> article_analysis = GeneratedColumn<String>(
       'article_analysis', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _sourceMeta = const VerificationMeta('source');
@@ -77,12 +77,12 @@ class $WebpageReadingsTable extends WebpageReadings
   List<GeneratedColumn> get $columns => [
         id,
         url,
-        createTime,
-        updateTime,
-        readingScrollTop,
-        readingProgress,
+        create_time,
+        update_time,
+        reading_scroll_top,
+        reading_progress,
         app,
-        articleAnalysis,
+        article_analysis,
         source
       ];
   @override
@@ -106,27 +106,27 @@ class $WebpageReadingsTable extends WebpageReadings
     }
     if (data.containsKey('create_time')) {
       context.handle(
-          _createTimeMeta,
-          createTime.isAcceptableOrUnknown(
-              data['create_time']!, _createTimeMeta));
+          _create_timeMeta,
+          create_time.isAcceptableOrUnknown(
+              data['create_time']!, _create_timeMeta));
     }
     if (data.containsKey('update_time')) {
       context.handle(
-          _updateTimeMeta,
-          updateTime.isAcceptableOrUnknown(
-              data['update_time']!, _updateTimeMeta));
+          _update_timeMeta,
+          update_time.isAcceptableOrUnknown(
+              data['update_time']!, _update_timeMeta));
     }
     if (data.containsKey('reading_scroll_top')) {
       context.handle(
-          _readingScrollTopMeta,
-          readingScrollTop.isAcceptableOrUnknown(
-              data['reading_scroll_top']!, _readingScrollTopMeta));
+          _reading_scroll_topMeta,
+          reading_scroll_top.isAcceptableOrUnknown(
+              data['reading_scroll_top']!, _reading_scroll_topMeta));
     }
     if (data.containsKey('reading_progress')) {
       context.handle(
-          _readingProgressMeta,
-          readingProgress.isAcceptableOrUnknown(
-              data['reading_progress']!, _readingProgressMeta));
+          _reading_progressMeta,
+          reading_progress.isAcceptableOrUnknown(
+              data['reading_progress']!, _reading_progressMeta));
     }
     if (data.containsKey('app')) {
       context.handle(
@@ -134,9 +134,9 @@ class $WebpageReadingsTable extends WebpageReadings
     }
     if (data.containsKey('article_analysis')) {
       context.handle(
-          _articleAnalysisMeta,
-          articleAnalysis.isAcceptableOrUnknown(
-              data['article_analysis']!, _articleAnalysisMeta));
+          _article_analysisMeta,
+          article_analysis.isAcceptableOrUnknown(
+              data['article_analysis']!, _article_analysisMeta));
     }
     if (data.containsKey('source')) {
       context.handle(_sourceMeta,
@@ -155,17 +155,17 @@ class $WebpageReadingsTable extends WebpageReadings
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       url: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}url'])!,
-      createTime: attachedDatabase.typeMapping
+      create_time: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}create_time'])!,
-      updateTime: attachedDatabase.typeMapping
+      update_time: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}update_time'])!,
-      readingScrollTop: attachedDatabase.typeMapping.read(
+      reading_scroll_top: attachedDatabase.typeMapping.read(
           DriftSqlType.double, data['${effectivePrefix}reading_scroll_top'])!,
-      readingProgress: attachedDatabase.typeMapping.read(
+      reading_progress: attachedDatabase.typeMapping.read(
           DriftSqlType.double, data['${effectivePrefix}reading_progress'])!,
       app: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}app'])!,
-      articleAnalysis: attachedDatabase.typeMapping.read(
+      article_analysis: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}article_analysis']),
       source: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}source']),
@@ -181,55 +181,55 @@ class $WebpageReadingsTable extends WebpageReadings
 class WebpageReadingsCompanion extends UpdateCompanion<WebpageReading> {
   final Value<int> id;
   final Value<String> url;
-  final Value<DateTime> createTime;
-  final Value<DateTime> updateTime;
-  final Value<double> readingScrollTop;
-  final Value<double> readingProgress;
+  final Value<DateTime> create_time;
+  final Value<DateTime> update_time;
+  final Value<double> reading_scroll_top;
+  final Value<double> reading_progress;
   final Value<String> app;
-  final Value<String?> articleAnalysis;
+  final Value<String?> article_analysis;
   final Value<String?> source;
   const WebpageReadingsCompanion({
     this.id = const Value.absent(),
     this.url = const Value.absent(),
-    this.createTime = const Value.absent(),
-    this.updateTime = const Value.absent(),
-    this.readingScrollTop = const Value.absent(),
-    this.readingProgress = const Value.absent(),
+    this.create_time = const Value.absent(),
+    this.update_time = const Value.absent(),
+    this.reading_scroll_top = const Value.absent(),
+    this.reading_progress = const Value.absent(),
     this.app = const Value.absent(),
-    this.articleAnalysis = const Value.absent(),
+    this.article_analysis = const Value.absent(),
     this.source = const Value.absent(),
   });
   WebpageReadingsCompanion.insert({
     this.id = const Value.absent(),
     required String url,
-    this.createTime = const Value.absent(),
-    this.updateTime = const Value.absent(),
-    this.readingScrollTop = const Value.absent(),
-    this.readingProgress = const Value.absent(),
+    this.create_time = const Value.absent(),
+    this.update_time = const Value.absent(),
+    this.reading_scroll_top = const Value.absent(),
+    this.reading_progress = const Value.absent(),
     this.app = const Value.absent(),
-    this.articleAnalysis = const Value.absent(),
+    this.article_analysis = const Value.absent(),
     this.source = const Value.absent(),
   }) : url = Value(url);
   static Insertable<WebpageReading> custom({
     Expression<int>? id,
     Expression<String>? url,
-    Expression<DateTime>? createTime,
-    Expression<DateTime>? updateTime,
-    Expression<double>? readingScrollTop,
-    Expression<double>? readingProgress,
+    Expression<DateTime>? create_time,
+    Expression<DateTime>? update_time,
+    Expression<double>? reading_scroll_top,
+    Expression<double>? reading_progress,
     Expression<String>? app,
-    Expression<String>? articleAnalysis,
+    Expression<String>? article_analysis,
     Expression<String>? source,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (url != null) 'url': url,
-      if (createTime != null) 'create_time': createTime,
-      if (updateTime != null) 'update_time': updateTime,
-      if (readingScrollTop != null) 'reading_scroll_top': readingScrollTop,
-      if (readingProgress != null) 'reading_progress': readingProgress,
+      if (create_time != null) 'create_time': create_time,
+      if (update_time != null) 'update_time': update_time,
+      if (reading_scroll_top != null) 'reading_scroll_top': reading_scroll_top,
+      if (reading_progress != null) 'reading_progress': reading_progress,
       if (app != null) 'app': app,
-      if (articleAnalysis != null) 'article_analysis': articleAnalysis,
+      if (article_analysis != null) 'article_analysis': article_analysis,
       if (source != null) 'source': source,
     });
   }
@@ -237,22 +237,22 @@ class WebpageReadingsCompanion extends UpdateCompanion<WebpageReading> {
   WebpageReadingsCompanion copyWith(
       {Value<int>? id,
       Value<String>? url,
-      Value<DateTime>? createTime,
-      Value<DateTime>? updateTime,
-      Value<double>? readingScrollTop,
-      Value<double>? readingProgress,
+      Value<DateTime>? create_time,
+      Value<DateTime>? update_time,
+      Value<double>? reading_scroll_top,
+      Value<double>? reading_progress,
       Value<String>? app,
-      Value<String?>? articleAnalysis,
+      Value<String?>? article_analysis,
       Value<String?>? source}) {
     return WebpageReadingsCompanion(
       id: id ?? this.id,
       url: url ?? this.url,
-      createTime: createTime ?? this.createTime,
-      updateTime: updateTime ?? this.updateTime,
-      readingScrollTop: readingScrollTop ?? this.readingScrollTop,
-      readingProgress: readingProgress ?? this.readingProgress,
+      create_time: create_time ?? this.create_time,
+      update_time: update_time ?? this.update_time,
+      reading_scroll_top: reading_scroll_top ?? this.reading_scroll_top,
+      reading_progress: reading_progress ?? this.reading_progress,
       app: app ?? this.app,
-      articleAnalysis: articleAnalysis ?? this.articleAnalysis,
+      article_analysis: article_analysis ?? this.article_analysis,
       source: source ?? this.source,
     );
   }
@@ -266,23 +266,23 @@ class WebpageReadingsCompanion extends UpdateCompanion<WebpageReading> {
     if (url.present) {
       map['url'] = Variable<String>(url.value);
     }
-    if (createTime.present) {
-      map['create_time'] = Variable<DateTime>(createTime.value);
+    if (create_time.present) {
+      map['create_time'] = Variable<DateTime>(create_time.value);
     }
-    if (updateTime.present) {
-      map['update_time'] = Variable<DateTime>(updateTime.value);
+    if (update_time.present) {
+      map['update_time'] = Variable<DateTime>(update_time.value);
     }
-    if (readingScrollTop.present) {
-      map['reading_scroll_top'] = Variable<double>(readingScrollTop.value);
+    if (reading_scroll_top.present) {
+      map['reading_scroll_top'] = Variable<double>(reading_scroll_top.value);
     }
-    if (readingProgress.present) {
-      map['reading_progress'] = Variable<double>(readingProgress.value);
+    if (reading_progress.present) {
+      map['reading_progress'] = Variable<double>(reading_progress.value);
     }
     if (app.present) {
       map['app'] = Variable<String>(app.value);
     }
-    if (articleAnalysis.present) {
-      map['article_analysis'] = Variable<String>(articleAnalysis.value);
+    if (article_analysis.present) {
+      map['article_analysis'] = Variable<String>(article_analysis.value);
     }
     if (source.present) {
       map['source'] = Variable<String>(source.value);
@@ -295,12 +295,12 @@ class WebpageReadingsCompanion extends UpdateCompanion<WebpageReading> {
     return (StringBuffer('WebpageReadingsCompanion(')
           ..write('id: $id, ')
           ..write('url: $url, ')
-          ..write('createTime: $createTime, ')
-          ..write('updateTime: $updateTime, ')
-          ..write('readingScrollTop: $readingScrollTop, ')
-          ..write('readingProgress: $readingProgress, ')
+          ..write('create_time: $create_time, ')
+          ..write('update_time: $update_time, ')
+          ..write('reading_scroll_top: $reading_scroll_top, ')
+          ..write('reading_progress: $reading_progress, ')
           ..write('app: $app, ')
-          ..write('articleAnalysis: $articleAnalysis, ')
+          ..write('article_analysis: $article_analysis, ')
           ..write('source: $source')
           ..write(')'))
         .toString();
@@ -327,18 +327,18 @@ class $FavoriteAppsTable extends FavoriteApps
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createTimeMeta =
-      const VerificationMeta('createTime');
+  static const VerificationMeta _create_timeMeta =
+      const VerificationMeta('create_time');
   @override
-  late final GeneratedColumn<DateTime> createTime = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<DateTime> create_time = GeneratedColumn<DateTime>(
       'create_time', aliasedName, false,
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
+  static const VerificationMeta _group_idMeta =
+      const VerificationMeta('group_id');
   @override
-  late final GeneratedColumn<int> groupId = GeneratedColumn<int>(
+  late final GeneratedColumn<int> group_id = GeneratedColumn<int>(
       'group_id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _orderMeta = const VerificationMeta('order');
@@ -349,7 +349,8 @@ class $FavoriteAppsTable extends FavoriteApps
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
   @override
-  List<GeneratedColumn> get $columns => [id, name, createTime, groupId, order];
+  List<GeneratedColumn> get $columns =>
+      [id, name, create_time, group_id, order];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -371,15 +372,15 @@ class $FavoriteAppsTable extends FavoriteApps
     }
     if (data.containsKey('create_time')) {
       context.handle(
-          _createTimeMeta,
-          createTime.isAcceptableOrUnknown(
-              data['create_time']!, _createTimeMeta));
+          _create_timeMeta,
+          create_time.isAcceptableOrUnknown(
+              data['create_time']!, _create_timeMeta));
     }
     if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
+      context.handle(_group_idMeta,
+          group_id.isAcceptableOrUnknown(data['group_id']!, _group_idMeta));
     } else if (isInserting) {
-      context.missing(_groupIdMeta);
+      context.missing(_group_idMeta);
     }
     if (data.containsKey('order')) {
       context.handle(
@@ -398,9 +399,9 @@ class $FavoriteAppsTable extends FavoriteApps
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      createTime: attachedDatabase.typeMapping
+      create_time: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}create_time'])!,
-      groupId: attachedDatabase.typeMapping
+      group_id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}group_id'])!,
       order: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}order'])!,
@@ -416,36 +417,36 @@ class $FavoriteAppsTable extends FavoriteApps
 class FavoriteAppsCompanion extends UpdateCompanion<FavoriteApp> {
   final Value<int> id;
   final Value<String> name;
-  final Value<DateTime> createTime;
-  final Value<int> groupId;
+  final Value<DateTime> create_time;
+  final Value<int> group_id;
   final Value<int> order;
   const FavoriteAppsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
-    this.createTime = const Value.absent(),
-    this.groupId = const Value.absent(),
+    this.create_time = const Value.absent(),
+    this.group_id = const Value.absent(),
     this.order = const Value.absent(),
   });
   FavoriteAppsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-    this.createTime = const Value.absent(),
-    required int groupId,
+    this.create_time = const Value.absent(),
+    required int group_id,
     this.order = const Value.absent(),
   })  : name = Value(name),
-        groupId = Value(groupId);
+        group_id = Value(group_id);
   static Insertable<FavoriteApp> custom({
     Expression<int>? id,
     Expression<String>? name,
-    Expression<DateTime>? createTime,
-    Expression<int>? groupId,
+    Expression<DateTime>? create_time,
+    Expression<int>? group_id,
     Expression<int>? order,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
-      if (createTime != null) 'create_time': createTime,
-      if (groupId != null) 'group_id': groupId,
+      if (create_time != null) 'create_time': create_time,
+      if (group_id != null) 'group_id': group_id,
       if (order != null) 'order': order,
     });
   }
@@ -453,14 +454,14 @@ class FavoriteAppsCompanion extends UpdateCompanion<FavoriteApp> {
   FavoriteAppsCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
-      Value<DateTime>? createTime,
-      Value<int>? groupId,
+      Value<DateTime>? create_time,
+      Value<int>? group_id,
       Value<int>? order}) {
     return FavoriteAppsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
-      createTime: createTime ?? this.createTime,
-      groupId: groupId ?? this.groupId,
+      create_time: create_time ?? this.create_time,
+      group_id: group_id ?? this.group_id,
       order: order ?? this.order,
     );
   }
@@ -474,11 +475,11 @@ class FavoriteAppsCompanion extends UpdateCompanion<FavoriteApp> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (createTime.present) {
-      map['create_time'] = Variable<DateTime>(createTime.value);
+    if (create_time.present) {
+      map['create_time'] = Variable<DateTime>(create_time.value);
     }
-    if (groupId.present) {
-      map['group_id'] = Variable<int>(groupId.value);
+    if (group_id.present) {
+      map['group_id'] = Variable<int>(group_id.value);
     }
     if (order.present) {
       map['order'] = Variable<int>(order.value);
@@ -491,8 +492,8 @@ class FavoriteAppsCompanion extends UpdateCompanion<FavoriteApp> {
     return (StringBuffer('FavoriteAppsCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('createTime: $createTime, ')
-          ..write('groupId: $groupId, ')
+          ..write('create_time: $create_time, ')
+          ..write('group_id: $group_id, ')
           ..write('order: $order')
           ..write(')'))
         .toString();
@@ -519,10 +520,10 @@ class $FavoriteAppGroupsTable extends FavoriteAppGroups
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createTimeMeta =
-      const VerificationMeta('createTime');
+  static const VerificationMeta _create_timeMeta =
+      const VerificationMeta('create_time');
   @override
-  late final GeneratedColumn<DateTime> createTime = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<DateTime> create_time = GeneratedColumn<DateTime>(
       'create_time', aliasedName, false,
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
@@ -535,7 +536,7 @@ class $FavoriteAppGroupsTable extends FavoriteAppGroups
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
   @override
-  List<GeneratedColumn> get $columns => [id, name, createTime, order];
+  List<GeneratedColumn> get $columns => [id, name, create_time, order];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -557,9 +558,9 @@ class $FavoriteAppGroupsTable extends FavoriteAppGroups
     }
     if (data.containsKey('create_time')) {
       context.handle(
-          _createTimeMeta,
-          createTime.isAcceptableOrUnknown(
-              data['create_time']!, _createTimeMeta));
+          _create_timeMeta,
+          create_time.isAcceptableOrUnknown(
+              data['create_time']!, _create_timeMeta));
     }
     if (data.containsKey('order')) {
       context.handle(
@@ -578,7 +579,7 @@ class $FavoriteAppGroupsTable extends FavoriteAppGroups
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      createTime: attachedDatabase.typeMapping
+      create_time: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}create_time'])!,
       order: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}order'])!,
@@ -594,30 +595,30 @@ class $FavoriteAppGroupsTable extends FavoriteAppGroups
 class FavoriteAppGroupsCompanion extends UpdateCompanion<FavoriteAppGroup> {
   final Value<int> id;
   final Value<String> name;
-  final Value<DateTime> createTime;
+  final Value<DateTime> create_time;
   final Value<int> order;
   const FavoriteAppGroupsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
-    this.createTime = const Value.absent(),
+    this.create_time = const Value.absent(),
     this.order = const Value.absent(),
   });
   FavoriteAppGroupsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-    this.createTime = const Value.absent(),
+    this.create_time = const Value.absent(),
     this.order = const Value.absent(),
   }) : name = Value(name);
   static Insertable<FavoriteAppGroup> custom({
     Expression<int>? id,
     Expression<String>? name,
-    Expression<DateTime>? createTime,
+    Expression<DateTime>? create_time,
     Expression<int>? order,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
-      if (createTime != null) 'create_time': createTime,
+      if (create_time != null) 'create_time': create_time,
       if (order != null) 'order': order,
     });
   }
@@ -625,12 +626,12 @@ class FavoriteAppGroupsCompanion extends UpdateCompanion<FavoriteAppGroup> {
   FavoriteAppGroupsCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
-      Value<DateTime>? createTime,
+      Value<DateTime>? create_time,
       Value<int>? order}) {
     return FavoriteAppGroupsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
-      createTime: createTime ?? this.createTime,
+      create_time: create_time ?? this.create_time,
       order: order ?? this.order,
     );
   }
@@ -644,8 +645,8 @@ class FavoriteAppGroupsCompanion extends UpdateCompanion<FavoriteAppGroup> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (createTime.present) {
-      map['create_time'] = Variable<DateTime>(createTime.value);
+    if (create_time.present) {
+      map['create_time'] = Variable<DateTime>(create_time.value);
     }
     if (order.present) {
       map['order'] = Variable<int>(order.value);
@@ -658,7 +659,7 @@ class FavoriteAppGroupsCompanion extends UpdateCompanion<FavoriteAppGroup> {
     return (StringBuffer('FavoriteAppGroupsCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('createTime: $createTime, ')
+          ..write('create_time: $create_time, ')
           ..write('order: $order')
           ..write(')'))
         .toString();
@@ -685,24 +686,24 @@ typedef $$WebpageReadingsTableCreateCompanionBuilder = WebpageReadingsCompanion
     Function({
   Value<int> id,
   required String url,
-  Value<DateTime> createTime,
-  Value<DateTime> updateTime,
-  Value<double> readingScrollTop,
-  Value<double> readingProgress,
+  Value<DateTime> create_time,
+  Value<DateTime> update_time,
+  Value<double> reading_scroll_top,
+  Value<double> reading_progress,
   Value<String> app,
-  Value<String?> articleAnalysis,
+  Value<String?> article_analysis,
   Value<String?> source,
 });
 typedef $$WebpageReadingsTableUpdateCompanionBuilder = WebpageReadingsCompanion
     Function({
   Value<int> id,
   Value<String> url,
-  Value<DateTime> createTime,
-  Value<DateTime> updateTime,
-  Value<double> readingScrollTop,
-  Value<double> readingProgress,
+  Value<DateTime> create_time,
+  Value<DateTime> update_time,
+  Value<double> reading_scroll_top,
+  Value<double> reading_progress,
   Value<String> app,
-  Value<String?> articleAnalysis,
+  Value<String?> article_analysis,
   Value<String?> source,
 });
 
@@ -726,45 +727,45 @@ class $$WebpageReadingsTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> url = const Value.absent(),
-            Value<DateTime> createTime = const Value.absent(),
-            Value<DateTime> updateTime = const Value.absent(),
-            Value<double> readingScrollTop = const Value.absent(),
-            Value<double> readingProgress = const Value.absent(),
+            Value<DateTime> create_time = const Value.absent(),
+            Value<DateTime> update_time = const Value.absent(),
+            Value<double> reading_scroll_top = const Value.absent(),
+            Value<double> reading_progress = const Value.absent(),
             Value<String> app = const Value.absent(),
-            Value<String?> articleAnalysis = const Value.absent(),
+            Value<String?> article_analysis = const Value.absent(),
             Value<String?> source = const Value.absent(),
           }) =>
               WebpageReadingsCompanion(
             id: id,
             url: url,
-            createTime: createTime,
-            updateTime: updateTime,
-            readingScrollTop: readingScrollTop,
-            readingProgress: readingProgress,
+            create_time: create_time,
+            update_time: update_time,
+            reading_scroll_top: reading_scroll_top,
+            reading_progress: reading_progress,
             app: app,
-            articleAnalysis: articleAnalysis,
+            article_analysis: article_analysis,
             source: source,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String url,
-            Value<DateTime> createTime = const Value.absent(),
-            Value<DateTime> updateTime = const Value.absent(),
-            Value<double> readingScrollTop = const Value.absent(),
-            Value<double> readingProgress = const Value.absent(),
+            Value<DateTime> create_time = const Value.absent(),
+            Value<DateTime> update_time = const Value.absent(),
+            Value<double> reading_scroll_top = const Value.absent(),
+            Value<double> reading_progress = const Value.absent(),
             Value<String> app = const Value.absent(),
-            Value<String?> articleAnalysis = const Value.absent(),
+            Value<String?> article_analysis = const Value.absent(),
             Value<String?> source = const Value.absent(),
           }) =>
               WebpageReadingsCompanion.insert(
             id: id,
             url: url,
-            createTime: createTime,
-            updateTime: updateTime,
-            readingScrollTop: readingScrollTop,
-            readingProgress: readingProgress,
+            create_time: create_time,
+            update_time: update_time,
+            reading_scroll_top: reading_scroll_top,
+            reading_progress: reading_progress,
             app: app,
-            articleAnalysis: articleAnalysis,
+            article_analysis: article_analysis,
             source: source,
           ),
         ));
@@ -783,23 +784,23 @@ class $$WebpageReadingsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<DateTime> get createTime => $state.composableBuilder(
-      column: $state.table.createTime,
+  ColumnFilters<DateTime> get create_time => $state.composableBuilder(
+      column: $state.table.create_time,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<DateTime> get updateTime => $state.composableBuilder(
-      column: $state.table.updateTime,
+  ColumnFilters<DateTime> get update_time => $state.composableBuilder(
+      column: $state.table.update_time,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<double> get readingScrollTop => $state.composableBuilder(
-      column: $state.table.readingScrollTop,
+  ColumnFilters<double> get reading_scroll_top => $state.composableBuilder(
+      column: $state.table.reading_scroll_top,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<double> get readingProgress => $state.composableBuilder(
-      column: $state.table.readingProgress,
+  ColumnFilters<double> get reading_progress => $state.composableBuilder(
+      column: $state.table.reading_progress,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -808,8 +809,8 @@ class $$WebpageReadingsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<String> get articleAnalysis => $state.composableBuilder(
-      column: $state.table.articleAnalysis,
+  ColumnFilters<String> get article_analysis => $state.composableBuilder(
+      column: $state.table.article_analysis,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -832,23 +833,23 @@ class $$WebpageReadingsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<DateTime> get createTime => $state.composableBuilder(
-      column: $state.table.createTime,
+  ColumnOrderings<DateTime> get create_time => $state.composableBuilder(
+      column: $state.table.create_time,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<DateTime> get updateTime => $state.composableBuilder(
-      column: $state.table.updateTime,
+  ColumnOrderings<DateTime> get update_time => $state.composableBuilder(
+      column: $state.table.update_time,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<double> get readingScrollTop => $state.composableBuilder(
-      column: $state.table.readingScrollTop,
+  ColumnOrderings<double> get reading_scroll_top => $state.composableBuilder(
+      column: $state.table.reading_scroll_top,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<double> get readingProgress => $state.composableBuilder(
-      column: $state.table.readingProgress,
+  ColumnOrderings<double> get reading_progress => $state.composableBuilder(
+      column: $state.table.reading_progress,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -857,8 +858,8 @@ class $$WebpageReadingsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<String> get articleAnalysis => $state.composableBuilder(
-      column: $state.table.articleAnalysis,
+  ColumnOrderings<String> get article_analysis => $state.composableBuilder(
+      column: $state.table.article_analysis,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -872,16 +873,16 @@ typedef $$FavoriteAppsTableCreateCompanionBuilder = FavoriteAppsCompanion
     Function({
   Value<int> id,
   required String name,
-  Value<DateTime> createTime,
-  required int groupId,
+  Value<DateTime> create_time,
+  required int group_id,
   Value<int> order,
 });
 typedef $$FavoriteAppsTableUpdateCompanionBuilder = FavoriteAppsCompanion
     Function({
   Value<int> id,
   Value<String> name,
-  Value<DateTime> createTime,
-  Value<int> groupId,
+  Value<DateTime> create_time,
+  Value<int> group_id,
   Value<int> order,
 });
 
@@ -904,29 +905,29 @@ class $$FavoriteAppsTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
-            Value<DateTime> createTime = const Value.absent(),
-            Value<int> groupId = const Value.absent(),
+            Value<DateTime> create_time = const Value.absent(),
+            Value<int> group_id = const Value.absent(),
             Value<int> order = const Value.absent(),
           }) =>
               FavoriteAppsCompanion(
             id: id,
             name: name,
-            createTime: createTime,
-            groupId: groupId,
+            create_time: create_time,
+            group_id: group_id,
             order: order,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String name,
-            Value<DateTime> createTime = const Value.absent(),
-            required int groupId,
+            Value<DateTime> create_time = const Value.absent(),
+            required int group_id,
             Value<int> order = const Value.absent(),
           }) =>
               FavoriteAppsCompanion.insert(
             id: id,
             name: name,
-            createTime: createTime,
-            groupId: groupId,
+            create_time: create_time,
+            group_id: group_id,
             order: order,
           ),
         ));
@@ -945,13 +946,13 @@ class $$FavoriteAppsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<DateTime> get createTime => $state.composableBuilder(
-      column: $state.table.createTime,
+  ColumnFilters<DateTime> get create_time => $state.composableBuilder(
+      column: $state.table.create_time,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get groupId => $state.composableBuilder(
-      column: $state.table.groupId,
+  ColumnFilters<int> get group_id => $state.composableBuilder(
+      column: $state.table.group_id,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -974,13 +975,13 @@ class $$FavoriteAppsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<DateTime> get createTime => $state.composableBuilder(
-      column: $state.table.createTime,
+  ColumnOrderings<DateTime> get create_time => $state.composableBuilder(
+      column: $state.table.create_time,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get groupId => $state.composableBuilder(
-      column: $state.table.groupId,
+  ColumnOrderings<int> get group_id => $state.composableBuilder(
+      column: $state.table.group_id,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -994,14 +995,14 @@ typedef $$FavoriteAppGroupsTableCreateCompanionBuilder
     = FavoriteAppGroupsCompanion Function({
   Value<int> id,
   required String name,
-  Value<DateTime> createTime,
+  Value<DateTime> create_time,
   Value<int> order,
 });
 typedef $$FavoriteAppGroupsTableUpdateCompanionBuilder
     = FavoriteAppGroupsCompanion Function({
   Value<int> id,
   Value<String> name,
-  Value<DateTime> createTime,
+  Value<DateTime> create_time,
   Value<int> order,
 });
 
@@ -1025,25 +1026,25 @@ class $$FavoriteAppGroupsTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
-            Value<DateTime> createTime = const Value.absent(),
+            Value<DateTime> create_time = const Value.absent(),
             Value<int> order = const Value.absent(),
           }) =>
               FavoriteAppGroupsCompanion(
             id: id,
             name: name,
-            createTime: createTime,
+            create_time: create_time,
             order: order,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String name,
-            Value<DateTime> createTime = const Value.absent(),
+            Value<DateTime> create_time = const Value.absent(),
             Value<int> order = const Value.absent(),
           }) =>
               FavoriteAppGroupsCompanion.insert(
             id: id,
             name: name,
-            createTime: createTime,
+            create_time: create_time,
             order: order,
           ),
         ));
@@ -1062,8 +1063,8 @@ class $$FavoriteAppGroupsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<DateTime> get createTime => $state.composableBuilder(
-      column: $state.table.createTime,
+  ColumnFilters<DateTime> get create_time => $state.composableBuilder(
+      column: $state.table.create_time,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -1086,8 +1087,8 @@ class $$FavoriteAppGroupsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<DateTime> get createTime => $state.composableBuilder(
-      column: $state.table.createTime,
+  ColumnOrderings<DateTime> get create_time => $state.composableBuilder(
+      column: $state.table.create_time,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 

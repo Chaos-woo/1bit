@@ -28,7 +28,7 @@ class Github1bitIssuesPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           GithubApiDataPostAction back_action =
-              await QKit.route.to(rt_toolGithubIssuesEdit) as GithubApiDataPostAction;
+              await QKit.route.to(rt_tool_github_issues_edit) as GithubApiDataPostAction;
           if (back_action == GithubApiDataPostAction.posted_data_then_back) {
             logic.mark_refresh_list();
             logic.refreshIssuesListByNewFiltered(isDrawerOpened: false);
@@ -47,8 +47,7 @@ class Github1bitIssuesPage extends StatelessWidget {
         key: drawerKey,
         scaffoldKey: scaffoldKey,
       ),
-      onDrawerChanged: ((isOpened) =>
-          logic.refreshIssuesListByNewFiltered(isDrawerOpened: isOpened)),
+      onDrawerChanged: ((isOpened) => logic.refreshIssuesListByNewFiltered(isDrawerOpened: isOpened)),
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
@@ -160,11 +159,8 @@ class Github1bitIssuesPage extends StatelessWidget {
                                       i % 2 == 1
                                           ? Text(
                                               selectedChoice[(i / 2).floor()],
-                                              style: FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    color:
-                                                        FlutterFlowTheme.of(context).secondaryText,
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    color: FlutterFlowTheme.of(context).secondaryText,
                                                     letterSpacing: 0,
                                                   ),
                                             )
@@ -292,9 +288,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                           child: FlutterFlowChoiceChips(
-                            options: state.stateValues
-                                .map((filtered) => ChipData(filtered.label))
-                                .toList(),
+                            options: state.stateValues.map((filtered) => ChipData(filtered.label)).toList(),
                             onChanged: (val) {
                               logic.choiceChipsStateValue = val?.firstOrNull;
                             },
@@ -324,8 +318,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                             rowSpacing: 12,
                             multiselect: false,
                             alignment: WrapAlignment.start,
-                            controller:
-                                FormFieldController<List<String>>(state.choiceChipStateInitVal),
+                            controller: FormFieldController<List<String>>(state.choiceChipStateInitVal),
                           ),
                         ),
                       ),
@@ -354,9 +347,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                                       ),
                                 )
                               : FlutterFlowChoiceChips(
-                                  options: state.label_values
-                                      .map((label) => ChipData(label.name))
-                                      .toList(),
+                                  options: state.label_values.map((label) => ChipData(label.name)).toList(),
                                   onChanged: (val) => logic.choiceChipsLabelValue = val,
                                   selectedChipStyle: ChipStyle(
                                     backgroundColor: FlutterFlowTheme.of(context).secondary,
@@ -384,8 +375,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                                   rowSpacing: 12,
                                   multiselect: true,
                                   alignment: WrapAlignment.start,
-                                  controller: FormFieldController<List<String>>(
-                                      state.choiceChipLabelInitVal)),
+                                  controller: FormFieldController<List<String>>(state.choiceChipLabelInitVal)),
                         ),
                       ),
                       Align(
@@ -405,9 +395,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                           child: FlutterFlowChoiceChips(
-                            options: state.sortFieldsValues
-                                .map((filtered) => ChipData(filtered.label))
-                                .toList(),
+                            options: state.sortFieldsValues.map((filtered) => ChipData(filtered.label)).toList(),
                             onChanged: (val) => logic.choiceChipsSortFieldsValue = val?.firstOrNull,
                             selectedChipStyle: ChipStyle(
                               backgroundColor: FlutterFlowTheme.of(context).secondary,
@@ -435,8 +423,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                             rowSpacing: 12,
                             multiselect: false,
                             alignment: WrapAlignment.start,
-                            controller: FormFieldController<List<String>>(
-                                state.choiceChipSortFieldsInitVal),
+                            controller: FormFieldController<List<String>>(state.choiceChipSortFieldsInitVal),
                           ),
                         ),
                       ),
@@ -457,11 +444,8 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                           child: FlutterFlowChoiceChips(
-                            options: state.sortDirectionValues
-                                .map((filtered) => ChipData(filtered.label))
-                                .toList(),
-                            onChanged: (val) =>
-                                logic.choiceChipsSortDirectionValue = val?.firstOrNull,
+                            options: state.sortDirectionValues.map((filtered) => ChipData(filtered.label)).toList(),
+                            onChanged: (val) => logic.choiceChipsSortDirectionValue = val?.firstOrNull,
                             selectedChipStyle: ChipStyle(
                               backgroundColor: FlutterFlowTheme.of(context).secondary,
                               textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -488,8 +472,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                             rowSpacing: 12,
                             multiselect: false,
                             alignment: WrapAlignment.start,
-                            controller: FormFieldController<List<String>>(
-                                state.choiceChipSortDirectionInitVal),
+                            controller: FormFieldController<List<String>>(state.choiceChipSortDirectionInitVal),
                           ),
                         ),
                       ),

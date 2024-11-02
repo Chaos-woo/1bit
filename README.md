@@ -21,6 +21,7 @@ samples, guidance on mobile development, and a full API reference.
 * c_xXxx : 常量
 * k_xXxx : 用于Key的常量字符串
 * rt_xXxx : 命名路由常量字符串
+* c_rt_path_xXxx : 命名路由的路径参数
 * m_xXxx : 非公开且非静态的属性（可直接访问和设置）
 * s_xXxx : 静态变量
 * _m_xxXxx : dart隐私属性（需要有特定访问和设置逻辑的，与m_xXxx二选一）或实际就是不想外部处理的

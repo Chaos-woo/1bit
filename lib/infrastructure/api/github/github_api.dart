@@ -59,7 +59,7 @@ final class GithubApi extends GetxService {
   }
 
   /// 获取仓库标签列表
-  Future<List<GithubLabel>> listLabels(String owner, String repo) async {
+  Future<List<GithubLabel>> list_labels(String owner, String repo) async {
     List<GithubLabel>? labels = await _m_api.get(
       '/repos/$owner/$repo/labels',
       object_convertor: (rawData) => rawData.asList(object_convertor: GithubLabel.fromJson),
@@ -69,7 +69,7 @@ final class GithubApi extends GetxService {
   }
 
   /// 获取仓库下指定issues的评论列表
-  Future<List<GithubComment>> listComments(
+  Future<List<GithubComment>> list_comments(
     String owner,
     String repo,
     int issuesNumber, {
@@ -90,7 +90,7 @@ final class GithubApi extends GetxService {
   }
 
   /// 提交1个issues到指定仓
-  Future<void> postIssues(
+  Future<void> post_issues(
     String owner,
     String repo,
     String title, {
@@ -105,7 +105,7 @@ final class GithubApi extends GetxService {
   }
 
   /// 提交1条评论到指定仓库的issues
-  Future<void> postComment(String owner, String repo, int issues_number, String text) async {
+  Future<void> post_comment(String owner, String repo, int issues_number, String text) async {
     Map<String, dynamic> data = {'body': text};
     await _m_api.post(
       '/repos/$owner/$repo/issues/$issues_number/comments',

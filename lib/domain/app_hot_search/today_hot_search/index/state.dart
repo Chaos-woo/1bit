@@ -27,7 +27,7 @@ class TodayHotSearchState {
   /// 收藏的APP
   LocalAppGroups _m_favorite_app_group = LocalAppGroups.from([
     LocalAppGroup(
-      group: FavoriteAppGroup(name: '全部', order: -1, id: -1, createTime: DateTime.now()),
+      group: FavoriteAppGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now()),
       apps: [],
     ),
   ]);

@@ -1,4 +1,4 @@
-import 'package:cw2bit/infrastructure/database/ra1db.dart';
+import 'package:cw2bit/infrastructure/database/r1db.dart';
 import 'package:drift/drift.dart';
 
 /// 数据库升级时的迁移接口

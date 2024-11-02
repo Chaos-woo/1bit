@@ -32,39 +32,43 @@ class HistoryHotSearchLogic extends GetxController {
   void onReady() async {
     super.onReady();
 
-    await _init_app_list();
+    await _fetch_cloud_apps_and_local_app_groups();
   }
 
-  Future<void> _init_app_list() async {
+  Future<void> m_refresh_group_apps_and_hot_search_list() async {
+    await _fetch_cloud_apps_and_local_app_groups();
+  }
+
+  Future<void> _fetch_cloud_apps_and_local_app_groups() async {
     /// 获取APP组列表
-    var f_groups = HotSearchRepo.singl.listGroups();
+    var ft_groups = HotSearchRepo.singl.list_groups();
 
     /// 获取本地APP列表
-    var f_apps = HotSearchRepo.singl.listApps();
+    var ft_apps = HotSearchRepo.singl.list_apps();
 
     /// 获取”全部”组的APP列表
-    var f_all_apps = fetch_app_list();
+    var ft_all_apps = fetch_app_list();
 
     /// 组合数据
-    Future.wait([f_groups, f_apps, f_all_apps]).then((List<dynamic> values) {
-      List<FavoriteAppGroup> groups = values[0] as List<FavoriteAppGroup>;
-      List<FavoriteApp> apps = values[1] as List<FavoriteApp>;
-      List<String> all_apps = values[2] as List<String>;
+    Future.wait([ft_groups, ft_apps, ft_all_apps]).then((List<dynamic> values) {
+      List<FavoriteAppGroup> local_groups = values[0] as List<FavoriteAppGroup>;
+      List<FavoriteApp> local_apps = values[1] as List<FavoriteApp>;
+      List<String> cloud_all_apps = values[2] as List<String>;
 
       state.app = '';
       state.group_id = -1;
       state.favorite_app_group = LocalAppGroups.from([
         LocalAppGroup(
-          group: FavoriteAppGroup(name: '全部', order: -1, id: -1, createTime: DateTime.now()),
-          apps: all_apps
-              .map((e) => FavoriteApp(id: -1, name: e, createTime: DateTime.now(), groupId: -1, order: -1))
+          group: FavoriteAppGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now()),
+          apps: cloud_all_apps
+              .map((e) => FavoriteApp(id: -1, name: e, create_time: DateTime.now(), group_id: -1, order: -1))
               .toList(),
         ),
-        ...groups
+        ...local_groups
             .map(
               (e) => LocalAppGroup(
                 group: e,
-                apps: apps.where((app) => app.groupId == e.id).toList(),
+                apps: local_apps.where((app) => app.group_id == e.id).toList(),
               ),
             )
             .toList(),
@@ -84,7 +88,7 @@ class HistoryHotSearchLogic extends GetxController {
     }
 
     /// 将阅读进度double小数保留两位
-    double reading_progress = reading.readingProgress.toStringAsFixed(2) as double;
+    double reading_progress = reading.reading_progress.toStringAsFixed(2) as double;
     int be_read = min((reading_progress * 100).toInt(), 100);
     be_read = be_read > 92 ? 100 : be_read;
     return (be_read, 100 - be_read);
@@ -112,7 +116,7 @@ class HistoryHotSearchLogic extends GetxController {
   /// 获取最后阅读的URL
   String? get_last_read_url() {
     var history = state.webpage_reading_history.webpages;
-    history.sort((a, b) => b.updateTime.compareTo(a.updateTime));
+    history.sort((a, b) => b.update_time.compareTo(a.update_time));
     if (history.isEmpty) {
       return null;
     }
@@ -147,12 +151,13 @@ class HistoryHotSearchLogic extends GetxController {
     state.hot_search_list = [];
   }
 
+  /// 获取根目录下的全部APP列表
   Future<List<String>> fetch_app_list() async {
     List<GithubContent> contents =
         await Apis.github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, c_hot_search_repo_root_dir);
     List<String> apps = contents
         // 过滤出项目中目录类型的内容，即APP，APP的归档内容都被放置到对应的APP目录下
-        .where((content) => GithubContentTypeEnum.dir == content.type)
+        .where((content) => EnumGithubContentType.dir == content.type)
         .map((content) => content.name)
         .toList();
     return Future.value(apps);
@@ -160,6 +165,11 @@ class HistoryHotSearchLogic extends GetxController {
 
   /// 展示APP指定文件的热搜列表
   Future<void> fetch_app_hot_search_list_noUi(String file_path) async {
+    if (file_path.isEmpty) {
+      state.hot_search_list = [];
+      return;
+    }
+
     GithubContent? contents;
     var last_file_path = state.m_current_file_path;
     state.m_current_file_path = file_path;

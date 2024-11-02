@@ -311,11 +311,10 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                               onPressed: () async {
                                 var post_result = await logic.post();
                                 if (post_result) {
-                                  Bit1Ui.showSimpleSnackbar('提交成功');
-                                  QKit.route.back(
-                                      backValue: GithubApiDataPostAction.posted_data_then_back);
+                                  R1Ui.snackbar.show_simple_snackbar('提交成功');
+                                  QKit.route.back(backValue: GithubApiDataPostAction.posted_data_then_back);
                                 } else {
-                                  Bit1Ui.showSimpleSnackbar('提交失败');
+                                  R1Ui.snackbar.show_simple_snackbar('提交失败');
                                 }
                               },
                               text: '提交 Github',

@@ -105,7 +105,7 @@ class GithubIssuesWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Bit1Ui.expandableText(
+                        child: R1Ui.text.expandable_text(
                           issues.title,
                           maxLines: 3,
                           textStyle: FlutterFlowTheme.of(context).bodyLarge.override(

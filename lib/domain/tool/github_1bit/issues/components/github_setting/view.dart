@@ -72,11 +72,11 @@ class GithubSettingPage extends StatelessWidget {
                   ),
                 ),
               ),
-              if (logic.show1bitRepository)
+              if (logic.show_1bit_repository)
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: TextFormField(
-                    controller: logic.repoOwnerTextController,
+                    controller: logic.repo_owner_text_controller,
                     autofocus: false,
                     readOnly: true,
                     obscureText: false,
@@ -126,11 +126,11 @@ class GithubSettingPage extends StatelessWidget {
                         ),
                   ),
                 ),
-              if (logic.show1bitRepository)
+              if (logic.show_1bit_repository)
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: TextFormField(
-                    controller: logic.repoTextController,
+                    controller: logic.repo_text_controller,
                     autofocus: false,
                     readOnly: true,
                     obscureText: false,
@@ -269,9 +269,9 @@ class GithubSettingPage extends StatelessWidget {
                         onPressed: () async {
                           bool isValidToken = await logic.check_access_token();
                           if (isValidToken) {
-                            Bit1Ui.showSimpleSnackbar('当前【访问密钥】有效');
+                            R1Ui.snackbar.show_simple_snackbar('当前【访问密钥】有效');
                           } else {
-                            Bit1Ui.showSimpleSnackbar('当前【访问密钥】无效，请重新设置');
+                            R1Ui.snackbar.show_simple_snackbar('当前【访问密钥】无效，请重新设置');
                           }
                         },
                         text: '访问密钥有效性检查',
@@ -308,7 +308,7 @@ class GithubSettingPage extends StatelessWidget {
                       child: FFButtonWidget(
                         onPressed: () {
                           logic.save_github_access_token();
-                          Bit1Ui.showSimpleSnackbar('设置【访问密钥】完成');
+                          R1Ui.snackbar.show_simple_snackbar('设置【访问密钥】完成');
                           QKit.route.back();
                         },
                         text: '保存访问密钥',

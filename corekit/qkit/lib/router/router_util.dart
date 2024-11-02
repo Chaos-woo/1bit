@@ -6,12 +6,14 @@ class RouteProxyKit {
   Future<R?>? to<R>(
     String route, {
     dynamic argument,
-    Map<String, String>? pathVariables,
+    Map<String, String>? path_variables,
+    bool prevent_duplicates = true,
   }) {
     return Get.toNamed<R>(
       route,
       arguments: argument,
-      parameters: pathVariables,
+      preventDuplicates: prevent_duplicates,
+      parameters: path_variables,
     );
   }
 
@@ -66,7 +68,7 @@ class RouteProxyKit {
   ///
   /// Get routing url parameter like web, or use Map
   /// struct to pack some properties, next page can use
-  /// [pathVariables] method to get it.
+  /// [path_variables] method to get it.
   ///
   /// Note: only can get [String] value.
   ///
@@ -76,7 +78,7 @@ class RouteProxyKit {
   ///   assert('Enzo' == name);
   /// ```
   ///
-  String? pathVariables(String name) {
+  String? path_variables(String name) {
     return Get.parameters[name];
   }
 }

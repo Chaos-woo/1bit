@@ -93,7 +93,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Bit1Ui.expandableText(
+                    child: R1Ui.text.expandable_text(
                       '${issues.title}',
                       maxLines: 2,
                       textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -113,7 +113,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Bit1Ui.expandableText(
+                    child: R1Ui.text.expandable_text(
                       issues.body ?? '',
                       maxLines: 15,
                       textStyle: FlutterFlowTheme.of(context).bodyMedium.override(

@@ -8,8 +8,8 @@ class GithubSettingBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() {
       var logic = GithubSettingLogic();
-      bool? show1bitRepository = QKit.route.argument();
-      logic.show1bitRepository = show1bitRepository;
+      var show_repo = QKit.route.path_variables(GithubSettingLogic.c_rt_path_show_1bit_repo);
+      logic.show_1bit_repository = bool.parse(show_repo ?? 'true', caseSensitive: false);
       return logic;
     });
   }

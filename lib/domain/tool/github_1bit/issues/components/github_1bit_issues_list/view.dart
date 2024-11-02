@@ -19,7 +19,7 @@ class Github1bitIssuesListComponent extends StatelessWidget {
       builder: (controller) {
         return ListView.builder(
           itemBuilder: (context, index) => InkWell(
-            onTap: () => QKit.route.to(rt_toolGithubIssuesDetail, argument: state.dataList[index]),
+            onTap: () => QKit.route.to(rt_tool_github_issues_detail, argument: state.dataList[index]),
             child: GithubIssuesWidget(issues: state.dataList[index]),
           ),
           itemCount: state.dataList.length,

@@ -15,6 +15,9 @@ class HistoryHotSearchState {
   /// 当前选择的APP组
   int group_id = -1;
 
+  /// 日期选择器选择的时间
+  DateTime picked_date = DateTime.now();
+
   /// 可选择的APP
   final List<String> _m_apps = [];
 
@@ -30,7 +33,7 @@ class HistoryHotSearchState {
   /// 收藏的APP
   LocalAppGroups _m_favorite_app_group = LocalAppGroups.from([
     LocalAppGroup(
-      group: FavoriteAppGroup(name: '全部', order: -1, id: -1, createTime: DateTime.now()),
+      group: FavoriteAppGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now()),
       apps: [],
     ),
   ]);
@@ -87,7 +90,7 @@ class HistoryHotSearchState {
           GithubContent(
               name: "..",
               path: "",
-              type: GithubContentTypeEnum.dir,
+              type: EnumGithubContentType.dir,
               size: 0,
               url: "",
               htmlUrl: "",

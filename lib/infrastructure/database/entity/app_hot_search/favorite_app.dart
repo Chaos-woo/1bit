@@ -1,4 +1,4 @@
-import 'package:cw2bit/infrastructure/database/ra1db.dart';
+import 'package:cw2bit/infrastructure/database/r1db.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_model_generator/drift_model_generator.dart';
 
@@ -17,10 +17,10 @@ class FavoriteApp {
 
   @WithDefault('now()')
   @NotNull()
-  final DateTime createTime;
+  final DateTime create_time;
 
   @NotNull()
-  final int groupId;
+  final int group_id;
 
   @NotNull()
   @WithDefault(0)
@@ -29,8 +29,8 @@ class FavoriteApp {
   FavoriteApp({
     required this.id,
     required this.name,
-    required this.createTime,
-    required this.groupId,
+    required this.create_time,
+    required this.group_id,
     required this.order,
   });
 }

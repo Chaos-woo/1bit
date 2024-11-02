@@ -18,7 +18,7 @@ class ToolGroup {
   });
 }
 
-enum ToolGroupItemType {
+enum EnumToolGroupItemType {
   /// 普通展示
   display,
 
@@ -26,7 +26,10 @@ enum ToolGroupItemType {
   router,
 
   /// 开关类型
-  switcher
+  switcher,
+
+  /// 可点击类型
+  clicker,
 }
 
 class ToolGroupItem {
@@ -37,7 +40,7 @@ class ToolGroupItem {
   final String subtitle;
 
   /// 工具项类型
-  final ToolGroupItemType type;
+  final EnumToolGroupItemType type;
 
   /// 工具项图标
   final Icon? icon;
@@ -52,14 +55,27 @@ class ToolGroupItem {
 
 class ToolGroupItemRouter extends ToolGroupItem {
   /// 跳转函数
-  final Function? onTap;
+  final Function? on_tap;
 
   ToolGroupItemRouter({
     required super.title,
     required super.subtitle,
     required super.type,
     required super.icon,
-    required this.onTap,
+    required this.on_tap,
+  });
+}
+
+class ToolGroupItemClicker extends ToolGroupItem {
+  /// 点击函数
+  final Function? on_tap;
+
+  ToolGroupItemClicker({
+    required super.title,
+    required super.subtitle,
+    required super.type,
+    required super.icon,
+    required this.on_tap,
   });
 }
 
@@ -69,6 +85,7 @@ class ToolGroupItemSwitcher extends ToolGroupItem {
 
   /// 变化值
   late var value = false.obs;
+
   /// 变化函数
   Function(RxBool)? onChanged;
 

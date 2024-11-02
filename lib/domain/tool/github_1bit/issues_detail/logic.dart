@@ -17,15 +17,14 @@ class Github1bitIssuesDetailLogic extends PagingController<Github1bitIssuesDetai
   @override
   Future<List<CommentModel>> fetchData() async {
     /// 问题详情由上一页面带入，本页面主要加载问题评论
-    List<GithubComment> comments = await Apis.github.listComments(
+    List<GithubComment> comments = await Apis.github.list_comments(
       c_1bit_repo_owner,
       c_1bit_repo,
       state.issues_model.number,
       page: state.currPage,
       pageSize: state.pageSize,
     );
-    List<CommentModel> commentModelList =
-        comments.map((e) => CommentModel.fromJson(e.toJson())).toList();
+    List<CommentModel> commentModelList = comments.map((e) => CommentModel.fromJson(e.toJson())).toList();
     return commentModelList;
   }
 }
