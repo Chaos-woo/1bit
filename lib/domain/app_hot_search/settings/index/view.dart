@@ -74,7 +74,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                             await QKit.route.to(
                               rt_tool_github_setting,
                               path_variables: {
-                                '${GithubSettingLogic.c_rt_path_show_1bit_repo}': false.toString(),
+                                '${GithubSettingLogic.m_path_variables.show_1bit_repo_value}': false.toString(),
                               },
                             );
                           },

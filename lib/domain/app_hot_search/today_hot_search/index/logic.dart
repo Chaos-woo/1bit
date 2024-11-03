@@ -14,6 +14,7 @@ import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app_group.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_repo.dart';
+import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_repo.dart';
 import 'package:cw2bit/public/webview/app_webview_dialog.dart';
 import 'package:cw2bit/public/webview/app_webview_listener.dart';
 import 'package:get/get.dart';
@@ -91,7 +92,7 @@ class TodayHotSearchLogic extends GetxController {
     }
 
     /// 将阅读进度double小数保留两位
-    double reading_progress = reading.reading_progress.toStringAsFixed(2) as double;
+    double reading_progress = double.parse(reading.reading_progress.toStringAsFixed(2));
     int be_read = min((reading_progress * 100).toInt(), 100);
     be_read = be_read > 92 ? 100 : be_read;
     return (be_read, 100 - be_read);
@@ -99,18 +100,34 @@ class TodayHotSearchLogic extends GetxController {
 
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(HotSearchModel model) async {
-    /// TODO: 处理当前阅读进度
+    /// 处理当前阅读进度
+    var reading_record = await WebpageRepo.singl.get_reading_record(model.url);
+    int reading_record_id = reading_record?.id ?? -1;
+    if (reading_record == null) {
+      reading_record_id = await WebpageRepo.singl.add_reading_record(model.url, app: state.app);
+    }
 
     await show_webview_dialog(
       url: model.url,
       title: '正在浏览：(${state.app})${model.content}',
       not_navigation_action_scheme: c_not_navigation_action_scheme,
-      onWebviewListener: AppWebviewListener(
-        onViewScrollChanged: (webviewController, scrollTop, totalHeight) {
-          /// TODO: 更新阅读进度
+      listener: AppWebviewReadingListener(
+        onWebviewLoaded: (webviewController, url) async {
+          await WebpageRepo.singl.update_reading_update_time(url);
         },
-        onWebviewClosed: (url) {
-          /// TODO: 更新页面的阅读进度
+        onViewScrollChanged: (webviewController, url, scrollTop, totalHeight) async {
+          /// 更新阅读进度
+          double progress = (scrollTop / totalHeight).clamp(0.0, 1.0);
+          var stored_reading_record = await WebpageRepo.singl.get_reading_record(model.url);
+          if (scrollTop > stored_reading_record!.reading_scroll_top) {
+            await WebpageRepo.singl.update_reading_progress(reading_record_id, progress, scrollTop);
+          }
+        },
+        onWebviewClosed: (url) async {
+          /// 更新页面的阅读进度
+          var new_reading_record = await await WebpageRepo.singl.get_reading_record_by_id(reading_record_id);
+          state.replace_webpage_reading_history([new_reading_record!]);
+          update([k_hot_search_scroll_view_view_id]);
         },
       ),
     );
@@ -123,7 +140,7 @@ class TodayHotSearchLogic extends GetxController {
     if (history.isEmpty) {
       return null;
     }
-    return history.last.url;
+    return history.first.url;
   }
 
   /// 切换收藏组，展示收藏组中的APP列表
@@ -174,10 +191,13 @@ class TodayHotSearchLogic extends GetxController {
       update([k_hot_search_refresh_view_id]);
     }
 
-    AppHotSearchRepoContentModel realtime_model = AppHotSearchRepoContentModel.fromJson(contents!.toJson());
+    AppHotSearchRepoContentModel realtime_model = AppHotSearchRepoContentModel.fromJson(contents.toJson());
     Uint8List decoded_bytes = base64.decode(realtime_model.content!.replaceAll('\n', ''));
     List<HotSearchModel> hot_search_model_list = extract_hot_search_models(decoded_bytes);
     state.hot_search_list = hot_search_model_list;
+
+    var all_reading_records = await WebpageRepo.singl.list_all_reading_records();
+    state.replace_webpage_reading_history(all_reading_records);
   }
 
   /// 从文本行中抽取标题和链接

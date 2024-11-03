@@ -105,7 +105,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 3, 0),
                               child: Icon(
-                                Icons.egg_alt,
+                                Icons.toc_rounded,
                               ),
                             ),
                             Tab(
@@ -119,7 +119,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(0, 0, 3, 0),
                               child: Icon(
-                                Icons.egg_alt,
+                                Icons.filter_b_and_w_rounded,
                               ),
                             ),
                             Tab(

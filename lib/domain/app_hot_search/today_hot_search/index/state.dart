@@ -59,6 +59,11 @@ class TodayHotSearchState {
   final LocalAppWebpages _m_webpage_history = LocalAppWebpages([]);
 
   /// 热搜网页阅读记录
+  void replace_webpage_reading_history(List<WebpageReading> value) {
+    value.forEach((element) => _m_webpage_history.replaceWebpage(element));
+  }
+
+  /// 热搜网页阅读记录
   LocalAppWebpages get webpage_reading_history => _m_webpage_history;
 
   /// 根据URL获取热搜网页阅读记录

@@ -14,7 +14,7 @@ Future<void> show_webview_dialog({
   required String url,
   String? title,
   BuildContext? context,
-  AppWebviewListener? onWebviewListener,
+  AppWebviewListener? listener,
 
   /// 不需要webview导航的scheme
   List<String>? not_navigation_action_scheme,
@@ -35,7 +35,7 @@ Future<void> show_webview_dialog({
             url,
             title: title,
             not_navigation_action_scheme: not_navigation_action_scheme,
-            onWebviewListener: onWebviewListener,
+            listener: listener,
           ),
         ),
       );
@@ -51,14 +51,14 @@ class AppWebviewDialog extends StatefulWidget {
   final List<String>? not_navigation_action_scheme;
 
   /// 监听WebView的滚动事件
-  final AppWebviewListener? onWebviewListener;
+  final AppWebviewListener? listener;
 
   AppWebviewDialog(
     this.url, {
     super.key,
     this.title,
     this.not_navigation_action_scheme,
-    this.onWebviewListener,
+    this.listener,
   });
 
   @override
@@ -110,6 +110,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
 
   @override
   void dispose() {
+    pullToRefreshController?.dispose();
     webViewController?.dispose();
     super.dispose();
   }
@@ -186,9 +187,11 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                       initialSettings: settings,
                                       pullToRefreshController: pullToRefreshController,
                                       onWebViewCreated: (controller) {
+                                        print('Webview created');
                                         webViewController = controller;
                                       },
                                       onLoadStart: (controller, url) {
+                                        print('loading started loading: $url');
                                         setState(() {
                                           this.url = url.toString();
                                         });
@@ -220,19 +223,31 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         return NavigationActionPolicy.ALLOW;
                                       },
                                       onLoadStop: (controller, url) async {
+                                        print('loading stopped loading: $url');
                                         pullToRefreshController?.endRefreshing();
                                         setState(() {
                                           this.url = url.toString();
                                         });
+
+                                        if (widget.url != url.toString()) {
+                                          await widget.listener?.onWebviewUrlChanged
+                                              ?.call(webViewController!, url.toString());
+                                        }
+
+                                        await widget.listener?.onWebviewLoaded
+                                            ?.call(webViewController!, url.toString());
+
                                         // controller.evaluateJavascript(
                                         //     source: "document.documentElement.scrollTo(0, 5000)");
                                         // QKit.ui.toast.show('跳转到上次阅读位置');
-                                        widget.onWebviewListener?.onWebviewLoaded?.call(controller, url.toString());
+                                        // await widget.listener?.onWebviewLoaded?.call(controller, url.toString());
                                       },
                                       onReceivedError: (controller, request, error) {
+                                        print('received error occurred');
                                         pullToRefreshController?.endRefreshing();
                                       },
                                       onProgressChanged: (controller, progress) {
+                                        print('loading progress: $progress');
                                         if (progress == 100) {
                                           pullToRefreshController?.endRefreshing();
                                         }
@@ -241,6 +256,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         });
                                       },
                                       onUpdateVisitedHistory: (controller, url, androidIsReload) {
+                                        print('update visited history: $url');
                                         setState(() {
                                           this.url = url.toString();
                                         });
@@ -259,12 +275,12 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                             .then((totalHeight) {
                                           controller
                                               .evaluateJavascript(source: get_scroll_top_height_command)
-                                              .then((clientHeight) {
+                                              .then((clientHeight) async {
                                             if (totalHeight != null && clientHeight != null) {
                                               double totalHeightDouble = totalHeight.toDouble();
                                               double scrollTopDouble = clientHeight.toDouble();
-                                              widget.onWebviewListener?.onViewScrollChanged
-                                                  ?.call(controller, scrollTopDouble, totalHeightDouble);
+                                              await widget.listener?.onViewScrollChanged
+                                                  ?.call(controller, this.url, scrollTopDouble, totalHeightDouble);
                                             }
                                           });
                                         });
@@ -285,7 +301,6 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                       ),
                     ),
                   ),
-                  // Generated code for this Row Widget...
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(12, 5, 12, 10),
                     child: Row(
@@ -344,6 +359,26 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                 webViewController?.reload();
                               },
                             ),
+                            if (widget.listener is AppWebviewReadingListener)
+                              FlutterFlowIconButton(
+                                borderColor: Color(0xFFE5E7EB),
+                                borderRadius: 8,
+                                borderWidth: 1,
+                                buttonSize: 40,
+                                fillColor: Colors.white,
+                                icon: Icon(
+                                  Icons.add_reaction_outlined,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  size: 24,
+                                ),
+                                onPressed: () {
+                                  if (widget.listener != null) {
+                                    (widget.listener as AppWebviewReadingListener)
+                                        .onWebviewUrlReadingCompleted
+                                        ?.call(url);
+                                  }
+                                },
+                              ),
                           ].divide(SizedBox(width: 10)),
                         ),
                         FlutterFlowIconButton(
@@ -358,7 +393,9 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                             size: 24,
                           ),
                           onPressed: () {
-                            widget.onWebviewListener?.onWebviewClosed?.call(url);
+                            QKit.delay.delay(() {
+                              widget.listener?.onWebviewClosed?.call(url);
+                            });
                             // 关闭dialog
                             QKit.route.back();
                           },

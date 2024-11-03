@@ -507,6 +507,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                               id: logic.k_app_hot_search_history_directory_view_id,
                               builder: (_) {
                                 return ListView.separated(
+                                  key: hot_search_scroll_view_key,
                                   itemCount: state.history_directory_list.length,
                                   itemBuilder: (context, index) {
                                     var content = state.history_directory_list[index];
@@ -867,15 +868,70 @@ class HistoryHotSearchPage extends StatelessWidget {
                               },
                               separatorBuilder: (context, index) {
                                 String? last_read_url = logic.get_last_read_url();
-                                if (last_read_url == state.hot_search_list[index].url) {
+
+                                // 判断是否是最后一个分隔符的位置
+                                var is_last_separator_pos =
+                                    (index + 1) == state.hot_search_list.lastIndexOf(state.hot_search_list.last);
+
+                                if (is_last_separator_pos) {
+                                  // 最后一个分隔符位置的话，需要判断是向上指还是向下指
+                                  if (last_read_url == state.hot_search_list[index].url) {
+                                    var (be_raed, _) = logic.get_app_progress_ratio(state.hot_search_list[index].url);
+                                    if (be_raed > 0) {
+                                      return Align(
+                                        alignment: AlignmentDirectional(-1, 0),
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
+                                          child: Text(
+                                            '👆👆👆最后阅读：$be_raed%',
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return SizedBox(
+                                        height: 8,
+                                      );
+                                    }
+                                  } else if (last_read_url == state.hot_search_list.last.url) {
+                                    var (be_raed, _) = logic.get_app_progress_ratio(state.hot_search_list.last.url);
+                                    if (be_raed > 0) {
+                                      return Align(
+                                        alignment: AlignmentDirectional(-1, 0),
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
+                                          child: Text(
+                                            '👇👇👇最后阅读：$be_raed%',
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return SizedBox(
+                                        height: 8,
+                                      );
+                                    }
+                                  } else {
+                                    return SizedBox(
+                                      height: 8,
+                                    );
+                                  }
+                                } else {
+                                  // 其他位置为通用位置，全部向上指
                                   var (be_raed, _) = logic.get_app_progress_ratio(state.hot_search_list[index].url);
-                                  if (be_raed != -1) {
+                                  if (last_read_url == state.hot_search_list[index].url && be_raed > 0) {
                                     return Align(
                                       alignment: AlignmentDirectional(-1, 0),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
                                         child: Text(
-                                          '👇👇👇最后阅读：$be_raed%',
+                                          '👆👆👆最后阅读：$be_raed%',
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                 color: FlutterFlowTheme.of(context).secondaryText,
                                                 letterSpacing: 0.0,
@@ -883,12 +939,12 @@ class HistoryHotSearchPage extends StatelessWidget {
                                         ),
                                       ),
                                     );
+                                  } else {
+                                    return SizedBox(
+                                      height: 8,
+                                    );
                                   }
                                 }
-
-                                return SizedBox(
-                                  height: 8,
-                                );
                               },
                             );
                           },
