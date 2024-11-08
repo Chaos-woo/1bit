@@ -7,11 +7,14 @@ import '../github_issues/view.dart';
 import 'logic.dart';
 
 class Github1bitIssuesListComponent extends StatelessWidget {
-  const Github1bitIssuesListComponent({Key? key}) : super(key: key);
+  const Github1bitIssuesListComponent({
+    Key? key,
+    OnRefreshedListener? onRefreshedListener,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.put(Github1bitIssuesListLogic());
+    final logic = Get.find<Github1bitIssuesListLogic>();
     final state = Get.find<Github1bitIssuesListLogic>().state;
 
     return PagingWidgetBuilder.buildRefresher(
@@ -19,10 +22,10 @@ class Github1bitIssuesListComponent extends StatelessWidget {
       builder: (controller) {
         return ListView.builder(
           itemBuilder: (context, index) => InkWell(
-            onTap: () => QKit.route.to(rt_tool_github_issues_detail, argument: state.dataList[index]),
-            child: GithubIssuesWidget(issues: state.dataList[index]),
+            onTap: () => QKit.route.to(rt_tool_github_issues_detail, argument: state.data_list[index]),
+            child: GithubIssuesWidget(issues: state.data_list[index]),
           ),
-          itemCount: state.dataList.length,
+          itemCount: state.data_list.length,
           physics: BouncingScrollPhysics(),
           addAutomaticKeepAlives: true,
         );

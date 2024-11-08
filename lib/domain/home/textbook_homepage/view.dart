@@ -81,7 +81,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
                               ),
                             ),
                             Tab(
-                              text: '稍后读',
+                              text: '稍后再看',
                             ),
                           ],
                         ),

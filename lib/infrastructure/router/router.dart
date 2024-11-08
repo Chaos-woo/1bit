@@ -37,7 +37,7 @@ const rt_news_apphotsearch_settings_appgroups = '/news/apphotsearch/settings/app
 const rt_news_apphotsearch_settings_groupapps = '/news/apphotsearch/settings/groupapps';
 
 class AppPageRouter {
-  static void initRoutePage() {
+  static void createRouterPage() {
     RouteProxyDispatcher.addRoute(
       rt_home,
       () => HomepagePage(),

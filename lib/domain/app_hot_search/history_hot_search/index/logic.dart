@@ -145,6 +145,7 @@ class HistoryHotSearchLogic extends GetxController {
     List<FavoriteApp> apps = state.favorite_apps_by_group_id(group_id);
     state.app = '';
     state.apps = apps.map((e) => e.name).toList();
+    state.group_id = group_id;
   }
 
   /// 获取指定路径下的内容列表，包含子文件夹和文件

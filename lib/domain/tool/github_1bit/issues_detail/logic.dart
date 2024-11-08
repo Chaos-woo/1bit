@@ -15,7 +15,7 @@ class Github1bitIssuesDetailLogic extends PagingController<Github1bitIssuesDetai
   }
 
   @override
-  Future<List<CommentModel>> fetchData() async {
+  Future<List<CommentModel>> fetch_data() async {
     /// 问题详情由上一页面带入，本页面主要加载问题评论
     List<GithubComment> comments = await Apis.github.list_comments(
       c_1bit_repo_owner,

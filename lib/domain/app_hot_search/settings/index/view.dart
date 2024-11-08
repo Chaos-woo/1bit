@@ -25,7 +25,6 @@ class AppHotSearchSettingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -74,7 +73,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                             await QKit.route.to(
                               rt_tool_github_setting,
                               path_variables: {
-                                '${GithubSettingLogic.m_path_variables.show_1bit_repo_value}': false.toString(),
+                                '${GithubSettingLogic.m_path_variables.c_show_1bit_repo}': false.toString(),
                               },
                             );
                           },

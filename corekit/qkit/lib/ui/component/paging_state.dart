@@ -14,10 +14,10 @@ abstract class PagingState<T> {
   int get nextPage => currPage + 1;
 
   /// 分页数据
-  RxList<T> dataList = <T>[].obs;
+  RxList<T> data_list = <T>[].obs;
 
   /// 是否需要请求更多
-  bool isLoadMore() => dataList.length < fetchTotal;
+  bool isLoadMore() => data_list.length < fetchTotal;
 }
 
 class SimplePageState<T> extends PagingState<T> {

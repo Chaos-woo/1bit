@@ -19,7 +19,7 @@ class GithubSettingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -35,17 +35,13 @@ class GithubSettingPage extends StatelessWidget {
             QKit.route.back();
           },
         ),
-        title: Text(
-          'Github客户端设置',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: 'Github Secret Key',
+          icon: Icons.security_rounded,
         ),
         actions: [],
-        centerTitle: false,
-        elevation: 2,
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,

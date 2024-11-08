@@ -13,7 +13,7 @@ final class Apis {
   }
 
   /// 初始化服务
-  static void initServices() {
+  static void createServices() {
     Get.put(BingMgr(), tag: BingMgr.tag);
   }
 }

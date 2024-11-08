@@ -41,7 +41,7 @@ class GithubIssuesWidget extends StatelessWidget {
                   children: [
                     FFButtonWidget(
                       onPressed: () {
-                        print('Button pressed ...');
+                        /// do anything
                       },
                       text: issues.state.capitalize!,
                       icon: Icon(
@@ -107,8 +107,8 @@ class GithubIssuesWidget extends StatelessWidget {
                       Expanded(
                         child: R1Ui.text.expandable_text(
                           issues.title,
-                          maxLines: 3,
-                          textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                          max_lines: 3,
+                          text_style: FlutterFlowTheme.of(context).bodyLarge.override(
                                 letterSpacing: 0,
                               ),
                         ),

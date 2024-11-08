@@ -16,13 +16,13 @@ class PagingWidgetBuilder {
   }) {
     return GetX<T>(
       init: controller,
-      builder: (pagingController) => SmartRefresher(
+      builder: (paging_controller) => SmartRefresher(
         enablePullDown: enablePullDown,
         enablePullUp: enablePullUp,
-        controller: pagingController.refreshController,
-        onRefresh: pagingController.onRefresh,
-        onLoading: pagingController.onLoading,
-        child: builder.call(pagingController),
+        controller: paging_controller.refreshController,
+        onRefresh: paging_controller.on_refresh,
+        onLoading: paging_controller.on_loading,
+        child: builder.call(paging_controller),
       ),
     );
   }

@@ -20,7 +20,7 @@ class Github1bitCommentEditPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -36,127 +36,125 @@ class Github1bitCommentEditPage extends StatelessWidget {
             QKit.route.back(backValue: GithubApiDataPostAction.no_action_then_back);
           },
         ),
-        title: Text(
-          '编辑 1bit issues 评论',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
-        ),
         actions: [],
-        centerTitle: false,
-        elevation: 2,
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: '编辑1ssues评论',
+          icon: Icons.post_add_rounded,
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                decoration: BoxDecoration(),
-                child: IssuesDetailCompWidget(issues: state.issuesModel),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
-              child: TextFormField(
-                controller: logic.textController,
-                autofocus: false,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: '评论内容',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        letterSpacing: 0,
-                      ),
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        letterSpacing: 0,
-                      ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).alternate,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primary,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Container(
+                  decoration: BoxDecoration(),
+                  child: IssuesDetailCompWidget(issues: state.issuesModel),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      letterSpacing: 0,
-                    ),
-                maxLines: 20,
-                minLines: 1,
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10, 30, 10, 0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              var postResult = await logic.post();
-                              if (postResult) {
-                                R1Ui.snackbar.show_simple_snackbar('提交成功');
-                                QKit.route.back(backValue: GithubApiDataPostAction.posted_data_then_back);
-                              } else {
-                                R1Ui.snackbar.show_simple_snackbar('提交失败');
-                              }
-                            },
-                            text: '提交',
-                            options: FFButtonOptions(
-                              height: 40,
-                              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                              color: FlutterFlowTheme.of(context).primary,
-                              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                              elevation: 3,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
+                child: TextFormField(
+                  controller: logic.textController,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: '评论内容',
+                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                          letterSpacing: 0,
+                        ),
+                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                          letterSpacing: 0,
+                        ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primary,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        letterSpacing: 0,
+                      ),
+                  maxLines: 300,
+                  minLines: 3,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 30, 10, 0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                var postResult = await logic.post();
+                                if (postResult) {
+                                  R1Ui.snackbar.show_simple_snackbar('提交成功');
+                                  QKit.route.back(backValue: GithubApiDataPostAction.posted_data_then_back);
+                                } else {
+                                  R1Ui.snackbar.show_simple_snackbar('提交失败');
+                                }
+                              },
+                              text: '提交',
+                              options: FFButtonOptions(
+                                height: 40,
+                                padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                      color: Colors.white,
+                                      letterSpacing: 0,
+                                    ),
+                                elevation: 3,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

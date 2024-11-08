@@ -69,9 +69,10 @@ class IssuesCommentCompWidget extends StatelessWidget {
                   Expanded(
                     child: R1Ui.text.expandable_text(
                       comment.body,
-                      textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      text_style: FlutterFlowTheme.of(context).bodyMedium.override(
                             letterSpacing: 0,
                           ),
+                      max_lines: 4,
                     ),
                   ),
                 ],

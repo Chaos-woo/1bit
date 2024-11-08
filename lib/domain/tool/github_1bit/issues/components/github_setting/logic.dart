@@ -7,11 +7,9 @@ import 'package:qkit/qkit.dart';
 import 'state.dart';
 
 final class _PathVariables {
-  static const _c_show_1bit_repo = 'show_1bit_repo';
+  String? get show_1bit_repo => QKit.route.path_variables(c_show_1bit_repo);
 
-  String? get show_1bit_repo => QKit.route.path_variables(_c_show_1bit_repo);
-
-  String get show_1bit_repo_value => _c_show_1bit_repo;
+  String get c_show_1bit_repo => 'show_1bit_repo';
 }
 
 class GithubSettingLogic extends GetxController {

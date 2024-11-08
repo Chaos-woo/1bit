@@ -13,15 +13,15 @@ void main() {
     const MyApp(),
     preprocessed: () {
       /// 初始化路由
-      AppPageRouter.initRoutePage();
+      AppPageRouter.createRouterPage();
     },
     initCompleted: () {
       /// 初始化数据库
-      R1DatabaseMgr.createDatabaseAndRepos();
+      R1DatabaseMgr.createDatabaseAndRepositories();
 
       /// 初始化业务数据
       Apis.createApis();
-      Apis.initServices();
+      Apis.createServices();
     },
     afterRunAppProcessed: () {
       /// 配置easyloading配置

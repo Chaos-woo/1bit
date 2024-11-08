@@ -19,7 +19,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -35,17 +35,13 @@ class Github1bitIssuesEditPage extends StatelessWidget {
             QKit.route.back(backValue: GithubApiDataPostAction.no_action_then_back);
           },
         ),
-        title: Text(
-          '编辑 1bit issues',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
-        ),
         actions: [],
-        centerTitle: false,
-        elevation: 2,
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: '1ssues编辑',
+          icon: Icons.edit_note_rounded,
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
@@ -254,7 +250,7 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                   autofocus: false,
                   obscureText: false,
                   decoration: InputDecoration(
-                    labelText: '内容',
+                    hintText: '内容',
                     labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
                           letterSpacing: 0,
                         ),
@@ -293,8 +289,8 @@ class Github1bitIssuesEditPage extends StatelessWidget {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         letterSpacing: 0,
                       ),
-                  maxLines: 20,
-                  minLines: 1,
+                  maxLines: 300,
+                  minLines: 3,
                 ),
               ),
               Padding(

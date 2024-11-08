@@ -3,6 +3,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_deta
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
             logic.request_refresh();
           }
         },
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).secondary,
         elevation: 8,
         child: Icon(
           Icons.add,
@@ -39,7 +40,7 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -55,17 +56,12 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
             QKit.route.back();
           },
         ),
-        title: Text(
-          '1bit issues 详情',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: '1ssues',
+          icon: Icons.quiz_rounded,
         ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
@@ -111,9 +107,9 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
                       return ListView.builder(
                         itemBuilder: (context, index) => Padding(
                           padding: EdgeInsets.symmetric(vertical: 2.5),
-                          child: IssuesCommentCompWidget(comment: state.dataList[index]),
+                          child: IssuesCommentCompWidget(comment: state.data_list[index]),
                         ),
-                        itemCount: state.dataList.length,
+                        itemCount: state.data_list.length,
                         physics: BouncingScrollPhysics(),
                         addAutomaticKeepAlives: true,
                       );

@@ -2,6 +2,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_1bit_iss
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -10,11 +11,11 @@ import 'package:qkit/qkit.dart';
 import 'logic.dart';
 
 class Github1bitIssuesPage extends StatelessWidget {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var drawerKey = GlobalKey<IssuesFilteredDrawerWidgetState>();
+  final scaffold_key = GlobalKey<ScaffoldState>();
+  final drawer_key = GlobalKey<IssuesFilteredDrawerWidgetState>();
 
   Github1bitIssuesPage({Key? key}) : super(key: key) {
-    Get.find<Github1bitIssuesLogic>().drawerKey = drawerKey;
+    Get.find<Github1bitIssuesLogic>().drawerKey = drawer_key;
   }
 
   @override
@@ -23,7 +24,7 @@ class Github1bitIssuesPage extends StatelessWidget {
     final state = Get.find<Github1bitIssuesLogic>().state;
 
     return Scaffold(
-      key: scaffoldKey,
+      key: scaffold_key,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -31,10 +32,10 @@ class Github1bitIssuesPage extends StatelessWidget {
               await QKit.route.to(rt_tool_github_issues_edit) as GithubApiDataPostAction;
           if (back_action == GithubApiDataPostAction.posted_data_then_back) {
             logic.mark_refresh_list();
-            logic.refreshIssuesListByNewFiltered(isDrawerOpened: false);
+            logic.refresh_issues_list_by_new_filtered(isDrawerOpened: false);
           }
         },
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).secondary,
         elevation: 8,
         child: Icon(
           Icons.add,
@@ -44,13 +45,17 @@ class Github1bitIssuesPage extends StatelessWidget {
       ),
       drawerEnableOpenDragGesture: false,
       drawer: IssuesFilteredDrawerWidget(
-        key: drawerKey,
-        scaffoldKey: scaffoldKey,
+        key: drawer_key,
+        scaffoldKey: scaffold_key,
       ),
-      onDrawerChanged: ((isOpened) => logic.refreshIssuesListByNewFiltered(isDrawerOpened: isOpened)),
+      onDrawerChanged: ((isOpened) => logic.refresh_issues_list_by_new_filtered(isDrawerOpened: isOpened)),
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: '1ssues列表',
+          icon: Icons.question_answer_outlined,
+        ),
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
           borderRadius: 30,
@@ -65,23 +70,15 @@ class Github1bitIssuesPage extends StatelessWidget {
             QKit.route.back();
           },
         ),
-        title: Text(
-          '1bit Github Issues',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
-        ),
         actions: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
             child: FlutterFlowIconButton(
-              borderColor: FlutterFlowTheme.of(context).primary,
+              borderColor: Colors.transparent,
               borderRadius: 20,
               borderWidth: 1,
               buttonSize: 40,
-              fillColor: FlutterFlowTheme.of(context).accent1,
+              fillColor: Colors.transparent,
               icon: Icon(
                 Icons.settings_rounded,
                 color: Colors.white,
@@ -93,8 +90,8 @@ class Github1bitIssuesPage extends StatelessWidget {
             ),
           ),
         ],
-        centerTitle: false,
-        elevation: 2,
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
@@ -116,7 +113,7 @@ class Github1bitIssuesPage extends StatelessWidget {
                     children: [
                       FFButtonWidget(
                         onPressed: () {
-                          scaffoldKey.currentState!.openDrawer();
+                          scaffold_key.currentState!.openDrawer();
                         },
                         text: '过滤器',
                         icon: Icon(
@@ -185,23 +182,20 @@ class Github1bitIssuesPage extends StatelessWidget {
               alignment: AlignmentDirectional(-1, 0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
-                child: Text(
-                  '问题列表',
-                  style: FlutterFlowTheme.of(context).labelSmall.override(
-                        letterSpacing: 0,
-                      ),
+                child: Obx(
+                  () => Text(
+                    '问题列表(${state.m_total_issues_count})',
+                    style: FlutterFlowTheme.of(context).labelSmall.override(
+                          letterSpacing: 0,
+                        ),
+                  ),
                 ),
               ),
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10),
-                child: GetBuilder<Github1bitIssuesLogic>(
-                  id: logic.k_issuesListViewId,
-                  builder: (Github1bitIssuesLogic controller) {
-                    return Github1bitIssuesListComponent();
-                  },
-                ),
+                child: Github1bitIssuesListComponent(),
               ),
             ),
           ],
@@ -327,7 +321,7 @@ class IssuesFilteredDrawerWidgetState extends State<IssuesFilteredDrawerWidget> 
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                           child: Text(
-                            '1bit issues 标签',
+                            'issues标签',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   letterSpacing: 0,
                                 ),

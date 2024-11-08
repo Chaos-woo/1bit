@@ -13,7 +13,7 @@ class Github1bitIssuesLogic extends GetxController {
   late GlobalKey<IssuesFilteredDrawerWidgetState> drawerKey;
 
   final String k_selectedChoiceRowViewId = '#issuesSelectedChoiceRowWidget';
-  final String k_issuesListViewId = '#issuesListWidget';
+  final String k_issues_list_view_id = '#issuesListWidget';
 
   /// 过滤器页面临时保存选项
   String? choiceChipsStateValue;
@@ -26,8 +26,14 @@ class Github1bitIssuesLogic extends GetxController {
 
   @override
   void onReady() async {
+    Get.find<Github1bitIssuesListLogic>().on_refreshed_listener = (bool is_refresh_fetch, bool is_fetch_success) async {
+      if (is_fetch_success) {
+        state.m_total_issues_count.value = Get.find<Github1bitIssuesListLogic>().state.data_list.length;
+      }
+    };
+
     List<GithubLabel> labels = await Apis.github.list_labels(state.owner, state.repo);
-    state.setRepoLabels(labels);
+    state.set_repo_labels(labels);
 
     drawerKey.currentState?.refresh_state();
   }
@@ -35,7 +41,7 @@ class Github1bitIssuesLogic extends GetxController {
   /// 刷新issues列表
   /// 1. drawer关闭并且设置需要刷新列表时请求接口
   /// 2. 提交新的issues也需要刷新接口
-  void refreshIssuesListByNewFiltered({bool isDrawerOpened = true}) async {
+  void refresh_issues_list_by_new_filtered({bool isDrawerOpened = true}) async {
     if (isDrawerOpened || !_m_mark_refresh_list) {
       return;
     }
@@ -76,7 +82,7 @@ class Github1bitIssuesLogic extends GetxController {
 
     update([k_selectedChoiceRowViewId]);
     _m_mark_refresh_list = true;
-    refreshIssuesListByNewFiltered(isDrawerOpened: false);
+    refresh_issues_list_by_new_filtered(isDrawerOpened: false);
   }
 
   /// 清除所有已选择的过滤器

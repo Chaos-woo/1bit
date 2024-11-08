@@ -120,6 +120,7 @@ class TodayHotSearchPage extends StatelessWidget {
                                     ),
                                     onTap: () async {
                                       await logic.m_refresh_group_apps_and_hot_search_list();
+                                      QKit.ui.toast.show('刷新完成');
                                     },
                                   ),
                                   for (var group in state.favorite_app_groups)

@@ -1,25 +1,19 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/issues/label_model.dart';
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/github/models/issues/github_label.dart';
+import 'package:get/get.dart';
 
 class Github1bitIssuesState {
   final String owner = c_1bit_repo_owner;
   final String repo = c_1bit_repo;
 
-  List<IssuesFiltered> stateValues = [
-    IssuesFiltered.state_open,
-    IssuesFiltered.state_closed,
-    IssuesFiltered.state_all
-  ];
+  List<IssuesFiltered> stateValues = [IssuesFiltered.state_open, IssuesFiltered.state_closed, IssuesFiltered.state_all];
   List<IssuesFiltered> sortFieldsValues = [
     IssuesFiltered.sort_created,
     IssuesFiltered.sort_updated,
     IssuesFiltered.sort_comments
   ];
-  List<IssuesFiltered> sortDirectionValues = [
-    IssuesFiltered.direction_desc,
-    IssuesFiltered.direction_asc
-  ];
+  List<IssuesFiltered> sortDirectionValues = [IssuesFiltered.direction_desc, IssuesFiltered.direction_asc];
 
   List<LabelModel> label_values = [];
 
@@ -29,11 +23,9 @@ class Github1bitIssuesState {
   String? choiceChipsSortFieldsValue;
   String? choiceChipsSortDirectionValue;
 
-  List<String> get choiceChipStateInitVal =>
-      choiceChipsStateValue != null ? [choiceChipsStateValue!] : [];
+  List<String> get choiceChipStateInitVal => choiceChipsStateValue != null ? [choiceChipsStateValue!] : [];
 
-  List<String> get choiceChipLabelInitVal =>
-      choiceChipsLabelValue != null ? choiceChipsLabelValue! : [];
+  List<String> get choiceChipLabelInitVal => choiceChipsLabelValue != null ? choiceChipsLabelValue! : [];
 
   List<String> get choiceChipSortFieldsInitVal =>
       choiceChipsSortFieldsValue != null ? [choiceChipsSortFieldsValue!] : [];
@@ -41,9 +33,12 @@ class Github1bitIssuesState {
   List<String> get choiceChipSortDirectionInitVal =>
       choiceChipsSortDirectionValue != null ? [choiceChipsSortDirectionValue!] : [];
 
-  void setRepoLabels(List<GithubLabel> labels) {
+  void set_repo_labels(List<GithubLabel> labels) {
     label_values = labels.map((e) => LabelModel.fromJson(e.toJson())).toList();
   }
+
+  /// 问题总数
+  var m_total_issues_count = 0.obs;
 
   Github1bitIssuesState() {}
 }
@@ -64,7 +59,7 @@ enum IssuesFiltered {
 
   const IssuesFiltered(this.label, this.option);
 
-  static IssuesFiltered? labelBy(String? value) {
+  static IssuesFiltered? label_by(String? value) {
     return IssuesFiltered.values.where((element) => element.label == value).firstOrNull;
   }
 }

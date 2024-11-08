@@ -1,5 +1,6 @@
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -20,46 +21,15 @@ class ToolHomepagePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
-        title: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '1bit工坊',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    color: Colors.white,
-                    fontSize: 22,
-                    letterSpacing: 0,
-                  ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 5),
-              child: InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {},
-                child: Text(
-                  'version' + ' >',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        letterSpacing: 0,
-                      ),
-                ),
-              ),
-            ),
-          ],
-        ),
         actions: [
           FlutterFlowIconButton(
-            borderColor: FlutterFlowTheme.of(context).primary,
+            borderColor: Colors.transparent,
             borderRadius: 20,
             borderWidth: 1,
             buttonSize: 40,
-            fillColor: FlutterFlowTheme.of(context).accent1,
+            fillColor: Colors.transparent,
             icon: Icon(
               Icons.color_lens_outlined,
               color: Colors.white,
@@ -70,11 +40,11 @@ class ToolHomepagePage extends StatelessWidget {
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
             child: FlutterFlowIconButton(
-              borderColor: FlutterFlowTheme.of(context).primary,
+              borderColor: Colors.transparent,
               borderRadius: 20,
               borderWidth: 1,
               buttonSize: 40,
-              fillColor: FlutterFlowTheme.of(context).accent1,
+              fillColor: Colors.transparent,
               icon: Icon(
                 Icons.feed_outlined,
                 color: Colors.white,
@@ -84,8 +54,12 @@ class ToolHomepagePage extends StatelessWidget {
             ),
           ),
         ],
-        centerTitle: false,
-        elevation: 2,
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: '1nfo-X',
+          icon: Icons.category_outlined,
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         child: Column(
@@ -106,14 +80,14 @@ class ToolHomepagePage extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: ToolGroupComponent(
                     toolGroup: ToolGroup(
-                      name: '1bit',
+                      name: '应用反馈',
                       items: [
                         ToolGroupItemRouter(
-                          title: '1bit Github issues',
-                          subtitle: 'Github仓库issues',
+                          title: 'App Github issues',
+                          subtitle: '本软件的Github仓库issues',
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          on_tap: () => {QKit.route.to(rt_tool_github_issues_home)},
+                          on_tap: () => QKit.route.to(rt_tool_github_issues_home),
                         ),
                         ToolGroupItemRouter(
                           title: '疑问随手记',
@@ -130,7 +104,7 @@ class ToolHomepagePage extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: ToolGroupComponent(
                     toolGroup: ToolGroup(
-                      name: '新鲜事',
+                      name: '测试库',
                       items: [
                         ToolGroupItemRouter(
                           title: 'FlutterFlow 测试库',

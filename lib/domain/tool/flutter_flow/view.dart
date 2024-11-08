@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class FlutterFlowPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -35,17 +36,13 @@ class FlutterFlowPage extends StatelessWidget {
             QKit.route.back();
           },
         ),
-        title: Text(
-          'FlutterFlow测试库',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
-        ),
         actions: [],
-        centerTitle: false,
-        elevation: 2,
+        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+          title: 'FlutterFlow测试库',
+          icon: Icons.terminal_sharp,
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
@@ -143,10 +140,9 @@ class FlutterFlowPage extends StatelessWidget {
                                                 'snackbar',
                                                 textAlign: TextAlign.center,
                                                 maxLines: 2,
-                                                style:
-                                                    FlutterFlowTheme.of(context).bodySmall.override(
-                                                          letterSpacing: 0,
-                                                        ),
+                                                style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -231,10 +227,9 @@ class FlutterFlowPage extends StatelessWidget {
                                                 'bottom sheet',
                                                 textAlign: TextAlign.center,
                                                 maxLines: 2,
-                                                style:
-                                                    FlutterFlowTheme.of(context).bodySmall.override(
-                                                          letterSpacing: 0,
-                                                        ),
+                                                style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -325,10 +320,9 @@ class FlutterFlowPage extends StatelessWidget {
                                                 'confirm dialog',
                                                 textAlign: TextAlign.center,
                                                 maxLines: 2,
-                                                style:
-                                                    FlutterFlowTheme.of(context).bodySmall.override(
-                                                          letterSpacing: 0,
-                                                        ),
+                                                style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -414,10 +408,9 @@ class FlutterFlowPage extends StatelessWidget {
                                                 'info dialog',
                                                 textAlign: TextAlign.center,
                                                 maxLines: 2,
-                                                style:
-                                                    FlutterFlowTheme.of(context).bodySmall.override(
-                                                          letterSpacing: 0,
-                                                        ),
+                                                style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -445,8 +438,7 @@ class FlutterFlowPage extends StatelessWidget {
                                     elevation: 0,
                                     insetPadding: EdgeInsets.zero,
                                     backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0, 0)
-                                        .resolve(Directionality.of(context)),
+                                    alignment: AlignmentDirectional(0, 0).resolve(Directionality.of(context)),
                                     child: Container(
                                       height: 300,
                                       child: CustomSampleCompWidget(),
@@ -506,9 +498,7 @@ class FlutterFlowPage extends StatelessWidget {
                                                   'custom dialog',
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
-                                                  style: FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .override(
+                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
                                                         letterSpacing: 0,
                                                       ),
                                                 ),

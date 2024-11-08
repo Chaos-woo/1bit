@@ -21,7 +21,7 @@ final class R1DatabaseMgr {
 
   R1DatabaseMgr._();
 
-  static void createDatabaseAndRepos() {
+  static void createDatabaseAndRepositories() {
     /// 初始化数据库
     Get.put(AppDatabase(), tag: AppDatabase.tag, permanent: true);
 
@@ -49,7 +49,7 @@ const _tables = [
 ];
 
 /// 数据库迁移器，每次新加迁移器需要在此处理
-const _migrators = [];
+const List<OnUpgradeMigration> _migrators = [];
 
 const db_name = 'c_r1bit_db.db';
 
