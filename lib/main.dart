@@ -13,15 +13,15 @@ void main() {
     const MyApp(),
     preprocessed: () {
       /// 初始化路由
-      AppPageRouter.createRouterPage();
+      AppPageRouter.create_router_page();
     },
     initCompleted: () {
       /// 初始化数据库
-      R1DatabaseMgr.createDatabaseAndRepositories();
+      R1DatabaseMgr.create_database_and_repository();
 
       /// 初始化业务数据
-      Apis.createApis();
-      Apis.createServices();
+      Apis.create_apis();
+      Apis.create_services();
     },
     afterRunAppProcessed: () {
       /// 配置easyloading配置
@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-            title: 'R1bit',
+            title: '1C',
             scrollBehavior: const CupertinoScrollBehavior(),
-            themeMode: ThemeMode.light,
+            themeMode: ThemeMode.system,
             initialRoute: rt_home,
             getPages: RouteProxyDispatcher.s_pageRoutes,
             debugShowCheckedModeBanner: !QKitUtils.is_release_mode,

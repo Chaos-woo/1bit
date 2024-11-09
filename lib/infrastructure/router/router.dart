@@ -4,6 +4,7 @@ import 'package:cw2bit/domain/app_hot_search/settings/group_apps_edit/view.dart'
 import 'package:cw2bit/domain/app_hot_search/settings/index/view.dart';
 import 'package:cw2bit/domain/home/homepage/binding.dart';
 import 'package:cw2bit/domain/home/homepage/view.dart';
+import 'package:cw2bit/domain/tool/app_theme/view.dart';
 import 'package:cw2bit/domain/tool/flutter_flow/view.dart';
 import 'package:cw2bit/domain/tool/github_1bit/comment_edit/binding.dart';
 import 'package:cw2bit/domain/tool/github_1bit/comment_edit/view.dart';
@@ -15,6 +16,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues_detail/binding.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/view.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues_edit/view.dart';
 import 'package:cw2bit/public/text_ocr/view.dart';
+import 'package:flutter/material.dart';
 import 'package:qkit/qkit.dart';
 
 /// 命名路由
@@ -23,8 +25,9 @@ const rt_home = '/home';
 /// 公共路由
 const rt_publicTextOcr = '/public/textorc/home';
 
-/// R1bit模块路由
+/// 实验室模块路由
 const rt_tool_flutter_flow_home = '/tool/flutterflow/home';
+const rt_tool_app_theme_home = '/tool/apptheme/home';
 const rt_tool_github_setting = '/tool/github/setting';
 const rt_tool_github_issues_home = '/tool/github/issues/home';
 const rt_tool_github_issues_detail = '/tool/github/issues/detail';
@@ -37,7 +40,8 @@ const rt_news_apphotsearch_settings_appgroups = '/news/apphotsearch/settings/app
 const rt_news_apphotsearch_settings_groupapps = '/news/apphotsearch/settings/groupapps';
 
 class AppPageRouter {
-  static void createRouterPage() {
+  static void create_router_page() {
+    Colors.red;
     RouteProxyDispatcher.addRoute(
       rt_home,
       () => HomepagePage(),
@@ -48,6 +52,10 @@ class AppPageRouter {
         .addRoute(
           rt_tool_flutter_flow_home,
           () => const FlutterFlowPage(),
+        )
+        .addRoute(
+          rt_tool_app_theme_home,
+          () => AppThemePage(),
         )
         .addRoute(
           rt_tool_github_issues_home,

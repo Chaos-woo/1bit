@@ -52,8 +52,8 @@ class SpUtilBridge {
   }
 
   /// get int.
-  int? getInt(String key, {int? defValue = 0}) {
-    return SpUtil.getInt(key, defValue: defValue);
+  int? getInt(String key, {int? default_value = 0}) {
+    return SpUtil.getInt(key, defValue: default_value);
   }
 
   /// put int.

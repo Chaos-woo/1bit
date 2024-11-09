@@ -113,6 +113,8 @@ dependencies:
   drift_flutter: '>=0.1.0 <0.2.0'
   # 可拖拽列表
   animated_reorderable_list: ^1.1.1
+  # APP开屏
+  flutter_native_splash: ^2.4.1
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本
@@ -135,6 +137,14 @@ dev_dependencies:
 # dart脚本运行IDE插件
 scripts:
   build_runner_build: flutter packages pub run build_runner build --delete-conflicting-outputs
+  build_native_splash: dart run flutter_native_splash:create
+
+flutter_native_splash:
+#  image: assets/splash.png
+  color: "#6CD9CC"
+  android_12:
+#    image: assets/splash.png
+    icon_background_color: "#6CD9CC"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

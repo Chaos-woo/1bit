@@ -21,7 +21,7 @@ final class R1DatabaseMgr {
 
   R1DatabaseMgr._();
 
-  static void createDatabaseAndRepositories() {
+  static void create_database_and_repository() {
     /// 初始化数据库
     Get.put(AppDatabase(), tag: AppDatabase.tag, permanent: true);
 

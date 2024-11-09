@@ -17,9 +17,9 @@ class HomepagePage extends StatelessWidget {
 
   /// 底部导航栏item
   final items = [
-    {'icon': Icons.token_outlined, 'label': '1nfo-X'},
-    {'icon': Icons.connect_without_contact_rounded, 'label': 'Connector'},
-    {'icon': Icons.videogame_asset_rounded, 'label': 'Gaming'},
+    {'icon': Icons.category_outlined, 'label': '1nfo'},
+    {'icon': Icons.connect_without_contact_rounded, 'label': 'Dots'},
+    {'icon': Icons.videogame_asset_rounded, 'label': 'Games'},
     {'icon': Icons.ondemand_video_rounded, 'label': 'Live'},
     {'icon': Icons.book_outlined, 'label': 'Tags'},
   ];

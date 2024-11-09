@@ -35,27 +35,29 @@ class ToolHomepagePage extends StatelessWidget {
               color: Colors.white,
               size: 24,
             ),
-            onPressed: () async {},
+            onPressed: () async {
+              await QKit.route.to(rt_tool_app_theme_home);
+            },
           ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 20,
-              borderWidth: 1,
-              buttonSize: 40,
-              fillColor: Colors.transparent,
-              icon: Icon(
-                Icons.feed_outlined,
-                color: Colors.white,
-                size: 24,
-              ),
-              onPressed: () async {},
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+          //   child: FlutterFlowIconButton(
+          //     borderColor: Colors.transparent,
+          //     borderRadius: 20,
+          //     borderWidth: 1,
+          //     buttonSize: 40,
+          //     fillColor: Colors.transparent,
+          //     icon: Icon(
+          //       Icons.feed_outlined,
+          //       color: Colors.white,
+          //       size: 24,
+          //     ),
+          //     onPressed: () async {},
+          //   ),
+          // ),
         ],
         flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
-          title: '1nfo-X',
+          title: '1nfo',
           icon: Icons.category_outlined,
         ),
         centerTitle: true,
