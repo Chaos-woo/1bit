@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:cw2bit/domain/app_hot_search/history_hot_search/index/state.dart';
 import 'package:cw2bit/domain/app_hot_search/models/bo/app_groups.dart';
@@ -16,18 +14,24 @@ import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_
 import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_repo.dart';
 import 'package:cw2bit/public/webview/app_webview_dialog.dart';
 import 'package:cw2bit/public/webview/app_webview_listener.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
+import 'package:qkit/qkit.dart';
 
 class HistoryHotSearchLogic extends GetxController {
   final HistoryHotSearchState state = HistoryHotSearchState();
 
-  final k_app_scroll_view_view_id = '#kAppScrollView';
-  final k_group_scroll_view_view_id = '#kGroupScrollView';
-  final k_app_hot_search_history_directory_view_id = '#kAppHotSearchHistoryDirectoryView';
-  final k_hot_search_scroll_view_view_id = '#kAppHotSearchView';
+  final k_app_scroll_view_view_id = '__k_app_scroll_view_view_id__';
+  final k_group_scroll_view_view_id = '__k_group_scroll_view_view_id__';
+  final k_app_hot_search_history_directory_view_id = '__k_app_hot_search_history_directory_view_id__';
+  final k_hot_search_scroll_view_view_id = '__k_hot_search_scroll_view_view_id__';
 
   final RegExp title_regex = RegExp(r'\[(.*)\]');
   final RegExp url_regex = RegExp(r'\((.*?)\)');
+
+  /// 日历的Key
+  final calendar_key = GlobalKey();
 
   @override
   void onReady() async {
@@ -234,5 +238,74 @@ class HistoryHotSearchLogic extends GetxController {
     }
 
     return models;
+  }
+
+  /// 刷新指定APP的热搜文件bitmap
+  /// 1.年份>=2024，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
+  //  2.年份>=2023 & 月份>=11月，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
+  //  3.年份>=2023 & 月份<8月，提示无归档数据
+  //  4.年份>=2023 & 月份<11月，使用yyyy/mm归档路径，仅跳转月份归档
+  //  5.年份 < 2023，提示无归档数据
+  void refresh_available_hot_search_records_bitmap(String app, int year, int month) {
+    QKit.delay.delay(() async {
+      if (year < 2023) {
+        return;
+      }
+
+      if (year == 2023 && month < 11) {
+        return;
+      }
+
+      var archive_file_identifier = ArchiveDateIdentifier(year, month, app);
+      var pfs_key = archive_file_identifier.format_apps_available_history_records_key;
+
+      var records_bitmap = QKit.bridge.flustars.preferences.getString(pfs_key, default_value: null);
+
+      var now = DateTime.now();
+
+      /// 不存在或当月，需要重新获取
+      if (records_bitmap == null || (now.year == year && now.month == month)) {
+        /// 接口获取热搜记录文件列表
+        try {
+          List<GithubContent> contents = await Apis.github.list_contents(
+            c_hot_search_repo_owner,
+            c_hot_search_repo,
+            '${c_hot_search_repo_root_dir}/${archive_file_identifier.app}/${archive_file_identifier.year}/${archive_file_identifier.format_history_records_month()}',
+          );
+
+          var record_names = contents.map((e) => e.name).toList();
+
+          /// 首次获取，初始化bitmap
+          int max_index = 32;
+          records_bitmap = '0' * max_index;
+          var record_bitmap_list = records_bitmap.split('');
+          for (int i = 1; i < max_index; i++) {
+            var exist = record_names
+                .firstWhereOrNull((name) => name.startsWith(archive_file_identifier.format_history_records_key(i)));
+            if (exist != null) {
+              record_bitmap_list[i] = '1';
+            }
+          }
+          records_bitmap = record_bitmap_list.join();
+          QKit.bridge.flustars.preferences.putString(pfs_key, records_bitmap);
+          calendar_key.currentState?.safeSetState(() {});
+        } catch (ex) {
+          // 忽略异常
+        }
+      }
+    });
+  }
+
+  /// 获取指定APP的热搜文件某天是否存在热搜
+  bool is_available_hot_search_records(String app, int year, int month, int day) {
+    var archive_file_identifier = ArchiveDateIdentifier(year, month, app);
+    var pfs_key = archive_file_identifier.format_apps_available_history_records_key;
+    var records_bitmap = QKit.bridge.flustars.preferences.getString(pfs_key, default_value: null);
+    if (records_bitmap == null) {
+      return false;
+    }
+    var record_bitmap_list = records_bitmap.split('');
+    var bit = record_bitmap_list[day];
+    return bit == '1';
   }
 }

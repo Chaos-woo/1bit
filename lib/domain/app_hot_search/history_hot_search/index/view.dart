@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
@@ -346,140 +347,263 @@ class HistoryHotSearchPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    await R1Ui.dialog.show_custom_dialog_with_ok_cancel_buttons(
-                      children: [
-                        FlutterFlowCalendar(
-                          initialDate: DateTime.now(),
-                          color: FlutterFlowTheme.of(context).primary,
-                          iconColor: FlutterFlowTheme.of(context).secondaryText,
-                          weekFormat: false,
-                          weekStartsMonday: true,
-                          onChange: (DateTimeRange? newSelectedDate) {
-                            if (newSelectedDate != null) {
-                              state.picked_date = newSelectedDate.start;
-                            }
-                          },
-                          titleStyle: FlutterFlowTheme.of(context).labelSmall.override(letterSpacing: 0.0),
-                          dayOfWeekStyle: FlutterFlowTheme.of(context).labelSmall.override(letterSpacing: 0.0),
-                          dateStyle: FlutterFlowTheme.of(context).bodySmall.override(letterSpacing: 0.0),
-                          selectedDateStyle: FlutterFlowTheme.of(context).titleSmall.override(letterSpacing: 0.0),
-                          inactiveDateStyle: FlutterFlowTheme.of(context).labelMedium.override(letterSpacing: 0.0),
-                        ),
-                      ],
-                      title: '直达【${state.app}】指定日期热搜',
-                      confirm_text: '确定',
-                      cancel_text: '取消',
-                      on_confirm: () async {
-                        if (state.app.isEmpty) {
-                          QKit.ui.toast.show('请先选择APP');
-                          return;
-                        }
+                GetBuilder<HistoryHotSearchLogic>(
+                    id: logic.k_app_scroll_view_view_id,
+                    builder: (_) {
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: state.app.isEmpty
+                            ? () async {
+                                QKit.ui.toast.show('请先选择APP');
+                              }
+                            : () async {
+                                await R1Ui.dialog.show_custom_dialog_with_ok_cancel_buttons(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('日期＋下划线（例如 ', style: FlutterFlowTheme.of(context).labelSmall),
+                                          Text(
+                                            '10',
+                                            style: FlutterFlowTheme.of(context).labelSmall.override(
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration: TextDecoration.underline,
+                                                  decorationThickness: 5,
+                                                  decorationColor: FlutterFlowTheme.of(context).secondary,
+                                                ),
+                                          ),
+                                          Text(' ）表示10号当日存在热搜。', style: FlutterFlowTheme.of(context).labelSmall),
+                                        ],
+                                      ),
+                                    ),
+                                    CalendarDatePicker2(
+                                      key: logic.calendar_key,
+                                      config: CalendarDatePicker2Config(
+                                        calendarViewMode: CalendarDatePicker2Mode.day,
+                                        calendarType: CalendarDatePicker2Type.single,
+                                        selectedDayHighlightColor: FlutterFlowTheme.of(context).primary,
+                                        weekdayLabels: ['日', '一', '二', '三', '四', '五', '六'],
+                                        weekdayLabelTextStyle: FlutterFlowTheme.of(context).labelSmall.override(
+                                              letterSpacing: 0.0,
+                                            ),
+                                        modePickerTextHandler: ({isMonthPicker, required monthDate}) {
+                                          if (isMonthPicker ?? false) {
+                                            return '${monthDate.month}月';
+                                          } else {
+                                            return '${monthDate.year}年';
+                                          }
+                                        },
+                                        firstDayOfWeek: 0,
+                                        animateToDisplayedMonthDate: true,
+                                        controlsTextStyle: TextStyle(
+                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        dayTextStyle: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        disabledDayTextStyle: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                        centerAlignModePicker: true,
+                                        useAbbrLabelForMonthModePicker: true,
+                                        modePickersGap: 0,
+                                        firstDate: DateTime(2023, 8, 1),
+                                        lastDate: DateTime.now().add(const Duration(days: 1)),
+                                        selectableDayPredicate: (day) =>
+                                            day.isAfter(DateTime(2023, 8, 1)) ||
+                                            day.isBefore(DateTime.now().add(const Duration(days: 1))),
+                                        dayBuilder: (
+                                            {required date, decoration, isDisabled, isSelected, isToday, textStyle}) {
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: AspectRatio(
+                                                  aspectRatio: 1,
+                                                  child: Container(
+                                                    decoration: decoration,
+                                                    child: Center(
+                                                      child: Text(
+                                                        date.day.toString(),
+                                                        style: textStyle?.override(
+                                                          decoration: logic.is_available_hot_search_records(
+                                                                  state.app, date.year, date.month, date.day)
+                                                              ? TextDecoration.underline
+                                                              : TextDecoration.none,
+                                                          decorationThickness: 5,
+                                                          decorationColor: FlutterFlowTheme.of(context).secondary,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        monthBuilder: (
+                                            {required int month,
+                                            TextStyle? textStyle,
+                                            BoxDecoration? decoration,
+                                            bool? isSelected,
+                                            bool? isDisabled,
+                                            bool? isCurrentMonth}) {
+                                          return Center(
+                                            child: Container(
+                                              decoration: decoration,
+                                              height: 36,
+                                              width: 72,
+                                              child: Center(
+                                                child: Semantics(
+                                                  selected: isSelected,
+                                                  button: true,
+                                                  child: Text(
+                                                    '$month月',
+                                                    style: textStyle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      onValueChanged: (date_list) {
+                                        state.picked_date = date_list.first;
+                                      },
+                                      onDisplayedMonthChanged: (date) {
+                                        print('Displayed month changed: ${date.year}, ${date.month}');
 
-                        /// 选择时间后，直接切换到指定的历史归档
-                        var year = state.picked_date.year;
-                        var month = state.picked_date.month;
-                        if (month < 10) {
-                          month = int.parse('0$month');
-                        }
-                        var day = state.picked_date.day;
-                        if (day < 10) {
-                          day = int.parse('0$day');
-                        }
+                                        int year = date.year;
+                                        int month = date.month;
+                                        logic.refresh_available_hot_search_records_bitmap(state.app, year, month);
+                                      },
+                                      value: [DateTime.now()],
+                                    ),
+                                  ],
+                                  title: '直达【${state.app}】指定日期热搜',
+                                  confirm_text: '确定',
+                                  cancel_text: '取消',
+                                  on_confirm: () async {
+                                    if (state.app.isEmpty) {
+                                      QKit.ui.toast.show('请先选择APP');
+                                      return;
+                                    }
 
-                        if (state.picked_date.isAfter(DateTime.now())) {
-                          QKit.ui.toast.show('未来的热搜还在生产哦~');
-                          return;
-                        }
+                                    if (state.picked_date == null) {
+                                      QKit.ui.toast.show('请选择日期');
+                                      return;
+                                    }
 
-                        if (QKit.bridge.flustars.date.isToday(state.picked_date.millisecondsSinceEpoch)) {
-                          // 选择的是今天，直接获取当天热搜
-                          var archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
-                          var archive_file_path =
-                              '$c_hot_search_repo_root_dir/${state.app}/$year/$month/${state.app}.md';
-                          await (Future.wait(
-                            [
-                              logic.fetch_app_hot_search_list_noUi(archive_file_path),
-                              logic.fetch_next_dir_list_noUi(archive_dir_path)
-                            ],
-                          ).throttleWithTimeout(
-                              timeout_mill: 3000,
-                              onCompleted: (_) {
-                                logic.update([
-                                  logic.k_hot_search_scroll_view_view_id,
-                                  logic.k_app_hot_search_history_directory_view_id
-                                ]);
+                                    /// 选择时间后，直接切换到指定的历史归档
+                                    var year = state.picked_date!.year;
+                                    var month_int_value = state.picked_date!.month;
+                                    var month = month_int_value.toString();
+                                    if (month_int_value < 10) {
+                                      month = '0$month';
+                                    }
+                                    var day_int_value = state.picked_date!.day;
+                                    var day = day_int_value.toString();
+                                    if (day_int_value < 10) {
+                                      day = '0$day';
+                                    }
+
+                                    if (state.picked_date!.isAfter(DateTime.now())) {
+                                      QKit.ui.toast.show('未来的热搜还在生产哦~');
+                                      return;
+                                    }
+
+                                    if (QKit.bridge.flustars.date.isToday(state.picked_date!.millisecondsSinceEpoch)) {
+                                      // 选择的是今天，直接获取当天热搜
+                                      var archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                      var archive_file_path =
+                                          '$c_hot_search_repo_root_dir/${state.app}/$year/$month/${state.app}.md';
+                                      await (Future.wait(
+                                        [
+                                          logic.fetch_app_hot_search_list_noUi(archive_file_path),
+                                          logic.fetch_next_dir_list_noUi(archive_dir_path)
+                                        ],
+                                      ).throttleWithTimeout(
+                                          timeout_mill: 3000,
+                                          onCompleted: (_) {
+                                            logic.update([
+                                              logic.k_hot_search_scroll_view_view_id,
+                                              logic.k_app_hot_search_history_directory_view_id
+                                            ]);
+                                          },
+                                          onError: (error) {
+                                            QKit.ui.toast.show('获取归档失败');
+                                          }));
+                                      return;
+                                    }
+
+                                    // 1.年份>=2024，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
+                                    // 2.年份>=2023 & 月份>=11月，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
+                                    // 3.年份>=2023 & 月份<8月，提示无归档数据
+                                    // 4.年份>=2023 & 月份<11月，使用yyyy/mm归档路径，仅跳转月份归档
+                                    // 5.年份 < 2023，提示无归档数据
+                                    // 6.报错时，提示跳转失败
+                                    var archive_dir_path = '';
+                                    var archive_file_path = '';
+                                    if (year >= 2024) {
+                                      archive_file_path =
+                                          '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
+                                      archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                    } else if (year >= 2023 && day_int_value >= 11) {
+                                      archive_file_path =
+                                          '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
+                                      archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                    } else if (year >= 2023 && day_int_value < 8) {
+                                      QKit.ui.toast.show('无归档数据');
+                                    } else if (year >= 2023 && day_int_value < 11) {
+                                      archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                    } else {
+                                      QKit.ui.toast.show('无归档数据');
+                                    }
+
+                                    print(
+                                        'archive_dir_path: $archive_dir_path ; archive_file_path: $archive_file_path');
+                                    await (Future.wait(
+                                      [
+                                        logic.fetch_app_hot_search_list_noUi(archive_file_path),
+                                        logic.fetch_next_dir_list_noUi(archive_dir_path)
+                                      ],
+                                    ).throttleWithTimeout(
+                                        timeout_mill: 3000,
+                                        onCompleted: (_) {
+                                          logic.update([
+                                            logic.k_hot_search_scroll_view_view_id,
+                                            logic.k_app_hot_search_history_directory_view_id
+                                          ]);
+                                        },
+                                        onError: (error) {
+                                          QKit.ui.toast.show('获取归档失败');
+                                        }));
+                                  },
+                                );
                               },
-                              onError: (error) {
-                                QKit.ui.toast.show('获取归档失败');
-                              }));
-                          return;
-                        }
-
-                        // 1.年份>=2024，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
-                        // 2.年份>=2023 & 月份>=11月，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
-                        // 3.年份>=2023 & 月份<8月，提示无归档数据
-                        // 4.年份>=2023 & 月份<11月，使用yyyy/mm归档路径，仅跳转月份归档
-                        // 5.年份 < 2023，提示无归档数据
-                        // 6.报错时，提示跳转失败
-                        var archive_dir_path = '';
-                        var archive_file_path = '';
-                        if (year >= 2024) {
-                          archive_file_path =
-                              '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
-                          archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
-                        } else if (year >= 2023 && month >= 11) {
-                          archive_file_path =
-                              '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
-                          archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
-                        } else if (year >= 2023 && month < 8) {
-                          QKit.ui.toast.show('无归档数据');
-                        } else if (year >= 2023 && month < 11) {
-                          archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
-                        } else {
-                          QKit.ui.toast.show('无归档数据');
-                        }
-
-                        print('archive_dir_path: $archive_dir_path ; archive_file_path: $archive_file_path');
-                        await (Future.wait(
-                          [
-                            logic.fetch_app_hot_search_list_noUi(archive_file_path),
-                            logic.fetch_next_dir_list_noUi(archive_dir_path)
-                          ],
-                        ).throttleWithTimeout(
-                            timeout_mill: 3000,
-                            onCompleted: (_) {
-                              logic.update([
-                                logic.k_hot_search_scroll_view_view_id,
-                                logic.k_app_hot_search_history_directory_view_id
-                              ]);
-                            },
-                            onError: (error) {
-                              QKit.ui.toast.show('获取归档失败');
-                            }));
-                      },
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Icon(
-                        Icons.calendar_month,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(
+                              Icons.calendar_month,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
               ],
             ),
           ),

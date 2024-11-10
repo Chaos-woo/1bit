@@ -9,8 +9,7 @@ class GithubInterceptor extends Interceptor {
     if (options.extra.containsKey(k_pref_github_override_access_key)) {
       accessToken = options.extra[k_pref_github_override_access_key];
     } else {
-      accessToken =
-          QKit.bridge.flustars.preferences.getString(k_pref_github_access_key, defValue: '');
+      accessToken = QKit.bridge.flustars.preferences.getString(k_pref_github_access_key, default_value: '');
     }
 
     if (null == accessToken || accessToken.isEmpty) {

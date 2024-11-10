@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-            title: '1C',
+            title: 'Re: 1nfo',
             scrollBehavior: const CupertinoScrollBehavior(),
             themeMode: ThemeMode.system,
             initialRoute: rt_home,

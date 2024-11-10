@@ -59,7 +59,7 @@ class HomepagePage extends StatelessWidget {
           showSelectedLabels: true,
           currentIndex: logic.selected_index,
           onTap: (index) => logic.update_page_index(index),
-          height: 50,
+          height: 55,
           items: items.map((item) {
             return BottomNavigationBarItem(
               icon: Icon(

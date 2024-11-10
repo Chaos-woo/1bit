@@ -16,7 +16,7 @@ class HistoryHotSearchState {
   int group_id = -1;
 
   /// 日期选择器选择的时间
-  DateTime picked_date = DateTime.now();
+  DateTime? picked_date;
 
   /// 可选择的APP
   final List<String> _m_apps = [];
@@ -116,5 +116,44 @@ class HistoryHotSearchState {
 
   HistoryHotSearchState() {
     ///Initialize variables
+  }
+}
+
+final class ArchiveDateIdentifier {
+  final int year;
+  final int month;
+  final String app;
+
+  ArchiveDateIdentifier(this.year, this.month, this.app);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ArchiveDateIdentifier &&
+          runtimeType == other.runtimeType &&
+          year == other.year &&
+          month == other.month &&
+          app == other.app;
+
+  @override
+  int get hashCode => year.hashCode ^ month.hashCode ^ app.hashCode;
+
+  String get format_apps_available_history_records_key =>
+      '__k_pfs_apps_available_history_records_${app}_${year}_${format_history_records_month()}__';
+
+  String format_history_records_month() {
+    if (month < 10) {
+      return '0$month';
+    } else {
+      return month.toString();
+    }
+  }
+
+  String format_history_records_key(int day) {
+    var index = '$day';
+    if (day < 10) {
+      index = '0$day';
+    }
+    return '${year}-${format_history_records_month()}-${index}';
   }
 }

@@ -7,14 +7,18 @@ import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
 class BingMgr extends GetxService {
-  static final String tag = '#bingMgr';
+  static final String tag = '__getx_bing_mgr__';
 
   static BingMgr get singl => Get.find(tag: tag);
 
   Future<String?> get_bing_daily_image() async {
-    var img_data = QKit.bridge.flustars.preferences.getObject(k_pref_bing_img_data) ?? {};
-    var need_refresh = img_data.isEmpty ||
-        DateTime.now().millisecondsSinceEpoch - img_data['expire_timestamp'] > c_bing_img_url_expires_millis;
+    var img_data = QKit.bridge.flustars.preferences.getObject(k_pfs_bing_img_data);
+    print('img_data: $img_data');
+    var need_refresh = img_data == null ||
+        img_data['url'] == null ||
+        ((img_data['url'] as String).isBlank!) ||
+        DateTime.now().millisecondsSinceEpoch - (img_data['expire_timestamp'] ?? 0) > c_bing_img_url_expires_millis;
+    print('need_refresh: $need_refresh');
     if (need_refresh) {
       var markdown_content = (await GithubApi.singl.get_content(
             c_bing_daily_img_owner,
@@ -39,7 +43,7 @@ class BingMgr extends GetxService {
           'url': img_url,
           'expire_timestamp': DateTime.now().millisecondsSinceEpoch + c_bing_img_url_expires_millis,
         };
-        QKit.bridge.flustars.preferences.putObject(k_pref_bing_img_data, new_img_data);
+        QKit.bridge.flustars.preferences.putObject(k_pfs_bing_img_data, new_img_data);
         return img_url;
       }
     } else {

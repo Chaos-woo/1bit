@@ -32,8 +32,8 @@ class SpUtilBridge {
   }
 
   /// get string.
-  String? getString(String key, {String? defValue = ''}) {
-    return SpUtil.getString(key, defValue: defValue);
+  String? getString(String key, {String? default_value = ''}) {
+    return SpUtil.getString(key, defValue: default_value);
   }
 
   /// put string.

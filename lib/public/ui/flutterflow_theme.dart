@@ -201,6 +201,10 @@ extension TextStyleHelper on TextStyle {
     bool useGoogleFonts = false,
     TextDecoration? decoration,
     double? lineHeight,
+    Color? decorationColor,
+    double? decorationThickness,
+    TextDecorationStyle? decorationStyle,
+    Color? backgroundColor,
   }) =>
       useGoogleFonts
           ? GoogleFonts.getFont(
@@ -212,6 +216,10 @@ extension TextStyleHelper on TextStyle {
               fontStyle: fontStyle ?? this.fontStyle,
               decoration: decoration,
               height: lineHeight,
+              decorationColor: decorationColor,
+              decorationThickness: decorationThickness,
+              decorationStyle: decorationStyle,
+              backgroundColor: backgroundColor,
             )
           : copyWith(
               fontFamily: fontFamily,
@@ -222,5 +230,9 @@ extension TextStyleHelper on TextStyle {
               fontStyle: fontStyle,
               decoration: decoration,
               height: lineHeight,
+              decorationColor: decorationColor,
+              decorationThickness: decorationThickness,
+              decorationStyle: decorationStyle,
+              backgroundColor: backgroundColor,
             );
 }

@@ -115,6 +115,8 @@ dependencies:
   animated_reorderable_list: ^1.1.1
   # APP开屏
   flutter_native_splash: ^2.4.1
+  # 日历
+  calendar_date_picker2: ^1.1.7
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本
