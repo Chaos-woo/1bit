@@ -10,14 +10,14 @@ import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
 final class GithubApi extends GetxService {
-  static const String tag = '#githubApi';
+  static const String getx_tag = '__getx_github_api__';
 
-  static GithubApi get singl => Get.find(tag: tag);
+  static GithubApi get getx => Get.find(tag: getx_tag);
 
-  late NetDioApi _m_api;
+  late Q0Network _m_api;
 
   GithubApi() {
-    _m_api = NetDioApi(
+    _m_api = Q0Network(
       'https://api.github.com',
       interceptors: [GithubInterceptor()],
       dio_response_error_handle: [
@@ -119,7 +119,7 @@ final class GithubApi extends GetxService {
       '/repos/$owner/$repo/labels',
       object_convertor: (raw_data) => raw_data.asList(object_convertor: GithubLabel.fromJson),
       request_option: OverrideRequestOption(
-        extra: {}..[k_pref_github_override_access_key] = override_access_key,
+        extra: {}..[k_psf_github_override_access_key] = override_access_key,
       ),
     );
   }

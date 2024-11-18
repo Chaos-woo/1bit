@@ -1,5 +1,5 @@
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
-import 'package:cw2bit/infrastructure/api/apis.dart';
+import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
@@ -7,9 +7,9 @@ import 'package:qkit/qkit.dart';
 import 'state.dart';
 
 final class _PathVariables {
-  String? get show_1bit_repo => QKit.route.path_variables(c_show_1bit_repo);
+  String? get show_1bit_repo => q0_.route.path_variables(path_k_show_1bit_repo);
 
-  String get c_show_1bit_repo => 'show_1bit_repo';
+  String get path_k_show_1bit_repo => '__path_variables_show_1bit_repo__';
 }
 
 class GithubSettingLogic extends GetxController {
@@ -33,22 +33,22 @@ class GithubSettingLogic extends GetxController {
   void onInit() {
     super.onInit();
 
-    String? access_token_pfs = QKit.bridge.flustars.preferences.getString(k_pref_github_access_key);
+    String? access_token = q0_.bridge.flustars.preferences.get_string(k_psf_github_access_key);
 
     repo_owner_text_controller = TextEditingController(text: state.owner);
     repo_text_controller = TextEditingController(text: state.repo);
-    access_token_text_Controller = TextEditingController(text: access_token_pfs);
+    access_token_text_Controller = TextEditingController(text: access_token);
   }
 
   void save_github_access_token() {
-    String accessToken = access_token_text_Controller.text;
-    QKit.bridge.flustars.preferences.putString(k_pref_github_access_key, accessToken);
+    String access_token = access_token_text_Controller.text;
+    q0_.bridge.flustars.preferences.putString(k_psf_github_access_key, access_token);
   }
 
   Future<bool> check_access_token() async {
-    String accessToken = access_token_text_Controller.text;
+    String access_token = access_token_text_Controller.text;
     try {
-      await Apis.github.check_access_token(state.owner, state.repo, accessToken);
+      await c0_.apis_github.check_access_token(state.owner, state.repo, access_token);
       return true;
     } catch (ex) {
       return false;

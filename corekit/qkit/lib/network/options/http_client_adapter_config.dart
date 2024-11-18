@@ -9,10 +9,9 @@ class HttpClientAdapterBuilder {
   static HttpClientAdapter build({String? proxy}) {
     return DefaultHttpClientAdapter()
       ..onHttpClientCreate = (client) {
-        if (!(QKit.bridge.flustars.text.isEmpty(proxy))) {
+        if (!(q0_.bridge.flustars.text.isEmpty(proxy))) {
           client.findProxy = (url) => 'PROXY $proxy';
-          client.badCertificateCallback =
-              (X509Certificate cert, String host, int port) => true;
+          client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
           return client;
         } else {
           return client;

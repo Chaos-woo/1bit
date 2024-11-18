@@ -1,5 +1,5 @@
 import 'package:cw2bit/infrastructure/api/apis.dart';
-import 'package:cw2bit/infrastructure/database/r1db.dart';
+import 'package:cw2bit/infrastructure/database/r_database.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ void main() {
     },
     initCompleted: () {
       /// 初始化数据库
-      R1DatabaseMgr.create_database_and_repository();
+      DatabaseMgr.create_database_and_repository();
 
       /// 初始化业务数据
       Apis.create_apis();
@@ -32,7 +32,7 @@ void main() {
 
 void _errorReporter(FlutterErrorDetails details) {
   FlutterError.dumpErrorToConsole(details);
-  QKit.log.error(details);
+  q0_.log.error(details);
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
             title: 'Re: 1nfo',
             scrollBehavior: const CupertinoScrollBehavior(),
             themeMode: ThemeMode.system,
-            initialRoute: rt_home,
+            initialRoute: rout0_.home,
             getPages: RouteProxyDispatcher.s_pageRoutes,
             debugShowCheckedModeBanner: !QKitUtils.is_release_mode,
             enableLog: !QKitUtils.is_release_mode,

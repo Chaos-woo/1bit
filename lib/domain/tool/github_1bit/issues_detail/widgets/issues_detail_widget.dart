@@ -2,7 +2,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/m
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -48,7 +48,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Text(
-                            QKit.bridge.flustars.date.formatDate(
+                            q0_.bridge.flustars.date.format_date(
                               issues.createdAt,
                               format: c_issues_date_time_format,
                             ),
@@ -99,7 +99,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: R1Ui.text.expandable_text(
+                        child: ui0_.text.expandable_text(
                           '${issues.title}',
                           max_lines: 2,
                           text_style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -119,7 +119,7 @@ class IssuesDetailCompWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: R1Ui.text.expandable_text(
+                        child: ui0_.text.expandable_text(
                           issues.body ?? '',
                           max_lines: 15,
                           text_style: FlutterFlowTheme.of(context).bodyMedium.override(

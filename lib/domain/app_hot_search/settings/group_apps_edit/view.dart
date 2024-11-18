@@ -1,6 +1,6 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -12,11 +12,11 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
   AppHotSearchGroupAppsEditPage({Key? key}) : super(key: key);
 
   final logic = Get.find<AppHotSearchGroupAppsEditLogic>(
-    tag: AppHotSearchGroupAppsEditLogic.tag_format(QKit.route.path_variables('group_id')!),
+    tag: AppHotSearchGroupAppsEditLogic.getx_tag_format(AppHotSearchGroupAppsEditLogic.m_path_variables.group_id),
   );
 
   final animated_groups_dnd_view_id = GlobalKey();
-  final app_scroll_view_key = GlobalKey();
+  final glob_k_app_scroll_view = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +36,19 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '${logic.group.name} · 组 · APP编辑',
-          icon: Icons.settings_rounded,
+          icon: ui0_.icons.settings,
         ),
         actions: [
           FlutterFlowIconButton(
             borderRadius: 25,
             buttonSize: 50,
             icon: Icon(
-              Icons.add_rounded,
+              ui0_.icons.add,
               color: Colors.white,
               size: 30,
             ),
@@ -65,7 +65,7 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: GetBuilder<AppHotSearchGroupAppsEditLogic>(
             id: logic.k_groups_dnd_view_id,
-            tag: AppHotSearchGroupAppsEditLogic.tag_format(logic.group.id!.toString()),
+            tag: AppHotSearchGroupAppsEditLogic.getx_tag_format(logic.group.id!.toString()),
             builder: (_) {
               return logic.apps.isEmpty
                   ? Center(child: Text('暂无APP，快添加一个吧~'))
@@ -80,7 +80,7 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
                           key: Key('${e.id}'),
                           leading: InkWell(
                             onTap: () async {
-                              await R1Ui.dialog.show_ok_cancel_dialog(
+                              await ui0_.dialog.show_ok_cancel_dialog(
                                   title: '删除APP',
                                   message: '确认从当前组【${logic.group.name}】删除【${e.name}】吗？',
                                   on_confirm: () async {
@@ -88,12 +88,12 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
                                   });
                             },
                             child: Icon(
-                              Icons.delete_outline_rounded,
+                              ui0_.icons.delete,
                               color: Colors.red,
                             ),
                           ),
                           trailing: Icon(
-                            Icons.dehaze_rounded,
+                            ui0_.icons.three_lines,
                             color: Colors.black54,
                           ),
                           title: Text(
@@ -122,7 +122,7 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
   }
 
   Future<void> show_add_or_delete_dialog(BuildContext context) async {
-    await R1Ui.dialog.show_custom_dialog_with_ok_cancel_buttons(
+    await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
       title: '添加/删除APP',
       cancel_text: '关闭',
       context: context,
@@ -133,10 +133,10 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: SingleChildScrollView(
-              key: app_scroll_view_key,
+              key: glob_k_app_scroll_view,
               child: GetBuilder<AppHotSearchGroupAppsEditLogic>(
                 id: logic.k_app_dialog_view_id,
-                tag: AppHotSearchGroupAppsEditLogic.tag_format(logic.group.id!.toString()),
+                tag: AppHotSearchGroupAppsEditLogic.getx_tag_format(logic.group.id!.toString()),
                 builder: (_) {
                   return Wrap(
                     spacing: 5,
@@ -165,7 +165,7 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
                               maxWidth: 150,
                             ),
                             decoration: BoxDecoration(
-                              color: logic.is_local_db_exist(app)
+                              color: logic.is_in_local_database(app)
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context).primaryBackground,
                               borderRadius: BorderRadius.circular(4),
@@ -181,7 +181,7 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
                                     textAlign: TextAlign.justify,
                                     maxLines: 1,
                                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                                          color: logic.is_local_db_exist(app) ? Colors.white : Colors.black,
+                                          color: logic.is_in_local_database(app) ? Colors.white : Colors.black,
                                           letterSpacing: 0.0,
                                         ),
                                     overflow: TextOverflow.ellipsis,

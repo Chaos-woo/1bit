@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -28,16 +28,16 @@ class FlutterFlowPage extends StatelessWidget {
           borderWidth: 1,
           buttonSize: 60,
           icon: Icon(
-            Icons.arrow_back_rounded,
+            ui0_.icons.arrow_back,
             color: Colors.white,
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
         actions: [],
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: 'FlutterFlow测试库',
           icon: Icons.terminal_sharp,
         ),

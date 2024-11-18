@@ -17,6 +17,9 @@ typedef OnWebviewClosed = void Function(String url);
 /// 监听WebView中网页更换事件
 typedef OnWebviewUrlChanged = Future<void> Function(InAppWebViewController webviewController, String url);
 
+/// 监听WebView的业务关闭事件，普通关闭按钮为通用关闭WebView事件
+typedef OnWebviewBusinessClosed = void Function(String url);
+
 /// WebView监听事件集合
 class AppWebviewListener {
   final OnWebviewLoaded? onWebviewLoaded;
@@ -40,6 +43,7 @@ typedef OnWebviewUrlReadingCompleted = Future<void> Function(String url);
 
 final class AppWebviewReadingListener extends AppWebviewListener {
   final OnWebviewUrlReadingCompleted? onWebviewUrlReadingCompleted;
+  final OnWebviewBusinessClosed? onWebviewBusinessClosed;
 
   const AppWebviewReadingListener({
     super.onWebviewClosed,
@@ -47,6 +51,7 @@ final class AppWebviewReadingListener extends AppWebviewListener {
     super.onWebviewLoaded,
     super.onViewScrollChanged,
     this.onWebviewUrlReadingCompleted,
+    this.onWebviewBusinessClosed,
   });
 }
 

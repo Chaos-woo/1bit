@@ -1,7 +1,7 @@
 import 'package:cw2bit/domain/app_hot_search/history_hot_search/index/view.dart';
 import 'package:cw2bit/domain/app_hot_search/today_hot_search/index/view.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -43,7 +43,7 @@ class _TextbookHomepagePageState extends State<TextbookHomepagePage> with Ticker
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [],
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '文字小站',
           icon: Icons.art_track_rounded,
         ),

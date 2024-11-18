@@ -1,7 +1,7 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_detail_widget.dart';
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -33,11 +33,11 @@ class Github1bitCommentEditPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back(backValue: GithubApiDataPostAction.no_action_then_back);
+            q0_.route.back(backValue: GithubApiDataPostAction.no_action_then_back);
           },
         ),
         actions: [],
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '编辑1ssues评论',
           icon: Icons.post_add_rounded,
         ),
@@ -122,10 +122,10 @@ class Github1bitCommentEditPage extends StatelessWidget {
                               onPressed: () async {
                                 var postResult = await logic.post();
                                 if (postResult) {
-                                  R1Ui.snackbar.show_simple_snackbar('提交成功');
-                                  QKit.route.back(backValue: GithubApiDataPostAction.posted_data_then_back);
+                                  ui0_.snackbar.show_simple_snackbar('提交成功');
+                                  q0_.route.back(backValue: GithubApiDataPostAction.posted_data_then_back);
                                 } else {
-                                  R1Ui.snackbar.show_simple_snackbar('提交失败');
+                                  ui0_.snackbar.show_simple_snackbar('提交失败');
                                 }
                               },
                               text: '提交',

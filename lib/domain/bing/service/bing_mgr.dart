@@ -2,25 +2,33 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cw2bit/domain/bing/values/constant.dart';
-import 'package:cw2bit/infrastructure/api/github/github_api.dart';
+import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
 class BingMgr extends GetxService {
-  static final String tag = '__getx_bing_mgr__';
+  static final String getx_tag = '__getx_bing_mgr__';
 
-  static BingMgr get singl => Get.find(tag: tag);
+  static BingMgr get getx => Get.find(tag: getx_tag);
+
+  static const _c_k_bing_img_url = 'url';
+  static const _c_k_bing_img_expire_timestamp = 'expire_timestamp';
 
   Future<String?> get_bing_daily_image() async {
-    var img_data = QKit.bridge.flustars.preferences.getObject(k_pfs_bing_img_data);
+    var img_data = q0_.bridge.flustars.preferences.getObject(k_pfs_bing_img_data);
+
     print('img_data: $img_data');
+
     var need_refresh = img_data == null ||
-        img_data['url'] == null ||
-        ((img_data['url'] as String).isBlank!) ||
-        DateTime.now().millisecondsSinceEpoch - (img_data['expire_timestamp'] ?? 0) > c_bing_img_url_expires_millis;
+        img_data[_c_k_bing_img_url] == null ||
+        ((img_data[_c_k_bing_img_url] as String).isBlank!) ||
+        DateTime.now().millisecondsSinceEpoch - (img_data[_c_k_bing_img_expire_timestamp] ?? 0) >
+            c_bing_img_url_expires_millis;
+
     print('need_refresh: $need_refresh');
+
     if (need_refresh) {
-      var markdown_content = (await GithubApi.singl.get_content(
+      var markdown_content = (await c0_.apis_github.get_content(
             c_bing_daily_img_owner,
             c_bing_daily_img_repo,
             c_bing_daily_img_path,
@@ -40,14 +48,14 @@ class BingMgr extends GetxService {
 
         var img_url = matches.first.group(0);
         var new_img_data = {
-          'url': img_url,
-          'expire_timestamp': DateTime.now().millisecondsSinceEpoch + c_bing_img_url_expires_millis,
+          _c_k_bing_img_url: img_url,
+          _c_k_bing_img_expire_timestamp: DateTime.now().millisecondsSinceEpoch + c_bing_img_url_expires_millis,
         };
-        QKit.bridge.flustars.preferences.putObject(k_pfs_bing_img_data, new_img_data);
+        q0_.bridge.flustars.preferences.putObject(k_pfs_bing_img_data, new_img_data);
         return img_url;
       }
     } else {
-      return img_data['url'];
+      return img_data[_c_k_bing_img_url];
     }
   }
 }

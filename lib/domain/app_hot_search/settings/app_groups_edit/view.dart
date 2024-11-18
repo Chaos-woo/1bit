@@ -1,7 +1,7 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -12,7 +12,7 @@ import 'logic.dart';
 class AppHotSearchAppGroupsEditPage extends StatelessWidget {
   AppHotSearchAppGroupsEditPage({Key? key}) : super(key: key);
 
-  final animated_groups_dnd_view_id = GlobalKey();
+  final glob_k_animated_groups_dnd = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,10 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: 'APP · 组编辑',
           icon: Icons.settings_rounded,
         ),
@@ -48,7 +48,7 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                 id: logic.k_groups_dnd_view_id,
                 builder: (_) {
                   var icon = Icon(
-                    logic.is_long_press_dragging ? Icons.blur_off_rounded : Icons.blur_on_rounded,
+                    logic.is_sortable ? ui0_.icons.circle_ok : ui0_.icons.sort,
                     color: Colors.white,
                     size: 25,
                   );
@@ -57,7 +57,7 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                     buttonSize: 40,
                     icon: icon,
                     onPressed: () async {
-                      await logic.switch_long_press_dragging(!logic.is_long_press_dragging);
+                      await logic.switch_sortable_or_not(!logic.is_sortable);
                     },
                   );
                 }),
@@ -66,12 +66,12 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
             borderRadius: 25,
             buttonSize: 50,
             icon: Icon(
-              Icons.add_rounded,
+              ui0_.icons.add,
               color: Colors.white,
               size: 35,
             ),
             onPressed: () async {
-              await R1Ui.dialog.show_single_input_dialog(
+              await ui0_.dialog.show_single_input_dialog(
                 title: '新建APP组',
                 subtitle: '创建自定义名字的分组，方便管理APP',
                 hint_text: '输入组名称',
@@ -97,8 +97,8 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
               return logic.app_groups.isEmpty
                   ? Center(child: Text('暂无APP组，快新增一个吧~'))
                   : AnimatedReorderableListView(
-                      key: animated_groups_dnd_view_id,
-                      longPressDraggable: logic.is_long_press_dragging,
+                      key: glob_k_animated_groups_dnd,
+                      longPressDraggable: logic.is_sortable,
                       items: logic.app_groups,
                       onReorder: (int old_index, int new_index) async =>
                           await logic.save_app_groups_order(old_index, new_index),
@@ -106,11 +106,11 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                         var e = logic.app_groups[index];
                         return ListTile(
                           key: Key('${e.id}'),
-                          leading: logic.is_long_press_dragging
+                          leading: logic.is_sortable
                               ? null
                               : InkWell(
                                   onTap: () async {
-                                    await R1Ui.dialog.show_ok_cancel_dialog(
+                                    await ui0_.dialog.show_ok_cancel_dialog(
                                         title: '删除APP组',
                                         message: '确认删除【${e.name}】组吗？',
                                         on_confirm: () async {
@@ -118,24 +118,24 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                                         });
                                   },
                                   child: Icon(
-                                    Icons.delete_outline_rounded,
+                                    ui0_.icons.delete,
                                     color: Colors.red,
                                   ),
                                 ),
-                          trailing: logic.is_long_press_dragging
+                          trailing: logic.is_sortable
                               ? Icon(
-                                  Icons.density_medium_rounded,
+                                  ui0_.icons.three_lines,
                                   color: Colors.black54,
                                 )
                               : null,
                           title: InkWell(
                             highlightColor: Colors.transparent,
                             splashColor: Colors.transparent,
-                            onTap: logic.is_long_press_dragging
+                            onTap: logic.is_sortable
                                 ? null
                                 : () async {
-                                    await QKit.route.to(
-                                      rt_news_apphotsearch_settings_groupapps,
+                                    await q0_.route.to(
+                                      rout0_.news_apphotsearch_settings_groupapps,
                                       argument: e,
                                       path_variables: {'group_id': e.id.toString()},
                                       prevent_duplicates: false,

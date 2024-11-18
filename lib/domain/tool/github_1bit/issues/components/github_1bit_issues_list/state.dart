@@ -7,5 +7,5 @@ class Github1bitIssuesListState extends PagingState<IssuesModel> {
   }
 
   @override
-  int get pageSize => 30;
+  int get page_size => 30;
 }

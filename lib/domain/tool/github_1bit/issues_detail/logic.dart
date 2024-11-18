@@ -10,7 +10,7 @@ class Github1bitIssuesDetailLogic extends PagingController<Github1bitIssuesDetai
   final Github1bitIssuesDetailState state = Github1bitIssuesDetailState();
 
   @override
-  Github1bitIssuesDetailState createPagingState() {
+  Github1bitIssuesDetailState create_paging_state() {
     return state;
   }
 
@@ -21,8 +21,8 @@ class Github1bitIssuesDetailLogic extends PagingController<Github1bitIssuesDetai
       c_1bit_repo_owner,
       c_1bit_repo,
       state.issues_model.number,
-      page: state.currPage,
-      pageSize: state.pageSize,
+      page: state.current_page,
+      pageSize: state.page_size,
     );
     List<CommentModel> commentModelList = comments.map((e) => CommentModel.fromJson(e.toJson())).toList();
     return commentModelList;

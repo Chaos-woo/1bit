@@ -4,7 +4,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_setting/
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
     final logic = Get.put(AppHotSearchSettingLogic());
 
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).primary,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
@@ -37,10 +37,10 @@ class AppHotSearchSettingPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '设置',
           icon: Icons.settings_rounded,
         ),
@@ -70,10 +70,10 @@ class AppHotSearchSettingPage extends StatelessWidget {
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.security_rounded),
                           on_tap: () async {
-                            await QKit.route.to(
-                              rt_tool_github_setting,
+                            await q0_.route.to(
+                              rout0_.tool_github_setting,
                               path_variables: {
-                                '${GithubSettingLogic.m_path_variables.c_show_1bit_repo}': false.toString(),
+                                '${GithubSettingLogic.m_path_variables.path_k_show_1bit_repo}': false.toString(),
                               },
                             );
                           },
@@ -94,7 +94,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.app_registration_rounded),
                           on_tap: () async {
-                            await QKit.route.to(rt_news_apphotsearch_settings_appgroups);
+                            await q0_.route.to(rout0_.news_apphotsearch_settings_appgroups);
                           },
                         ),
                         ToolGroupItemClicker(
@@ -127,11 +127,11 @@ class AppHotSearchSettingPage extends StatelessWidget {
   Future<void> _on_tap_black_app(BuildContext context) async {
     var logic = Get.find<AppHotSearchSettingLogic>();
 
-    QKit.ui.loading.show(status: '正在获取APP黑名单...');
+    q0_.ui.loading.show(status: '正在获取APP黑名单...');
     var apps = await logic.list_black_apps();
-    QKit.ui.loading.dismiss();
+    q0_.ui.loading.dismiss();
 
-    await R1Ui.dialog.show_custom_dialog_with_ok_cancel_buttons(
+    await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
       title: 'APP黑名单',
       cancel_text: '关闭',
       on_cancel: () => logic.m_black_list = [],
@@ -260,11 +260,11 @@ class AppHotSearchSettingPage extends StatelessWidget {
   Future<void> _on_tap_default_app_group(BuildContext context) async {
     var logic = Get.find<AppHotSearchSettingLogic>();
 
-    QKit.ui.loading.show(status: '正在获取默认APP组...');
+    q0_.ui.loading.show(status: '正在获取默认APP组...');
     await logic.list_app_groups();
-    QKit.ui.loading.dismiss();
+    q0_.ui.loading.dismiss();
 
-    await R1Ui.dialog.show_custom_dialog_with_ok_cancel_buttons(
+    await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
       title: '默认APP组',
       cancel_text: '关闭',
       on_cancel: () => logic.m_default_group_id = null,
@@ -385,7 +385,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               /// 新增APP组
-                              await R1Ui.dialog.show_single_input_dialog(
+                              await ui0_.dialog.show_single_input_dialog(
                                 title: '新建APP组',
                                 subtitle: '创建自定义名字的分组，方便管理APP',
                                 hint_text: '输入组名称',

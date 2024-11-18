@@ -1,6 +1,6 @@
 import 'package:qkit/qkit.dart';
 
-class QKit {
+class q0_ {
   /// 三方包桥接类
   static final KitBridge bridge = KitBridge();
 
@@ -48,5 +48,5 @@ class QKit {
   /// 简单的UI小工具
   static final ui = QUi();
 
-  QKit._();
+  q0_._();
 }

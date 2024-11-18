@@ -31,7 +31,7 @@ class TextOcrPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
         title: Text(
@@ -175,7 +175,7 @@ class TextOcrPage extends StatelessWidget {
                                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () {
-                                    QKit.route.back(backValue: logic.state.ocrText);
+                                    q0_.route.back(backValue: logic.state.ocrText);
                                   },
                                   text: '确认',
                                   icon: Icon(

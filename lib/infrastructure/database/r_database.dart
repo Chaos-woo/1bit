@@ -1,68 +1,85 @@
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app_group.dart';
+import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_repo.dart';
+import 'package:cw2bit/infrastructure/database/entity/app_hot_search/with_relation/hot_search_group_has_app.dart';
 import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_reading.dart';
+import 'package:cw2bit/infrastructure/database/entity/with_relation/webpage_reading_has_sticker.dart';
 import 'package:cw2bit/infrastructure/database/migrator/OnUpgradeMigration.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:get/get.dart' hide Value;
 
+import 'entity/app_hot_search/hot_search_group.dart';
+import 'entity/tag/sticker.dart';
+import 'entity/tag/sticker_repo.dart';
 import 'entity/webpage/webpage_repo.dart';
 
-part 'r1db.g.dart';
+part 'r_database.g.dart';
 
 /// 数据库管理器
-final class R1DatabaseMgr {
+final class DatabaseMgr {
   /// 数据库实例
-  static AppDatabase get singl => Get.find(tag: AppDatabase.tag);
+  static AppDatabase get getx => Get.find(tag: AppDatabase.tag);
 
   /// 数据库仓库
-  static _Repos get repos => _Repos.singl;
+  static _Repos get repos => _Repos.repo;
 
-  R1DatabaseMgr._();
+  DatabaseMgr._();
 
+  /// ###
+  /// ### 新增表在这里新增实例
+  /// ###
   static void create_database_and_repository() {
     /// 初始化数据库
     Get.put(AppDatabase(), tag: AppDatabase.tag, permanent: true);
 
     /// 初始化仓库
-    Get.put(WebpageRepo(), tag: WebpageRepo.tag);
-    Get.put(HotSearchRepo(), tag: HotSearchRepo.tag);
+    Get.put(StickerRepo(), tag: StickerRepo.getx_tag);
+    Get.put(WebpageRepo(), tag: WebpageRepo.getx_tag);
+    Get.put(HotSearchRepo(), tag: HotSearchRepo.getx_tag);
   }
 }
 
 final class _Repos {
-  static final _Repos singl = _Repos._();
+  static final _Repos repo = _Repos._();
 
   _Repos._();
 
-  WebpageRepo get webpage => Get.find(tag: WebpageRepo.tag);
+  /// ###
+  /// ### 新增表在这里新增实例
+  /// ###
+  WebpageRepo get webpage => Get.find(tag: WebpageRepo.getx_tag);
 
-  HotSearchRepo get hotSearch => Get.find(tag: HotSearchRepo.tag);
+  HotSearchRepo get hot_search => Get.find(tag: HotSearchRepo.getx_tag);
+
+  StickerRepo get sticker => Get.find(tag: StickerRepo.getx_tag);
 }
 
-/// 数据库表，每次新加表需要在此处理
+/// ###
+/// ### 新增表在这里新增实例
+/// ###
 const _tables = [
   WebpageReadings,
-  FavoriteApps,
-  FavoriteAppGroups,
+  HotSearchApps,
+  HotSearchGroups,
+  HotSearchGroupHasApps,
+  Stickers,
+  WebpageReadingHasStickers,
 ];
 
 /// 数据库迁移器，每次新加迁移器需要在此处理
 const List<OnUpgradeMigration> _migrators = [];
 
-const db_name = 'c_r1bit_db.db';
+const db_name = 'cw2_re_1nfo.db';
 
 @DriftDatabase(tables: _tables)
 class AppDatabase extends _$AppDatabase {
-  static const String tag = '#appDatabase';
+  static const String tag = '__getx_app_database__';
 
-  AppDatabase() : super(_openConnection());
+  AppDatabase() : super(_open_connection());
 
-  @override
   int get schemaVersion => 1;
 
-  static _openConnection() {
+  static _open_connection() {
     return driftDatabase(name: db_name);
   }
 
@@ -74,7 +91,7 @@ class AppDatabase extends _$AppDatabase {
         onUpgrade: (m, from, to) async {
           var migrators = <int, List<OnUpgradeMigration>>{};
           for (var migrator in _migrators) {
-            migrators[migrator.version] = (migrators[migrator.version] ?? [])..add(migrator);
+            migrators[migrator.execution_version] = (migrators[migrator.execution_version] ?? [])..add(migrator);
           }
 
           var migrators_entries = migrators.entries.toList();
@@ -86,8 +103,8 @@ class AppDatabase extends _$AppDatabase {
             if (from < entry.key) {
               var current_version_migrators = entry.value;
 
-              /// 按优先级升序排序
-              current_version_migrators.sort((a, b) => a.priority.compareTo(b.priority));
+              /// 按照顺序排序
+              current_version_migrators.sort((a, b) => a.execute_at.compareTo(b.execute_at));
               for (var migrator in current_version_migrators) {
                 await migrator.migrate(m, from, to, this);
               }

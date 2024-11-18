@@ -17,12 +17,12 @@ class Github1bitIssuesListComponent extends StatelessWidget {
     final logic = Get.find<Github1bitIssuesListLogic>();
     final state = Get.find<Github1bitIssuesListLogic>().state;
 
-    return PagingWidgetBuilder.buildRefresher(
+    return PagingWidgetBuilder.build_refresher(
       logic,
       builder: (controller) {
         return ListView.builder(
           itemBuilder: (context, index) => InkWell(
-            onTap: () => QKit.route.to(rt_tool_github_issues_detail, argument: state.data_list[index]),
+            onTap: () => q0_.route.to(rout0_.tool_github_issues_detail, argument: state.data_list[index]),
             child: GithubIssuesWidget(issues: state.data_list[index]),
           ),
           itemCount: state.data_list.length,

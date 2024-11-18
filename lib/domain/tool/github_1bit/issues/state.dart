@@ -7,31 +7,35 @@ class Github1bitIssuesState {
   final String owner = c_1bit_repo_owner;
   final String repo = c_1bit_repo;
 
-  List<IssuesFiltered> stateValues = [IssuesFiltered.state_open, IssuesFiltered.state_closed, IssuesFiltered.state_all];
-  List<IssuesFiltered> sortFieldsValues = [
+  List<IssuesFiltered> issues_state_values = [
+    IssuesFiltered.state_open,
+    IssuesFiltered.state_closed,
+    IssuesFiltered.state_all
+  ];
+  List<IssuesFiltered> sortable_fields_values = [
     IssuesFiltered.sort_created,
     IssuesFiltered.sort_updated,
     IssuesFiltered.sort_comments
   ];
-  List<IssuesFiltered> sortDirectionValues = [IssuesFiltered.direction_desc, IssuesFiltered.direction_asc];
+  List<IssuesFiltered> sort_direction_values = [IssuesFiltered.direction_desc, IssuesFiltered.direction_asc];
 
   List<LabelModel> label_values = [];
 
   /// 过滤器选项
-  String? choiceChipsStateValue;
-  List<String>? choiceChipsLabelValue;
-  String? choiceChipsSortFieldsValue;
-  String? choiceChipsSortDirectionValue;
+  String? choice_chips_state_value;
+  List<String>? choice_chips_label_value;
+  String? choice_chips_sortable_fields_value;
+  String? choice_chips_sort_direction_value;
 
-  List<String> get choiceChipStateInitVal => choiceChipsStateValue != null ? [choiceChipsStateValue!] : [];
+  List<String> get choice_chip_state_init_val => choice_chips_state_value != null ? [choice_chips_state_value!] : [];
 
-  List<String> get choiceChipLabelInitVal => choiceChipsLabelValue != null ? choiceChipsLabelValue! : [];
+  List<String> get choice_chip_label_init_val => choice_chips_label_value != null ? choice_chips_label_value! : [];
 
-  List<String> get choiceChipSortFieldsInitVal =>
-      choiceChipsSortFieldsValue != null ? [choiceChipsSortFieldsValue!] : [];
+  List<String> get choice_chip_sortable_fields_init_val =>
+      choice_chips_sortable_fields_value != null ? [choice_chips_sortable_fields_value!] : [];
 
-  List<String> get choiceChipSortDirectionInitVal =>
-      choiceChipsSortDirectionValue != null ? [choiceChipsSortDirectionValue!] : [];
+  List<String> get choice_chip_sort_direction_init_val =>
+      choice_chips_sort_direction_value != null ? [choice_chips_sort_direction_value!] : [];
 
   void set_repo_labels(List<GithubLabel> labels) {
     label_values = labels.map((e) => LabelModel.fromJson(e.toJson())).toList();

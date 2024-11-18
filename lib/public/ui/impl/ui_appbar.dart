@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cw2bit/domain/bing/service/bing_mgr.dart';
+import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ class UiAppBar {
   /// 定制化的Bing每日壁纸AppBar
   Widget bing_image_appbar_flexible_space({String title = '', IconData? icon}) {
     return FutureBuilder(
-        future: BingMgr.singl.get_bing_daily_image(),
+        future: c0_.mgr_bing.get_bing_daily_image(),
         builder: (b_context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == null || snapshot.data == '') {

@@ -8,7 +8,7 @@ import 'paging_controller.dart';
 typedef PagingRefreshWidgetBuilder<T extends PagingController> = Widget Function(T controller);
 
 class PagingWidgetBuilder {
-  static Widget buildRefresher<T extends PagingController>(
+  static Widget build_refresher<T extends PagingController>(
     T controller, {
     required PagingRefreshWidgetBuilder builder,
     bool enablePullDown = true,
@@ -19,7 +19,7 @@ class PagingWidgetBuilder {
       builder: (paging_controller) => SmartRefresher(
         enablePullDown: enablePullDown,
         enablePullUp: enablePullUp,
-        controller: paging_controller.refreshController,
+        controller: paging_controller.refresh_controller,
         onRefresh: paging_controller.on_refresh,
         onLoading: paging_controller.on_loading,
         child: builder.call(paging_controller),

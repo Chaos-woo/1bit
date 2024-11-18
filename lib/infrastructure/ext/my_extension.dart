@@ -65,3 +65,9 @@ extension DetailedWhere<K, V> on Map<K, V> {
     return this;
   }
 }
+
+extension Dynamic on dynamic {
+  T force_as<T>() {
+    return this as T;
+  }
+}

@@ -32,7 +32,7 @@ class SpUtilBridge {
   }
 
   /// get string.
-  String? getString(String key, {String? default_value = ''}) {
+  String? get_string(String key, {String? default_value = ''}) {
     return SpUtil.getString(key, defValue: default_value);
   }
 
@@ -52,12 +52,12 @@ class SpUtilBridge {
   }
 
   /// get int.
-  int? getInt(String key, {int? default_value = 0}) {
+  int? get_int(String key, {int? default_value = 0}) {
     return SpUtil.getInt(key, defValue: default_value);
   }
 
   /// put int.
-  Future<bool>? putInt(String key, int value) {
+  Future<bool>? put_int(String key, int value) {
     return SpUtil.putInt(key, value);
   }
 
@@ -72,12 +72,12 @@ class SpUtilBridge {
   }
 
   /// get string list.
-  List<String>? getStringList(String key, {List<String>? default_value = const []}) {
+  List<String>? get_string_list(String key, {List<String>? default_value = const []}) {
     return SpUtil.getStringList(key, defValue: default_value);
   }
 
   /// put string list.
-  Future<bool>? putStringList(String key, List<String> value) {
+  Future<bool>? put_string_list(String key, List<String> value) {
     return SpUtil.putStringList(key, value);
   }
 

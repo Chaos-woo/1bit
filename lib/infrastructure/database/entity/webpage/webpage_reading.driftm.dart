@@ -20,6 +20,12 @@ class WebpageReadings extends Table {
   TextColumn get app => text().withDefault(const Constant(""))();
   TextColumn get article_analysis => text().nullable()();
   TextColumn get source => text().nullable()();
+  DateTimeColumn get publish_time => dateTime().nullable()();
+  TextColumn get author => text().nullable()();
+  TextColumn get title => text().nullable()();
+  DateTimeColumn get first_read_completed_time => dateTime().nullable()();
+  TextColumn get open_time_list => text().nullable()();
+  BoolColumn get is_collected => boolean()();
 }
 
 extension WebpageReadingsDriftModelGeneratorExtension on WebpageReading {
@@ -43,6 +49,16 @@ extension WebpageReadingsDriftModelGeneratorExtension on WebpageReading {
       article_analysis: _passNullableInput(
           'article_analysis', article_analysis, allowNulls, true),
       source: _passNullableInput('source', source, allowNulls, true),
+      publish_time:
+          _passNullableInput('publish_time', publish_time, allowNulls, true),
+      author: _passNullableInput('author', author, allowNulls, true),
+      title: _passNullableInput('title', title, allowNulls, true),
+      first_read_completed_time: _passNullableInput('first_read_completed_time',
+          first_read_completed_time, allowNulls, true),
+      open_time_list: _passNullableInput(
+          'open_time_list', open_time_list, allowNulls, true),
+      is_collected:
+          _passNullableInput('is_collected', is_collected, allowNulls, false),
     );
   }
 }

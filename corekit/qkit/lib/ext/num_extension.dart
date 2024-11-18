@@ -20,16 +20,13 @@ extension DoubleExt on double {
 
   EdgeInsetsGeometry get leftTopEdge => EdgeInsets.only(left: this, top: this);
 
-  EdgeInsetsGeometry get leftBottomEdge =>
-      EdgeInsets.only(left: this, bottom: this);
+  EdgeInsetsGeometry get leftBottomEdge => EdgeInsets.only(left: this, bottom: this);
 
   EdgeInsetsGeometry get rightEdge => EdgeInsets.only(right: this);
 
-  EdgeInsetsGeometry get rightTopEdge =>
-      EdgeInsets.only(right: this, top: this);
+  EdgeInsetsGeometry get rightTopEdge => EdgeInsets.only(right: this, top: this);
 
-  EdgeInsetsGeometry get rightBottomEdge =>
-      EdgeInsets.only(right: this, bottom: this);
+  EdgeInsetsGeometry get rightBottomEdge => EdgeInsets.only(right: this, bottom: this);
 
   EdgeInsetsGeometry get topEdge => EdgeInsets.only(top: this);
 
@@ -37,13 +34,11 @@ extension DoubleExt on double {
 
   EdgeInsetsGeometry get verticalEdge => EdgeInsets.symmetric(vertical: this);
 
-  EdgeInsetsGeometry get horizontalEdge =>
-      EdgeInsets.symmetric(horizontal: this);
+  EdgeInsetsGeometry get horizontalEdge => EdgeInsets.symmetric(horizontal: this);
 
-  EdgeInsetsGeometry get allEdge =>
-      EdgeInsets.symmetric(vertical: this, horizontal: this);
+  EdgeInsetsGeometry get allEdge => EdgeInsets.symmetric(vertical: this, horizontal: this);
 
-  double get w => QKit.bridge.flustars.screen.getWidth(this);
+  double get w => q0_.bridge.flustars.screen.getWidth(this);
 
-  double get h => QKit.bridge.flustars.screen.getHeight(this);
+  double get h => q0_.bridge.flustars.screen.getHeight(this);
 }

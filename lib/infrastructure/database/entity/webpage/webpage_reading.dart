@@ -1,4 +1,4 @@
-import 'package:cw2bit/infrastructure/database/r1db.dart';
+import 'package:cw2bit/infrastructure/database/r_database.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_model_generator/drift_model_generator.dart';
 
@@ -45,6 +45,24 @@ class WebpageReading {
   /// URL来源，一般来说是获得这个URL的来源地址
   final String? source;
 
+  /// 文章发布时间
+  final DateTime? publish_time;
+
+  /// 文章作者
+  final String? author;
+
+  /// 文章标题
+  final String? title;
+
+  /// 文章首次阅读完成时间
+  final DateTime? first_read_completed_time;
+
+  /// 文章每次的打开时间
+  final String? open_time_list;
+
+  /// 是否被收藏
+  final bool is_collected;
+
   WebpageReading({
     required this.id,
     required this.url,
@@ -55,5 +73,11 @@ class WebpageReading {
     required this.app,
     required this.article_analysis,
     required this.source,
+    required this.publish_time,
+    required this.author,
+    required this.title,
+    required this.first_read_completed_time,
+    required this.open_time_list,
+    required this.is_collected,
   });
 }

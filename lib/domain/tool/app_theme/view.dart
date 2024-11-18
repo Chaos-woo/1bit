@@ -1,6 +1,7 @@
+import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/theme/themes.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ import 'package:qkit/qkit.dart';
 import 'logic.dart';
 
 class AppThemePage extends StatelessWidget {
-  final scaffold_key = GlobalKey<ScaffoldState>();
+  final glob_k_scaffold_key = GlobalKey<ScaffoldState>();
 
   AppThemePage({Key? key}) : super(key: key);
 
@@ -17,70 +18,67 @@ class AppThemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final logic = Get.put(AppThemeLogic());
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffold_key,
+    return Scaffold(
+      key: glob_k_scaffold_key,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () async {
-              QKit.route.back();
-            },
+        automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30,
+          borderWidth: 1,
+          buttonSize: 60,
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: Colors.white,
+            size: 30,
           ),
-          actions: [],
-          flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
-            title: '主题色',
-            icon: Icons.color_lens_outlined,
-          ),
-          centerTitle: true,
-          elevation: 0,
+          onPressed: () async {
+            q0_.route.back();
+          },
         ),
-        body: SafeArea(
-          top: true,
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: GetBuilder<AppThemeLogic>(
-                id: logic.k_theme_list_view_id,
-                builder: (_) {
-                  var mgr = ThemesMgr.singl;
-                  int index = mgr.get_theme_index();
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        for (var theme in mgr.m_themes.entries)
-                          if (theme.key == index)
-                            InkWell(
-                              onTap: () async {
-                                await logic.change_theme(theme.key);
-                              },
-                              child: selected_theme_widget(context, theme.value),
-                            )
-                          else
-                            InkWell(
-                              onTap: () async {
-                                await logic.change_theme(theme.key);
-                              },
-                              child: unselected_theme_widget(context, theme.value),
-                            )
-                      ].divide(SizedBox(height: 10)),
-                    ),
-                  );
-                }),
-          ),
+        actions: [],
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
+          title: '主题色',
+          icon: Icons.color_lens_outlined,
+        ),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: SafeArea(
+        top: true,
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: GetBuilder<AppThemeLogic>(
+              id: logic.k_theme_list_view_id,
+              builder: (_) {
+                var theme_mgr = c0_.mgr_theme;
+                int index = theme_mgr.get_theme_index();
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      for (var theme in theme_mgr.m_themes.entries)
+                        if (theme.key == index)
+                          InkWell(
+                            onTap: () async {
+                              await logic.change_theme(theme.key);
+                            },
+                            child: selected_theme_widget(context, theme.value),
+                          )
+                        else
+                          InkWell(
+                            onTap: () async {
+                              await logic.change_theme(theme.key);
+                            },
+                            child: unselected_theme_widget(context, theme.value),
+                          )
+                    ].divide(SizedBox(height: 10)),
+                  ),
+                );
+              }),
         ),
       ),
     );

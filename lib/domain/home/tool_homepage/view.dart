@@ -1,6 +1,6 @@
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -36,7 +36,7 @@ class ToolHomepagePage extends StatelessWidget {
               size: 24,
             ),
             onPressed: () async {
-              await QKit.route.to(rt_tool_app_theme_home);
+              await q0_.route.to(rout0_.tool_app_theme_home);
             },
           ),
           // Padding(
@@ -56,7 +56,7 @@ class ToolHomepagePage extends StatelessWidget {
           //   ),
           // ),
         ],
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '1nfo',
           icon: Icons.category_outlined,
         ),
@@ -89,7 +89,7 @@ class ToolHomepagePage extends StatelessWidget {
                           subtitle: '本软件的Github仓库issues',
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.quiz_rounded),
-                          on_tap: () => QKit.route.to(rt_tool_github_issues_home),
+                          on_tap: () => q0_.route.to(rout0_.tool_github_issues_home),
                         ),
                         ToolGroupItemRouter(
                           title: '疑问随手记',
@@ -113,7 +113,7 @@ class ToolHomepagePage extends StatelessWidget {
                           subtitle: 'FlutterFlow的组件测试合集',
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.flourescent_rounded),
-                          on_tap: () => QKit.route.to(rt_tool_flutter_flow_home),
+                          on_tap: () => q0_.route.to(rout0_.tool_flutter_flow_home),
                         )
                       ],
                     ),
@@ -130,7 +130,7 @@ class ToolHomepagePage extends StatelessWidget {
                           subtitle: 'Google ML-Kit识别工具',
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.content_paste_search_rounded),
-                          on_tap: () => QKit.route.to(rt_publicTextOcr),
+                          on_tap: () => q0_.route.to(rout0_.public_text_ocr),
                         )
                       ],
                     ),

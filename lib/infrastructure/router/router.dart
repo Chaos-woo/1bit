@@ -19,86 +19,90 @@ import 'package:cw2bit/public/text_ocr/view.dart';
 import 'package:flutter/material.dart';
 import 'package:qkit/qkit.dart';
 
-/// 命名路由
-const rt_home = '/home';
+final class rout0_ {
+  /// 命名路由
+  static const home = '/home';
 
-/// 公共路由
-const rt_publicTextOcr = '/public/textorc/home';
+  /// 公共路由
+  static const public_text_ocr = '/public/textorc/home';
 
-/// 实验室模块路由
-const rt_tool_flutter_flow_home = '/tool/flutterflow/home';
-const rt_tool_app_theme_home = '/tool/apptheme/home';
-const rt_tool_github_setting = '/tool/github/setting';
-const rt_tool_github_issues_home = '/tool/github/issues/home';
-const rt_tool_github_issues_detail = '/tool/github/issues/detail';
-const rt_tool_github_issues_edit = '/tool/github/issues/edit';
-const rt_tool_github_comment_edit = '/tool/github/comment/edit';
+  /// 实验室模块路由
+  static const tool_flutter_flow_home = '/tool/flutterflow/home';
 
-/// 文字小站模块路由
-const rt_news_apphotsearch_settings_home = '/news/apphotsearch/settings';
-const rt_news_apphotsearch_settings_appgroups = '/news/apphotsearch/settings/appgroups';
-const rt_news_apphotsearch_settings_groupapps = '/news/apphotsearch/settings/groupapps';
+  static const tool_app_theme_home = '/tool/apptheme/home';
+
+  static const tool_github_setting = '/tool/github/setting';
+  static const tool_github_issues_home = '/tool/github/issues/home';
+  static const tool_github_issues_detail = '/tool/github/issues/detail';
+  static const tool_github_issues_edit = '/tool/github/issues/edit';
+  static const tool_github_comment_edit = '/tool/github/comment/edit';
+
+  /// 文字小站模块路由
+  static const news_apphotsearch_settings_home = '/news/apphotsearch/settings';
+  static const news_apphotsearch_settings_appgroups = '/news/apphotsearch/settings/appgroups';
+  static const news_apphotsearch_settings_groupapps = '/news/apphotsearch/settings/groupapps';
+}
 
 class AppPageRouter {
   static void create_router_page() {
     Colors.red;
     RouteProxyDispatcher.addRoute(
-      rt_home,
+      rout0_.home,
       () => HomepagePage(),
       bindings: [HomepageBinding()],
     );
 
     RouteProxyDispatcher.createGroup('base')
         .addRoute(
-          rt_tool_flutter_flow_home,
+          rout0_.tool_flutter_flow_home,
           () => const FlutterFlowPage(),
         )
         .addRoute(
-          rt_tool_app_theme_home,
+          rout0_.tool_app_theme_home,
           () => AppThemePage(),
         )
         .addRoute(
-          rt_tool_github_issues_home,
+          rout0_.tool_github_issues_home,
           () => Github1bitIssuesPage(),
           binding: Github1bitIssuesBinding(),
         )
         .addRoute(
-          rt_tool_github_setting,
+          rout0_.tool_github_setting,
           () => GithubSettingPage(),
           binding: GithubSettingBinding(),
         )
         .addRoute(
-          rt_tool_github_issues_detail,
+          rout0_.tool_github_issues_detail,
           () => const Github1bitIssuesDetailPage(),
           binding: Github1bitIssuesDetailBinding(),
         )
         .addRoute(
-          rt_tool_github_issues_edit,
+          rout0_.tool_github_issues_edit,
           () => const Github1bitIssuesEditPage(),
         )
         .addRoute(
-          rt_tool_github_comment_edit,
+          rout0_.tool_github_comment_edit,
           () => const Github1bitCommentEditPage(),
           binding: Github1bitCommentEditPageBinding(),
         );
 
     RouteProxyDispatcher.createGroup('news')
         .addRoute(
-          rt_news_apphotsearch_settings_home,
+          rout0_.news_apphotsearch_settings_home,
           () => AppHotSearchSettingPage(),
         )
         .addRoute(
-          rt_news_apphotsearch_settings_appgroups,
+          rout0_.news_apphotsearch_settings_appgroups,
           () => AppHotSearchAppGroupsEditPage(),
         )
         .addRoute(
-          rt_news_apphotsearch_settings_groupapps,
+          rout0_.news_apphotsearch_settings_groupapps,
           () => AppHotSearchGroupAppsEditPage(),
           binding: AppHotSearchGroupAppsBinding(),
         );
 
     RouteProxyDispatcher.createGroup('public').addRoute(
-      rt_publicTextOcr,
+      rout0_.public_text_ocr,
       () => const TextOcrPage(),
     );
   }

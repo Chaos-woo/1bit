@@ -6,10 +6,10 @@ class GithubInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     String? accessToken;
-    if (options.extra.containsKey(k_pref_github_override_access_key)) {
-      accessToken = options.extra[k_pref_github_override_access_key];
+    if (options.extra.containsKey(k_psf_github_override_access_key)) {
+      accessToken = options.extra[k_psf_github_override_access_key];
     } else {
-      accessToken = QKit.bridge.flustars.preferences.getString(k_pref_github_access_key, default_value: '');
+      accessToken = q0_.bridge.flustars.preferences.get_string(k_psf_github_access_key, default_value: '');
     }
 
     if (null == accessToken || accessToken.isEmpty) {

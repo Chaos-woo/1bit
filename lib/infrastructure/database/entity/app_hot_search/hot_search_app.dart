@@ -1,14 +1,14 @@
-import 'package:cw2bit/infrastructure/database/r1db.dart';
+import 'package:cw2bit/infrastructure/database/r_database.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_model_generator/drift_model_generator.dart';
 
-part 'favorite_app.driftm.dart';
+part 'hot_search_app.driftm.dart';
 
 /// 各应用网站热搜APP的本地APP收藏
 @UseDrift(
   useSnakeCase: true,
 )
-class FavoriteApp {
+class HotSearchApp {
   @AutoIncrement()
   final int? id;
 
@@ -19,18 +19,19 @@ class FavoriteApp {
   @NotNull()
   final DateTime create_time;
 
+  @WithDefault('now()')
   @NotNull()
-  final int group_id;
+  final DateTime update_time;
 
   @NotNull()
   @WithDefault(0)
   final int order;
 
-  FavoriteApp({
+  HotSearchApp({
     required this.id,
     required this.name,
     required this.create_time,
-    required this.group_id,
+    required this.update_time,
     required this.order,
   });
 }

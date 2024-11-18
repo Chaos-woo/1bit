@@ -1,24 +1,32 @@
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
-import 'package:cw2bit/infrastructure/api/apis.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app_group.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_repo.dart';
+import 'package:cw2bit/infrastructure/c0_.dart';
+import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
+import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_group.dart';
 import 'package:get/get.dart';
+import 'package:qkit/qkit.dart';
+
+final class _PathVariables {
+  String get group_id => q0_.route.path_variables(path_k_group_id)!;
+
+  String get path_k_group_id => '__path_variables_group_id__';
+}
 
 class AppHotSearchGroupAppsEditLogic extends GetxController {
-  Set<FavoriteApp> _apps = Set();
+  static final _PathVariables m_path_variables = _PathVariables();
+
+  Set<HotSearchApp> _apps = Set();
   List<String> all_apps_from_git = [];
 
-  late FavoriteAppGroup group;
+  late HotSearchGroup group;
 
-  final k_groups_dnd_view_id = '#kGroupsDndViewId';
-  final k_app_dialog_view_id = '#kAppDialogViewId';
+  final k_groups_dnd_view_id = '__k_groups_dnd_view_id__';
+  final k_app_dialog_view_id = '__k_app_dialog_view_id__';
 
-  List<FavoriteApp> get apps => _apps.toList();
+  List<HotSearchApp> get apps => _apps.toList();
 
-  static String tag_format(String group_id) => '#appHotSearchGroupAppsEditLogic#$group_id';
+  static String getx_tag_format(String group_id) => '__getx_app_hot_search_group_apps_edit_logic_$group_id';
 
   @override
   void onInit() async {
@@ -32,10 +40,10 @@ class AppHotSearchGroupAppsEditLogic extends GetxController {
   }
 
   /// 判断本地数据库的APP列表是否存在
-  bool is_local_db_exist(String app_name) => _apps.map((a) => a.name).where((name) => name == app_name).isNotEmpty;
+  bool is_in_local_database(String app_name) => _apps.map((a) => a.name).where((name) => name == app_name).isNotEmpty;
 
   Future<void> refresh_all_apps() async {
-    _apps = Set.from(await HotSearchRepo.singl.list_apps_by_group_id(group.id!));
+    _apps = Set.from(await c0_.repo_drift.hot_search.list_apps_by_group_id(group.id!));
     update([k_groups_dnd_view_id]);
   }
 
@@ -51,23 +59,23 @@ class AppHotSearchGroupAppsEditLogic extends GetxController {
 
     for (var i = 0; i < new_apps.length; i++) {
       var app = new_apps[i];
-      new_apps[i] = FavoriteApp(
+      new_apps[i] = HotSearchApp(
         id: app.id,
-        group_id: group.id!,
         name: app.name,
         create_time: app.create_time,
+        update_time: DateTime.now(),
         order: i,
       );
     }
 
-    await HotSearchRepo.singl.save_apps_order(new_apps);
+    await c0_.repo_drift.hot_search.save_apps_order(new_apps);
 
     _apps = Set.from(new_apps);
   }
 
   Future<void> fetch_app_list_noUi() async {
     List<GithubContent> contents =
-        await Apis.github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, c_hot_search_repo_root_dir);
+        await c0_.apis_github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, c_hot_search_repo_root_dir);
     List<String> _apps = contents
         // 过滤出项目中目录类型的内容，即APP，APP的归档内容都被放置到对应的APP目录下
         .where((content) => EnumGithubContentType.dir == content.type)
@@ -78,14 +86,14 @@ class AppHotSearchGroupAppsEditLogic extends GetxController {
 
   /// 添加或删除APP
   Future<void> add_or_delete_app(String app_name) async {
-    if (is_local_db_exist(app_name)) {
+    if (is_in_local_database(app_name)) {
       var all_deleted_app_ids =
           _apps.where((a) => a.name == app_name).where((a) => a.id != null).map((a) => a.id as int).toList();
-      await HotSearchRepo.singl.delete_apps(all_deleted_app_ids);
-      _apps = Set.from(await HotSearchRepo.singl.list_apps_by_group_id(group.id!));
+      await c0_.repo_drift.hot_search.delete_apps(all_deleted_app_ids);
+      _apps = Set.from(await c0_.repo_drift.hot_search.list_apps_by_group_id(group.id!));
     } else {
-      await HotSearchRepo.singl.add_app(app_name, group.id!, -1);
-      _apps = Set.from(await HotSearchRepo.singl.list_apps_by_group_id(group.id!));
+      await c0_.repo_drift.hot_search.add_app(app_name, group.id!, -1);
+      _apps = Set.from(await c0_.repo_drift.hot_search.list_apps_by_group_id(group.id!));
     }
 
     update([k_app_dialog_view_id, k_groups_dnd_view_id]);
@@ -93,8 +101,8 @@ class AppHotSearchGroupAppsEditLogic extends GetxController {
 
   /// 删除APP
   Future<void> delete_app(int id) async {
-    await HotSearchRepo.singl.delete_app(id);
-    _apps = Set.from(await HotSearchRepo.singl.list_apps_by_group_id(group.id!));
+    await c0_.repo_drift.hot_search.delete_app(id);
+    _apps = Set.from(await c0_.repo_drift.hot_search.list_apps_by_group_id(group.id!));
     update([k_groups_dnd_view_id]);
   }
 }

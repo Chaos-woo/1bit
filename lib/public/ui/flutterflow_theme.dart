@@ -6,7 +6,7 @@ const kThemeModeKey = '__theme_mode__';
 
 abstract class FlutterFlowTheme {
   static FlutterFlowTheme of(BuildContext context) {
-    return ThemesMgr.singl.get_theme(context);
+    return ThemesMgr.getx.get_theme(context);
   }
 
   late Color primary;

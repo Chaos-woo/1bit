@@ -1,6 +1,6 @@
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -27,15 +27,15 @@ class GithubSettingPage extends StatelessWidget {
           borderWidth: 1,
           buttonSize: 60,
           icon: Icon(
-            Icons.arrow_back_rounded,
+            ui0_.icons.arrow_back,
             color: Colors.white,
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: 'Github Secret Key',
           icon: Icons.security_rounded,
         ),
@@ -247,7 +247,7 @@ class GithubSettingPage extends StatelessWidget {
                           size: 24,
                         ),
                         onPressed: () async {
-                          String? ocrText = await QKit.route.to(rt_publicTextOcr) as String?;
+                          String? ocrText = await q0_.route.to(rout0_.public_text_ocr) as String?;
                           logic.access_token_text_Controller.text = ocrText ?? '';
                         },
                       ),
@@ -265,9 +265,9 @@ class GithubSettingPage extends StatelessWidget {
                         onPressed: () async {
                           bool isValidToken = await logic.check_access_token();
                           if (isValidToken) {
-                            R1Ui.snackbar.show_simple_snackbar('当前【访问密钥】有效');
+                            ui0_.snackbar.show_simple_snackbar('当前【访问密钥】有效');
                           } else {
-                            R1Ui.snackbar.show_simple_snackbar('当前【访问密钥】无效，请重新设置');
+                            ui0_.snackbar.show_simple_snackbar('当前【访问密钥】无效，请重新设置');
                           }
                         },
                         text: '访问密钥有效性检查',
@@ -304,8 +304,8 @@ class GithubSettingPage extends StatelessWidget {
                       child: FFButtonWidget(
                         onPressed: () {
                           logic.save_github_access_token();
-                          R1Ui.snackbar.show_simple_snackbar('设置【访问密钥】完成');
-                          QKit.route.back();
+                          ui0_.snackbar.show_simple_snackbar('设置【访问密钥】完成');
+                          q0_.route.back();
                         },
                         text: '保存访问密钥',
                         icon: Icon(

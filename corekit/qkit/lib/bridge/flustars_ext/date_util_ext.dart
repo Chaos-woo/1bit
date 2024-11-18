@@ -31,7 +31,7 @@ extension DateUtilBridge on DateUtil {
   /// 格式要求
   /// year -> yyyy/yy   month -> MM/M    day -> dd/d
   /// hour -> HH/H      minute -> mm/m   second -> ss/s
-  String formatDate(DateTime? dateTime, {String? format}) => DateUtil.formatDate(dateTime, format: format);
+  String format_date(DateTime? dateTime, {String? format}) => DateUtil.formatDate(dateTime, format: format);
 
   /// get WeekDay.
   /// dateTime

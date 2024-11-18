@@ -7,78 +7,78 @@ abstract class PagingController<S extends PagingState> extends GetxController {
   /// 状态
   late S state;
 
-  late final RefreshController refreshController;
+  late final RefreshController refresh_controller;
 
   @override
   void onInit() {
     super.onInit();
 
-    refreshController = RefreshController(
+    refresh_controller = RefreshController(
       initialRefresh: is_init_refresh,
     );
 
-    state = createPagingState();
+    state = create_paging_state();
 
     /// 初始化每次最大请求数量
-    state.fetchTotal = state.pageSize;
+    state.fetch_total = state.page_size;
   }
 
   /// 初始化分页状态
-  S createPagingState();
+  S create_paging_state();
 
   void on_refresh() {
-    _fetch_data(isRefresh: true).then((_) {
-      refreshController.refreshCompleted(resetFooterState: true);
-      if (!state.isLoadMore()) {
-        refreshController.loadNoData();
+    _fetch_data(is_refresh: true).then((_) {
+      refresh_controller.refreshCompleted(resetFooterState: true);
+      if (!state.is_load_more()) {
+        refresh_controller.loadNoData();
       }
 
-      QKit.delay.delay(() {
+      q0_.delay.delay(() {
         on_refresh_listener(true, true);
       });
     }).catchError((err) {
-      QKit.log.error(err);
-      refreshController.refreshFailed();
+      q0_.log.error(err);
+      refresh_controller.refreshFailed();
 
-      QKit.delay.delay(() {
+      q0_.delay.delay(() {
         on_refresh_listener(true, false);
       });
     });
   }
 
   void on_loading() {
-    if (state.isLoadMore()) {
+    if (state.is_load_more()) {
       /// 当前已有数据小于page*size时，继续请求数据
       _fetch_data().then((_) {
-        refreshController.loadComplete();
+        refresh_controller.loadComplete();
 
-        QKit.delay.delay(() {
+        q0_.delay.delay(() {
           on_refresh_listener(false, true);
         });
       }).catchError((_) {
-        refreshController.loadFailed();
+        refresh_controller.loadFailed();
 
-        QKit.delay.delay(() {
+        q0_.delay.delay(() {
           on_refresh_listener(false, false);
         });
       });
     } else {
-      refreshController.loadNoData();
+      refresh_controller.loadNoData();
     }
   }
 
   /// 拉取数据
-  Future<void> _fetch_data({bool isRefresh = false}) async {
+  Future<void> _fetch_data({bool is_refresh = false}) async {
     var result = await fetch_data();
 
-    if (isRefresh == true) {
-      state.currPage = 1;
+    if (is_refresh == true) {
+      state.current_page = 1;
 
       /// 记录每次刷新
-      state.fetchTotal = result.length;
+      state.fetch_total = result.length;
       state.data_list.clear();
     } else {
-      state.currPage++;
+      state.current_page++;
     }
 
     state.data_list.addAll(result);
@@ -86,7 +86,7 @@ abstract class PagingController<S extends PagingState> extends GetxController {
 
   /// 请求刷新
   void request_refresh() {
-    refreshController.requestRefresh(
+    refresh_controller.requestRefresh(
       duration: 100.milliseconds,
       curve: Curves.fastLinearToSlowEaseIn,
     );
@@ -97,7 +97,7 @@ abstract class PagingController<S extends PagingState> extends GetxController {
     super.dispose();
 
     /// 释放RefreshController
-    refreshController.dispose();
+    refresh_controller.dispose();
   }
 
   /// 获取数据
@@ -112,6 +112,9 @@ abstract class PagingController<S extends PagingState> extends GetxController {
   bool get is_init_refresh => true;
 }
 
+/// 刷新监听器
+/// [is_refresh_fetch]: true-刷新请求，false-加载请求
+/// [is_fetch_success]: 是否请求成功
 typedef OnRefreshedListener = Future<void> Function(bool is_refresh_fetch, bool is_fetch_success);
 
 // class D {}

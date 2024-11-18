@@ -3,7 +3,7 @@ import 'package:cw2bit/domain/tool/github_1bit/issues_detail/widgets/issues_deta
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -23,8 +23,8 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          GithubApiDataPostAction postResult = await QKit.route.to(
-            rt_tool_github_comment_edit,
+          GithubApiDataPostAction postResult = await q0_.route.to(
+            rout0_.tool_github_comment_edit,
             argument: state.issues_model,
           ) as GithubApiDataPostAction;
           if (postResult == GithubApiDataPostAction.posted_data_then_back) {
@@ -53,10 +53,10 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
             size: 30,
           ),
           onPressed: () async {
-            QKit.route.back();
+            q0_.route.back();
           },
         ),
-        flexibleSpace: R1Ui.appbar.bing_image_appbar_flexible_space(
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '1ssues',
           icon: Icons.quiz_rounded,
         ),
@@ -101,7 +101,7 @@ class Github1bitIssuesDetailPage extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                  child: PagingWidgetBuilder.buildRefresher(
+                  child: PagingWidgetBuilder.build_refresher(
                     logic,
                     builder: (controller) {
                       return ListView.builder(

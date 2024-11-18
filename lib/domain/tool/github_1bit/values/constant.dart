@@ -1,8 +1,8 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
 /// Github访问密钥key
-const String k_pref_github_access_key = '#kGithubAccessKey';
-const String k_pref_github_override_access_key = '#kOverrideGithubAccessKey';
+const String k_psf_github_access_key = '__k_psf_github_access_key__';
+const String k_psf_github_override_access_key = '__k_psf_github_override_access_key__';
 
 /// issues状态常量
 const c_issues_state_open = 'Open';

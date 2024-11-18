@@ -468,7 +468,7 @@ class UIDialog {
                     width: double.infinity,
                     constraints: BoxConstraints(
                       maxWidth: 400,
-                      maxHeight: QKit.bridge.flustars.screen.screenHeightExt,
+                      maxHeight: q0_.bridge.flustars.screen.screenHeightExt,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white,

@@ -1,8 +1,8 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/issues/issues_model.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues/logic.dart';
 import 'package:cw2bit/domain/tool/github_1bit/issues/state.dart';
-import 'package:cw2bit/infrastructure/api/apis.dart';
 import 'package:cw2bit/infrastructure/api/github/models/issues/github_issues.dart';
+import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
@@ -14,30 +14,30 @@ class Github1bitIssuesListLogic extends PagingController<Github1bitIssuesListSta
   OnRefreshedListener? on_refreshed_listener;
 
   @override
-  Github1bitIssuesListState createPagingState() {
+  Github1bitIssuesListState create_paging_state() {
     return state;
   }
 
   @override
   Future<List<IssuesModel>> fetch_data() async {
-    final homeState = Get.find<Github1bitIssuesLogic>().state;
+    final issues_state = Get.find<Github1bitIssuesLogic>().state;
 
-    List<GithubIssues> issues = await Apis.github.list_issues(
-      homeState.owner,
-      homeState.repo,
-      page: state.currPage,
-      page_size: state.pageSize,
-      state: IssuesFiltered.label_by(homeState.choiceChipsStateValue),
-      sort_field: IssuesFiltered.label_by(homeState.choiceChipsSortFieldsValue),
-      sort_direction: IssuesFiltered.label_by(homeState.choiceChipsSortDirectionValue),
-      labels: homeState.choiceChipsLabelValue ?? [],
+    List<GithubIssues> issues = await c0_.apis_github.list_issues(
+      issues_state.owner,
+      issues_state.repo,
+      page: state.current_page,
+      page_size: state.page_size,
+      state: IssuesFiltered.label_by(issues_state.choice_chips_state_value),
+      sort_field: IssuesFiltered.label_by(issues_state.choice_chips_sortable_fields_value),
+      sort_direction: IssuesFiltered.label_by(issues_state.choice_chips_sort_direction_value),
+      labels: issues_state.choice_chips_label_value ?? [],
     );
-    List<IssuesModel> issuesModelList = issues.map((e) => IssuesModel.fromJson(e.toJson())).toList();
-    return issuesModelList;
+    List<IssuesModel> issues_list = issues.map((e) => IssuesModel.fromJson(e.toJson())).toList();
+    return issues_list;
   }
 
   @override
   Future<void> on_refresh_listener(bool is_refresh_fetch, bool is_fetch_success) async {
-    on_refreshed_listener?.call(is_refresh_fetch, is_fetch_success);
+    await on_refreshed_listener?.call(is_refresh_fetch, is_fetch_success);
   }
 }

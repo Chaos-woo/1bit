@@ -10,5 +10,5 @@ class Github1bitIssuesDetailState extends PagingState<CommentModel> {
   }
 
   @override
-  int get pageSize => 30;
+  int get page_size => 30;
 }

@@ -8,7 +8,7 @@ class GithubSettingBinding extends Bindings {
     Get.lazyPut(() {
       var logic = GithubSettingLogic();
       var show_repo = GithubSettingLogic.m_path_variables.show_1bit_repo;
-      logic.show_1bit_repository = bool.parse(show_repo ?? 'true', caseSensitive: false);
+      logic.show_1bit_repository = bool.parse(show_repo ?? true.toString(), caseSensitive: false);
       return logic;
     });
   }

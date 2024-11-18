@@ -152,7 +152,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                     child: Container(
                       width: double.infinity,
-                      height: QKit.bridge.flustars.screen.screenHeightExt * 0.85,
+                      height: q0_.bridge.flustars.screen.screenHeightExt * 0.85,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                       ),
@@ -367,7 +367,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                 buttonSize: 40,
                                 fillColor: Colors.white,
                                 icon: Icon(
-                                  Icons.add_reaction_outlined,
+                                  Icons.event_available_rounded,
                                   color: FlutterFlowTheme.of(context).primaryText,
                                   size: 24,
                                 ),
@@ -376,6 +376,24 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                     (widget.listener as AppWebviewReadingListener)
                                         .onWebviewUrlReadingCompleted
                                         ?.call(url);
+                                  }
+                                },
+                              ),
+                            if (widget.listener is AppWebviewReadingListener)
+                              FlutterFlowIconButton(
+                                borderColor: Color(0xFFE5E7EB),
+                                borderRadius: 8,
+                                borderWidth: 1,
+                                buttonSize: 40,
+                                fillColor: Colors.white,
+                                icon: Icon(
+                                  Icons.closed_caption_disabled_outlined,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  size: 24,
+                                ),
+                                onPressed: () {
+                                  if (widget.listener != null) {
+                                    (widget.listener as AppWebviewReadingListener).onWebviewBusinessClosed?.call(url);
                                   }
                                 },
                               ),
@@ -393,11 +411,11 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                             size: 24,
                           ),
                           onPressed: () {
-                            QKit.delay.delay(() {
+                            q0_.delay.delay(() {
                               widget.listener?.onWebviewClosed?.call(url);
                             });
                             // 关闭dialog
-                            QKit.route.back();
+                            q0_.route.back();
                           },
                         ),
                       ],

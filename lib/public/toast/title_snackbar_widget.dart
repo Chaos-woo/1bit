@@ -24,7 +24,7 @@ class TitleSnackbarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: QKit.bridge.flustars.screen.screenWidthExt * 0.95,
+      width: q0_.bridge.flustars.screen.screenWidthExt * 0.95,
       decoration: BoxDecoration(
         color: backgroundColor ?? FlutterFlowTheme.of(context).tertiary,
         borderRadius: BorderRadius.circular(12),

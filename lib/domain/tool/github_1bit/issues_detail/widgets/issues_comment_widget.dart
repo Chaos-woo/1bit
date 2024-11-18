@@ -1,7 +1,7 @@
 import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_issues/models/comment/comment_model.dart';
 import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:qkit/qkit.dart';
 
@@ -41,7 +41,7 @@ class IssuesCommentCompWidget extends StatelessWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                       child: Text(
-                        QKit.bridge.flustars.date.formatDate(
+                        q0_.bridge.flustars.date.format_date(
                           comment.createdAt,
                           format: c_issues_date_time_format,
                         ),
@@ -67,7 +67,7 @@ class IssuesCommentCompWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: R1Ui.text.expandable_text(
+                    child: ui0_.text.expandable_text(
                       comment.body,
                       text_style: FlutterFlowTheme.of(context).bodyMedium.override(
                             letterSpacing: 0,

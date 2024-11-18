@@ -5,7 +5,7 @@ import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/infrastructure/router/router.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui_kit.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -61,7 +61,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           /// 跳转设置页
-                          await QKit.route.to(rt_news_apphotsearch_settings_home);
+                          await q0_.route.to(rout0_.news_apphotsearch_settings_home);
                         },
                         child: Container(
                           decoration: BoxDecoration(),
@@ -124,7 +124,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                     ),
                                     onTap: () async {
                                       await logic.m_refresh_group_apps_and_hot_search_list();
-                                      QKit.ui.toast.show('刷新完成');
+                                      q0_.ui.toast.show('刷新完成');
                                     },
                                   ),
                                   for (var group in state.favorite_app_groups)
@@ -226,10 +226,10 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                             logic.k_hot_search_scroll_view_view_id,
                                                             logic.k_app_hot_search_history_directory_view_id
                                                           ]);
-                                                          QKit.ui.toast.show('获取归档完成');
+                                                          q0_.ui.toast.show('获取归档完成');
                                                         },
                                                         onError: (error) {
-                                                          QKit.ui.toast.show('获取归档失败');
+                                                          q0_.ui.toast.show('获取归档失败');
                                                         });
                                               },
                                               child: app.name == state.app
@@ -357,10 +357,10 @@ class HistoryHotSearchPage extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onTap: state.app.isEmpty
                             ? () async {
-                                QKit.ui.toast.show('请先选择APP');
+                                q0_.ui.toast.show('请先选择APP');
                               }
                             : () async {
-                                await R1Ui.dialog.show_custom_dialog_with_ok_cancel_buttons(
+                                await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -492,12 +492,12 @@ class HistoryHotSearchPage extends StatelessWidget {
                                   cancel_text: '取消',
                                   on_confirm: () async {
                                     if (state.app.isEmpty) {
-                                      QKit.ui.toast.show('请先选择APP');
+                                      q0_.ui.toast.show('请先选择APP');
                                       return;
                                     }
 
                                     if (state.picked_date == null) {
-                                      QKit.ui.toast.show('请选择日期');
+                                      q0_.ui.toast.show('请选择日期');
                                       return;
                                     }
 
@@ -515,11 +515,11 @@ class HistoryHotSearchPage extends StatelessWidget {
                                     }
 
                                     if (state.picked_date!.isAfter(DateTime.now())) {
-                                      QKit.ui.toast.show('未来的热搜还在生产哦~');
+                                      q0_.ui.toast.show('未来的热搜还在生产哦~');
                                       return;
                                     }
 
-                                    if (QKit.bridge.flustars.date.isToday(state.picked_date!.millisecondsSinceEpoch)) {
+                                    if (q0_.bridge.flustars.date.isToday(state.picked_date!.millisecondsSinceEpoch)) {
                                       // 选择的是今天，直接获取当天热搜
                                       var archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
                                       var archive_file_path =
@@ -538,7 +538,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                             ]);
                                           },
                                           onError: (error) {
-                                            QKit.ui.toast.show('获取归档失败');
+                                            q0_.ui.toast.show('获取归档失败');
                                           }));
                                       return;
                                     }
@@ -560,11 +560,11 @@ class HistoryHotSearchPage extends StatelessWidget {
                                           '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
                                       archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
                                     } else if (year >= 2023 && day_int_value < 8) {
-                                      QKit.ui.toast.show('无归档数据');
+                                      q0_.ui.toast.show('无归档数据');
                                     } else if (year >= 2023 && day_int_value < 11) {
                                       archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
                                     } else {
-                                      QKit.ui.toast.show('无归档数据');
+                                      q0_.ui.toast.show('无归档数据');
                                     }
 
                                     print(
@@ -583,7 +583,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                           ]);
                                         },
                                         onError: (error) {
-                                          QKit.ui.toast.show('获取归档失败');
+                                          q0_.ui.toast.show('获取归档失败');
                                         }));
                                   },
                                 );
@@ -658,7 +658,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                 ]);
                                               },
                                               onError: (error) {
-                                                QKit.ui.toast.show('获取内容列表失败');
+                                                q0_.ui.toast.show('获取内容列表失败');
                                               });
                                         },
                                         child: Container(
@@ -713,7 +713,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                 ]);
                                               },
                                               onError: (error) {
-                                                QKit.ui.toast.show('获取内容列表失败');
+                                                q0_.ui.toast.show('获取内容列表失败');
                                               });
                                         },
                                         child: Container(
@@ -768,7 +768,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                 ]);
                                               },
                                               onError: (error) {
-                                                QKit.ui.toast.show('获取热搜失败');
+                                                q0_.ui.toast.show('获取热搜失败');
                                               });
                                         },
                                         child: Container(

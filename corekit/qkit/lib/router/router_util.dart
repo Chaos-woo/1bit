@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class RouteProxyKit {
   /// 转向至指定路由
+  /// [prevent_duplicates]：重复路由至同一路由时，设置为false，且对应的Controller注意处理tag
   Future<R?>? to<R>(
     String route, {
     dynamic argument,
@@ -21,12 +22,12 @@ class RouteProxyKit {
   Future<R?>? popAndTo<R>(
     String route, {
     dynamic argument,
-    Map<String, String>? pathVariables,
+    Map<String, String>? path_variables,
   }) {
     return Get.offAndToNamed<R>(
       route,
       arguments: argument,
-      parameters: pathVariables,
+      parameters: path_variables,
     );
   }
 

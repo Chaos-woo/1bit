@@ -58,7 +58,7 @@ class Eventbus {
 
   void log<T extends SubscribeEvent>(T e, {required String usage, String? dateFormat}) {
     PPLog.singl.debug(
-      '接收【${e.publisher}\\.${e.runtimeType}】(${QKit.bridge.flustars.date.formatDate(
+      '接收【${e.publisher}\\.${e.runtimeType}】(${q0_.bridge.flustars.date.format_date(
         e.timestamp,
         format: dateFormat ?? DateFormats.full,
       )})，用途：【$usage】',

@@ -1,12 +1,13 @@
-import 'package:cw2bit/domain/app_hot_search/models/bo/app_groups.dart';
-import 'package:cw2bit/domain/app_hot_search/models/bo/app_webpages.dart';
+import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_groups.dart';
+import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_webpages.dart';
 import 'package:cw2bit/domain/app_hot_search/models/hot_search_model.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/favorite_app_group.dart';
+import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
+import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_group.dart';
 import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_reading.dart';
+import 'package:cw2bit/infrastructure/database/entity_combination/comb_hot_search_group_apps.dart';
 
 class HistoryHotSearchState {
   /// 当前选择的APP
@@ -32,8 +33,8 @@ class HistoryHotSearchState {
 
   /// 收藏的APP
   LocalAppGroups _m_favorite_app_group = LocalAppGroups.from([
-    LocalAppGroup(
-      group: FavoriteAppGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now()),
+    CombHotSearchGroupApps(
+      group: HotSearchGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now(), update_time: DateTime.now()),
       apps: [],
     ),
   ]);
@@ -42,10 +43,10 @@ class HistoryHotSearchState {
   void set favorite_app_group(LocalAppGroups value) => _m_favorite_app_group = value;
 
   /// 获取收藏的APP组列表
-  List<FavoriteAppGroup> get favorite_app_groups => _m_favorite_app_group.groups.map((e) => e.group).toList();
+  List<HotSearchGroup> get favorite_app_groups => _m_favorite_app_group.groups.map((e) => e.group).toList();
 
   /// 根据指定的APP名称获取对应的收藏APP组中的APP列表
-  List<FavoriteApp> favorite_apps_by_group_id(int group_id) {
+  List<HotSearchApp> favorite_apps_by_group_id(int group_id) {
     return _m_favorite_app_group.groups.firstWhere((e) => e.group.id == group_id).apps;
   }
 
@@ -66,7 +67,7 @@ class HistoryHotSearchState {
 
   /// 热搜网页阅读记录
   void replace_webpage_reading_history(List<WebpageReading> value) {
-    value.forEach((element) => _m_webpage_history.replaceWebpage(element));
+    value.forEach((element) => _m_webpage_history.replace_webpage(element));
   }
 
   /// 热搜网页阅读记录
@@ -74,7 +75,7 @@ class HistoryHotSearchState {
 
   /// 根据URL获取热搜网页阅读记录
   WebpageReading? get_webpage_reading(String url) {
-    return _m_webpage_history.findWebpage(url);
+    return _m_webpage_history.find_webpage(url);
   }
 
   /// ============= 历史热搜的Github仓库文件 == 1 ==================

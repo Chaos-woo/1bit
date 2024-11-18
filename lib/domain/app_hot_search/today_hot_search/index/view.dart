@@ -57,7 +57,7 @@ class TodayHotSearchPage extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           /// 跳转设置页
-                          await QKit.route.to(rt_news_apphotsearch_settings_home);
+                          await q0_.route.to(rout0_.news_apphotsearch_settings_home);
                         },
                         child: Container(
                           decoration: BoxDecoration(),
@@ -120,7 +120,7 @@ class TodayHotSearchPage extends StatelessWidget {
                                     ),
                                     onTap: () async {
                                       await logic.m_refresh_group_apps_and_hot_search_list();
-                                      QKit.ui.toast.show('刷新完成');
+                                      q0_.ui.toast.show('刷新完成');
                                     },
                                   ),
                                   for (var group in state.favorite_app_groups)
@@ -216,10 +216,10 @@ class TodayHotSearchPage extends StatelessWidget {
                                                         logic.k_app_scroll_view_view_id,
                                                         logic.k_hot_search_scroll_view_view_id,
                                                       ]);
-                                                      QKit.ui.toast.show('获取热搜完成');
+                                                      q0_.ui.toast.show('获取热搜完成');
                                                     },
                                                     onError: (error) {
-                                                      QKit.ui.toast.show('获取热搜失败');
+                                                      q0_.ui.toast.show('获取热搜失败');
                                                     });
                                               },
                                               child: app.name == state.app

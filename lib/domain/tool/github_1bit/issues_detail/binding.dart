@@ -7,7 +7,7 @@ import 'logic.dart';
 class Github1bitIssuesDetailBinding extends Bindings {
   @override
   void dependencies() {
-    IssuesModel issuesModel = QKit.route.argument() as IssuesModel;
+    IssuesModel issuesModel = q0_.route.argument() as IssuesModel;
     Get.lazyPut(() {
       var logic = Github1bitIssuesDetailLogic();
       logic.state.issues_model = issuesModel;

@@ -6,7 +6,7 @@ class LocalAppWebpages {
 
   LocalAppWebpages(this.webpages);
 
-  void replaceWebpage(WebpageReading webpage) {
+  void replace_webpage(WebpageReading webpage) {
     final index = webpages.indexWhere((element) => element.url == webpage.url);
     if (index == -1) {
       webpages.add(webpage);
@@ -15,7 +15,7 @@ class LocalAppWebpages {
     }
   }
 
-  WebpageReading? findWebpage(String url) {
+  WebpageReading? find_webpage(String url) {
     return webpages.where((element) => element.url == url).firstOrNull;
   }
 }
