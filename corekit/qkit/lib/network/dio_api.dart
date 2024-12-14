@@ -17,14 +17,14 @@ final class HttpApiMethod {
   static const String patch = 'PATCH';
 }
 
-class Q0Network {
+class QApi {
   late final Dio _dio;
   late final RequestOption _base_http_option;
   late final List<DioErrorHandle> _io_error_handle;
   late final List<DioResponseErrorHandle> _io_response_error_handle;
   DioResponseErrorHandle? default_io_response_error_handle;
 
-  Q0Network(
+  QApi(
     String base_url, {
     RequestOption? base_request_option,
     List<Interceptor>? interceptors,

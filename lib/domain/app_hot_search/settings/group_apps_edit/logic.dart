@@ -1,4 +1,5 @@
-import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
+import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
+import 'package:cw2bit/domain/github/models/github_repo.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/c0_.dart';
@@ -75,10 +76,10 @@ class AppHotSearchGroupAppsEditLogic extends GetxController {
 
   Future<void> fetch_app_list_noUi() async {
     List<GithubContent> contents =
-        await c0_.apis_github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, c_hot_search_repo_root_dir);
+        await c0_.mgr_github.list_contents(GithubRepo.hot_searches_for_apps, HotSearchMgr.root_dir);
     List<String> _apps = contents
         // 过滤出项目中目录类型的内容，即APP，APP的归档内容都被放置到对应的APP目录下
-        .where((content) => EnumGithubContentType.dir == content.type)
+        .where((content) => GithubContentType.dir == content.type)
         .map((content) => content.name)
         .toList();
     all_apps_from_git = _apps;

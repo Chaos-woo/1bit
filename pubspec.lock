@@ -1695,6 +1695,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1"
+  random_avatar:
+    dependency: "direct main"
+    description:
+      name: random_avatar
+      sha256: "1468b060ac4324fa4f6aeeced732079638d9b6a64838b705ecbe9f208bd1609b"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.8"
   rational:
     dependency: "direct main"
     description:

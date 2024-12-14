@@ -29,9 +29,9 @@ class ThemesMgr extends GetxService {
 
   static ThemesMgr get getx => Get.find(tag: getx_tag);
 
-  final k_pfs_theme = '__k_pfs_theme__';
+  final k_pfs_theme = '__k_pfs_theme_index__';
 
-  final m_themes = <int, MyAppTheme>{
+  final m_indexing_themes = <int, MyAppTheme>{
     0: MyAppTheme(name: 'Default', light: LightModeTheme(), dark: DarkModeTheme()),
     1: MyAppTheme(name: 'Sophia', light: LightSophiaTheme(), dark: DarkSophiaTheme()),
     2: MyAppTheme(name: 'Sunset', light: LightSunsetTheme(), dark: DarkSunsetTheme()),
@@ -56,7 +56,7 @@ class ThemesMgr extends GetxService {
 
   FlutterFlowTheme get_theme(BuildContext context) {
     int theme_index = q0_.bridge.flustars.preferences.get_int(k_pfs_theme, default_value: 0)!;
-    var theme = m_themes[theme_index]!;
+    var theme = m_indexing_themes[theme_index]!;
     return Theme.of(context).brightness == Brightness.dark ? theme.dark : theme.light;
   }
 
@@ -67,6 +67,8 @@ class ThemesMgr extends GetxService {
   Future<void> set_theme(int index) async {
     await q0_.bridge.flustars.preferences.put_int(k_pfs_theme, index);
   }
+
+  bool get is_dark_theme => Theme.of(Get.context!).brightness == Brightness.dark;
 }
 
 class MyAppTheme {

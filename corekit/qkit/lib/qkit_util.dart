@@ -1,5 +1,6 @@
 import 'package:qkit/qkit.dart';
 
+/// Q0处理器
 class q0_ {
   /// 三方包桥接类
   static final KitBridge bridge = KitBridge();

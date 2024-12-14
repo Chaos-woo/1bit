@@ -3,65 +3,65 @@ import 'package:qkit/qkit.dart';
 
 /// 页面路由辅助生成工具
 ///
-/// 使用[createGroup]、[addRoute]添加路由后，框架初始化时自动调用
-/// [dispatch]方法初始化页面路由，即可通过[RouteProxyDispatcher.s_pageRoutes]
+/// 使用[create_group]、[add_route]添加路由后，框架初始化时自动调用
+/// [dispatch]方法初始化页面路由，即可通过[RouteProxyDispatcher.m_getx_pages]
 /// 获取GetX全部配置的路由
 class RouteProxyDispatcher {
-  static final List<GetPage> s_pageRoutes = [];
+  static final List<GetPage> m_getx_pages = [];
 
   /// 用户自定义分组路由
-  static final List<RouteProxyGroup> m_namedRouteGroups = [];
+  static final List<RouteProxyGroup> m_named_router_group = [];
 
   /// 默认路由分组
-  static final RouteProxyGroup m_defaultRouteGroup = RouteProxyGroup('#default');
+  static final RouteProxyGroup m_default_router_group = RouteProxyGroup('__m_named_default_group__');
 
-  static RouteProxyGroup createGroup(String name) {
+  static RouteProxyGroup create_group(String name) {
     RouteProxyGroup group = RouteProxyGroup(name);
-    m_namedRouteGroups.add(group);
+    m_named_router_group.add(group);
     return group;
   }
 
-  static void addGroup(RouteProxyGroup group) {
-    m_namedRouteGroups.add(group);
+  static void add_group(RouteProxyGroup group) {
+    m_named_router_group.add(group);
   }
 
-  static void addRoute(
-    String routeName,
-    GetPageBuilder pageBuilder, {
+  static void add_route(
+    String route_name,
+    GetPageBuilder page_builder, {
     Bindings? binding,
     List<Bindings> bindings = const [],
     Transition? transition,
-    Duration? transitionDuration,
-    CustomTransition? customTransition,
+    Duration? transition_duration,
+    CustomTransition? override_transition,
     List<GetMiddleware>? middlewares,
   }) {
-    m_defaultRouteGroup.addRoute(
-      routeName,
-      pageBuilder,
+    m_default_router_group.add_route(
+      route_name,
+      page_builder,
       binding: binding,
       bindings: bindings,
       transition: transition,
-      transitionDuration: transitionDuration,
-      customTransition: customTransition,
+      transition_duration: transition_duration,
+      override_transition: override_transition,
       middlewares: middlewares,
     );
   }
 
   /// 初始化路由，并生成GetX页面路由
   static void dispatch() {
-    Set<String> routeNames = {};
+    Set<String> route_names = {};
     List<RouteProxy> routes = [];
-    for (var route in m_defaultRouteGroup.routes) {
-      if (routeNames.contains(route.routeName)) {
+    for (var route in m_default_router_group.routes) {
+      if (route_names.contains(route.route_name)) {
         continue;
       }
 
       routes.add(route);
     }
 
-    for (var group in m_namedRouteGroups) {
+    for (var group in m_named_router_group) {
       for (var route in group.routes) {
-        if (routeNames.contains(route.routeName)) {
+        if (route_names.contains(route.route_name)) {
           continue;
         }
 
@@ -69,20 +69,20 @@ class RouteProxyDispatcher {
       }
     }
 
-    var pages = routes.map(_newGetPage).toList();
-    s_pageRoutes.addAll(pages);
+    var pages = routes.map(_create_getx_page).toList();
+    m_getx_pages.addAll(pages);
   }
 
   /// 创建GetX页面路由
-  static GetPage _newGetPage(RouteProxy route) {
+  static GetPage _create_getx_page(RouteProxy route) {
     return GetPage(
-      name: route.routeName,
-      page: route.pageBuilder,
+      name: route.route_name,
+      page: route.page_builder,
       binding: route.binding,
       bindings: route.bindings,
       transition: route.transition,
-      transitionDuration: route.transitionDuration,
-      customTransition: route.customTransition,
+      transitionDuration: route.transition_duration,
+      customTransition: route.override_transition,
       middlewares: route.middlewares,
     );
   }

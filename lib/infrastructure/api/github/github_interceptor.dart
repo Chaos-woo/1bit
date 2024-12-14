@@ -1,29 +1,30 @@
-import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
+import 'package:cw2bit/domain/feature_explore/github_1bit/values/constant.dart';
 import 'package:dio/dio.dart';
 import 'package:qkit/qkit.dart';
 
 class GithubInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    String? accessToken;
-    if (options.extra.containsKey(k_psf_github_override_access_key)) {
-      accessToken = options.extra[k_psf_github_override_access_key];
+    String? access_token;
+    if (options.extra.containsKey(k_pfs_github_override_access_key)) {
+      access_token = options.extra[k_pfs_github_override_access_key];
     } else {
-      accessToken = q0_.bridge.flustars.preferences.get_string(k_psf_github_access_key, default_value: '');
+      access_token = q0_.bridge.flustars.preferences.get_string(k_pfs_github_access_key, default_value: '');
     }
 
-    if (null == accessToken || accessToken.isEmpty) {
+    if (null == access_token || access_token.isEmpty) {
       handler.reject(DioError(
         requestOptions: options,
         response: null,
         type: DioErrorType.cancel,
         error: 'Not found Github Personal Access Token(classic)',
       ));
+      return;
     }
 
     options.headers.addAll({
       "Accept": "application/vnd.github+json",
-      "Authorization": "Bearer ${accessToken!}",
+      "Authorization": "Bearer ${access_token!}",
       "X-GitHub-Api-Version": "2022-11-28",
       "User-Agent": "1bit-app:Chaos-woo"
     });

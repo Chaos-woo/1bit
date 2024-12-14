@@ -69,9 +69,9 @@ const _tables = [
 /// 数据库迁移器，每次新加迁移器需要在此处理
 const List<OnUpgradeMigration> _migrators = [];
 
-const db_name = 'cw2_re_1nfo.db';
+const db_name = 'cribi.db';
 
-@DriftDatabase(tables: _tables)
+@DriftDatabase()
 class AppDatabase extends _$AppDatabase {
   static const String tag = '__getx_app_database__';
 

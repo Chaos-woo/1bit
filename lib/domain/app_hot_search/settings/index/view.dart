@@ -1,12 +1,12 @@
-import 'package:cw2bit/domain/home/tool_homepage/components/tool_group/models/tool_group.dart';
-import 'package:cw2bit/domain/home/tool_homepage/components/tool_group/view.dart';
-import 'package:cw2bit/domain/tool/github_1bit/issues/components/github_setting/logic.dart';
+import 'package:cw2bit/domain/feature_explore/github_1bit/issues/components/github_setting/logic.dart';
+import 'package:cw2bit/domain/my_homepage/explore_homepage/components/tool_group/models/tool_group.dart';
+import 'package:cw2bit/domain/my_homepage/explore_homepage/components/tool_group/view.dart';
+import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
-import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
@@ -23,25 +23,13 @@ class AppHotSearchSettingPage extends StatelessWidget {
     final logic = Get.put(AppHotSearchSettingLogic());
 
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).primary,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            q0_.route.back();
-          },
-        ),
+        leading: ui0_.icons.arrow_back.flow_appbar_back_button(),
         flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
-          title: '设置',
+          title: '个性化设置',
           icon: Icons.settings_rounded,
         ),
         actions: [],
@@ -70,8 +58,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.security_rounded),
                           on_tap: () async {
-                            await q0_.route.to(
-                              rout0_.tool_github_setting,
+                            rout0_.github_setting.to_then_back(
                               path_variables: {
                                 '${GithubSettingLogic.m_path_variables.path_k_show_1bit_repo}': false.toString(),
                               },
@@ -94,7 +81,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                           type: EnumToolGroupItemType.router,
                           icon: Icon(Icons.app_registration_rounded),
                           on_tap: () async {
-                            await q0_.route.to(rout0_.news_apphotsearch_settings_appgroups);
+                            rout0_.app_hot_search_settings_app_groups.to_then_back();
                           },
                         ),
                         ToolGroupItemClicker(
@@ -115,6 +102,41 @@ class AppHotSearchSettingPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ToolGroupComponent(
+                    toolGroup: ToolGroup(
+                      name: '热搜看点设置',
+                      items: [
+                        ToolGroupItemClicker(
+                          title: '热搜阅读进度阈值',
+                          subtitle: '超过阈值被视为阅读完成，影响阅读进度/阅读中/归档的展示',
+                          type: EnumToolGroupItemType.clicker,
+                          icon: Icon(Icons.app_registration_rounded),
+                          on_tap: () async {
+                            await ui0_.dialog.show_single_input_dialog(
+                                title: '阈值设置',
+                                subtitle: '''
+1. 视为阅读完成的阈值默认值为80。
+2. 数值范围为0~90，部分网页很难达到95或100，所以建议设置80到90之间。
+                                ''',
+                                default_value: (await logic.get_read_progress_threshold()).toString(),
+                                on_cancel: () {},
+                                max_length: -1,
+                                on_confirm: (value) async {
+                                  var threshold = int.tryParse(value);
+                                  if (threshold == null || threshold < 0 || threshold > 90) {
+                                    q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
+                                  } else {
+                                    logic.set_read_progress_threshold(threshold);
+                                  }
+                                });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ],

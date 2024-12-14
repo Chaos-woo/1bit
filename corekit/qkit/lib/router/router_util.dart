@@ -47,8 +47,8 @@ class RouteProxyKit {
   }
 
   /// 返回
-  void back({dynamic backValue}) {
-    Get.back(result: backValue);
+  void back({dynamic back_result}) {
+    Get.back(result: back_result);
   }
 
   /// 获取当前的路由参数

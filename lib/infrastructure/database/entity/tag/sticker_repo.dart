@@ -3,7 +3,7 @@ import 'package:cw2bit/infrastructure/database/entity/tag/sticker.dart';
 import 'package:cw2bit/infrastructure/database/r_database.dart';
 import 'package:get/get.dart' hide Value;
 
-class StickerRepo extends GetxService with R1DatabaseMixin {
+class StickerRepo extends GetxService with R1DatabaseImportMixin {
   static final String getx_tag = '__getx_sticker_repo__';
 
   static StickerRepo get getx => Get.find(tag: getx_tag);

@@ -1,8 +1,8 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
+import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
@@ -23,36 +23,17 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            q0_.route.back();
-          },
-        ),
+        leading: ui0_.icons.arrow_back.flow_appbar_back_button(),
         flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '${logic.group.name} · 组 · APP编辑',
           icon: ui0_.icons.settings,
+          center_title: false,
         ),
         actions: [
-          FlutterFlowIconButton(
-            borderRadius: 25,
-            buttonSize: 50,
-            icon: Icon(
-              ui0_.icons.add,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () async {
+          ui0_.icons.add.flow_appbar_action_button(
+            on_tap: () async {
               await show_add_or_delete_dialog(context);
             },
           ),

@@ -1,17 +1,11 @@
-import 'dart:convert';
-
 import 'package:cw2bit/domain/app_hot_search/history_hot_search/index/state.dart';
-import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_groups.dart';
 import 'package:cw2bit/domain/app_hot_search/models/hot_search_model.dart';
+import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
-import 'package:cw2bit/infrastructure/api/apis.dart';
+import 'package:cw2bit/domain/github/models/github_repo.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
-import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
+import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_group.dart';
-import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_repo.dart';
-import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_repo.dart';
-import 'package:cw2bit/infrastructure/database/entity_combination/comb_hot_search_group_apps.dart';
 import 'package:cw2bit/public/webview/app_webview_dialog.dart';
 import 'package:cw2bit/public/webview/app_webview_listener.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,9 +21,6 @@ class HistoryHotSearchLogic extends GetxController {
   final k_app_hot_search_history_directory_view_id = '__k_app_hot_search_history_directory_view_id__';
   final k_hot_search_scroll_view_view_id = '__k_hot_search_scroll_view_view_id__';
 
-  final RegExp title_regex = RegExp(r'\[(.*)\]');
-  final RegExp url_regex = RegExp(r'\((.*?)\)');
-
   /// 日历的Key
   final calendar_key = GlobalKey();
 
@@ -37,66 +28,39 @@ class HistoryHotSearchLogic extends GetxController {
   void onReady() async {
     super.onReady();
 
-    await _fetch_cloud_apps_and_local_app_groups();
+    await m_refresh_group_apps_and_hot_search_list();
   }
 
   Future<void> m_refresh_group_apps_and_hot_search_list() async {
-    await _fetch_cloud_apps_and_local_app_groups();
-  }
+    state.app = '';
+    state.group_id = -1;
+    state.favorite_app_group = await c0_.bis_mgr_hot_search.fetch_comb_hot_search_groups();
 
-  Future<void> _fetch_cloud_apps_and_local_app_groups() async {
-    /// 获取APP组和APP列表
-    var f_group_with_apps = HotSearchRepo.getx.list_groups_with_apps();
-
-    /// 获取”全部”组的APP列表
-    var ft_all_apps = fetch_app_list();
-
-    /// 组合数据
-    Future.wait([f_group_with_apps, ft_all_apps]).then((List<dynamic> values) {
-      List<CombHotSearchGroupApps> group_with_apps = values[0] as List<CombHotSearchGroupApps>;
-      List<String> cloud_all_apps = values[2] as List<String>;
-
-      state.app = '';
-      state.group_id = -1;
-      state.favorite_app_group = LocalAppGroups.from([
-        CombHotSearchGroupApps(
-          group:
-              HotSearchGroup(name: '全部', order: -1, id: -1, create_time: DateTime.now(), update_time: DateTime.now()),
-          apps: cloud_all_apps
-              .map((e) =>
-                  HotSearchApp(id: -1, name: e, create_time: DateTime.now(), update_time: DateTime.now(), order: -1))
-              .toList(),
-        ),
-        ...group_with_apps,
-      ]);
-    }).whenComplete(() {
-      /// 刷新UI
-      switch_favorite_group_noUi(state.group_id);
-      update([k_app_scroll_view_view_id, k_group_scroll_view_view_id]);
-    });
+    /// 刷新UI
+    switch_favorite_group_noUi(state.group_id);
+    update([k_app_scroll_view_view_id, k_group_scroll_view_view_id]);
   }
 
   /// 根据URL获取APP的热搜阅读进度比
   (int be_read, int remaining) get_app_progress_ratio(String url) {
     var reading = state.get_webpage_reading(url);
-    if (reading == null) {
-      return (-1, -1);
-    }
-
-    /// 将阅读进度double小数保留两位
-    double reading_progress = double.parse(reading.reading_progress.toStringAsFixed(2));
-    int be_read = min((reading_progress * 100).toInt(), 100);
-    be_read = be_read > 92 ? 100 : be_read;
-    return (be_read, 100 - be_read);
+    return c0_.bis_mgr_hot_search.calculate_web_reading_progress_ratio(reading);
   }
 
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(HotSearchModel model) async {
     /// 处理当前阅读进度
-    var reading_record = await WebpageRepo.getx.get_reading_record(model.url);
+    var reading_record = await c0_.repo_drift.webpage.get_reading_record(model.url);
     int reading_record_id = reading_record?.id ?? -1;
     if (reading_record == null) {
-      reading_record_id = await WebpageRepo.getx.add_reading_record(model.url, app: state.app);
+      reading_record_id = await c0_.repo_drift.webpage.add_reading_record(
+        model.url,
+        app: state.app,
+        author: state.app,
+        title: model.content,
+        source: model.url,
+        publish_time: DateTime.now(),
+      );
     }
 
     await show_webview_dialog(
@@ -105,19 +69,19 @@ class HistoryHotSearchLogic extends GetxController {
       not_navigation_action_scheme: c_not_navigation_action_scheme,
       listener: AppWebviewReadingListener(
         onWebviewLoaded: (webviewController, url) async {
-          await WebpageRepo.getx.update_reading_update_time(url);
+          await c0_.repo_drift.webpage.update_reading_update_time(url);
         },
         onViewScrollChanged: (webviewController, url, scrollTop, totalHeight) async {
           /// 更新阅读进度
           double progress = (scrollTop / totalHeight).clamp(0.0, 1.0);
-          var stored_reading_record = await WebpageRepo.getx.get_reading_record(model.url);
+          var stored_reading_record = await c0_.repo_drift.webpage.get_reading_record(model.url);
           if (scrollTop > stored_reading_record!.reading_scroll_top) {
-            await WebpageRepo.getx.update_reading_progress(reading_record_id, progress, scrollTop);
+            await c0_.repo_drift.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
           }
         },
         onWebviewClosed: (url) async {
           /// 更新页面的阅读进度
-          var new_reading_record = await await WebpageRepo.getx.get_reading_record_by_id(reading_record_id);
+          var new_reading_record = await await c0_.repo_drift.webpage.get_reading_record_by_id(reading_record_id);
           state.replace_webpage_reading_history([new_reading_record!]);
           update([k_hot_search_scroll_view_view_id]);
         },
@@ -146,11 +110,7 @@ class HistoryHotSearchLogic extends GetxController {
   /// 获取指定路径下的内容列表，包含子文件夹和文件
   Future<void> fetch_next_dir_list_noUi(String dir_path, {String? app_name}) async {
     state.history_directory_list = [];
-    List<GithubContent> contents = await Apis.github.list_contents(
-      c_hot_search_repo_owner,
-      c_hot_search_repo,
-      dir_path,
-    );
+    List<GithubContent> contents = await c0_.mgr_github.list_contents(GithubRepo.hot_searches_for_apps, dir_path);
 
     state.m_current_dir_path = dir_path;
     if (app_name != null) {
@@ -164,18 +124,6 @@ class HistoryHotSearchLogic extends GetxController {
     state.hot_search_list = [];
   }
 
-  /// 获取根目录下的全部APP列表
-  Future<List<String>> fetch_app_list() async {
-    List<GithubContent> contents =
-        await Apis.github.list_contents(c_hot_search_repo_owner, c_hot_search_repo, c_hot_search_repo_root_dir);
-    List<String> apps = contents
-        // 过滤出项目中目录类型的内容，即APP，APP的归档内容都被放置到对应的APP目录下
-        .where((content) => EnumGithubContentType.dir == content.type)
-        .map((content) => content.name)
-        .toList();
-    return Future.value(apps);
-  }
-
   /// 展示APP指定文件的热搜列表
   Future<void> fetch_app_hot_search_list_noUi(String file_path) async {
     if (file_path.isEmpty) {
@@ -183,13 +131,12 @@ class HistoryHotSearchLogic extends GetxController {
       return;
     }
 
-    GithubContent? realtime_content;
+    String content = '';
     var last_file_path = state.m_current_file_path;
     state.m_current_file_path = file_path;
     try {
-      realtime_content = await Apis.github.get_content(
-        c_hot_search_repo_owner,
-        c_hot_search_repo,
+      content = await c0_.mgr_github.get_decoded_content(
+        GithubRepo.hot_searches_for_apps,
         file_path,
       );
     } catch (ex) {
@@ -197,37 +144,11 @@ class HistoryHotSearchLogic extends GetxController {
       rethrow;
     }
 
-    Uint8List decoded_bytes = base64.decode(realtime_content.content!.replaceAll('\n', ''));
-    List<HotSearchModel> hot_search_model_list = extract_hot_search_models(decoded_bytes);
+    List<HotSearchModel> hot_search_model_list = c0_.bis_mgr_hot_search.match_hot_search_models(content);
     state.hot_search_list = hot_search_model_list;
 
-    var all_reading_records = await WebpageRepo.getx.list_all_reading_records();
+    var all_reading_records = await c0_.repo_drift.webpage.list_all_reading_records();
     state.replace_webpage_reading_history(all_reading_records);
-  }
-
-  /// 从文本行中抽取标题和链接
-  List<HotSearchModel> extract_hot_search_models(Uint8List decoded_bytes) {
-    String decoded_string = utf8.decode(decoded_bytes);
-    List<HotSearchModel> models = [];
-    for (String line in LineSplitter.split(decoded_string)) {
-      Match? title_match = title_regex.firstMatch(line);
-      Iterable<RegExpMatch> url_match = url_regex.allMatches(line);
-
-      if (title_match != null && url_match.isNotEmpty) {
-        String title = title_match.group(1)!;
-        String url = url_match.last.group(1)!;
-        models.add(HotSearchModel(index: -1, content: title, url: url));
-      }
-    }
-
-    models = models.reversed.toList();
-    int index = 1;
-    for (HotSearchModel model in models) {
-      model.index = index;
-      index++;
-    }
-
-    return models;
   }
 
   /// 刷新指定APP的热搜文件bitmap
@@ -257,11 +178,10 @@ class HistoryHotSearchLogic extends GetxController {
       if (records_bitmap == null || (now.year == year && now.month == month)) {
         /// 接口获取热搜记录文件列表
         try {
-          List<GithubContent> contents = await Apis.github.list_contents(
-            c_hot_search_repo_owner,
-            c_hot_search_repo,
-            '${c_hot_search_repo_root_dir}/${archive_file_identifier.app}/${archive_file_identifier.year}/${archive_file_identifier.format_history_records_month()}',
-          );
+          var folder_path =
+              '${HotSearchMgr.root_dir}/${archive_file_identifier.app}/${archive_file_identifier.year}/${archive_file_identifier.format_history_records_month()}';
+          List<GithubContent> contents =
+              await c0_.mgr_github.list_contents(GithubRepo.hot_searches_for_apps, folder_path);
 
           var record_names = contents.map((e) => e.name).toList();
 

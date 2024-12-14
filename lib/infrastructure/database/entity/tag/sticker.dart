@@ -54,6 +54,28 @@ class Sticker {
     required this.sticker_type,
     required this.scope,
   });
+
+  static StickersCompanion companion({
+    required String name,
+    required int sticker_type,
+    required int scope,
+    String color = 'E1E1E1',
+    String font_color = '000000',
+    String sign = '#',
+  }) {
+    var sticker_scope = StickerScope.from_value(scope);
+
+    return StickersCompanion(
+      name: Value(name),
+      create_time: Value(DateTime.now()),
+      update_time: Value(DateTime.now()),
+      color: Value(color),
+      font_color: Value(font_color),
+      sign: Value(sign),
+      sticker_type: Value(sticker_type),
+      scope: Value(sticker_scope.value),
+    );
+  }
 }
 
 enum StickerType {
@@ -63,12 +85,35 @@ enum StickerType {
   final int value;
 
   const StickerType(this.value);
+
+  static bool is_type(int value, StickerType type) {
+    return value == type.value;
+  }
 }
 
 enum StickerScope {
+  error(-1),
   webpage_reading(0);
 
   final int value;
 
   const StickerScope(this.value);
+
+  static StickerScope from_value(int value) {
+    for (StickerScope scope in StickerScope.values) {
+      if (scope.value == value) {
+        return scope;
+      }
+    }
+    return StickerScope.error;
+  }
+}
+
+enum StickerSign {
+  hashtag('#'),
+  at_sign('@');
+
+  final String value;
+
+  const StickerSign(this.value);
 }

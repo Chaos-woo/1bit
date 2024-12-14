@@ -1,7 +1,7 @@
+import 'package:cw2bit/domain/app_hot_search/models/hot_search_model.dart';
 import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_groups.dart';
 import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_webpages.dart';
-import 'package:cw2bit/domain/app_hot_search/models/hot_search_model.dart';
-import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
+import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
@@ -80,7 +80,7 @@ class HistoryHotSearchState {
 
   /// ============= 历史热搜的Github仓库文件 == 1 ==================
   /// 当前的路径
-  String m_current_dir_path = c_hot_search_repo_root_dir;
+  String m_current_dir_path = HotSearchMgr.root_dir;
 
   /// 当前打开的文件路径
   String m_current_file_path = '';
@@ -96,7 +96,7 @@ class HistoryHotSearchState {
           GithubContent(
               name: "..",
               path: "",
-              type: EnumGithubContentType.dir,
+              type: GithubContentType.dir,
               size: 0,
               url: "",
               htmlUrl: "",

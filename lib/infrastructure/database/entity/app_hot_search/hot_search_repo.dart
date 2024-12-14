@@ -8,7 +8,7 @@ import 'package:drift/drift.dart';
 import 'package:get/get.dart' hide Value;
 
 /// APP热搜相关的仓库
-final class HotSearchRepo extends GetxService with R1DatabaseMixin {
+final class HotSearchRepo extends GetxService with R1DatabaseImportMixin {
   static final String getx_tag = '__getx_hot_search_repo__';
 
   static HotSearchRepo get getx => Get.find(tag: getx_tag);
@@ -16,19 +16,20 @@ final class HotSearchRepo extends GetxService with R1DatabaseMixin {
   /// 获取所有APP分组及关联的APP
   Future<List<CombHotSearchGroupApps>> list_groups_with_apps() async {
     // 构建查询
-    final query = database.select(hotSearchGroups).join([
+    final query = database.select(t_hot_search_groups).join([
       // 使用左连接来获取所有分组，即使某些分组没有关联的APP
-      leftOuterJoin(hotSearchGroupHasApps, hotSearchGroupHasApps.group_id.equalsExp(hotSearchGroups.id)),
+      leftOuterJoin(
+          t_hot_search_group_has_apps, t_hot_search_group_has_apps.group_id.equalsExp(t_hot_search_groups.id)),
       // 使用内连接来获取与分组关联的APP
-      innerJoin(hotSearchApps, hotSearchApps.id.equalsExp(hotSearchGroupHasApps.app_id)),
+      leftOuterJoin(t_hot_search_apps, t_hot_search_apps.id.equalsExp(t_hot_search_group_has_apps.app_id)),
     ]);
 
     var group_with_apps = <int, CombHotSearchGroupApps>{};
     for (var row in (await query.get())) {
       // 提取分组信息
-      final group = row.readTable(hotSearchGroups);
+      final group = row.readTable(t_hot_search_groups);
       // 提取与当前分组关联的APP
-      final app = row.readTableOrNull(hotSearchApps);
+      final app = row.readTableOrNull(t_hot_search_apps);
       if (group_with_apps.containsKey(group.id)) {
         group_with_apps[group.id]!.apps.addAll(app != null ? [app] : []);
       } else {

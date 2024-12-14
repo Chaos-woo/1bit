@@ -1,6 +1,6 @@
 import 'package:cw2bit/infrastructure/api/apis.dart';
 import 'package:cw2bit/infrastructure/database/r_database.dart';
-import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,7 +13,7 @@ void main() {
     const MyApp(),
     preprocessed: () {
       /// 初始化路由
-      AppPageRouter.create_router_page();
+      rout0_.create_route_page();
     },
     initCompleted: () {
       /// 初始化数据库
@@ -44,11 +44,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-            title: 'Re: 1nfo',
+            title: 'Riibi',
             scrollBehavior: const CupertinoScrollBehavior(),
             themeMode: ThemeMode.system,
-            initialRoute: rout0_.home,
-            getPages: RouteProxyDispatcher.s_pageRoutes,
+            initialRoute: rout0_.home.route_name,
+            getPages: RouteProxyDispatcher.m_getx_pages,
             debugShowCheckedModeBanner: !QKitUtils.is_release_mode,
             enableLog: !QKitUtils.is_release_mode,
             builder: EasyLoading.init())

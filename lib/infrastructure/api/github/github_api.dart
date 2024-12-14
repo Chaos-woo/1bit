@@ -1,5 +1,5 @@
-import 'package:cw2bit/domain/tool/github_1bit/issues/state.dart';
-import 'package:cw2bit/domain/tool/github_1bit/values/constant.dart';
+import 'package:cw2bit/domain/feature_explore/github_1bit/issues/state.dart';
+import 'package:cw2bit/domain/feature_explore/github_1bit/values/constant.dart';
 import 'package:cw2bit/infrastructure/api/github/github_error_handle.dart';
 import 'package:cw2bit/infrastructure/api/github/github_interceptor.dart';
 import 'package:cw2bit/infrastructure/api/github/models/comment/github_comment.dart';
@@ -14,10 +14,10 @@ final class GithubApi extends GetxService {
 
   static GithubApi get getx => Get.find(tag: getx_tag);
 
-  late Q0Network _m_api;
+  late QApi _m_api;
 
   GithubApi() {
-    _m_api = Q0Network(
+    _m_api = QApi(
       'https://api.github.com',
       interceptors: [GithubInterceptor()],
       dio_response_error_handle: [
@@ -119,7 +119,7 @@ final class GithubApi extends GetxService {
       '/repos/$owner/$repo/labels',
       object_convertor: (raw_data) => raw_data.asList(object_convertor: GithubLabel.fromJson),
       request_option: OverrideRequestOption(
-        extra: {}..[k_psf_github_override_access_key] = override_access_key,
+        extra: {}..[k_pfs_github_override_access_key] = override_access_key,
       ),
     );
   }

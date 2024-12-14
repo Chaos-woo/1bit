@@ -1,22 +1,66 @@
 import 'package:cw2bit/infrastructure/database/entity/r1_database_import_mixin.dart';
+import 'package:cw2bit/infrastructure/database/entity/tag/sticker.dart';
 import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_reading.dart';
+import 'package:cw2bit/infrastructure/database/entity_combination/comb_webpage_reading_sticker.dart';
 import 'package:cw2bit/infrastructure/database/r_database.dart';
 import 'package:drift/drift.dart';
 import 'package:get/get.dart' hide Value;
 
 /// 网页相关的仓库
-final class WebpageRepo extends GetxService with R1DatabaseMixin {
+final class WebpageRepo extends GetxService with R1DatabaseImportMixin {
   static final String getx_tag = '__getx_webpage_repo__';
 
   static WebpageRepo get getx => Get.find(tag: getx_tag);
 
+  /// 获取所有网页阅读记录及其关联的标签
+  Future<List<CombWebpageReadingSticker>> list_all_reading_records_with_stickers() async {
+    // 构建查询
+    final query = database.select(t_webpage_readings).join([
+      // 使用左连接来获取所有阅读记录，即使某些阅读记录没有关联的标签
+      leftOuterJoin(t_webpage_reading_has_stickers,
+          t_webpage_readings.id.equalsExp(t_webpage_reading_has_stickers.webpage_reading_id)),
+      // 使用左连接来获取所有标签
+      leftOuterJoin(t_stickers, t_stickers.id.equalsExp(t_webpage_reading_has_stickers.sticker_id)),
+    ]);
+
+    var webpage_with_stickers = <int, CombWebpageReadingSticker>{};
+    var rows = await query.get();
+    for (var row in rows) {
+      // 提取阅读记录信息
+      final webpage = row.readTable(t_webpage_readings);
+      // 提取与当前阅读记录关联的标签
+      final sticker = row.readTableOrNull(t_stickers);
+      if (webpage_with_stickers.containsKey(webpage.id)) {
+        var wws = webpage_with_stickers[webpage.id]!;
+        if (sticker == null) {
+          continue;
+        }
+        if (StickerType.is_type(sticker.sticker_type, StickerType.auto_generated)) {
+          wws.generated_stickers.add(sticker);
+        } else if (StickerType.is_type(sticker.sticker_type, StickerType.user_defined)) {
+          wws.user_defined_sticker.add(sticker);
+        }
+      } else {
+        var wws = CombWebpageReadingSticker(webpage_reading: webpage, generated_stickers: [], user_defined_sticker: []);
+        webpage_with_stickers[webpage.id!] = wws;
+        if (sticker == null) {
+          continue;
+        }
+        if (StickerType.is_type(sticker.sticker_type, StickerType.auto_generated)) {
+          wws.generated_stickers.add(sticker);
+        } else if (StickerType.is_type(sticker.sticker_type, StickerType.user_defined)) {
+          wws.user_defined_sticker.add(sticker);
+        }
+      }
+    }
+
+    return webpage_with_stickers.values.toList();
+  }
+
   /// 根据ID获取网页阅读记录
   Future<WebpageReading?> get_reading_record_by_id(int reading_record_id) async {
-    var result = await (database.select(database.webpageReadings)
-          ..where((t) => t.id.equals(reading_record_id))
-          ..limit(1))
-        .get();
-    return result.firstOrNull;
+    return await (database.select(database.webpageReadings)..where((t) => t.id.equals(reading_record_id)))
+        .getSingleOrNull();
   }
 
   /// 获取所有网页阅读记录
@@ -40,11 +84,12 @@ final class WebpageRepo extends GetxService with R1DatabaseMixin {
     DateTime? publish_time,
     String? author,
     String? title,
-    String? style_tags,
-    String? custom_tags,
+    String? source,
+    List<Sticker> generated_stickers = const [],
+    List<Sticker> user_defined_stickers = const [],
   }) async {
     var now = DateTime.now();
-    return await database.into(database.webpageReadings).insert(WebpageReadingsCompanion(
+    int webpage_reading_id = await database.into(database.webpageReadings).insert(WebpageReadingsCompanion(
           url: Value(url),
           create_time: Value(now),
           update_time: Value(now),
@@ -52,14 +97,64 @@ final class WebpageRepo extends GetxService with R1DatabaseMixin {
           reading_scroll_top: Value(0.0),
           reading_progress: Value(0.0),
           article_analysis: Value(''),
-          source: Value(''),
+          source: Value(source ?? ''),
           publish_time: Value(publish_time ?? now),
           author: Value(author ?? app ?? ''),
           title: Value(title ?? '无标题'),
-          first_read_completed_time: Value(null),
+          first_read_completed_time: Value(now),
           open_time_list: Value('${now.millisecondsSinceEpoch}'),
           is_collected: Value(false),
         ));
+
+    var sticker_mapping = <int, Sticker>{};
+    var new_stickers = [...generated_stickers, ...user_defined_stickers].where((s) => s.id == null).toList();
+    [...generated_stickers, ...user_defined_stickers]
+        .where((s) => s.id != null)
+        .forEach((s) => sticker_mapping[s.id!] = s);
+
+    if (new_stickers.isNotEmpty) {
+      for (var sticker in new_stickers) {
+        int sticker_id = await database.into(database.stickers).insert(StickersCompanion(
+              name: Value(sticker.name),
+              create_time: Value(sticker.create_time),
+              update_time: Value(sticker.update_time),
+              color: Value(sticker.color),
+              font_color: Value(sticker.font_color),
+              sign: Value(sticker.sign),
+              sticker_type: Value(sticker.sticker_type),
+              scope: Value(sticker.scope),
+            ));
+        sticker_mapping[sticker_id] = sticker;
+      }
+    }
+
+    // 批量插入关联表
+    if (sticker_mapping.isNotEmpty) {
+      await database.transaction(() async {
+        var batch_rels = sticker_mapping.entries
+            .map((e) => WebpageReadingHasStickersCompanion(
+                  create_time: Value(now),
+                  update_time: Value(now),
+                  webpage_reading_id: Value(webpage_reading_id),
+                  sticker_id: Value(e.key),
+                ))
+            .toList();
+
+        await database.delete(t_webpage_reading_has_stickers)
+          ..where((t) => t.webpage_reading_id.equals(webpage_reading_id))
+          ..go();
+
+        await database.batch((batch) {
+          batch.insertAll(
+            t_webpage_reading_has_stickers,
+            batch_rels,
+            mode: InsertMode.insertOrReplace,
+          );
+        });
+      });
+    }
+
+    return webpage_reading_id;
   }
 
   /// 更新网页阅读记录的阅读进度和滚动条位置

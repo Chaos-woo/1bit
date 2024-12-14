@@ -62,12 +62,12 @@ class SpUtilBridge {
   }
 
   /// get double.
-  double? getDouble(String key, {double? defValue = 0.0}) {
-    return SpUtil.getDouble(key, defValue: defValue);
+  double? get_double(String key, {double? default_value = 0.0}) {
+    return SpUtil.getDouble(key, defValue: default_value);
   }
 
   /// put double.
-  Future<bool>? putDouble(String key, double value) {
+  Future<bool>? put_double(String key, double value) {
     return SpUtil.putDouble(key, value);
   }
 

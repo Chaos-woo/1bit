@@ -1,5 +1,6 @@
 import 'package:cw2bit/public/toast/snackbar_widget.dart';
 import 'package:cw2bit/public/toast/title_snackbar_widget.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,27 +10,27 @@ class UiSnackbar {
     String text, {
     BuildContext? context,
     Duration? duration,
-    Color backgroundColor = Colors.black45,
+    Color? backgroundColor,
     int? maxLines,
     TextOverflow? textOverflow,
     String? title,
     bool showCloseButton = false,
   }) {
-    var b_context = context ?? Get.context!;
-    ScaffoldMessenger.of(b_context).clearSnackBars();
-    ScaffoldMessenger.of(b_context).showSnackBar(
+    var ctx = context ?? Get.context!;
+    ScaffoldMessenger.of(ctx).clearSnackBars();
+    ScaffoldMessenger.of(ctx).showSnackBar(
       SnackBar(
         content: (title == null || title.isEmpty)
             ? SnackbarWidget(
                 text,
-                backgroundColor: backgroundColor,
-                maxLines: maxLines,
-                textOverflow: textOverflow,
+                background_color: backgroundColor ?? FlutterFlowTheme.of_none_context().tertiary,
+                max_lines: maxLines,
+                text_over_flow: textOverflow,
               )
             : TitleSnackbarWidget(
                 text,
                 title: title,
-                backgroundColor: backgroundColor,
+                backgroundColor: backgroundColor ?? FlutterFlowTheme.of_none_context().tertiary,
                 maxLines: maxLines,
                 textOverflow: textOverflow,
               ),

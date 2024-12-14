@@ -5,18 +5,18 @@ import 'package:qkit/qkit.dart';
 
 class SnackbarWidget extends StatelessWidget {
   final String text;
-  Color? backgroundColor;
-  int? maxLines;
-  TextOverflow? textOverflow;
-  bool? showCloseButton;
+  Color? background_color;
+  int? max_lines;
+  TextOverflow? text_over_flow;
+  bool? show_close_button;
 
   SnackbarWidget(
     this.text, {
     super.key,
-    this.backgroundColor,
-    this.maxLines,
-    this.textOverflow,
-    this.showCloseButton,
+    this.background_color,
+    this.max_lines,
+    this.text_over_flow,
+    this.show_close_button,
   });
 
   @override
@@ -24,14 +24,14 @@ class SnackbarWidget extends StatelessWidget {
     return Container(
       width: q0_.bridge.flustars.screen.screenWidthExt * 0.95,
       decoration: BoxDecoration(
-        color: backgroundColor ?? FlutterFlowTheme.of(context).tertiary,
+        color: background_color ?? FlutterFlowTheme.of(context).tertiary,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
         child: Row(
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
               child: Column(
@@ -41,8 +41,8 @@ class SnackbarWidget extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    maxLines: maxLines ?? 4,
-                    overflow: textOverflow ?? TextOverflow.ellipsis,
+                    maxLines: max_lines ?? 4,
+                    overflow: text_over_flow ?? TextOverflow.ellipsis,
                     style: FlutterFlowTheme.of(context).labelMedium.override(
                           color: Color(0xD8FFFFFF),
                           fontSize: 14,
@@ -50,10 +50,10 @@ class SnackbarWidget extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                   ),
-                ].divide(SizedBox(height: 4)),
+                ],
               ),
             ),
-            if (showCloseButton ?? true)
+            if (show_close_button ?? true)
               FlutterFlowIconButton(
                 borderColor: Colors.transparent,
                 borderRadius: 20,

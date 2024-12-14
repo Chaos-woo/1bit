@@ -1,5 +1,7 @@
+import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/public/text_ocr/widgets/my_live_scan_widget.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -20,31 +22,13 @@ class TextOcrPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            q0_.route.back();
-          },
+        leading: ui0_.icons.arrow_back.flow_appbar_back_button(),
+        flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
+          title: 'OCR-文字识别',
+          icon: Icons.format_color_text_rounded,
         ),
-        title: Text(
-          'OCR-文字识别',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                color: Colors.white,
-                fontSize: 22,
-                letterSpacing: 0,
-              ),
-        ),
-        actions: [],
         centerTitle: false,
-        elevation: 2,
+        elevation: 0,
       ),
       body: SafeArea(
         top: true,
@@ -175,7 +159,7 @@ class TextOcrPage extends StatelessWidget {
                                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () {
-                                    q0_.route.back(backValue: logic.state.ocrText);
+                                    q0_.route.back(back_result: logic.state.ocrText);
                                   },
                                   text: '确认',
                                   icon: Icon(

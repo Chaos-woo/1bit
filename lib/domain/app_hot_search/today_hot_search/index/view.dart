@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
-import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/domain/github/models/github_repo.dart';
+import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -43,7 +44,7 @@ class TodayHotSearchPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '数据源：$c_hot_search_repo（Github）',
+                      '数据源：${GithubRepo.hot_searches_for_apps.repo}（Github）',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontSize: 13,
                             letterSpacing: 0.0,
@@ -57,7 +58,7 @@ class TodayHotSearchPage extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           /// 跳转设置页
-                          await q0_.route.to(rout0_.news_apphotsearch_settings_home);
+                          await rout0_.app_hot_search_settings_home.to_then_back();
                         },
                         child: Container(
                           decoration: BoxDecoration(),
@@ -337,10 +338,13 @@ class TodayHotSearchPage extends StatelessWidget {
                       id: logic.k_hot_search_refresh_view_id,
                       builder: (_) {
                         return logic.hot_search_refreshing
-                            ? const SizedBox(
+                            ? SizedBox(
                                 height: 14,
                                 width: 14,
-                                child: Center(child: CircularProgressIndicator()),
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                )),
                               )
                             : Icon(
                                 Icons.refresh_rounded,

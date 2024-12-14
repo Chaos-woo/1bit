@@ -4,10 +4,11 @@ import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
 
-class UIDialog {
+class UiDialog {
   /// 展示带有输入框和提示信息的对话框
   Future<void> show_single_input_dialog({
     required String title,
+    String? default_value,
     String? subtitle,
     String? hint_text,
     String? label_text,
@@ -16,18 +17,18 @@ class UIDialog {
     Function()? on_cancel,
     int max_length = 500,
   }) async {
-    var controller = TextEditingController();
-    var b_context = context ?? Get.context!;
+    var controller = TextEditingController(text: default_value);
+    var ctx = context ?? Get.context!;
     await showDialog(
       barrierColor: Color(0x80000000),
-      context: b_context,
+      context: ctx,
       barrierDismissible: true,
       builder: (_) {
         return Dialog(
           elevation: 0,
           insetPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
-          alignment: AlignmentDirectional(0, 0).resolve(Directionality.of(b_context)),
+          alignment: AlignmentDirectional(0, 0).resolve(Directionality.of(ctx)),
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -70,7 +71,7 @@ class UIDialog {
                             padding: EdgeInsetsDirectional.fromSTEB(24, 16, 0, 0),
                             child: Text(
                               title,
-                              style: FlutterFlowTheme.of(b_context).headlineMedium.override(
+                              style: FlutterFlowTheme.of(ctx).headlineMedium.override(
                                     color: Color(0xFF15161E),
                                     fontSize: 24,
                                     letterSpacing: 0.0,
@@ -83,7 +84,7 @@ class UIDialog {
                             child: subtitle != null
                                 ? Text(
                                     subtitle,
-                                    style: FlutterFlowTheme.of(b_context).labelMedium.override(
+                                    style: FlutterFlowTheme.of(ctx).labelMedium.override(
                                           color: Color(0xFF606A85),
                                           fontSize: 14,
                                           letterSpacing: 0.0,
@@ -107,48 +108,48 @@ class UIDialog {
                                       decoration: InputDecoration(
                                         isDense: false,
                                         labelText: label_text,
-                                        labelStyle: FlutterFlowTheme.of(b_context).labelMedium.override(
+                                        labelStyle: FlutterFlowTheme.of(ctx).labelMedium.override(
                                               letterSpacing: 0.0,
                                             ),
                                         hintText: hint_text,
-                                        hintStyle: FlutterFlowTheme.of(b_context).labelMedium.override(
+                                        hintStyle: FlutterFlowTheme.of(ctx).labelMedium.override(
                                               letterSpacing: 0.0,
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(b_context).alternate,
+                                            color: FlutterFlowTheme.of(ctx).alternate,
                                             width: 2,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(b_context).primary,
+                                            color: FlutterFlowTheme.of(ctx).primary,
                                             width: 2,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         errorBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(b_context).error,
+                                            color: FlutterFlowTheme.of(ctx).error,
                                             width: 2,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(b_context).error,
+                                            color: FlutterFlowTheme.of(ctx).error,
                                             width: 2,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                       ),
-                                      style: FlutterFlowTheme.of(b_context).bodyMedium.override(
+                                      style: FlutterFlowTheme.of(ctx).bodyMedium.override(
                                             letterSpacing: 0.0,
                                           ),
                                       maxLines: null,
-                                      maxLength: max_length,
+                                      maxLength: max_length == -1 ? null : max_length,
                                     ),
                                   ),
                                 ),
@@ -173,7 +174,7 @@ class UIDialog {
                                               padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                               iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                               color: Colors.white,
-                                              textStyle: FlutterFlowTheme.of(b_context).bodyMedium.override(
+                                              textStyle: FlutterFlowTheme.of(ctx).bodyMedium.override(
                                                     color: Color(0xFF15161E),
                                                     fontSize: 14,
                                                     letterSpacing: 0.0,
@@ -208,8 +209,8 @@ class UIDialog {
                                             height: 44,
                                             padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                             iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                            color: FlutterFlowTheme.of(b_context).primary,
-                                            textStyle: FlutterFlowTheme.of(b_context).titleSmall.override(
+                                            color: FlutterFlowTheme.of(ctx).primary,
+                                            textStyle: FlutterFlowTheme.of(ctx).titleSmall.override(
                                                   color: Colors.white,
                                                   fontSize: 16,
                                                   letterSpacing: 0.0,

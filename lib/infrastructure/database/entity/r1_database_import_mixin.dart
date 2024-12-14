@@ -1,18 +1,18 @@
 import 'package:cw2bit/infrastructure/database/r_database.dart';
 
-/// 缺失QDB引用的来这里获取import
-mixin R1DatabaseMixin {
+/// 提供Database实例和表实例
+mixin R1DatabaseImportMixin {
   AppDatabase get database => DatabaseMgr.getx;
 
-  $HotSearchAppsTable get hotSearchApps => database.hotSearchApps;
+  $HotSearchAppsTable get t_hot_search_apps => database.hotSearchApps;
 
-  $HotSearchGroupsTable get hotSearchGroups => database.hotSearchGroups;
+  $HotSearchGroupsTable get t_hot_search_groups => database.hotSearchGroups;
 
-  $HotSearchGroupHasAppsTable get hotSearchGroupHasApps => database.hotSearchGroupHasApps;
+  $HotSearchGroupHasAppsTable get t_hot_search_group_has_apps => database.hotSearchGroupHasApps;
 
-  $WebpageReadingsTable get webpageReadings => database.webpageReadings;
+  $WebpageReadingsTable get t_webpage_readings => database.webpageReadings;
 
-  $WebpageReadingHasStickersTable get webpageReadingHasSticker => database.webpageReadingHasStickers;
+  $WebpageReadingHasStickersTable get t_webpage_reading_has_stickers => database.webpageReadingHasStickers;
 
-  $StickersTable get stickers => database.stickers;
+  $StickersTable get t_stickers => database.stickers;
 }

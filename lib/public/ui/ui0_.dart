@@ -1,16 +1,19 @@
 import 'package:cw2bit/public/ui/impl/ui_appbar.dart';
 import 'package:cw2bit/public/ui/impl/ui_dialog.dart';
 import 'package:cw2bit/public/ui/impl/ui_snackbar.dart';
+import 'package:cw2bit/public/ui/impl/ui_sticker.dart';
 import 'package:cw2bit/public/ui/impl/ui_text.dart';
 import 'package:flutter/material.dart';
 
+/// Ui0处理器
 class ui0_ {
   ui0_._();
 
   static final UiText text = UiText();
   static final UiSnackbar snackbar = UiSnackbar();
-  static final UIDialog dialog = UIDialog();
+  static final UiDialog dialog = UiDialog();
   static final UiAppBar appbar = UiAppBar();
+  static final UiSticker sticker = UiSticker();
 
   static final _ui_icons icons = _ui_icons();
 }
@@ -23,4 +26,5 @@ final class _ui_icons {
   final three_lines = Icons.density_medium_rounded;
   final settings = Icons.settings_rounded;
   final arrow_back = Icons.arrow_back_rounded;
+  final info = Icons.info_outline_rounded;
 }

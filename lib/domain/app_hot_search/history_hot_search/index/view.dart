@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
+import 'package:cw2bit/domain/github/models/github_repo.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
-import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +49,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '数据源：$c_hot_search_repo（Github）',
+                      '数据源：${GithubRepo.hot_searches_for_apps.repo}（Github）',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontSize: 13,
                             letterSpacing: 0.0,
@@ -61,7 +63,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           /// 跳转设置页
-                          await q0_.route.to(rout0_.news_apphotsearch_settings_home);
+                          await rout0_.app_hot_search_settings_home.to_then_back();
                         },
                         child: Container(
                           decoration: BoxDecoration(),
@@ -215,7 +217,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                 /// 切换app，刷新历史文档列表，清空热搜列表
                                                 await logic
                                                     .fetch_next_dir_list_noUi(
-                                                      '${c_hot_search_repo_root_dir}/${app.name}',
+                                                      '${HotSearchMgr.root_dir}/${app.name}',
                                                       app_name: app.name,
                                                     )
                                                     .throttleWithTimeout(
@@ -521,9 +523,9 @@ class HistoryHotSearchPage extends StatelessWidget {
 
                                     if (q0_.bridge.flustars.date.isToday(state.picked_date!.millisecondsSinceEpoch)) {
                                       // 选择的是今天，直接获取当天热搜
-                                      var archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                      var archive_dir_path = '$HotSearchMgr.root_dir/${state.app}/$year/$month';
                                       var archive_file_path =
-                                          '$c_hot_search_repo_root_dir/${state.app}/$year/$month/${state.app}.md';
+                                          '$HotSearchMgr.root_dir/${state.app}/$year/$month/${state.app}.md';
                                       await (Future.wait(
                                         [
                                           logic.fetch_app_hot_search_list_noUi(archive_file_path),
@@ -553,16 +555,16 @@ class HistoryHotSearchPage extends StatelessWidget {
                                     var archive_file_path = '';
                                     if (year >= 2024) {
                                       archive_file_path =
-                                          '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
-                                      archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                          '$HotSearchMgr.root_dir/${state.app}/$year/$month/$year-$month-$day.md';
+                                      archive_dir_path = '$HotSearchMgr.root_dir/${state.app}/$year/$month';
                                     } else if (year >= 2023 && day_int_value >= 11) {
                                       archive_file_path =
-                                          '$c_hot_search_repo_root_dir/${state.app}/$year/$month/$year-$month-$day.md';
-                                      archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                          '$HotSearchMgr.root_dir/${state.app}/$year/$month/$year-$month-$day.md';
+                                      archive_dir_path = '$HotSearchMgr.root_dir/${state.app}/$year/$month';
                                     } else if (year >= 2023 && day_int_value < 8) {
                                       q0_.ui.toast.show('无归档数据');
                                     } else if (year >= 2023 && day_int_value < 11) {
-                                      archive_dir_path = '$c_hot_search_repo_root_dir/${state.app}/$year/$month';
+                                      archive_dir_path = '$HotSearchMgr.root_dir/${state.app}/$year/$month';
                                     } else {
                                       q0_.ui.toast.show('无归档数据');
                                     }
@@ -695,7 +697,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                       );
                                     }
 
-                                    if (EnumGithubContentType.dir == content.type) {
+                                    if (GithubContentType.dir == content.type) {
                                       return InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -751,7 +753,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                           ),
                                         ),
                                       );
-                                    } else if (EnumGithubContentType.file == content.type) {
+                                    } else if (GithubContentType.file == content.type) {
                                       return InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,

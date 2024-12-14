@@ -1,5 +1,6 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
-import 'package:cw2bit/infrastructure/router/router.dart';
+import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
+import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
@@ -21,56 +22,26 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            q0_.route.back();
-          },
-        ),
+        leading: ui0_.icons.arrow_back.flow_appbar_back_button(),
         flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: 'APP · 组编辑',
           icon: Icons.settings_rounded,
+          center_title: false,
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 2),
-            child: GetBuilder<AppHotSearchAppGroupsEditLogic>(
-                id: logic.k_groups_dnd_view_id,
-                builder: (_) {
-                  var icon = Icon(
-                    logic.is_sortable ? ui0_.icons.circle_ok : ui0_.icons.sort,
-                    color: Colors.white,
-                    size: 25,
-                  );
-                  return FlutterFlowIconButton(
-                    borderRadius: 20,
-                    buttonSize: 40,
-                    icon: icon,
-                    onPressed: () async {
-                      await logic.switch_sortable_or_not(!logic.is_sortable);
-                    },
-                  );
-                }),
-          ),
-          FlutterFlowIconButton(
-            borderRadius: 25,
-            buttonSize: 50,
-            icon: Icon(
-              ui0_.icons.add,
-              color: Colors.white,
-              size: 35,
-            ),
-            onPressed: () async {
+          GetBuilder<AppHotSearchAppGroupsEditLogic>(
+              id: logic.k_groups_dnd_view_id,
+              builder: (_) {
+                var icon = logic.is_sortable ? ui0_.icons.circle_ok : ui0_.icons.sort;
+                return icon.flow_appbar_action_button(on_tap: () async {
+                  await logic.switch_sortable_or_not(!logic.is_sortable);
+                });
+              }),
+          ui0_.icons.add.flow_appbar_action_button(
+            padding: EdgeInsets.fromLTRB(0, 0, 20, 14),
+            on_tap: () async {
               await ui0_.dialog.show_single_input_dialog(
                 title: '新建APP组',
                 subtitle: '创建自定义名字的分组，方便管理APP',
@@ -134,8 +105,7 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                             onTap: logic.is_sortable
                                 ? null
                                 : () async {
-                                    await q0_.route.to(
-                                      rout0_.news_apphotsearch_settings_groupapps,
+                                    rout0_.app_hot_search_settings_app_groups.to_then_back(
                                       argument: e,
                                       path_variables: {'group_id': e.id.toString()},
                                       prevent_duplicates: false,

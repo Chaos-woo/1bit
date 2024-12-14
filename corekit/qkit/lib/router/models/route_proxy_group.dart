@@ -9,24 +9,24 @@ class RouteProxyGroup {
   RouteProxyGroup(this.name);
 
   /// 项路由组中添加路由
-  RouteProxyGroup addRoute(
-    String routeName,
-    GetPageBuilder pageBuilder, {
+  RouteProxyGroup add_route(
+    String route_name,
+    GetPageBuilder page_builder, {
     Bindings? binding,
     List<Bindings> bindings = const [],
     Transition? transition,
-    Duration? transitionDuration,
-    CustomTransition? customTransition,
+    Duration? transition_duration,
+    CustomTransition? override_transition,
     List<GetMiddleware>? middlewares,
   }) {
     RouteProxy route = RouteProxy(
-      routeName,
-      pageBuilder,
+      route_name,
+      page_builder,
       binding: binding,
       bindings: bindings,
       transition: transition,
-      transitionDuration: transitionDuration,
-      customTransition: customTransition,
+      transition_duration: transition_duration,
+      override_transition: override_transition,
       middlewares: middlewares,
     );
 
@@ -35,7 +35,7 @@ class RouteProxyGroup {
     return this;
   }
 
-  void clearRoutes() {
+  void clear_routers() {
     routes.clear();
   }
 }

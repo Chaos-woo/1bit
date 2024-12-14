@@ -1,12 +1,15 @@
 import 'package:cw2bit/public/ui/theme/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-const kThemeModeKey = '__theme_mode__';
 
 abstract class FlutterFlowTheme {
   static FlutterFlowTheme of(BuildContext context) {
     return ThemesMgr.getx.get_theme(context);
+  }
+
+  static FlutterFlowTheme of_none_context() {
+    return of(Get.context!);
   }
 
   late Color primary;
