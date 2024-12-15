@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
-import 'package:cw2bit/domain/github/models/github_repo.dart';
+import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -28,270 +28,254 @@ class TodayHotSearchPage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-            child: Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '数据源：${GithubRepo.hot_searches_for_apps.repo}（Github）',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontSize: 13,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          /// 跳转设置页
-                          await rout0_.app_hot_search_settings_home.to_then_back();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(),
-                          child: Align(
-                            alignment: AlignmentDirectional(1, 0),
-                            child: Icon(
-                              Icons.settings,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
           Container(
-            width: double.infinity,
             height: 135,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(8),
-            ),
+            width: double.infinity,
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 5),
-                    child: Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: GetBuilder<TodayHotSearchLogic>(
-                          id: logic.k_group_scroll_view_view_id,
-                          builder: (_) {
-                            return SingleChildScrollView(
-                              key: app_group_scroll_view_key,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  InkWell(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          '组',
-                                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () async {
-                                      await logic.m_refresh_group_apps_and_hot_search_list();
-                                      q0_.ui.toast.show('刷新完成');
-                                    },
-                                  ),
-                                  for (var group in state.favorite_app_groups)
-                                    InkWell(
-                                      onTap: () async {
-                                        /// 切换组
-                                        await logic.switch_favorite_group_noUi(group.id!);
-                                        logic.update([
-                                          logic.k_group_scroll_view_view_id,
-                                          logic.k_app_scroll_view_view_id,
-                                          logic.k_hot_search_scroll_view_view_id,
-                                        ]);
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: state.group_id == group.id
-                                              ? FlutterFlowTheme.of(context).secondary
-                                              : FlutterFlowTheme.of(context).primaryBackground,
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 4),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                group.name,
-                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                      color: state.group_id == group.id
-                                                          ? Colors.white
-                                                          : FlutterFlowTheme.of(context).primaryText,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                                overflow: TextOverflow.clip,
-                                                maxLines: 1,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ]
-                                    .divide(SizedBox(height: 5))
-                                    .addToStart(SizedBox(height: 5))
-                                    .addToEnd(SizedBox(height: 5)),
-                              ),
-                            );
-                          }),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ui0_.icons.setting.ink_button(
+                          on_tap: () async {
+                            /// 跳转设置页
+                            await rout0_.app_hot_search_settings_home.to_then_back();
+                          },
+                        ).paddingSymmetric(horizontal: 12),
+                      ].divide(SizedBox(height: 10)).addToStart(SizedBox(height: 8)).addToEnd(SizedBox(height: 8)),
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Container(
-                      decoration: BoxDecoration(),
-                      child: GetBuilder<TodayHotSearchLogic>(
-                          id: logic.k_app_scroll_view_view_id,
-                          builder: (_) {
-                            return SingleChildScrollView(
-                              key: app_scroll_view_key,
+                  child: Container(
+                    height: 135,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                              ),
                               child: GetBuilder<TodayHotSearchLogic>(
-                                builder: (_) {
-                                  var apps = state.favorite_apps_by_group_id(state.group_id);
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Wrap(
-                                        spacing: 5,
-                                        runSpacing: 5,
-                                        alignment: WrapAlignment.start,
-                                        crossAxisAlignment: WrapCrossAlignment.start,
-                                        direction: Axis.horizontal,
-                                        runAlignment: WrapAlignment.start,
-                                        verticalDirection: VerticalDirection.down,
-                                        clipBehavior: Clip.none,
+                                  id: logic.k_group_scroll_view_view_id,
+                                  builder: (_) {
+                                    return SingleChildScrollView(
+                                      key: app_group_scroll_view_key,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          for (var app in apps)
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
-                                              onTap: () async {
-                                                /// 切换app，刷新热搜列表
-                                                await logic.fetch_app_hot_search_list_noUi(app).throttleWithTimeout(
-                                                    timeout_mill: 3000,
-                                                    onCompleted: (_) {
-                                                      logic.update([
-                                                        logic.k_app_scroll_view_view_id,
-                                                        logic.k_hot_search_scroll_view_view_id,
-                                                      ]);
-                                                      q0_.ui.toast.show('获取热搜完成');
-                                                    },
-                                                    onError: (error) {
-                                                      q0_.ui.toast.show('获取热搜失败');
-                                                    });
-                                              },
-                                              child: app.name == state.app
-                                                  ? Container(
-                                                      height: 28,
-                                                      constraints: BoxConstraints(
-                                                        minWidth: 65,
-                                                        maxWidth: 150,
+                                          InkWell(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  '分组',
+                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                        letterSpacing: 0.0,
                                                       ),
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme.of(context).primary,
-                                                        borderRadius: BorderRadius.circular(4),
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                                                        child: Row(
-                                                          mainAxisSize: MainAxisSize.min,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              app.name,
-                                                              textAlign: TextAlign.justify,
-                                                              maxLines: 1,
-                                                              style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                    color: Colors.white,
-                                                                    letterSpacing: 0.0,
-                                                                  ),
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : Container(
-                                                      height: 28,
-                                                      constraints: BoxConstraints(
-                                                        minWidth: 65,
-                                                        maxWidth: 150,
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme.of(context).primaryBackground,
-                                                        borderRadius: BorderRadius.circular(4),
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                                                        child: Row(
-                                                          mainAxisSize: MainAxisSize.min,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              app.name,
-                                                              textAlign: TextAlign.justify,
-                                                              maxLines: 1,
-                                                              style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                    letterSpacing: 0.0,
-                                                                  ),
-                                                              overflow: TextOverflow.ellipsis,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
+                                                ),
+                                              ],
                                             ),
-                                        ],
+                                            onTap: () async {
+                                              await logic.m_refresh_group_apps_and_hot_search_list();
+                                              q0_.ui.toast.show('刷新完成');
+                                            },
+                                          ),
+                                          for (var group in state.favorite_app_groups)
+                                            InkWell(
+                                              onTap: () async {
+                                                /// 切换组
+                                                await logic.switch_favorite_group_noUi(group.id!);
+                                                logic.update([
+                                                  logic.k_group_scroll_view_view_id,
+                                                  logic.k_app_scroll_view_view_id,
+                                                  logic.k_hot_search_scroll_view_view_id,
+                                                ]);
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: state.group_id == group.id
+                                                      ? FlutterFlowTheme.of(context).secondary
+                                                      : FlutterFlowTheme.of(context).primaryBackground,
+                                                  borderRadius: BorderRadius.circular(4),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 4),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        group.name,
+                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                              color: state.group_id == group.id
+                                                                  ? Colors.white
+                                                                  : FlutterFlowTheme.of(context).primaryText,
+                                                              letterSpacing: 0.0,
+                                                            ),
+                                                        overflow: TextOverflow.clip,
+                                                        maxLines: 1,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                        ]
+                                            .divide(SizedBox(height: 5))
+                                            .addToStart(SizedBox(height: 5))
+                                            .addToEnd(SizedBox(height: 5)),
                                       ),
-                                    ],
+                                    );
+                                  }),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(),
+                              child: GetBuilder<TodayHotSearchLogic>(
+                                id: logic.k_app_scroll_view_view_id,
+                                builder: (_) {
+                                  return SingleChildScrollView(
+                                    key: app_scroll_view_key,
+                                    child: GetBuilder<TodayHotSearchLogic>(
+                                      builder: (_) {
+                                        var apps = state.favorite_apps_by_group_id(state.group_id);
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Wrap(
+                                              spacing: 5,
+                                              runSpacing: 5,
+                                              alignment: WrapAlignment.start,
+                                              crossAxisAlignment: WrapCrossAlignment.start,
+                                              direction: Axis.horizontal,
+                                              runAlignment: WrapAlignment.start,
+                                              verticalDirection: VerticalDirection.down,
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                for (var app in apps)
+                                                  InkWell(
+                                                    splashColor: Colors.transparent,
+                                                    focusColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    onTap: () async {
+                                                      /// 切换app，刷新热搜列表
+                                                      await logic
+                                                          .fetch_app_hot_search_list_noUi(app)
+                                                          .throttleWithTimeout(
+                                                              timeout_mill: 3000,
+                                                              onCompleted: (_) {
+                                                                logic.update([
+                                                                  logic.k_app_scroll_view_view_id,
+                                                                  logic.k_hot_search_scroll_view_view_id,
+                                                                ]);
+                                                                q0_.ui.toast.show('获取热搜完成');
+                                                              },
+                                                              onError: (error) {
+                                                                q0_.ui.toast.show('获取热搜失败');
+                                                              });
+                                                    },
+                                                    child: app.name == state.app
+                                                        ? Container(
+                                                            height: 28,
+                                                            constraints: BoxConstraints(
+                                                              minWidth: 65,
+                                                              maxWidth: 150,
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                              color: FlutterFlowTheme.of(context).primary,
+                                                              borderRadius: BorderRadius.circular(4),
+                                                            ),
+                                                            child: Padding(
+                                                              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                                              child: Row(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    app.name,
+                                                                    textAlign: TextAlign.justify,
+                                                                    maxLines: 1,
+                                                                    style:
+                                                                        FlutterFlowTheme.of(context).bodySmall.override(
+                                                                              color: Colors.white,
+                                                                              letterSpacing: 0.0,
+                                                                            ),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Container(
+                                                            height: 28,
+                                                            constraints: BoxConstraints(
+                                                              minWidth: 65,
+                                                              maxWidth: 150,
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                              borderRadius: BorderRadius.circular(4),
+                                                            ),
+                                                            child: Padding(
+                                                              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                                              child: Row(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    app.name,
+                                                                    textAlign: TextAlign.justify,
+                                                                    maxLines: 1,
+                                                                    style:
+                                                                        FlutterFlowTheme.of(context).bodySmall.override(
+                                                                              letterSpacing: 0.0,
+                                                                            ),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   );
                                 },
                               ),
-                            );
-                          }),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

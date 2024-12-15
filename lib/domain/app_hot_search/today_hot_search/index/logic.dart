@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cw2bit/domain/app_hot_search/models/hot_search_model.dart';
-import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/domain/app_hot_search/today_hot_search/index/state.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
 import 'package:cw2bit/domain/github/models/github_repo.dart';
@@ -31,7 +30,7 @@ class TodayHotSearchLogic extends GetxController {
   Future<void> m_refresh_group_apps_and_hot_search_list() async {
     state.app = '';
     state.group_id = -1;
-    state.favorite_app_group = await c0_.bis_mgr_hot_search.fetch_comb_hot_search_groups();
+    state.favorite_app_group = await c0_.bis_mgr_hot_search.fetch_comb_hot_search_groups(GithubRepo.riibit);
 
     /// 刷新UI
     switch_favorite_group_noUi(state.group_id);
@@ -119,8 +118,8 @@ class TodayHotSearchLogic extends GetxController {
     String content = '';
     try {
       content = await c0_.mgr_github.get_decoded_content(
-        GithubRepo.hot_searches_for_apps,
-        '${HotSearchMgr.root_dir}/${app.name}/${app.name}.md',
+        GithubRepo.riibit,
+        c0_.bis_mgr_hot_search.right_realtime_hot_search_path(app.name),
       );
     } catch (ex) {
       rethrow;

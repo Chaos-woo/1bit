@@ -14,6 +14,8 @@ class BingMgr extends GetxService {
   static const _c_k_bing_img_url = 'url';
   static const _c_k_bing_img_expire_timestamp = 'expire_timestamp';
 
+  static bool m_show_bing_daily_image = false;
+
   Future<String?> get_bing_daily_image() async {
     var img_data = q0_.bridge.flustars.preferences.getObject(k_pfs_bing_img_data);
 
@@ -37,6 +39,7 @@ class BingMgr extends GetxService {
           '';
 
       if (markdown_content.isEmpty) {
+        m_show_bing_daily_image = false;
         return null;
       } else {
         Uint8List decoded_bytes = base64.decode(markdown_content.replaceAll('\n', ''));
@@ -52,9 +55,11 @@ class BingMgr extends GetxService {
           _c_k_bing_img_expire_timestamp: DateTime.now().millisecondsSinceEpoch + c_bing_img_url_expires_millis,
         };
         q0_.bridge.flustars.preferences.putObject(k_pfs_bing_img_data, new_img_data);
+        m_show_bing_daily_image = true;
         return img_url;
       }
     } else {
+      m_show_bing_daily_image = true;
       return img_data[_c_k_bing_img_url];
     }
   }

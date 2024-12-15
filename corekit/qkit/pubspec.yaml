@@ -55,6 +55,8 @@ dependencies:
   oktoast: ^3.3.1
   # dialog https://github.com/mono0926/adaptive_dialog
   adaptive_dialog: ^1.10.1
+  # Divider
+  styled_divider: ^1.0.5
 
 dev_dependencies:
   flutter_test:

@@ -20,11 +20,13 @@ class ui0_ {
 
 final class _ui_icons {
   final sort = Icons.sort_by_alpha_rounded;
+  final filter = Icons.filter_alt_rounded;
   final circle_ok = Icons.check_circle_outline_rounded;
   final add = Icons.add_rounded;
   final delete = Icons.delete_outline_rounded;
   final three_lines = Icons.density_medium_rounded;
-  final settings = Icons.settings_rounded;
+  final setting = Icons.settings_rounded;
   final arrow_back = Icons.arrow_back_rounded;
   final info = Icons.info_outline_rounded;
+  final calendar = Icons.calendar_month_rounded;
 }

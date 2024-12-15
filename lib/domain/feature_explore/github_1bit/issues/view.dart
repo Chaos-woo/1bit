@@ -79,7 +79,7 @@ class Github1bitIssuesPage extends StatelessWidget {
               buttonSize: 40,
               fillColor: Colors.transparent,
               icon: Icon(
-                ui0_.icons.settings,
+                ui0_.icons.setting,
                 color: Colors.white,
                 size: 24,
               ),

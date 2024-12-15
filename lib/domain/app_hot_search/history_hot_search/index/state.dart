@@ -2,6 +2,7 @@ import 'package:cw2bit/domain/app_hot_search/models/hot_search_model.dart';
 import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_groups.dart';
 import 'package:cw2bit/domain/app_hot_search/models/wrappers/app_webpages.dart';
 import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
+import 'package:cw2bit/domain/github/models/github_repo.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
 import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
@@ -10,6 +11,9 @@ import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_reading.da
 import 'package:cw2bit/infrastructure/database/entity_combination/comb_hot_search_group_apps.dart';
 
 class HistoryHotSearchState {
+  /// 当前选择的热搜仓库
+  GithubRepo repo = GithubRepo.riibit;
+
   /// 当前选择的APP
   String app = '';
 

@@ -294,7 +294,7 @@ class GithubSettingPage extends StatelessWidget {
                       child: FFButtonWidget(
                         onPressed: () {
                           logic.save_github_access_token();
-                          ui0_.snackbar.show_simple_snackbar('设置【访问密钥】完成');
+                          q0_.ui.toast.show('设置【访问密钥】完成');
                           q0_.route.back();
                         },
                         text: '保存访问密钥',

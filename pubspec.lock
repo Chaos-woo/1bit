@@ -513,6 +513,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.6"
+  dotted_decoration:
+    dependency: transitive
+    description:
+      name: dotted_decoration
+      sha256: a5c5771367690b4f64ebfa7911954ab472b9675f025c373f514e32ac4bb81d5e
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   drift:
     dependency: "direct main"
     description:
@@ -1980,6 +1988,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
+  styled_divider:
+    dependency: "direct main"
+    description:
+      name: styled_divider
+      sha256: c360502fb8caf55c17467b0a59edfff68b465343ae040ce76cb08948992c2708
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.5"
   styled_widget:
     dependency: "direct main"
     description:

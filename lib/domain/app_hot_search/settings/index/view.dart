@@ -136,7 +136,33 @@ class AppHotSearchSettingPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ToolGroupComponent(
+                    toolGroup: ToolGroup(
+                      name: '关于',
+                      items: [
+                        ToolGroupItemClicker(
+                          title: '热搜数据来源',
+                          subtitle: '热搜数据的来源说明',
+                          type: EnumToolGroupItemType.clicker,
+                          icon: ui0_.icons.info.to_icon(),
+                          on_tap: () async {
+                            await ui0_.dialog.show_ok_cancel_dialog(
+                              title: '热搜数据来源',
+                              message: '''
+1. 热搜数据来源1：WShuai123/hot_searches_for_apps（Github）。
+2. 热搜数据来源2：Chaos-woo/riibit（Github，数据源1在2024年10月16日不再提供新数据，数据源2将接替数据源1继续提供数据，提供数据从2024年12月1日起）。
+3. 热搜阅读记录来源：本地数据库，根据用户阅读习惯记录热搜文章的阅读进度、文章分析数据等。
+                              ''',
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -149,7 +175,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
   Future<void> _on_tap_black_app(BuildContext context) async {
     var logic = Get.find<AppHotSearchSettingLogic>();
 
-    q0_.ui.loading.show(status: '正在获取APP黑名单...');
+    q0_.ui.loading.show(loading_tip: '正在获取APP黑名单...');
     var apps = await logic.list_black_apps();
     q0_.ui.loading.dismiss();
 
@@ -282,7 +308,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
   Future<void> _on_tap_default_app_group(BuildContext context) async {
     var logic = Get.find<AppHotSearchSettingLogic>();
 
-    q0_.ui.loading.show(status: '正在获取默认APP组...');
+    q0_.ui.loading.show(loading_tip: '正在获取默认APP组...');
     await logic.list_app_groups();
     q0_.ui.loading.dismiss();
 

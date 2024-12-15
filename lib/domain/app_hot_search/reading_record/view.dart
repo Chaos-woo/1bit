@@ -42,56 +42,6 @@ class _ReadingRecordPageState extends State<ReadingRecordPage> with TickerProvid
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-            child: Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '数据源：热搜阅读记录（本地数据库）',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontSize: 13,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          /// 跳转设置页
-                          await rout0_.app_hot_search_settings_home.to_then_back();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(),
-                          child: Align(
-                            alignment: AlignmentDirectional(1, 0),
-                            child: Icon(
-                              ui0_.icons.settings,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
@@ -128,13 +78,24 @@ class _ReadingRecordPageState extends State<ReadingRecordPage> with TickerProvid
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Icons.sort_by_alpha_rounded.ink_button(
+                    Padding(
+                      padding: EdgeInsetsDirectional.symmetric(horizontal: 5),
+                      child: ui0_.icons.setting.ink_button(
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        on_tap: () async {
+                          /// 跳转设置页
+                          await rout0_.app_hot_search_settings_home.to_then_back();
+                        },
+                      ),
+                    ),
+                    q0_.ui.gap.vertical_divider(container_height: 15, size: 1, color: Colors.grey, thickness: 1.5),
+                    ui0_.icons.sort.ink_button(
                       color: FlutterFlowTheme.of(context).secondaryText,
                       on_tap: () async {
                         /// TODO 排序
                       },
                     ),
-                    Icons.sort_by_alpha_rounded.ink_button(
+                    ui0_.icons.filter.ink_button(
                       color: FlutterFlowTheme.of(context).secondaryText,
                       on_tap: () async {
                         /// TODO 筛选

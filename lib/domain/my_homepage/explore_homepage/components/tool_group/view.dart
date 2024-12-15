@@ -1,4 +1,5 @@
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -123,7 +124,7 @@ class ToolGroupComponent extends StatelessWidget {
             ),
       ),
       trailing: Icon(
-        Icons.settings_input_component_rounded,
+        Icons.info_outline_rounded,
         color: FlutterFlowTheme.of(context).secondaryText,
         size: 16,
       ),

@@ -170,7 +170,7 @@ class UiDialog {
                                             },
                                             text: '取消',
                                             options: FFButtonOptions(
-                                              height: 44,
+                                              height: 30,
                                               padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                               iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                               color: Colors.white,
@@ -185,7 +185,7 @@ class UiDialog {
                                                 color: Color(0xFFE5E7EB),
                                                 width: 2,
                                               ),
-                                              borderRadius: BorderRadius.circular(12),
+                                              borderRadius: BorderRadius.circular(5),
                                               hoverColor: Color(0xFFE5E7EB),
                                               hoverBorderSide: BorderSide(
                                                 color: Color(0xFFE5E7EB),
@@ -206,7 +206,7 @@ class UiDialog {
                                           },
                                           text: '确认',
                                           options: FFButtonOptions(
-                                            height: 44,
+                                            height: 30,
                                             padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                             iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                             color: FlutterFlowTheme.of(ctx).primary,
@@ -221,7 +221,7 @@ class UiDialog {
                                               color: Colors.transparent,
                                               width: 1,
                                             ),
-                                            borderRadius: BorderRadius.circular(12),
+                                            borderRadius: BorderRadius.circular(5),
                                             hoverColor: Color(0x4D9489F5),
                                             hoverBorderSide: BorderSide(
                                               color: Color(0xFF6F61EF),
@@ -342,44 +342,45 @@ class UiDialog {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0.05),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        await on_cancel?.call();
-                                        Get.back();
-                                      },
-                                      text: cancel_text ?? '取消',
-                                      options: FFButtonOptions(
-                                        height: 36,
-                                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                        color: Colors.white,
-                                        textStyle: FlutterFlowTheme.of(b_context).bodyMedium.override(
-                                              color: Color(0xFF15161E),
-                                              fontSize: 14,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                        elevation: 0,
-                                        borderSide: BorderSide(
-                                          color: Color(0xFFE5E7EB),
-                                          width: 2,
+                                if (on_cancel != null)
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 0.05),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          await on_cancel?.call();
+                                          Get.back();
+                                        },
+                                        text: cancel_text ?? '取消',
+                                        options: FFButtonOptions(
+                                          height: 30,
+                                          padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                          iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                          color: Colors.white,
+                                          textStyle: FlutterFlowTheme.of(b_context).bodyMedium.override(
+                                                color: Color(0xFF15161E),
+                                                fontSize: 14,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                          elevation: 0,
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFE5E7EB),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(4),
+                                          hoverColor: Color(0xFFE5E7EB),
+                                          hoverBorderSide: BorderSide(
+                                            color: Color(0xFFE5E7EB),
+                                            width: 2,
+                                          ),
+                                          hoverTextColor: Color(0xFF15161E),
+                                          hoverElevation: 0,
                                         ),
-                                        borderRadius: BorderRadius.circular(12),
-                                        hoverColor: Color(0xFFE5E7EB),
-                                        hoverBorderSide: BorderSide(
-                                          color: Color(0xFFE5E7EB),
-                                          width: 2,
-                                        ),
-                                        hoverTextColor: Color(0xFF15161E),
-                                        hoverElevation: 0,
                                       ),
                                     ),
                                   ),
-                                ),
                                 Align(
                                   alignment: AlignmentDirectional(0, 0.05),
                                   child: FFButtonWidget(
@@ -389,7 +390,7 @@ class UiDialog {
                                     },
                                     text: confirm_text ?? '确认',
                                     options: FFButtonOptions(
-                                      height: 36,
+                                      height: 30,
                                       padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                       iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                       color: FlutterFlowTheme.of(b_context).primary,
@@ -404,7 +405,7 @@ class UiDialog {
                                         color: Colors.transparent,
                                         width: 1,
                                       ),
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(4),
                                       hoverColor: Color(0x4D9489F5),
                                       hoverBorderSide: BorderSide(
                                         color: Color(0xFF6F61EF),
@@ -515,44 +516,45 @@ class UiDialog {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Align(
-                                        alignment: AlignmentDirectional(0, 0.05),
-                                        child: Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                                          child: FFButtonWidget(
-                                            onPressed: () {
-                                              on_cancel?.call();
-                                              Get.back();
-                                            },
-                                            text: cancel_text ?? '取消',
-                                            options: FFButtonOptions(
-                                              height: 44,
-                                              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                                              iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                              color: Colors.white,
-                                              textStyle: FlutterFlowTheme.of(b_context).bodyMedium.override(
-                                                    color: Color(0xFF15161E),
-                                                    fontSize: 14,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                              elevation: 0,
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE5E7EB),
-                                                width: 2,
+                                      if (on_cancel != null)
+                                        Align(
+                                          alignment: AlignmentDirectional(0, 0.05),
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                                            child: FFButtonWidget(
+                                              onPressed: () {
+                                                on_cancel?.call();
+                                                Get.back();
+                                              },
+                                              text: cancel_text ?? '取消',
+                                              options: FFButtonOptions(
+                                                height: 30,
+                                                padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                                color: Colors.white,
+                                                textStyle: FlutterFlowTheme.of(b_context).bodyMedium.override(
+                                                      color: Color(0xFF15161E),
+                                                      fontSize: 14,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                elevation: 0,
+                                                borderSide: BorderSide(
+                                                  color: Color(0xFFE5E7EB),
+                                                  width: 2,
+                                                ),
+                                                borderRadius: BorderRadius.circular(4),
+                                                hoverColor: Color(0xFFE5E7EB),
+                                                hoverBorderSide: BorderSide(
+                                                  color: Color(0xFFE5E7EB),
+                                                  width: 2,
+                                                ),
+                                                hoverTextColor: Color(0xFF15161E),
+                                                hoverElevation: 0,
                                               ),
-                                              borderRadius: BorderRadius.circular(12),
-                                              hoverColor: Color(0xFFE5E7EB),
-                                              hoverBorderSide: BorderSide(
-                                                color: Color(0xFFE5E7EB),
-                                                width: 2,
-                                              ),
-                                              hoverTextColor: Color(0xFF15161E),
-                                              hoverElevation: 0,
                                             ),
                                           ),
                                         ),
-                                      ),
                                       if (on_confirm != null)
                                         Align(
                                           alignment: AlignmentDirectional(0, 0.05),
@@ -563,7 +565,7 @@ class UiDialog {
                                             },
                                             text: confirm_text ?? '确认',
                                             options: FFButtonOptions(
-                                              height: 44,
+                                              height: 30,
                                               padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                               iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                               color: FlutterFlowTheme.of(b_context).primary,
@@ -578,7 +580,7 @@ class UiDialog {
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
-                                              borderRadius: BorderRadius.circular(12),
+                                              borderRadius: BorderRadius.circular(4),
                                               hoverColor: Color(0x4D9489F5),
                                               hoverBorderSide: BorderSide(
                                                 color: Color(0xFF6F61EF),

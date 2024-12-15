@@ -121,6 +121,8 @@ dependencies:
   drift_db_viewer: ^2.1.0
   # 随机头像
   random_avatar: ^0.0.8
+  # Divider
+  styled_divider: ^1.0.5
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本

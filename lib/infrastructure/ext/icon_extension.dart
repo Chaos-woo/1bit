@@ -1,4 +1,7 @@
+import 'package:cw2bit/domain/microsoft_bing/service/bing_mgr.dart';
 import 'package:cw2bit/infrastructure/c0_.dart';
+import 'package:cw2bit/public/ui/flutterflow_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:qkit/qkit.dart';
@@ -32,6 +35,10 @@ extension IconExtension on Icon {
 }
 
 extension IconDataExtension on IconData {
+  Icon to_icon() {
+    return Icon(this);
+  }
+
   Widget theme_aware_with_size(double size) {
     return Icon(this, size: size).theme_aware;
   }
@@ -44,7 +51,7 @@ extension IconDataExtension on IconData {
               borderColor: Colors.transparent,
               borderRadius: 25,
               buttonSize: 25,
-              icon: this.theme_aware_with_size(icon_size),
+              icon: Icon(this, size: icon_size, color: BingMgr.m_show_bing_daily_image ? Colors.white : Colors.black),
               onPressed: on_tap,
             ),
           )
@@ -54,7 +61,7 @@ extension IconDataExtension on IconData {
               borderColor: Colors.transparent,
               borderRadius: 25,
               buttonSize: 25,
-              icon: this.theme_aware_with_size(icon_size),
+              icon: Icon(this, size: icon_size, color: BingMgr.m_show_bing_daily_image ? Colors.white : Colors.black),
               onPressed: on_tap,
             ),
           );
@@ -72,6 +79,7 @@ extension IconDataExtension on IconData {
     double size = 24,
     Color? color,
     dynamic Function()? on_tap,
+    dynamic Function()? on_long_press,
   }) {
     return InkWell(
       splashColor: Colors.transparent,
@@ -79,6 +87,7 @@ extension IconDataExtension on IconData {
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: on_tap,
+      onLongPress: on_long_press,
       child: Icon(
         this,
         color: color,

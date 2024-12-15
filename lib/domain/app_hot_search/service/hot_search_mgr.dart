@@ -19,15 +19,43 @@ class HotSearchMgr extends GetxService {
 
   static final root_dir = 'archives';
 
-  Future<LocalAppGroups> fetch_comb_hot_search_groups() async {
+  GithubRepo get right_repo =>
+      DateTime.now().isAfter(DateTime(2024, 11, 30)) ? GithubRepo.riibit : GithubRepo.hot_searches_for_apps;
+
+  GithubRepo right_repo_for(DateTime datetime) {
+    return datetime.isAfter(DateTime(2024, 11, 30)) ? GithubRepo.riibit : GithubRepo.hot_searches_for_apps;
+  }
+
+  String right_realtime_hot_search_path(String app) {
+    var right_repo = this.right_repo;
+    if (right_repo == GithubRepo.riibit) {
+      DateTime now = DateTime.now();
+      var year = now.year;
+      var month_int_value = now.month;
+      var month = month_int_value.toString();
+      if (month_int_value < 10) {
+        month = '0$month';
+      }
+      var day_int_value = now.day;
+      var day = day_int_value.toString();
+      if (day_int_value < 10) {
+        day = '0$day';
+      }
+      return '$root_dir/$app/$year/$month/$year-$month-$day.md';
+    } else {
+      return '$root_dir/${app}/${app}.md';
+    }
+  }
+
+  Future<LocalAppGroups> fetch_comb_hot_search_groups(GithubRepo repo) async {
     /// 获取APP组和APP列表
     var f_group_with_apps = c0_.repo_drift.hot_search.list_groups_with_apps();
 
     /// 获取”全部”组的APP列表
-    var f_all_apps = _fetch_cloud_app_list(GithubRepo.hot_searches_for_apps, root_dir);
+    var f_all_apps = _fetch_cloud_app_list(repo, root_dir);
 
     var groups;
-    Future.wait([f_group_with_apps, f_all_apps]).then((List<dynamic> values) {
+    await Future.wait([f_group_with_apps, f_all_apps]).then((List<dynamic> values) {
       List<CombHotSearchGroupApps> group_with_apps = values[0] as List<CombHotSearchGroupApps>;
       List<String> cloud_all_apps = values[1] as List<String>;
 

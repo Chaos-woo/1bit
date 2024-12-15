@@ -28,7 +28,7 @@ class AppHotSearchGroupAppsEditPage extends StatelessWidget {
         leading: ui0_.icons.arrow_back.flow_appbar_back_button(),
         flexibleSpace: ui0_.appbar.bing_image_appbar_flexible_space(
           title: '${logic.group.name} · 组 · APP编辑',
-          icon: ui0_.icons.settings,
+          icon: ui0_.icons.setting,
           center_title: false,
         ),
         actions: [

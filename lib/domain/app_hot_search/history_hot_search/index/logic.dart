@@ -21,6 +21,8 @@ class HistoryHotSearchLogic extends GetxController {
   final k_app_hot_search_history_directory_view_id = '__k_app_hot_search_history_directory_view_id__';
   final k_hot_search_scroll_view_view_id = '__k_hot_search_scroll_view_view_id__';
 
+  final k_hot_search_repo_view_id = '__k_hot_search_repo_view_id__';
+
   /// 日历的Key
   final calendar_key = GlobalKey();
 
@@ -34,11 +36,27 @@ class HistoryHotSearchLogic extends GetxController {
   Future<void> m_refresh_group_apps_and_hot_search_list() async {
     state.app = '';
     state.group_id = -1;
-    state.favorite_app_group = await c0_.bis_mgr_hot_search.fetch_comb_hot_search_groups();
+    state.favorite_app_group = await c0_.bis_mgr_hot_search.fetch_comb_hot_search_groups(state.repo);
 
     /// 刷新UI
     switch_favorite_group_noUi(state.group_id);
     update([k_app_scroll_view_view_id, k_group_scroll_view_view_id]);
+  }
+
+  /// 切换热搜仓库，并刷新所有数据
+  Future<void> switch_hot_search_repo_noUi(GithubRepo repo) async {
+    state.repo = repo;
+    state.apps = [];
+    state.app = '';
+    state.group_id = -1;
+    state.picked_date = null;
+    state.hot_search_list = [];
+    state.m_current_file_path = '';
+    state.m_current_dir_path = '';
+    state.history_directory_list = [];
+    update([k_app_hot_search_history_directory_view_id, k_hot_search_scroll_view_view_id, k_hot_search_repo_view_id]);
+    await m_refresh_group_apps_and_hot_search_list();
+    update([k_app_hot_search_history_directory_view_id, k_hot_search_scroll_view_view_id, k_hot_search_repo_view_id]);
   }
 
   /// 根据URL获取APP的热搜阅读进度比
@@ -110,7 +128,7 @@ class HistoryHotSearchLogic extends GetxController {
   /// 获取指定路径下的内容列表，包含子文件夹和文件
   Future<void> fetch_next_dir_list_noUi(String dir_path, {String? app_name}) async {
     state.history_directory_list = [];
-    List<GithubContent> contents = await c0_.mgr_github.list_contents(GithubRepo.hot_searches_for_apps, dir_path);
+    List<GithubContent> contents = await c0_.mgr_github.list_contents(state.repo, dir_path);
 
     state.m_current_dir_path = dir_path;
     if (app_name != null) {
@@ -136,7 +154,7 @@ class HistoryHotSearchLogic extends GetxController {
     state.m_current_file_path = file_path;
     try {
       content = await c0_.mgr_github.get_decoded_content(
-        GithubRepo.hot_searches_for_apps,
+        state.repo,
         file_path,
       );
     } catch (ex) {
@@ -180,8 +198,7 @@ class HistoryHotSearchLogic extends GetxController {
         try {
           var folder_path =
               '${HotSearchMgr.root_dir}/${archive_file_identifier.app}/${archive_file_identifier.year}/${archive_file_identifier.format_history_records_month()}';
-          List<GithubContent> contents =
-              await c0_.mgr_github.list_contents(GithubRepo.hot_searches_for_apps, folder_path);
+          List<GithubContent> contents = await c0_.mgr_github.list_contents(state.repo, folder_path);
 
           var record_names = contents.map((e) => e.name).toList();
 

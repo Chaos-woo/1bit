@@ -3,7 +3,7 @@ import 'package:qkit/qkit.dart';
 /// 方法执行时显示loading状态
 extension FunctionUiLoadingExt on Function {
   void loadingUi({String? loadingText}) async {
-    q0_.ui.loading.show(status: loadingText);
+    q0_.ui.loading.show(loading_tip: loadingText);
     try {
       await call();
     } catch (e) {
