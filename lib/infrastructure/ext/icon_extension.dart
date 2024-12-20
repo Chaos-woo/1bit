@@ -1,7 +1,5 @@
 import 'package:cw2bit/domain/microsoft_bing/service/bing_mgr.dart';
 import 'package:cw2bit/infrastructure/c0_.dart';
-import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:qkit/qkit.dart';
@@ -35,8 +33,8 @@ extension IconExtension on Icon {
 }
 
 extension IconDataExtension on IconData {
-  Icon to_icon() {
-    return Icon(this);
+  Icon to_icon({double? size, Color? color}) {
+    return Icon(this, size: size, color: color);
   }
 
   Widget theme_aware_with_size(double size) {

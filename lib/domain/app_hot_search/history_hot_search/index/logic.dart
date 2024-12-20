@@ -4,6 +4,7 @@ import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/domain/app_hot_search/values/constant.dart';
 import 'package:cw2bit/domain/github/models/github_repo.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
+import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
 import 'package:cw2bit/public/webview/app_webview_dialog.dart';
@@ -25,6 +26,9 @@ class HistoryHotSearchLogic extends GetxController {
 
   /// 日历的Key
   final calendar_key = GlobalKey();
+
+  final c_bitmap_hot_search_exist_value = '1';
+  final c_bitmap_hot_search_not_exist_value = '0';
 
   @override
   void onReady() async {
@@ -68,10 +72,10 @@ class HistoryHotSearchLogic extends GetxController {
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(HotSearchModel model) async {
     /// 处理当前阅读进度
-    var reading_record = await c0_.repo_drift.webpage.get_reading_record(model.url);
+    var reading_record = await c0_.local_data_repo.webpage.get_reading_record(model.url);
     int reading_record_id = reading_record?.id ?? -1;
     if (reading_record == null) {
-      reading_record_id = await c0_.repo_drift.webpage.add_reading_record(
+      reading_record_id = await c0_.local_data_repo.webpage.add_reading_record(
         model.url,
         app: state.app,
         author: state.app,
@@ -87,19 +91,19 @@ class HistoryHotSearchLogic extends GetxController {
       not_navigation_action_scheme: c_not_navigation_action_scheme,
       listener: AppWebviewReadingListener(
         onWebviewLoaded: (webviewController, url) async {
-          await c0_.repo_drift.webpage.update_reading_update_time(url);
+          await c0_.local_data_repo.webpage.update_reading_update_time(url);
         },
         onViewScrollChanged: (webviewController, url, scrollTop, totalHeight) async {
           /// 更新阅读进度
           double progress = (scrollTop / totalHeight).clamp(0.0, 1.0);
-          var stored_reading_record = await c0_.repo_drift.webpage.get_reading_record(model.url);
+          var stored_reading_record = await c0_.local_data_repo.webpage.get_reading_record(model.url);
           if (scrollTop > stored_reading_record!.reading_scroll_top) {
-            await c0_.repo_drift.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
+            await c0_.local_data_repo.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
           }
         },
         onWebviewClosed: (url) async {
           /// 更新页面的阅读进度
-          var new_reading_record = await await c0_.repo_drift.webpage.get_reading_record_by_id(reading_record_id);
+          var new_reading_record = await await c0_.local_data_repo.webpage.get_reading_record_by_id(reading_record_id);
           state.replace_webpage_reading_history([new_reading_record!]);
           update([k_hot_search_scroll_view_view_id]);
         },
@@ -128,7 +132,10 @@ class HistoryHotSearchLogic extends GetxController {
   /// 获取指定路径下的内容列表，包含子文件夹和文件
   Future<void> fetch_next_dir_list_noUi(String dir_path, {String? app_name}) async {
     state.history_directory_list = [];
-    List<GithubContent> contents = await c0_.mgr_github.list_contents(state.repo, dir_path);
+    List<GithubContent> contents = (await c0_.mgr_github.list_contents(state.repo, dir_path))
+        // 过滤掉非md文件
+        .skipWhile((e) => GithubContentType.file == e.type && !e.name.endsWith('.md'))
+        .toList();
 
     state.m_current_dir_path = dir_path;
     if (app_name != null) {
@@ -165,16 +172,16 @@ class HistoryHotSearchLogic extends GetxController {
     List<HotSearchModel> hot_search_model_list = c0_.bis_mgr_hot_search.match_hot_search_models(content);
     state.hot_search_list = hot_search_model_list;
 
-    var all_reading_records = await c0_.repo_drift.webpage.list_all_reading_records();
+    var all_reading_records = await c0_.local_data_repo.webpage.list_all_reading_records();
     state.replace_webpage_reading_history(all_reading_records);
   }
 
   /// 刷新指定APP的热搜文件bitmap
   /// 1.年份>=2024，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
-  //  2.年份>=2023 & 月份>=11月，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
-  //  3.年份>=2023 & 月份<8月，提示无归档数据
-  //  4.年份>=2023 & 月份<11月，使用yyyy/mm归档路径，仅跳转月份归档
-  //  5.年份 < 2023，提示无归档数据
+  /// 2.年份>=2023 & 月份>=11月，使用yyyy/mm/yyyy-mm-dd.md格式的归档路径
+  /// 3.年份>=2023 & 月份<8月，提示无归档数据
+  /// 4.年份>=2023 & 月份<11月，使用yyyy/mm归档路径，仅跳转月份归档
+  /// 5.年份 < 2023，提示无归档数据
   void refresh_available_hot_search_records_bitmap(String app, int year, int month) {
     q0_.delay.delay(() async {
       if (year < 2023) {
@@ -186,13 +193,13 @@ class HistoryHotSearchLogic extends GetxController {
       }
 
       var archive_file_identifier = ArchiveDateIdentifier(year, month, app);
-      var pfs_key = archive_file_identifier.format_apps_available_history_records_key;
+      var pfs_key = archive_file_identifier.format_apps_available_history_records_key(state.repo.repo);
 
       var records_bitmap = q0_.bridge.flustars.preferences.get_string(pfs_key, default_value: null);
 
       var now = DateTime.now();
 
-      /// 不存在或当月，需要重新获取
+      /// 本地没有存储X年X月的bitmap记录，或指定时间是当月的，需要重新获取
       if (records_bitmap == null || (now.year == year && now.month == month)) {
         /// 接口获取热搜记录文件列表
         try {
@@ -204,13 +211,13 @@ class HistoryHotSearchLogic extends GetxController {
 
           /// 首次获取，初始化bitmap
           int max_index = 32;
-          records_bitmap = '0' * max_index;
+          records_bitmap = c_bitmap_hot_search_not_exist_value * max_index;
           var record_bitmap_list = records_bitmap.split('');
           for (int i = 1; i < max_index; i++) {
             var exist = record_names
                 .firstWhereOrNull((name) => name.startsWith(archive_file_identifier.format_history_records_key(i)));
             if (exist != null) {
-              record_bitmap_list[i] = '1';
+              record_bitmap_list[i] = c_bitmap_hot_search_exist_value;
             }
           }
           records_bitmap = record_bitmap_list.join();
@@ -226,13 +233,15 @@ class HistoryHotSearchLogic extends GetxController {
   /// 获取指定APP的热搜文件某天是否存在热搜
   bool is_available_hot_search_records(String app, int year, int month, int day) {
     var archive_file_identifier = ArchiveDateIdentifier(year, month, app);
-    var pfs_key = archive_file_identifier.format_apps_available_history_records_key;
+    var pfs_key = archive_file_identifier.format_apps_available_history_records_key(state.repo.repo);
     var records_bitmap = q0_.bridge.flustars.preferences.get_string(pfs_key, default_value: null);
     if (records_bitmap == null) {
       return false;
     }
     var record_bitmap_list = records_bitmap.split('');
-    var bit = record_bitmap_list[day];
-    return bit == '1';
+    return record_bitmap_list[day] == c_bitmap_hot_search_exist_value;
   }
+
+  /// 是否是新Github仓库 - GithubRepo.riibit
+  bool get is_new_github_repo => GithubRepo.riibit == state.repo;
 }

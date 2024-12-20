@@ -193,8 +193,6 @@ class HotSearchInReading extends StatelessWidget {
                                 Expanded(
                                   flex: be_read,
                                   child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
                                     decoration: BoxDecoration(
                                       color: Color(0x4D39D2C0),
                                       borderRadius: BorderRadius.only(
@@ -209,8 +207,6 @@ class HotSearchInReading extends StatelessWidget {
                                 Expanded(
                                   flex: remaining,
                                   child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFECECEC),
                                       borderRadius: BorderRadius.only(

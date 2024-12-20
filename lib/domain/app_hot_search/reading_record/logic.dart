@@ -53,7 +53,7 @@ class ReadingRecordLogic extends GetxController {
 
   /// 刷新查询所有的webpage阅读记录
   Future<void> refresh_reading_records_noUi() async {
-    var all_reading_records = await c0_.repo_drift.webpage.list_all_reading_records_with_stickers();
+    var all_reading_records = await c0_.local_data_repo.webpage.list_all_reading_records_with_stickers();
     print('all_reading_records: $all_reading_records');
 
     state.all_webpages = all_reading_records;
@@ -70,20 +70,16 @@ class ReadingRecordLogic extends GetxController {
 
   /// 格式化URL阅读进度
   (int be_read, int remaining) format_app_progress_ratio(WebpageReading webpage_reading) {
-    /// 将阅读进度double小数保留两位
-    double reading_progress = double.parse(webpage_reading.reading_progress.toStringAsFixed(2));
-    int be_read = min((reading_progress * 100).toInt(), 100);
-    be_read = be_read > c0_.bis_mgr_hot_search_config.hot_search_read_progress_threshold_cache_as_int ? 100 : be_read;
-    return (be_read, 100 - be_read);
+    return c0_.bis_mgr_hot_search.calculate_web_reading_progress_ratio(webpage_reading);
   }
 
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(WebpageReading webpage_reading) async {
     /// 处理当前阅读进度
-    var reading_record = await c0_.repo_drift.webpage.get_reading_record(webpage_reading.url);
+    var reading_record = await c0_.local_data_repo.webpage.get_reading_record(webpage_reading.url);
     int reading_record_id = reading_record?.id ?? -1;
     if (reading_record == null) {
-      reading_record_id = await c0_.repo_drift.webpage.add_reading_record(
+      reading_record_id = await c0_.local_data_repo.webpage.add_reading_record(
         webpage_reading.url,
         app: webpage_reading.app,
         author: webpage_reading.author ?? webpage_reading.app,
@@ -99,14 +95,14 @@ class ReadingRecordLogic extends GetxController {
       not_navigation_action_scheme: c_not_navigation_action_scheme,
       listener: AppWebviewReadingListener(
         onWebviewLoaded: (webviewController, url) async {
-          await c0_.repo_drift.webpage.update_reading_update_time(url);
+          await c0_.local_data_repo.webpage.update_reading_update_time(url);
         },
         onViewScrollChanged: (webviewController, url, scrollTop, totalHeight) async {
           /// 更新阅读进度
           double progress = (scrollTop / totalHeight).clamp(0.0, 1.0);
-          var stored_reading_record = await c0_.repo_drift.webpage.get_reading_record(webpage_reading.url);
+          var stored_reading_record = await c0_.local_data_repo.webpage.get_reading_record(webpage_reading.url);
           if (scrollTop > stored_reading_record!.reading_scroll_top) {
-            await c0_.repo_drift.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
+            await c0_.local_data_repo.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
           }
         },
         onWebviewClosed: (url) async {
@@ -120,7 +116,7 @@ class ReadingRecordLogic extends GetxController {
 
   /// 收藏或取消收藏热搜内容
   Future<void> add_or_remove_favorite(WebpageReading webpage_reading) async {
-    await c0_.repo_drift.webpage.update_reading_is_collected(webpage_reading.id!, !webpage_reading.is_collected);
+    await c0_.local_data_repo.webpage.update_reading_is_collected(webpage_reading.id!, !webpage_reading.is_collected);
     await refresh_reading_records_noUi();
     safe_update_hot_search_view();
   }

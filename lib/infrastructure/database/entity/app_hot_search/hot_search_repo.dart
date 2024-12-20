@@ -8,7 +8,7 @@ import 'package:drift/drift.dart';
 import 'package:get/get.dart' hide Value;
 
 /// APP热搜相关的仓库
-final class HotSearchRepo extends GetxService with R1DatabaseImportMixin {
+final class HotSearchRepo extends GetxService with R1DatabaseMixin {
   static final String getx_tag = '__getx_hot_search_repo__';
 
   static HotSearchRepo get getx => Get.find(tag: getx_tag);
@@ -103,44 +103,31 @@ final class HotSearchRepo extends GetxService with R1DatabaseImportMixin {
   /// 删除APP
   Future<void> delete_app(int id) async {
     return database.transaction(() async {
-      await database.delete(database.hotSearchApps)
-        ..where((t) => t.id.equals(id))
-        ..go();
-      await database.delete(database.hotSearchGroupHasApps)
-        ..where((t) => t.app_id.equals(id))
-        ..go();
+      await (database.delete(database.hotSearchApps)..where((t) => t.id.equals(id))).go();
+      await (database.delete(database.hotSearchGroupHasApps)..where((t) => t.app_id.equals(id))).go();
     });
   }
 
   /// 删除APPs
   Future<void> delete_apps(List<int> ids) async {
     return database.transaction(() async {
-      await database.delete(database.hotSearchApps)
-        ..where((t) => t.id.isIn(ids))
-        ..go();
-      await database.delete(database.hotSearchGroupHasApps)
-        ..where((t) => t.app_id.isIn(ids))
-        ..go();
+      await (database.delete(database.hotSearchApps)..where((t) => t.id.isIn(ids))).go();
+      await (database.delete(database.hotSearchGroupHasApps)..where((t) => t.app_id.isIn(ids))).go();
     });
   }
 
   /// 删除APP分组及其所有APP
   Future<void> delete_group(int group_id) async {
     return database.transaction(() async {
+      // 获取分组关联的APP
       List<HotSearchGroupHasApp> withs =
           await (database.select(database.hotSearchGroupHasApps)..where((t) => t.group_id.equals(group_id))).get();
-
-      await database.delete(database.hotSearchGroupHasApps)
-        ..where((t) => t.group_id.equals(group_id))
-        ..go();
-
-      await database.delete(database.hotSearchApps)
-        ..where((t) => t.id.isIn(withs.map((w) => w.app_id)))
-        ..go();
-
-      await database.delete(database.hotSearchGroups)
-        ..where((t) => t.id.equals(group_id))
-        ..go();
+      // 删除分组与APP的关联
+      await (database.delete(database.hotSearchGroupHasApps)..where((t) => t.group_id.equals(group_id))).go();
+      // 删除分组关联的APP
+      await (database.delete(database.hotSearchApps)..where((t) => t.id.isIn(withs.map((w) => w.app_id)))).go();
+      // 删除分组
+      await (database.delete(database.hotSearchGroups)..where((t) => t.id.equals(group_id))).go();
     });
   }
 

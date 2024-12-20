@@ -1,7 +1,7 @@
 import 'package:cw2bit/infrastructure/database/r_database.dart';
 
 /// 提供Database实例和表实例
-mixin R1DatabaseImportMixin {
+mixin R1DatabaseMixin {
   AppDatabase get database => DatabaseMgr.getx;
 
   $HotSearchAppsTable get t_hot_search_apps => database.hotSearchApps;

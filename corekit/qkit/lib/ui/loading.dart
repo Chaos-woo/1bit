@@ -25,7 +25,7 @@ class Loader {
 
   void dismiss({String? dismiss_tip}) {
     EasyLoading.dismiss();
-    if (!(dismiss_tip.isBlank!)) {
+    if (dismiss_tip != null && dismiss_tip.isNotEmpty) {
       q0_.ui.toast.show(dismiss_tip!);
     }
   }

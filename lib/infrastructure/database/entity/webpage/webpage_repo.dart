@@ -7,7 +7,7 @@ import 'package:drift/drift.dart';
 import 'package:get/get.dart' hide Value;
 
 /// 网页相关的仓库
-final class WebpageRepo extends GetxService with R1DatabaseImportMixin {
+final class WebpageRepo extends GetxService with R1DatabaseMixin {
   static final String getx_tag = '__getx_webpage_repo__';
 
   static WebpageRepo get getx => Get.find(tag: getx_tag);

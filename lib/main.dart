@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-            title: 'Riibi',
+            title: 'Relinks',
             scrollBehavior: const CupertinoScrollBehavior(),
             themeMode: ThemeMode.system,
             initialRoute: rout0_.home.route_name,

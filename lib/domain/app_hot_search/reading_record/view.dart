@@ -63,14 +63,24 @@ class _ReadingRecordPageState extends State<ReadingRecordPage> with TickerProvid
                         await logic.refresh_reading_records();
                         q0_.ui.toast.show('刷新完成');
                       },
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                        child: Text(
-                          '热搜看点记录',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                letterSpacing: 0.0,
-                              ),
-                        ),
+                      onLongPress: () => q0_.ui.toast.show('短按刷新所有阅读记录噢'),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                            child: Text(
+                              '热搜看点记录',
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                            child: Icons.refresh_rounded.to_icon(size: 16, color: Colors.grey),
+                          ),
+                        ],
                       ),
                     ),
                   ],

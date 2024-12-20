@@ -70,56 +70,6 @@ class HistoryHotSearchPage extends StatelessWidget {
                                 );
                                 q0_.ui.loading.dismiss(dismiss_tip: '热搜仓库切换完成');
                               },
-                              on_long_press: () async {
-                                /// 长按解释设置原因
-                                await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
-                                  title: '为什么要切换热搜仓库？',
-                                  on_confirm: () {},
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Text('历史热搜信息包含信息采集的APP和对应APP的热搜信息。'
-                                                    '仅根据选择日期无法适配所有情况，所以要求用户使用切换按钮选择对应的仓库。默认仓库为热搜仓库1。'),
-                                              )
-                                            ],
-                                          ).paddingSymmetric(vertical: 5),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Icon(Icons.looks_one_rounded),
-                                              Expanded(
-                                                child: Text(' - 热搜仓库1：Chaos-woo/riibit，自定义新仓库。'),
-                                              ),
-                                            ],
-                                          ).paddingSymmetric(vertical: 8),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Icon(Icons.looks_two_rounded),
-                                              Expanded(
-                                                child: Text(
-                                                  ' - 热搜仓库2：WShuai123/hot_searches_for_apps，老仓库信息。',
-                                                ),
-                                              ),
-                                            ],
-                                          ).paddingSymmetric(vertical: 5),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                );
-                              },
                             ).paddingSymmetric(horizontal: 12);
                           },
                         ),
@@ -265,9 +215,9 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                               '${HotSearchMgr.root_dir}/${app.name}',
                                                               app_name: app.name,
                                                             )
-                                                            .throttleWithTimeout(
+                                                            .throttle_with_timeout(
                                                                 timeout_mill: 3000,
-                                                                onCompleted: (_) {
+                                                                on_completed: (_) {
                                                                   logic.update([
                                                                     logic.k_app_scroll_view_view_id,
                                                                     logic.k_hot_search_scroll_view_view_id,
@@ -275,7 +225,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                                                                   ]);
                                                                   q0_.ui.toast.show('获取归档完成');
                                                                 },
-                                                                onError: (error) {
+                                                                on_error: (error) {
                                                                   q0_.ui.toast.show('获取归档失败');
                                                                 });
                                                       },
@@ -388,6 +338,63 @@ class HistoryHotSearchPage extends StatelessWidget {
                             ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                      child: ui0_.icons.info.ink_button(
+                        size: 18,
+                        color: Colors.grey,
+                        on_tap: () async {
+                          /// 长按解释设置原因
+                          await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
+                            title: '为什么要切换热搜仓库？',
+                            on_confirm: () {},
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Text('历史热搜信息包含信息采集的APP和对应APP的热搜信息。'
+                                              '仅根据选择日期无法适配所有情况，所以要求用户使用切换按钮选择对应的仓库。默认仓库为热搜仓库1。'),
+                                        )
+                                      ],
+                                    ).paddingSymmetric(vertical: 5),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.looks_one_rounded),
+                                        Expanded(
+                                          child: Text(' - 热搜仓库1：Chaos-woo/riibit，自定义新仓库。'),
+                                        ),
+                                      ],
+                                    ).paddingSymmetric(vertical: 8),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.looks_two_rounded),
+                                        Expanded(
+                                          child: Text(
+                                            ' - 热搜仓库2：WShuai123/hot_searches_for_apps，老仓库信息。',
+                                          ),
+                                        ),
+                                      ],
+                                    ).paddingSymmetric(vertical: 5),
+                                  ],
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
                 Align(
@@ -469,11 +476,22 @@ class HistoryHotSearchPage extends StatelessWidget {
                                         centerAlignModePicker: true,
                                         useAbbrLabelForMonthModePicker: true,
                                         modePickersGap: 0,
-                                        firstDate: DateTime(2023, 8, 1),
-                                        lastDate: DateTime.now().add(const Duration(days: 1)),
-                                        selectableDayPredicate: (day) =>
-                                            day.isAfter(DateTime(2023, 8, 1)) ||
-                                            day.isBefore(DateTime.now().add(const Duration(days: 1))),
+                                        firstDate:
+                                            logic.is_new_github_repo ? DateTime(2024, 12, 1) : DateTime(2023, 8, 1),
+                                        lastDate: logic.is_new_github_repo
+                                            ? DateTime.now().add(const Duration(days: 1))
+                                            : DateTime(2024, 10, 17),
+                                        selectableDayPredicate: (day) {
+                                          var selectable_first_date =
+                                              logic.is_new_github_repo ? DateTime(2024, 12, 1) : DateTime(2023, 8, 1);
+                                          var selectable_last_date = logic.is_new_github_repo
+                                              ? DateTime.now().add(const Duration(days: 1))
+                                              : DateTime(2024, 10, 17);
+
+                                          /// 根据新老仓库处理可选择的日期范围
+                                          return day.isAfter(selectable_first_date) ||
+                                              day.isBefore(selectable_last_date);
+                                        },
                                         dayBuilder: (
                                             {required date, decoration, isDisabled, isSelected, isToday, textStyle}) {
                                           return Row(
@@ -577,22 +595,24 @@ class HistoryHotSearchPage extends StatelessWidget {
                                     if (q0_.bridge.flustars.date.isToday(state.picked_date!.millisecondsSinceEpoch)) {
                                       // 选择的是今天，直接获取当天热搜
                                       var archive_dir_path = '${HotSearchMgr.root_dir}/${state.app}/$year/$month';
-                                      var archive_file_path =
-                                          '${HotSearchMgr.root_dir}/${state.app}/$year/$month/${state.app}.md';
+                                      // 今天的热搜地址兼容新老仓库
+                                      var archive_file_path = logic.is_new_github_repo
+                                          ? '${HotSearchMgr.root_dir}/${state.app}/$year/$month/$year-$month-$day.md'
+                                          : '${HotSearchMgr.root_dir}/${state.app}/$year/$month/${state.app}.md';
                                       await (Future.wait(
                                         [
                                           logic.fetch_app_hot_search_list_noUi(archive_file_path),
                                           logic.fetch_next_dir_list_noUi(archive_dir_path)
                                         ],
-                                      ).throttleWithTimeout(
+                                      ).throttle_with_timeout(
                                           timeout_mill: 3000,
-                                          onCompleted: (_) {
+                                          on_completed: (_) {
                                             logic.update([
                                               logic.k_hot_search_scroll_view_view_id,
                                               logic.k_app_hot_search_history_directory_view_id
                                             ]);
                                           },
-                                          onError: (error) {
+                                          on_error: (error) {
                                             q0_.ui.toast.show('获取归档失败');
                                           }));
                                       return;
@@ -607,6 +627,8 @@ class HistoryHotSearchPage extends StatelessWidget {
                                     var archive_dir_path = '';
                                     var archive_file_path = '';
                                     if (year >= 2024) {
+                                      // 新仓库只会进到这段逻辑
+                                      // 老仓库的部分日期范围会进到这段逻辑
                                       archive_file_path =
                                           '${HotSearchMgr.root_dir}/${state.app}/$year/$month/$year-$month-$day.md';
                                       archive_dir_path = '${HotSearchMgr.root_dir}/${state.app}/$year/$month';
@@ -629,15 +651,15 @@ class HistoryHotSearchPage extends StatelessWidget {
                                         logic.fetch_app_hot_search_list_noUi(archive_file_path),
                                         logic.fetch_next_dir_list_noUi(archive_dir_path)
                                       ],
-                                    ).throttleWithTimeout(
+                                    ).throttle_with_timeout(
                                         timeout_mill: 3000,
-                                        onCompleted: (_) {
+                                        on_completed: (_) {
                                           logic.update([
                                             logic.k_hot_search_scroll_view_view_id,
                                             logic.k_app_hot_search_history_directory_view_id
                                           ]);
                                         },
-                                        onError: (error) {
+                                        on_error: (error) {
                                           q0_.ui.toast.show('获取归档失败');
                                         }));
                                   },
@@ -703,16 +725,16 @@ class HistoryHotSearchPage extends StatelessWidget {
                                           var parent_path_array = state.m_current_dir_path.split('/');
                                           var parent_path =
                                               parent_path_array.sublist(0, parent_path_array.length - 1).join('/');
-                                          await logic.fetch_next_dir_list_noUi(parent_path).throttleWithTimeout(
+                                          await logic.fetch_next_dir_list_noUi(parent_path).throttle_with_timeout(
                                               timeout_mill: 3000,
-                                              onCompleted: (_) {
+                                              on_completed: (_) {
                                                 logic.update([
                                                   logic.k_app_scroll_view_view_id,
                                                   logic.k_hot_search_scroll_view_view_id,
                                                   logic.k_app_hot_search_history_directory_view_id
                                                 ]);
                                               },
-                                              onError: (error) {
+                                              on_error: (error) {
                                                 q0_.ui.toast.show('获取内容列表失败');
                                               });
                                         },
@@ -758,16 +780,16 @@ class HistoryHotSearchPage extends StatelessWidget {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           /// 跳转到下一文件夹
-                                          await logic.fetch_next_dir_list_noUi(content.path).throttleWithTimeout(
+                                          await logic.fetch_next_dir_list_noUi(content.path).throttle_with_timeout(
                                               timeout_mill: 3000,
-                                              onCompleted: (_) {
+                                              on_completed: (_) {
                                                 logic.update([
                                                   logic.k_app_scroll_view_view_id,
                                                   logic.k_hot_search_scroll_view_view_id,
                                                   logic.k_app_hot_search_history_directory_view_id
                                                 ]);
                                               },
-                                              onError: (error) {
+                                              on_error: (error) {
                                                 q0_.ui.toast.show('获取内容列表失败');
                                               });
                                         },
@@ -814,17 +836,19 @@ class HistoryHotSearchPage extends StatelessWidget {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           /// 刷新指定的热搜归档页
-                                          await logic.fetch_app_hot_search_list_noUi(content.path).throttleWithTimeout(
-                                              timeout_mill: 3000,
-                                              onCompleted: (_) {
-                                                logic.update([
-                                                  logic.k_hot_search_scroll_view_view_id,
-                                                  logic.k_app_hot_search_history_directory_view_id
-                                                ]);
-                                              },
-                                              onError: (error) {
-                                                q0_.ui.toast.show('获取热搜失败');
-                                              });
+                                          await logic
+                                              .fetch_app_hot_search_list_noUi(content.path)
+                                              .throttle_with_timeout(
+                                                  timeout_mill: 3000,
+                                                  on_completed: (_) {
+                                                    logic.update([
+                                                      logic.k_hot_search_scroll_view_view_id,
+                                                      logic.k_app_hot_search_history_directory_view_id
+                                                    ]);
+                                                  },
+                                                  on_error: (error) {
+                                                    q0_.ui.toast.show('获取热搜失败');
+                                                  });
                                         },
                                         child: Container(
                                           width: double.infinity,

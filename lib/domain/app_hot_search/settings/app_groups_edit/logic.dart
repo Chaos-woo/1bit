@@ -19,7 +19,7 @@ class AppHotSearchAppGroupsEditLogic extends GetxController {
   }
 
   Future<void> refresh_all_app_groups() async {
-    app_groups = await c0_.repo_drift.hot_search.list_groups();
+    app_groups = await c0_.local_data_repo.hot_search.list_groups();
     update([k_groups_dnd_view_id]);
   }
 
@@ -44,20 +44,20 @@ class AppHotSearchAppGroupsEditLogic extends GetxController {
       );
     }
 
-    await c0_.repo_drift.hot_search.save_group_order(new_app_groups);
+    await c0_.local_data_repo.hot_search.save_group_order(new_app_groups);
 
     app_groups = new_app_groups;
   }
 
   /// 添加新组
   Future<void> add_new_app_group(String group_name) async {
-    await c0_.repo_drift.hot_search.add_group(group_name, -1);
+    await c0_.local_data_repo.hot_search.add_group(group_name, -1);
     await refresh_all_app_groups();
   }
 
   /// 删除组
   Future<void> delete_app_group(int id) async {
-    await c0_.repo_drift.hot_search.delete_group(id);
+    await c0_.local_data_repo.hot_search.delete_group(id);
     await refresh_all_app_groups();
   }
 

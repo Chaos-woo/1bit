@@ -96,19 +96,22 @@ class HistoryHotSearchState {
   List<GithubContent> _m_history_dir_list = [];
 
   List<GithubContent> get history_directory_list => [
+        // 虚拟上一页目录按钮数据
         if (m_current_dir_path.split("/").length > 2)
           GithubContent(
-              name: "..",
-              path: "",
-              type: GithubContentType.dir,
-              size: 0,
-              url: "",
-              htmlUrl: "",
-              gitUrl: "",
-              downloadUrl: null,
-              content: null,
-              encoding: null,
-              sha: ''),
+            name: '..',
+            path: '',
+            type: GithubContentType.dir,
+            size: 0,
+            url: '',
+            htmlUrl: '',
+            gitUrl: '',
+            downloadUrl: null,
+            content: null,
+            encoding: null,
+            sha: '',
+          ),
+        // 真实数据
         ..._m_history_dir_list
       ];
 
@@ -143,8 +146,10 @@ final class ArchiveDateIdentifier {
   @override
   int get hashCode => year.hashCode ^ month.hashCode ^ app.hashCode;
 
-  String get format_apps_available_history_records_key =>
-      '__k_pfs_apps_available_history_records_${app}_${year}_${format_history_records_month()}__';
+  /// 格式化历史热搜记录是否存在的缓存Key
+  /// repository: 仓库名称，可能是Github仓库或是其他的数据源名字
+  String format_apps_available_history_records_key(String datasource) =>
+      '__k_pfs_apps_available_history_records_${datasource}_${app}_${year}_${format_history_records_month()}__';
 
   String format_history_records_month() {
     if (month < 10) {

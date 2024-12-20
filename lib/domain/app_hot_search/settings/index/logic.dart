@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:cw2bit/domain/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/domain/github/models/github_repo.dart';
-import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
-import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
 import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_group.dart';
 import 'package:cw2bit/infrastructure/ext/system_operation.dart';
@@ -19,14 +17,14 @@ class AppHotSearchSettingLogic extends GetxController {
 
   /// 获取默认的APP分组
   Future<void> list_app_groups() async {
-    app_groups = await c0_.repo_drift.hot_search.list_groups();
+    app_groups = await c0_.local_data_repo.hot_search.list_groups();
     m_default_group_id = await c0_.bis_mgr_hot_search_config.get_default_app_group_config();
     update([k_default_app_group_view_id]);
   }
 
   /// 设置或删除默认的APP分组
   Future<void> set_default_app_group(int group_id) async {
-    var operation = c0_.bis_mgr_hot_search_config.set_default_app_group_config(group_id);
+    var operation = await c0_.bis_mgr_hot_search_config.set_default_app_group_config(group_id);
     m_default_group_id = operation == GenericOperation.add ? group_id : null;
 
     update([k_default_app_group_view_id]);
@@ -34,7 +32,7 @@ class AppHotSearchSettingLogic extends GetxController {
 
   /// 获取黑名单列表和APP列表
   Future<List<String>> list_black_apps() async {
-    var apps = await fetch_app_list();
+    var apps = await c0_.bis_mgr_hot_search.fetch_cloud_app_list(GithubRepo.riibit, HotSearchMgr.root_dir);
     c0_.bis_mgr_hot_search_config.get_black_apps_config().then((black_apps) {
       m_black_list = black_apps;
       update([k_black_list_view_id]);
@@ -56,21 +54,9 @@ class AppHotSearchSettingLogic extends GetxController {
     update([k_black_list_view_id]);
   }
 
-  /// 从Github获取APP列表
-  Future<List<String>> fetch_app_list() async {
-    List<GithubContent> contents =
-        await c0_.mgr_github.list_contents(GithubRepo.hot_searches_for_apps, HotSearchMgr.root_dir);
-    List<String> apps = contents
-        // 过滤出项目中目录类型的内容，即APP，APP的归档内容都被放置到对应的APP目录下
-        .where((content) => GithubContentType.dir == content.type)
-        .map((content) => content.name)
-        .toList();
-    return Future.value(apps);
-  }
-
   /// 添加1个APP组
   Future<void> add_new_app_group(String name) async {
-    await c0_.repo_drift.hot_search.add_group(name, -1);
+    await c0_.local_data_repo.hot_search.add_group(name, -1);
     await list_app_groups();
   }
 

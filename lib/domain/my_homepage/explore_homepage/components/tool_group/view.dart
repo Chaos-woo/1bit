@@ -1,72 +1,56 @@
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
-import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 
-import 'logic.dart';
 import 'models/tool_group.dart';
 
-class ToolGroupComponent extends StatelessWidget {
+class ToolGroupWidget extends StatelessWidget {
   final ToolGroup toolGroup;
 
-  ToolGroupComponent({Key? key, required this.toolGroup}) : super(key: key);
-
-  final logic = Get.put(ToolGroupLogic());
-  final state = Get.find<ToolGroupLogic>().state;
+  ToolGroupWidget({Key? key, required this.toolGroup}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      constraints: BoxConstraints(
-        minHeight: 0,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        shape: BoxShape.rectangle,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 5),
-            child: Text(
-              toolGroup.name,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    letterSpacing: 0,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 5),
+          child: Text(
+            toolGroup.name,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  letterSpacing: 0,
+                ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          constraints: BoxConstraints(
+            minHeight: 0,
+          ),
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(8),
+            shape: BoxShape.rectangle,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                for (var toolItem in toolGroup.items) build_item(toolItem, context),
+              ].divide(SizedBox(height: 1)),
             ),
           ),
-          Container(
-            width: double.infinity,
-            constraints: BoxConstraints(
-              minHeight: 0,
-            ),
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(8),
-              shape: BoxShape.rectangle,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(5),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (var toolItem in toolGroup.items) buildItem(toolItem, context),
-                ].divide(SizedBox(height: 1)),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget buildItem(ToolGroupItem item, BuildContext context) {
+  Widget build_item(ToolGroupItem item, BuildContext context) {
     Widget widget;
     switch (item.type) {
       case EnumToolGroupItemType.router:

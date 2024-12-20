@@ -1,12 +1,11 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
+import 'package:cw2bit/domain/app_hot_search/settings/group_apps_edit/logic.dart';
 import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/infrastructure/router/rt0_.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
-import 'package:qkit/qkit.dart';
 
 import 'logic.dart';
 
@@ -35,9 +34,11 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
               id: logic.k_groups_dnd_view_id,
               builder: (_) {
                 var icon = logic.is_sortable ? ui0_.icons.circle_ok : ui0_.icons.sort;
-                return icon.flow_appbar_action_button(on_tap: () async {
-                  await logic.switch_sortable_or_not(!logic.is_sortable);
-                });
+                return icon.flow_appbar_action_button(
+                  on_tap: () async {
+                    await logic.switch_sortable_or_not(!logic.is_sortable);
+                  },
+                );
               }),
           ui0_.icons.add.flow_appbar_action_button(
             padding: EdgeInsets.fromLTRB(0, 0, 20, 14),
@@ -79,20 +80,17 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                           key: Key('${e.id}'),
                           leading: logic.is_sortable
                               ? null
-                              : InkWell(
-                                  onTap: () async {
+                              : ui0_.icons.delete.ink_button(
+                                  color: Colors.red,
+                                  on_tap: () async {
                                     await ui0_.dialog.show_ok_cancel_dialog(
-                                        title: '删除APP组',
-                                        message: '确认删除【${e.name}】组吗？',
+                                        title: '删除APP分组',
+                                        message: '确认删除分组？：${e.name}',
+                                        on_cancel: () {},
                                         on_confirm: () async {
                                           await logic.delete_app_group(e.id!);
                                         });
-                                  },
-                                  child: Icon(
-                                    ui0_.icons.delete,
-                                    color: Colors.red,
-                                  ),
-                                ),
+                                  }),
                           trailing: logic.is_sortable
                               ? Icon(
                                   ui0_.icons.three_lines,
@@ -105,9 +103,12 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                             onTap: logic.is_sortable
                                 ? null
                                 : () async {
-                                    rout0_.app_hot_search_settings_app_groups.to_then_back(
+                                    rout0_.app_hot_search_settings_group_apps.to_then_back(
                                       argument: e,
-                                      path_variables: {'group_id': e.id.toString()},
+                                      path_variables: {
+                                        AppHotSearchGroupAppsEditLogic.m_path_variables.path_k_group_id:
+                                            e.id.toString(),
+                                      },
                                       prevent_duplicates: false,
                                     );
                                   },

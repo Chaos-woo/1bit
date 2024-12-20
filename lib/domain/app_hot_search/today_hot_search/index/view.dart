@@ -187,16 +187,16 @@ class TodayHotSearchPage extends StatelessWidget {
                                                       /// 切换app，刷新热搜列表
                                                       await logic
                                                           .fetch_app_hot_search_list_noUi(app)
-                                                          .throttleWithTimeout(
+                                                          .throttle_with_timeout(
                                                               timeout_mill: 3000,
-                                                              onCompleted: (_) {
+                                                              on_completed: (_) {
                                                                 logic.update([
                                                                   logic.k_app_scroll_view_view_id,
                                                                   logic.k_hot_search_scroll_view_view_id,
                                                                 ]);
                                                                 q0_.ui.toast.show('获取热搜完成');
                                                               },
-                                                              onError: (error) {
+                                                              on_error: (error) {
                                                                 q0_.ui.toast.show('获取热搜失败');
                                                               });
                                                     },

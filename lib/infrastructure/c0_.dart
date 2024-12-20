@@ -9,8 +9,8 @@ import 'api/apis.dart';
 
 /// C0处理器
 final class c0_ {
-  /// 数据库
-  static final repo_drift = DatabaseMgr.repos;
+  /// 本地数据库仓库
+  static final local_data_repo = DatabaseMgr.repos;
 
   /// 全局管理器
   static final mgr_theme = ThemesMgr.getx;

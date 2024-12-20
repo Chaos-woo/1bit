@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cw2bit/domain/feature_explore/github_1bit/issues/components/github_setting/logic.dart';
 import 'package:cw2bit/domain/my_homepage/explore_homepage/components/tool_group/models/tool_group.dart';
 import 'package:cw2bit/domain/my_homepage/explore_homepage/components/tool_group/view.dart';
@@ -37,133 +39,129 @@ class AppHotSearchSettingPage extends StatelessWidget {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          shrinkWrap: false,
+          scrollDirection: Axis.vertical,
           children: [
-            ListView(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ToolGroupComponent(
-                    toolGroup: ToolGroup(
-                      name: '基础配置',
-                      items: [
-                        ToolGroupItemRouter(
-                          title: 'Github Secret Key',
-                          subtitle: '配置访问Github仓库数据的密钥',
-                          type: EnumToolGroupItemType.router,
-                          icon: Icon(Icons.security_rounded),
-                          on_tap: () async {
-                            rout0_.github_setting.to_then_back(
-                              path_variables: {
-                                '${GithubSettingLogic.m_path_variables.path_k_show_1bit_repo}': false.toString(),
-                              },
-                            );
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: ToolGroupWidget(
+                toolGroup: ToolGroup(
+                  name: '基础配置',
+                  items: [
+                    ToolGroupItemRouter(
+                      title: 'Github Secret Key',
+                      subtitle: '配置访问Github仓库数据的密钥',
+                      type: EnumToolGroupItemType.router,
+                      icon: Icon(Icons.security_rounded),
+                      on_tap: () async {
+                        rout0_.github_setting.to_then_back(
+                          path_variables: {
+                            '${GithubSettingLogic.m_path_variables.path_k_show_1bit_repo}': false.toString(),
                           },
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ToolGroupComponent(
-                    toolGroup: ToolGroup(
-                      name: 'APP · 组配置',
-                      items: [
-                        ToolGroupItemRouter(
-                          title: 'APP · 组编辑',
-                          subtitle: 'APP分组或单个分组APP的新增/删除/排序',
-                          type: EnumToolGroupItemType.router,
-                          icon: Icon(Icons.app_registration_rounded),
-                          on_tap: () async {
-                            rout0_.app_hot_search_settings_app_groups.to_then_back();
-                          },
-                        ),
-                        ToolGroupItemClicker(
-                          title: 'APP黑名单',
-                          subtitle: '全部/自定义组不再展示该APP',
-                          type: EnumToolGroupItemType.clicker,
-                          icon: Icon(Icons.playlist_remove_rounded),
-                          on_tap: () async => await _on_tap_black_app(context),
-                        ),
-                        ToolGroupItemClicker(
-                          title: '默认APP组',
-                          subtitle: '将指定组设置为进入应用时优先展示的组',
-                          type: EnumToolGroupItemType.clicker,
-                          icon: Icon(Icons.add_home_work_outlined),
-                          on_tap: () async => await _on_tap_default_app_group(context),
-                        ),
-                      ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: ToolGroupWidget(
+                toolGroup: ToolGroup(
+                  name: 'APP · 组配置',
+                  items: [
+                    ToolGroupItemRouter(
+                      title: 'APP · 组编辑',
+                      subtitle: 'APP分组或单个分组APP的新增/删除/排序',
+                      type: EnumToolGroupItemType.router,
+                      icon: Icon(Icons.app_registration_rounded),
+                      on_tap: () async {
+                        rout0_.app_hot_search_settings_app_groups.to_then_back();
+                      },
                     ),
-                  ),
+                    ToolGroupItemClicker(
+                      title: 'APP黑名单',
+                      subtitle: '全部/自定义组不再展示该APP',
+                      type: EnumToolGroupItemType.clicker,
+                      icon: Icon(Icons.playlist_remove_rounded),
+                      on_tap: () async => await _on_tap_black_app(context),
+                    ),
+                    ToolGroupItemClicker(
+                      title: '默认APP组',
+                      subtitle: '将指定组设置为进入应用时优先展示的组',
+                      type: EnumToolGroupItemType.clicker,
+                      icon: Icon(Icons.add_home_work_outlined),
+                      on_tap: () async => await _on_tap_default_app_group(context),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ToolGroupComponent(
-                    toolGroup: ToolGroup(
-                      name: '热搜看点设置',
-                      items: [
-                        ToolGroupItemClicker(
-                          title: '热搜阅读进度阈值',
-                          subtitle: '超过阈值被视为阅读完成，影响阅读进度/阅读中/归档的展示',
-                          type: EnumToolGroupItemType.clicker,
-                          icon: Icon(Icons.app_registration_rounded),
-                          on_tap: () async {
-                            await ui0_.dialog.show_single_input_dialog(
-                                title: '阈值设置',
-                                subtitle: '''
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: ToolGroupWidget(
+                toolGroup: ToolGroup(
+                  name: '热搜看点设置',
+                  items: [
+                    ToolGroupItemClicker(
+                      title: '热搜阅读进度阈值',
+                      subtitle: '超过阈值被视为阅读完成，影响阅读进度/阅读中/归档的展示',
+                      type: EnumToolGroupItemType.clicker,
+                      icon: Icon(Icons.app_registration_rounded),
+                      on_tap: () async {
+                        await ui0_.dialog.show_single_input_dialog(
+                            title: '阈值设置',
+                            subtitle: '''
 1. 视为阅读完成的阈值默认值为80。
 2. 数值范围为0~90，部分网页很难达到95或100，所以建议设置80到90之间。
                                 ''',
-                                default_value: (await logic.get_read_progress_threshold()).toString(),
-                                on_cancel: () {},
-                                max_length: -1,
-                                on_confirm: (value) async {
-                                  var threshold = int.tryParse(value);
-                                  if (threshold == null || threshold < 0 || threshold > 90) {
-                                    q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
-                                  } else {
-                                    logic.set_read_progress_threshold(threshold);
-                                  }
-                                });
-                          },
-                        ),
-                      ],
+                            default_value: (await logic.get_read_progress_threshold()).toString(),
+                            on_cancel: () {},
+                            max_length: -1,
+                            on_confirm: (value) async {
+                              var threshold = int.tryParse(value);
+                              if (threshold == null || threshold < 0 || threshold > 90) {
+                                q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
+                              } else {
+                                logic.set_read_progress_threshold(threshold);
+                              }
+                            });
+                      },
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ToolGroupComponent(
-                    toolGroup: ToolGroup(
-                      name: '关于',
-                      items: [
-                        ToolGroupItemClicker(
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: ToolGroupWidget(
+                toolGroup: ToolGroup(
+                  name: '关于',
+                  items: [
+                    ToolGroupItemClicker(
+                      title: '热搜数据来源',
+                      subtitle: '热搜数据的来源说明',
+                      type: EnumToolGroupItemType.clicker,
+                      icon: ui0_.icons.info.to_icon(),
+                      on_tap: () async {
+                        await ui0_.dialog.show_ok_cancel_dialog(
                           title: '热搜数据来源',
-                          subtitle: '热搜数据的来源说明',
-                          type: EnumToolGroupItemType.clicker,
-                          icon: ui0_.icons.info.to_icon(),
-                          on_tap: () async {
-                            await ui0_.dialog.show_ok_cancel_dialog(
-                              title: '热搜数据来源',
-                              message: '''
+                          message: '''
 1. 热搜数据来源1：WShuai123/hot_searches_for_apps（Github）。
+
 2. 热搜数据来源2：Chaos-woo/riibit（Github，数据源1在2024年10月16日不再提供新数据，数据源2将接替数据源1继续提供数据，提供数据从2024年12月1日起）。
+
 3. 热搜阅读记录来源：本地数据库，根据用户阅读习惯记录热搜文章的阅读进度、文章分析数据等。
                               ''',
-                            );
-                          },
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ],
         ),
@@ -176,8 +174,8 @@ class AppHotSearchSettingPage extends StatelessWidget {
     var logic = Get.find<AppHotSearchSettingLogic>();
 
     q0_.ui.loading.show(loading_tip: '正在获取APP黑名单...');
+    Timer(600.milliseconds, () => q0_.ui.loading.dismiss());
     var apps = await logic.list_black_apps();
-    q0_.ui.loading.dismiss();
 
     await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
       title: 'APP黑名单',
@@ -198,7 +196,6 @@ class AppHotSearchSettingPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(10),
           child: Container(
-            height: 400,
             width: double.infinity,
             decoration: BoxDecoration(),
             child: SingleChildScrollView(
@@ -309,8 +306,8 @@ class AppHotSearchSettingPage extends StatelessWidget {
     var logic = Get.find<AppHotSearchSettingLogic>();
 
     q0_.ui.loading.show(loading_tip: '正在获取默认APP组...');
+    Timer(100.milliseconds, () => q0_.ui.loading.dismiss());
     await logic.list_app_groups();
-    q0_.ui.loading.dismiss();
 
     await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
       title: '默认APP组',

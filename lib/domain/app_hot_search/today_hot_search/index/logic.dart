@@ -46,10 +46,10 @@ class TodayHotSearchLogic extends GetxController {
   /// 使用webview打开热搜内容
   Future<void> open_hot_search_webview(HotSearchModel model) async {
     /// 处理当前阅读进度
-    var reading_record = await c0_.repo_drift.webpage.get_reading_record(model.url);
+    var reading_record = await c0_.local_data_repo.webpage.get_reading_record(model.url);
     int reading_record_id = reading_record?.id ?? -1;
     if (reading_record == null) {
-      reading_record_id = await c0_.repo_drift.webpage.add_reading_record(
+      reading_record_id = await c0_.local_data_repo.webpage.add_reading_record(
         model.url,
         app: state.app,
         author: state.app,
@@ -65,19 +65,19 @@ class TodayHotSearchLogic extends GetxController {
       not_navigation_action_scheme: c_not_navigation_action_scheme,
       listener: AppWebviewReadingListener(
         onWebviewLoaded: (webviewController, url) async {
-          await c0_.repo_drift.webpage.update_reading_update_time(url);
+          await c0_.local_data_repo.webpage.update_reading_update_time(url);
         },
         onViewScrollChanged: (webviewController, url, scrollTop, totalHeight) async {
           /// 更新阅读进度
           double progress = (scrollTop / totalHeight).clamp(0.0, 1.0);
-          var stored_reading_record = await c0_.repo_drift.webpage.get_reading_record(model.url);
+          var stored_reading_record = await c0_.local_data_repo.webpage.get_reading_record(model.url);
           if (scrollTop > stored_reading_record!.reading_scroll_top) {
-            await c0_.repo_drift.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
+            await c0_.local_data_repo.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
           }
         },
         onWebviewClosed: (url) async {
           /// 更新页面的阅读进度
-          var new_reading_record = await await c0_.repo_drift.webpage.get_reading_record_by_id(reading_record_id);
+          var new_reading_record = await await c0_.local_data_repo.webpage.get_reading_record_by_id(reading_record_id);
           state.replace_webpage_reading_history([new_reading_record!]);
           update([k_hot_search_scroll_view_view_id]);
         },
@@ -119,7 +119,7 @@ class TodayHotSearchLogic extends GetxController {
     try {
       content = await c0_.mgr_github.get_decoded_content(
         GithubRepo.riibit,
-        c0_.bis_mgr_hot_search.right_realtime_hot_search_path(app.name),
+        c0_.bis_mgr_hot_search.right_realtime_hot_search_path(app.name, DateTime.now()),
       );
     } catch (ex) {
       rethrow;
@@ -134,7 +134,7 @@ class TodayHotSearchLogic extends GetxController {
     List<HotSearchModel> hot_search_model_list = c0_.bis_mgr_hot_search.match_hot_search_models(content);
     state.hot_search_list = hot_search_model_list;
 
-    var all_reading_records = await c0_.repo_drift.webpage.list_all_reading_records();
+    var all_reading_records = await c0_.local_data_repo.webpage.list_all_reading_records();
     state.replace_webpage_reading_history(all_reading_records);
   }
 }

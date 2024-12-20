@@ -47,11 +47,11 @@ final class _Repos {
   /// ###
   /// ### 新增表在这里新增实例
   /// ###
-  WebpageRepo get webpage => Get.find(tag: WebpageRepo.getx_tag);
+  WebpageRepo get webpage => WebpageRepo.getx;
 
-  HotSearchRepo get hot_search => Get.find(tag: HotSearchRepo.getx_tag);
+  HotSearchRepo get hot_search => HotSearchRepo.getx;
 
-  StickerRepo get sticker => Get.find(tag: StickerRepo.getx_tag);
+  StickerRepo get sticker => StickerRepo.getx;
 }
 
 /// ###

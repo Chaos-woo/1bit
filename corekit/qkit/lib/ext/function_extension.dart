@@ -9,13 +9,13 @@ extension FunctionExt on Function {
   }
 
   /// 超时节流：超时时间后，响应下一次的调用，无论前一次调用是否已完成
-  VoidCallback throttleWithTimeout({int? timeoutMs}) {
-    return FunctionProxy(this, timeoutMs: timeoutMs).throttleWithTimeout;
+  VoidCallback throttle_with_timeout({int? timeout_ms}) {
+    return FunctionProxy(this, timeout_ms: timeout_ms).throttle_with_timeout;
   }
 
   /// 去抖动：超时时间后再响应一次调用，超时时间内再调用则时间重新计算
-  VoidCallback debounce({int? timeoutMs}) {
-    return FunctionProxy(this, timeoutMs: timeoutMs).debounce;
+  VoidCallback debounce({int? timeout_ms}) {
+    return FunctionProxy(this, timeout_ms: timeout_ms).debounce;
   }
 }
 
@@ -24,9 +24,9 @@ class FunctionProxy {
   static final Map<String, Timer> _funcDebounce = {};
   final Function? target;
 
-  final int timeoutMs;
+  final int timeout_ms;
 
-  FunctionProxy(this.target, {int? timeoutMs}) : timeoutMs = timeoutMs ?? 500;
+  FunctionProxy(this.target, {int? timeout_ms}) : timeout_ms = timeout_ms ?? 500;
 
   void throttle() {
     String key = hashCode.toString();
@@ -43,12 +43,12 @@ class FunctionProxy {
     }
   }
 
-  void throttleWithTimeout() {
+  void throttle_with_timeout() {
     String key = hashCode.toString();
     bool enable = _funcThrottle[key] ?? true;
     if (enable) {
       _funcThrottle[key] = false;
-      Timer(Duration(milliseconds: timeoutMs), () {
+      Timer(Duration(milliseconds: timeout_ms), () {
         _funcThrottle.remove(key);
       });
       target?.call();
@@ -59,7 +59,7 @@ class FunctionProxy {
     String key = hashCode.toString();
     Timer? timer = _funcDebounce[key];
     timer?.cancel();
-    timer = Timer(Duration(milliseconds: timeoutMs), () {
+    timer = Timer(Duration(milliseconds: timeout_ms), () {
       Timer? t = _funcDebounce.remove(key);
       t?.cancel();
       target?.call();
@@ -71,42 +71,42 @@ class FunctionProxy {
 extension FutureExt on Future {
   /// 节流：函数执行完成前，不再响应下一次的调用
   Future<void> throttle({
-    Function(dynamic value)? onCompleted,
-    Function(dynamic error)? onError,
-    Function? onNotComplete,
+    Function(dynamic value)? on_completed,
+    Function(dynamic error)? on_error,
+    Function? on_not_complete,
   }) async {
     await FutureProxy(this).throttle(
-      onCompleted: onCompleted,
-      onError: onError,
-      onNotComplete: onNotComplete,
+      on_completed: on_completed,
+      on_error: on_error,
+      on_not_complete: on_not_complete,
     );
   }
 
   /// 超时节流：超时时间后，响应下一次的调用，无论前一次调用是否已完成
-  Future<void> throttleWithTimeout({
+  Future<void> throttle_with_timeout({
     int? timeout_mill,
-    Function(dynamic value)? onCompleted,
-    Function(dynamic error)? onError,
-    Function? onNotComplete,
+    Function(dynamic value)? on_completed,
+    Function(dynamic error)? on_error,
+    Function? on_not_complete,
   }) async {
-    await FutureProxy(this, timeoutMs: timeout_mill).throttleWithTimeout(
-      onCompleted: onCompleted,
-      onError: onError,
-      onNotComplete: onNotComplete,
+    await FutureProxy(this, timeoutMs: timeout_mill).throttle_with_timeout(
+      on_completed: on_completed,
+      on_error: on_error,
+      on_not_complete: on_not_complete,
     );
   }
 
   /// 去抖动：超时时间后再响应一次调用，超时时间内再调用则时间重新计算
   Future<void> debounce({
     int? timeoutMs,
-    Function(dynamic value)? onCompleted,
-    Function(dynamic error)? onError,
-    Function? onNotComplete,
+    Function(dynamic value)? on_completed,
+    Function(dynamic error)? on_error,
+    Function? on_not_complete,
   }) async {
     await FutureProxy(this, timeoutMs: timeoutMs).debounce(
-      onCompleted: onCompleted,
-      onError: onError,
-      onNotComplete: onNotComplete,
+      on_completed: on_completed,
+      on_error: on_error,
+      on_not_complete: on_not_complete,
     );
   }
 }
@@ -121,30 +121,30 @@ class FutureProxy {
   FutureProxy(this.target, {int? timeoutMs}) : timeoutMs = timeoutMs ?? 500;
 
   Future<void> throttle({
-    Function(dynamic value)? onCompleted,
-    Function(dynamic error)? onError,
-    Function? onNotComplete,
+    Function(dynamic value)? on_completed,
+    Function(dynamic error)? on_error,
+    Function? on_not_complete,
   }) async {
     String key = hashCode.toString();
     bool enable = _funcThrottle[key] ?? true;
     if (enable) {
       _funcThrottle[key] = false;
       await target?.then((value) {
-        onCompleted?.call(value);
+        on_completed?.call(value);
       }).catchError((error) {
-        onError?.call(error);
+        on_error?.call(error);
       }).whenComplete(() {
         _funcThrottle.remove(key);
       });
     }
 
-    onNotComplete?.call();
+    on_not_complete?.call();
   }
 
-  Future<void> throttleWithTimeout({
-    Function(dynamic value)? onCompleted,
-    Function(dynamic error)? onError,
-    Function? onNotComplete,
+  Future<void> throttle_with_timeout({
+    Function(dynamic value)? on_completed,
+    Function(dynamic error)? on_error,
+    Function? on_not_complete,
   }) async {
     String key = hashCode.toString();
     bool enable = _funcThrottle[key] ?? true;
@@ -154,26 +154,26 @@ class FutureProxy {
         _funcThrottle.remove(key);
       });
       await target?.then((value) {
-        onCompleted?.call(value);
+        on_completed?.call(value);
       }).catchError((error) {
-        onError?.call(error);
+        on_error?.call(error);
       }).whenComplete(() {
         _funcThrottle.remove(key);
       });
     }
 
-    onNotComplete?.call();
+    on_not_complete?.call();
   }
 
   Future<void> debounce({
-    Function(dynamic value)? onCompleted,
-    Function(dynamic error)? onError,
-    Function? onNotComplete,
+    Function(dynamic value)? on_completed,
+    Function(dynamic error)? on_error,
+    Function? on_not_complete,
   }) async {
     String key = hashCode.toString();
     Timer? timer = _funcDebounce[key];
     if (timer != null) {
-      onNotComplete?.call();
+      on_not_complete?.call();
     }
 
     timer?.cancel();
@@ -181,9 +181,9 @@ class FutureProxy {
       Timer? t = _funcDebounce.remove(key);
       t?.cancel();
       await target?.then((value) {
-        onCompleted?.call(value);
+        on_completed?.call(value);
       }).catchError((error) {
-        onError?.call(error);
+        on_error?.call(error);
       }).whenComplete(() {
         _funcThrottle.remove(key);
       });

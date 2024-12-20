@@ -118,28 +118,28 @@ class UiDialog {
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(ctx).alternate,
-                                            width: 2,
+                                            width: 1,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(ctx).primary,
-                                            width: 2,
+                                            width: 1,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         errorBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(ctx).error,
-                                            width: 2,
+                                            width: 1,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(ctx).error,
-                                            width: 2,
+                                            width: 1,
                                           ),
                                           borderRadius: BorderRadius.circular(8),
                                         ),
@@ -183,13 +183,13 @@ class UiDialog {
                                               elevation: 0,
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE5E7EB),
-                                                width: 2,
+                                                width: 1,
                                               ),
                                               borderRadius: BorderRadius.circular(5),
                                               hoverColor: Color(0xFFE5E7EB),
                                               hoverBorderSide: BorderSide(
                                                 color: Color(0xFFE5E7EB),
-                                                width: 2,
+                                                width: 1,
                                               ),
                                               hoverTextColor: Color(0xFF15161E),
                                               hoverElevation: 0,
@@ -367,13 +367,13 @@ class UiDialog {
                                           elevation: 0,
                                           borderSide: BorderSide(
                                             color: Color(0xFFE5E7EB),
-                                            width: 2,
+                                            width: 1,
                                           ),
                                           borderRadius: BorderRadius.circular(4),
                                           hoverColor: Color(0xFFE5E7EB),
                                           hoverBorderSide: BorderSide(
                                             color: Color(0xFFE5E7EB),
-                                            width: 2,
+                                            width: 1,
                                           ),
                                           hoverTextColor: Color(0xFF15161E),
                                           hoverElevation: 0,
@@ -541,13 +541,13 @@ class UiDialog {
                                                 elevation: 0,
                                                 borderSide: BorderSide(
                                                   color: Color(0xFFE5E7EB),
-                                                  width: 2,
+                                                  width: 1,
                                                 ),
                                                 borderRadius: BorderRadius.circular(4),
                                                 hoverColor: Color(0xFFE5E7EB),
                                                 hoverBorderSide: BorderSide(
                                                   color: Color(0xFFE5E7EB),
-                                                  width: 2,
+                                                  width: 1,
                                                 ),
                                                 hoverTextColor: Color(0xFF15161E),
                                                 hoverElevation: 0,
