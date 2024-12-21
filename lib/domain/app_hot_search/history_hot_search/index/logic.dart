@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class HistoryHotSearchLogic extends GetxController {
   final HistoryHotSearchState state = HistoryHotSearchState();
@@ -26,6 +27,8 @@ class HistoryHotSearchLogic extends GetxController {
 
   /// 日历的Key
   final calendar_key = GlobalKey();
+
+  final github_file_scroll_controller = ItemScrollController();
 
   final c_bitmap_hot_search_exist_value = '1';
   final c_bitmap_hot_search_not_exist_value = '0';
@@ -93,12 +96,12 @@ class HistoryHotSearchLogic extends GetxController {
         onWebviewLoaded: (webviewController, url) async {
           await c0_.local_data_repo.webpage.update_reading_update_time(url);
         },
-        onViewScrollChanged: (webviewController, url, scrollTop, totalHeight) async {
+        onViewScrollChanged: (webview_controller, url, scroll_top, total_height) async {
           /// 更新阅读进度
-          double progress = (scrollTop / totalHeight).clamp(0.0, 1.0);
+          double progress = (scroll_top / total_height).clamp(0.0, 1.0);
           var stored_reading_record = await c0_.local_data_repo.webpage.get_reading_record(model.url);
-          if (scrollTop > stored_reading_record!.reading_scroll_top) {
-            await c0_.local_data_repo.webpage.update_reading_progress(reading_record_id, progress, scrollTop);
+          if (scroll_top > stored_reading_record!.reading_scroll_top) {
+            await c0_.local_data_repo.webpage.update_reading_progress(reading_record_id, progress, scroll_top);
           }
         },
         onWebviewClosed: (url) async {
@@ -130,16 +133,26 @@ class HistoryHotSearchLogic extends GetxController {
   }
 
   /// 获取指定路径下的内容列表，包含子文件夹和文件
-  Future<void> fetch_next_dir_list_noUi(String dir_path, {String? app_name}) async {
+  Future<void> fetch_next_dir_list_noUi(
+    String dir_path, {
+    String? app_name,
+  }) async {
     state.history_directory_list = [];
     List<GithubContent> contents = (await c0_.mgr_github.list_contents(state.repo, dir_path))
         // 过滤掉非md文件
-        .skipWhile((e) => GithubContentType.file == e.type && !e.name.endsWith('.md'))
-        .toList();
+        .where((e) {
+      if (e.type.is_file) {
+        return e.path.endsWith('.md');
+      } else {
+        return true;
+      }
+    }).toList();
 
     state.m_current_dir_path = dir_path;
+    state.m_current_file_path = '';
     if (app_name != null) {
       state.app = app_name;
+      state.picked_date = null;
     }
 
     /// 更新获取到的文件夹内的内容
@@ -157,7 +170,6 @@ class HistoryHotSearchLogic extends GetxController {
     }
 
     String content = '';
-    var last_file_path = state.m_current_file_path;
     state.m_current_file_path = file_path;
     try {
       content = await c0_.mgr_github.get_decoded_content(
@@ -165,7 +177,7 @@ class HistoryHotSearchLogic extends GetxController {
         file_path,
       );
     } catch (ex) {
-      state.m_current_file_path = last_file_path;
+      state.m_current_file_path = '';
       rethrow;
     }
 
@@ -244,4 +256,10 @@ class HistoryHotSearchLogic extends GetxController {
 
   /// 是否是新Github仓库 - GithubRepo.riibit
   bool get is_new_github_repo => GithubRepo.riibit == state.repo;
+
+  /// 获取当前打开的文件路径在目录中的索引
+  int get_current_file_index_in_history_dir_list() {
+    var index = state.history_directory_list.indexWhere((e) => e.path == state.m_current_file_path);
+    return index;
+  }
 }

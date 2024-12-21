@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
 import 'package:qkit/qkit.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 import 'logic.dart';
@@ -85,227 +86,227 @@ class HistoryHotSearchPage extends StatelessWidget {
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 5),
-                            child: Container(
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).secondaryBackground,
-                              ),
-                              child: GetBuilder<HistoryHotSearchLogic>(
-                                  id: logic.k_group_scroll_view_view_id,
-                                  builder: (_) {
-                                    return SingleChildScrollView(
-                                      key: app_group_scroll_view_key,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          InkWell(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                    child: GetBuilder<HistoryHotSearchLogic>(
+                      id: logic.k_app_scroll_view_view_id,
+                      builder: (_) {
+                        return Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (logic.is_new_github_repo)
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 5),
+                                  child: Container(
+                                    height: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    ),
+                                    child: GetBuilder<HistoryHotSearchLogic>(
+                                        id: logic.k_group_scroll_view_view_id,
+                                        builder: (_) {
+                                          return SingleChildScrollView(
+                                            key: app_group_scroll_view_key,
+                                            child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Text(
-                                                  '分组',
-                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                            onTap: () async {
-                                              await logic.m_refresh_group_apps_and_hot_search_list();
-                                              q0_.ui.toast.show('刷新完成');
-                                            },
-                                          ),
-                                          for (var group in state.favorite_app_groups)
-                                            InkWell(
-                                              onTap: () async {
-                                                /// 切换组
-                                                await logic.switch_favorite_group_noUi(group.id!);
-                                                logic.update([
-                                                  logic.k_group_scroll_view_view_id,
-                                                  logic.k_app_scroll_view_view_id,
-                                                  logic.k_hot_search_scroll_view_view_id,
-                                                ]);
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: state.group_id == group.id
-                                                      ? FlutterFlowTheme.of(context).secondary
-                                                      : FlutterFlowTheme.of(context).primaryBackground,
-                                                  borderRadius: BorderRadius.circular(4),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 4),
+                                                InkWell(
                                                   child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                     mainAxisSize: MainAxisSize.max,
-                                                    mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        group.name,
-                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                              color: state.group_id == group.id
-                                                                  ? Colors.white
-                                                                  : FlutterFlowTheme.of(context).primaryText,
+                                                        '分组',
+                                                        style: FlutterFlowTheme.of(context).bodySmall.override(
                                                               letterSpacing: 0.0,
                                                             ),
-                                                        overflow: TextOverflow.clip,
-                                                        maxLines: 1,
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
+                                                  onTap: () async {
+                                                    await logic.m_refresh_group_apps_and_hot_search_list();
+                                                    q0_.ui.toast.show('刷新完成');
+                                                  },
                                                 ),
-                                              ),
+                                                for (var group in state.favorite_app_groups)
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      /// 切换组
+                                                      await logic.switch_favorite_group_noUi(group.id!);
+                                                      logic.update([
+                                                        logic.k_group_scroll_view_view_id,
+                                                        logic.k_app_scroll_view_view_id,
+                                                        logic.k_hot_search_scroll_view_view_id,
+                                                      ]);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: state.group_id == group.id
+                                                            ? FlutterFlowTheme.of(context).secondary
+                                                            : FlutterFlowTheme.of(context).primaryBackground,
+                                                        borderRadius: BorderRadius.circular(4),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 4),
+                                                        child: Row(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text(
+                                                              group.name,
+                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                    color: state.group_id == group.id
+                                                                        ? Colors.white
+                                                                        : FlutterFlowTheme.of(context).primaryText,
+                                                                    letterSpacing: 0.0,
+                                                                  ),
+                                                              overflow: TextOverflow.clip,
+                                                              maxLines: 1,
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ]
+                                                  .divide(SizedBox(height: 5))
+                                                  .addToStart(SizedBox(height: 5))
+                                                  .addToEnd(SizedBox(height: 5)),
                                             ),
-                                        ]
-                                            .divide(SizedBox(height: 5))
-                                            .addToStart(SizedBox(height: 5))
-                                            .addToEnd(SizedBox(height: 5)),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Container(
-                              decoration: BoxDecoration(),
-                              child: GetBuilder<HistoryHotSearchLogic>(
-                                  id: logic.k_app_scroll_view_view_id,
-                                  builder: (_) {
-                                    return SingleChildScrollView(
-                                      key: app_scroll_view_key,
-                                      child: GetBuilder<HistoryHotSearchLogic>(
-                                        builder: (_) {
-                                          var apps = state.favorite_apps_by_group_id(state.group_id);
-                                          return Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Wrap(
-                                                spacing: 5,
-                                                runSpacing: 5,
-                                                alignment: WrapAlignment.start,
-                                                crossAxisAlignment: WrapCrossAlignment.start,
-                                                direction: Axis.horizontal,
-                                                runAlignment: WrapAlignment.start,
-                                                verticalDirection: VerticalDirection.down,
-                                                clipBehavior: Clip.none,
-                                                children: [
-                                                  for (var app in apps)
-                                                    InkWell(
-                                                      splashColor: Colors.transparent,
-                                                      focusColor: Colors.transparent,
-                                                      hoverColor: Colors.transparent,
-                                                      highlightColor: Colors.transparent,
-                                                      onTap: () async {
-                                                        /// 切换app，刷新历史文档列表，清空热搜列表
-                                                        await logic
-                                                            .fetch_next_dir_list_noUi(
-                                                              '${HotSearchMgr.root_dir}/${app.name}',
-                                                              app_name: app.name,
-                                                            )
-                                                            .throttle_with_timeout(
-                                                                timeout_mill: 3000,
-                                                                on_completed: (_) {
-                                                                  logic.update([
-                                                                    logic.k_app_scroll_view_view_id,
-                                                                    logic.k_hot_search_scroll_view_view_id,
-                                                                    logic.k_app_hot_search_history_directory_view_id
-                                                                  ]);
-                                                                  q0_.ui.toast.show('获取归档完成');
-                                                                },
-                                                                on_error: (error) {
-                                                                  q0_.ui.toast.show('获取归档失败');
-                                                                });
-                                                      },
-                                                      child: app.name == state.app
-                                                          ? Container(
-                                                              height: 28,
-                                                              constraints: BoxConstraints(
-                                                                minWidth: 65,
-                                                                maxWidth: 150,
-                                                              ),
-                                                              decoration: BoxDecoration(
-                                                                color: FlutterFlowTheme.of(context).primary,
-                                                                borderRadius: BorderRadius.circular(4),
-                                                              ),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                                                                child: Row(
-                                                                  mainAxisSize: MainAxisSize.min,
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: [
-                                                                    Text(
-                                                                      app.name,
-                                                                      textAlign: TextAlign.justify,
-                                                                      maxLines: 1,
-                                                                      style: FlutterFlowTheme.of(context)
-                                                                          .bodySmall
-                                                                          .override(
-                                                                            color: Colors.white,
-                                                                            letterSpacing: 0.0,
-                                                                          ),
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : Container(
-                                                              height: 28,
-                                                              constraints: BoxConstraints(
-                                                                minWidth: 65,
-                                                                maxWidth: 150,
-                                                              ),
-                                                              decoration: BoxDecoration(
-                                                                color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                borderRadius: BorderRadius.circular(4),
-                                                              ),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                                                                child: Row(
-                                                                  mainAxisSize: MainAxisSize.min,
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: [
-                                                                    Text(
-                                                                      app.name,
-                                                                      textAlign: TextAlign.justify,
-                                                                      maxLines: 1,
-                                                                      style: FlutterFlowTheme.of(context)
-                                                                          .bodySmall
-                                                                          .override(
-                                                                            letterSpacing: 0.0,
-                                                                          ),
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                          );
+                                        }),
+                                  ),
+                                ),
+                              ),
+                            Expanded(
+                              flex: 5,
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(),
+                                  child: SingleChildScrollView(
+                                    key: app_scroll_view_key,
+                                    child: GetBuilder<HistoryHotSearchLogic>(
+                                      builder: (_) {
+                                        var apps = state.favorite_apps_by_group_id(state.group_id);
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Wrap(
+                                              spacing: 5,
+                                              runSpacing: 5,
+                                              alignment: WrapAlignment.start,
+                                              crossAxisAlignment: WrapCrossAlignment.start,
+                                              direction: Axis.horizontal,
+                                              runAlignment: WrapAlignment.start,
+                                              verticalDirection: VerticalDirection.down,
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                for (var app in apps)
+                                                  InkWell(
+                                                    splashColor: Colors.transparent,
+                                                    focusColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    onTap: () async {
+                                                      /// 切换app，刷新历史文档列表，清空热搜列表
+                                                      await logic
+                                                          .fetch_next_dir_list_noUi(
+                                                            '${HotSearchMgr.root_dir}/${app.name}',
+                                                            app_name: app.name,
+                                                          )
+                                                          .throttle_with_timeout(
+                                                              timeout_mill: 3000,
+                                                              on_completed: (_) {
+                                                                logic.update([
+                                                                  logic.k_app_scroll_view_view_id,
+                                                                  logic.k_hot_search_scroll_view_view_id,
+                                                                  logic.k_app_hot_search_history_directory_view_id
+                                                                ]);
+                                                                q0_.ui.toast.show('获取归档完成');
+                                                              },
+                                                              on_error: (error) {
+                                                                q0_.ui.toast.show('获取归档失败');
+                                                              });
+                                                    },
+                                                    child: app.name == state.app
+                                                        ? Container(
+                                                            height: 28,
+                                                            constraints: BoxConstraints(
+                                                              minWidth: 65,
+                                                              maxWidth: 150,
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                              color: FlutterFlowTheme.of(context).primary,
+                                                              borderRadius: BorderRadius.circular(4),
+                                                            ),
+                                                            child: Padding(
+                                                              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                                              child: Row(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    app.name,
+                                                                    textAlign: TextAlign.justify,
+                                                                    maxLines: 1,
+                                                                    style:
+                                                                        FlutterFlowTheme.of(context).bodySmall.override(
+                                                                              color: Colors.white,
+                                                                              letterSpacing: 0.0,
+                                                                            ),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ),
-                                                    ),
-                                                ],
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  }),
+                                                          )
+                                                        : Container(
+                                                            height: 28,
+                                                            constraints: BoxConstraints(
+                                                              minWidth: 65,
+                                                              maxWidth: 150,
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                              borderRadius: BorderRadius.circular(4),
+                                                            ),
+                                                            child: Padding(
+                                                              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                                              child: Row(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    app.name,
+                                                                    textAlign: TextAlign.justify,
+                                                                    maxLines: 1,
+                                                                    style:
+                                                                        FlutterFlowTheme.of(context).bodySmall.override(
+                                                                              letterSpacing: 0.0,
+                                                                            ),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
+                          ],
+                        );
+                      },
                     ),
                   ),
                 )
@@ -557,12 +558,13 @@ class HistoryHotSearchPage extends StatelessWidget {
                                         int month = date.month;
                                         logic.refresh_available_hot_search_records_bitmap(state.app, year, month);
                                       },
-                                      value: [DateTime.now()],
+                                      value: [state.picked_date ?? DateTime.now()],
                                     ),
                                   ],
                                   title: '直达【${state.app}】指定日期热搜',
                                   confirm_text: '确定',
                                   cancel_text: '取消',
+                                  on_cancel: () {},
                                   on_confirm: () async {
                                     if (state.app.isEmpty) {
                                       q0_.ui.toast.show('请先选择APP');
@@ -599,22 +601,25 @@ class HistoryHotSearchPage extends StatelessWidget {
                                       var archive_file_path = logic.is_new_github_repo
                                           ? '${HotSearchMgr.root_dir}/${state.app}/$year/$month/$year-$month-$day.md'
                                           : '${HotSearchMgr.root_dir}/${state.app}/$year/$month/${state.app}.md';
-                                      await (Future.wait(
-                                        [
-                                          logic.fetch_app_hot_search_list_noUi(archive_file_path),
-                                          logic.fetch_next_dir_list_noUi(archive_dir_path)
-                                        ],
-                                      ).throttle_with_timeout(
-                                          timeout_mill: 3000,
-                                          on_completed: (_) {
-                                            logic.update([
-                                              logic.k_hot_search_scroll_view_view_id,
-                                              logic.k_app_hot_search_history_directory_view_id
-                                            ]);
-                                          },
-                                          on_error: (error) {
-                                            q0_.ui.toast.show('获取归档失败');
-                                          }));
+
+                                      await logic.fetch_next_dir_list_noUi(archive_dir_path);
+                                      await logic.fetch_app_hot_search_list_noUi(archive_file_path);
+
+                                      logic.update([
+                                        logic.k_hot_search_scroll_view_view_id,
+                                        logic.k_app_hot_search_history_directory_view_id
+                                      ]);
+
+                                      q0_.delay.delay_until(
+                                        () async {
+                                          if (!state.m_current_file_path.is_blank) {
+                                            logic.github_file_scroll_controller.jumpTo(
+                                              index: logic.get_current_file_index_in_history_dir_list(),
+                                            );
+                                          }
+                                        },
+                                        duration: 500.milliseconds,
+                                      );
                                       return;
                                     }
 
@@ -638,30 +643,34 @@ class HistoryHotSearchPage extends StatelessWidget {
                                       archive_dir_path = '${HotSearchMgr.root_dir}/${state.app}/$year/$month';
                                     } else if (year >= 2023 && day_int_value < 8) {
                                       q0_.ui.toast.show('无归档数据');
+                                      return;
                                     } else if (year >= 2023 && day_int_value < 11) {
                                       archive_dir_path = '${HotSearchMgr.root_dir}r/${state.app}/$year/$month';
                                     } else {
                                       q0_.ui.toast.show('无归档数据');
+                                      return;
                                     }
 
                                     print(
                                         'archive_dir_path: $archive_dir_path ; archive_file_path: $archive_file_path');
-                                    await (Future.wait(
-                                      [
-                                        logic.fetch_app_hot_search_list_noUi(archive_file_path),
-                                        logic.fetch_next_dir_list_noUi(archive_dir_path)
-                                      ],
-                                    ).throttle_with_timeout(
-                                        timeout_mill: 3000,
-                                        on_completed: (_) {
-                                          logic.update([
-                                            logic.k_hot_search_scroll_view_view_id,
-                                            logic.k_app_hot_search_history_directory_view_id
-                                          ]);
-                                        },
-                                        on_error: (error) {
-                                          q0_.ui.toast.show('获取归档失败');
-                                        }));
+                                    await logic.fetch_next_dir_list_noUi(archive_dir_path);
+                                    await logic.fetch_app_hot_search_list_noUi(archive_file_path);
+
+                                    logic.update([
+                                      logic.k_hot_search_scroll_view_view_id,
+                                      logic.k_app_hot_search_history_directory_view_id
+                                    ]);
+
+                                    q0_.delay.delay_until(
+                                      () async {
+                                        if (!state.m_current_file_path.is_blank) {
+                                          logic.github_file_scroll_controller.jumpTo(
+                                            index: logic.get_current_file_index_in_history_dir_list(),
+                                          );
+                                        }
+                                      },
+                                      duration: 500.milliseconds,
+                                    );
                                   },
                                 );
                               },
@@ -692,6 +701,7 @@ class HistoryHotSearchPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 左侧Github文件目录
                   Expanded(
                     flex: 2,
                     child: Padding(
@@ -708,202 +718,25 @@ class HistoryHotSearchPage extends StatelessWidget {
                           child: GetBuilder<HistoryHotSearchLogic>(
                               id: logic.k_app_hot_search_history_directory_view_id,
                               builder: (_) {
-                                return ListView.separated(
+                                return ScrollablePositionedList.builder(
                                   key: hot_search_scroll_view_key,
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  itemScrollController: logic.github_file_scroll_controller,
                                   itemCount: state.history_directory_list.length,
                                   itemBuilder: (context, index) {
-                                    var content = state.history_directory_list[index];
-                                    if (index == 0 && state.m_current_dir_path.split("/").length > 2) {
-                                      return InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          /// 跳转到上一页
-                                          /// 计算当前路径的上一路径
-                                          var parent_path_array = state.m_current_dir_path.split('/');
-                                          var parent_path =
-                                              parent_path_array.sublist(0, parent_path_array.length - 1).join('/');
-                                          await logic.fetch_next_dir_list_noUi(parent_path).throttle_with_timeout(
-                                              timeout_mill: 3000,
-                                              on_completed: (_) {
-                                                logic.update([
-                                                  logic.k_app_scroll_view_view_id,
-                                                  logic.k_hot_search_scroll_view_view_id,
-                                                  logic.k_app_hot_search_history_directory_view_id
-                                                ]);
-                                              },
-                                              on_error: (error) {
-                                                q0_.ui.toast.show('获取内容列表失败');
-                                              });
-                                        },
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context).primaryBackground,
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(5, 4, 5, 0),
-                                                child: Icon(
-                                                  Icons.folder_copy_rounded,
-                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                  size: 18,
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(-1, 0),
-                                                child: Text(
-                                                  '..',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    }
-
-                                    if (GithubContentType.dir == content.type) {
-                                      return InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          /// 跳转到下一文件夹
-                                          await logic.fetch_next_dir_list_noUi(content.path).throttle_with_timeout(
-                                              timeout_mill: 3000,
-                                              on_completed: (_) {
-                                                logic.update([
-                                                  logic.k_app_scroll_view_view_id,
-                                                  logic.k_hot_search_scroll_view_view_id,
-                                                  logic.k_app_hot_search_history_directory_view_id
-                                                ]);
-                                              },
-                                              on_error: (error) {
-                                                q0_.ui.toast.show('获取内容列表失败');
-                                              });
-                                        },
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context).primaryBackground,
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(5, 4, 5, 2),
-                                                child: Icon(
-                                                  Icons.folder,
-                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                  size: 14,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Align(
-                                                  alignment: AlignmentDirectional(-1, 0),
-                                                  child: Text(
-                                                    content.name,
-                                                    maxLines: 1,
-                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                          letterSpacing: 0.0,
-                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    } else if (GithubContentType.file == content.type) {
-                                      return InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          /// 刷新指定的热搜归档页
-                                          await logic
-                                              .fetch_app_hot_search_list_noUi(content.path)
-                                              .throttle_with_timeout(
-                                                  timeout_mill: 3000,
-                                                  on_completed: (_) {
-                                                    logic.update([
-                                                      logic.k_hot_search_scroll_view_view_id,
-                                                      logic.k_app_hot_search_history_directory_view_id
-                                                    ]);
-                                                  },
-                                                  on_error: (error) {
-                                                    q0_.ui.toast.show('获取热搜失败');
-                                                  });
-                                        },
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: state.m_is_current_file_specified(content.path)
-                                                ? FlutterFlowTheme.of(context).secondary
-                                                : FlutterFlowTheme.of(context).primaryBackground,
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: Align(
-                                                  alignment: AlignmentDirectional(-1, 0),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 4),
-                                                    child: AutoSizeText(
-                                                      content.name,
-                                                      maxLines: content.name
-                                                              .replaceAll('.md', '')
-                                                              .is_strict_date_time_format_YYYY_MM_DD()
-                                                          ? 1
-                                                          : 2,
-                                                      minFontSize: 10,
-                                                      maxFontSize: 14,
-                                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                            letterSpacing: 0.0,
-                                                            color: state.m_is_current_file_specified(content.path)
-                                                                ? Colors.white
-                                                                : FlutterFlowTheme.of(context).secondaryText,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      return Container();
-                                    }
+                                    double bottom_padding = index == state.history_directory_list.length - 1 ? 0 : 4;
+                                    return Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, bottom_padding),
+                                      child: _build_github_file_item(context, index),
+                                    );
                                   },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(height: 4);
-                                  },
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
                                 );
                               }),
                         ),
                       ),
                     ),
                   ),
+                  // 右侧热搜列表
                   Expanded(
                     flex: 5,
                     child: Container(
@@ -1163,5 +996,181 @@ class HistoryHotSearchPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _build_github_file_item(BuildContext context, int index) {
+    var content = state.history_directory_list[index];
+    if (index == 0 && state.m_current_dir_path.split("/").length > 2) {
+      // 仅有打开的文件夹超过2层，才显示上一层按钮
+      return InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
+          /// 跳转到上一页
+          /// 计算当前路径的上一路径
+          var parent_path_array = state.m_current_dir_path.split('/');
+          var parent_path = parent_path_array.sublist(0, parent_path_array.length - 1).join('/');
+          await logic.fetch_next_dir_list_noUi(parent_path).throttle_with_timeout(
+              timeout_mill: 3000,
+              on_completed: (_) {
+                logic.update([
+                  logic.k_app_scroll_view_view_id,
+                  logic.k_hot_search_scroll_view_view_id,
+                  logic.k_app_hot_search_history_directory_view_id
+                ]);
+              },
+              on_error: (error) {
+                q0_.ui.toast.show('获取内容列表失败');
+              });
+        },
+        child: Container(
+          width: double.infinity,
+          height: 40,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).primaryBackground,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 4, 5, 0),
+                child: Icon(
+                  Icons.folder_copy_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 18,
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(-1, 0),
+                child: Text(
+                  '..',
+                  maxLines: 1,
+                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        letterSpacing: 0.0,
+                      ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (content.type.is_dir) {
+      return InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
+          /// 跳转到下一文件夹
+          await logic.fetch_next_dir_list_noUi(content.path).throttle_with_timeout(
+              timeout_mill: 3000,
+              on_completed: (_) {
+                logic.update([
+                  logic.k_app_scroll_view_view_id,
+                  logic.k_hot_search_scroll_view_view_id,
+                  logic.k_app_hot_search_history_directory_view_id
+                ]);
+              },
+              on_error: (error) {
+                q0_.ui.toast.show('获取内容列表失败');
+              });
+        },
+        child: Container(
+          width: double.infinity,
+          height: 40,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).primaryBackground,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 4, 5, 2),
+                child: Icon(
+                  Icons.folder,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 14,
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: AlignmentDirectional(-1, 0),
+                  child: Text(
+                    content.name,
+                    maxLines: 1,
+                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                          letterSpacing: 0.0,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else if (content.type.is_file) {
+      return InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
+          /// 刷新指定的热搜归档页
+          await logic.fetch_app_hot_search_list_noUi(content.path).throttle_with_timeout(
+              timeout_mill: 3000,
+              on_completed: (_) {
+                logic
+                    .update([logic.k_hot_search_scroll_view_view_id, logic.k_app_hot_search_history_directory_view_id]);
+              },
+              on_error: (error) {
+                q0_.ui.toast.show('获取热搜失败');
+              });
+        },
+        child: Container(
+          width: double.infinity,
+          height: 40,
+          decoration: BoxDecoration(
+            color: state.m_is_current_file_specified(content.path)
+                ? FlutterFlowTheme.of(context).secondary
+                : FlutterFlowTheme.of(context).primaryBackground,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: AlignmentDirectional(-1, 0),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    child: AutoSizeText(
+                      content.name,
+                      maxLines: content.name.replaceAll('.md', '').is_strict_date_time_format_YYYY_MM_DD() ? 1 : 2,
+                      minFontSize: 10,
+                      maxFontSize: 14,
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                            letterSpacing: 0.0,
+                            color: state.m_is_current_file_specified(content.path)
+                                ? Colors.white
+                                : FlutterFlowTheme.of(context).secondaryText,
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

@@ -52,7 +52,7 @@ final class GithubApi extends GetxService {
     List<GithubIssues>? issues = await _m_api.get(
       '/repos/$owner/$repo/issues',
       params: params,
-      object_convertor: (rawData) => rawData.asList(object_convertor: GithubIssues.fromJson),
+      object_convertor: (rawData) => rawData.as_list(object_convertor: GithubIssues.fromJson),
     );
 
     return issues ?? [];
@@ -62,7 +62,7 @@ final class GithubApi extends GetxService {
   Future<List<GithubLabel>> list_labels(String owner, String repo) async {
     List<GithubLabel>? labels = await _m_api.get(
       '/repos/$owner/$repo/labels',
-      object_convertor: (rawData) => rawData.asList(object_convertor: GithubLabel.fromJson),
+      object_convertor: (rawData) => rawData.as_list(object_convertor: GithubLabel.fromJson),
     );
 
     return labels ?? [];
@@ -83,7 +83,7 @@ final class GithubApi extends GetxService {
     List<GithubComment> comments = await _m_api.get(
       '/repos/$owner/$repo/issues/$issuesNumber/comments',
       params: params,
-      object_convertor: (rawData) => rawData.asList(object_convertor: GithubComment.fromJson),
+      object_convertor: (rawData) => rawData.as_list(object_convertor: GithubComment.fromJson),
     );
 
     return comments ?? [];
@@ -117,7 +117,7 @@ final class GithubApi extends GetxService {
   Future<void> check_access_token(String owner, String repo, String? override_access_key) async {
     await _m_api.get(
       '/repos/$owner/$repo/labels',
-      object_convertor: (raw_data) => raw_data.asList(object_convertor: GithubLabel.fromJson),
+      object_convertor: (raw_data) => raw_data.as_list(object_convertor: GithubLabel.fromJson),
       request_option: OverrideRequestOption(
         extra: {}..[k_pfs_github_override_access_key] = override_access_key,
       ),
@@ -128,7 +128,7 @@ final class GithubApi extends GetxService {
   Future<List<GithubContent>> list_contents(String owner, String repo, String path) async {
     return await _m_api.get(
       '/repos/$owner/$repo/contents/$path',
-      object_convertor: (raw_data) => raw_data.asList(object_convertor: GithubContent.fromJson),
+      object_convertor: (raw_data) => raw_data.as_list(object_convertor: GithubContent.fromJson),
     );
   }
 

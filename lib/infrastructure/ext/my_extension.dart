@@ -105,3 +105,34 @@ extension DynamicAs on dynamic {
     return this as T;
   }
 }
+
+enum SortOrder {
+  ascending,
+  descending,
+}
+
+class SortRule<T> {
+  final int Function(T a, T b) compare;
+  SortOrder? order;
+
+  SortRule(this.compare, {this.order = SortOrder.ascending});
+
+  SortRule.asc(int Function(T a, T b) compare) : this(compare, order: SortOrder.ascending);
+
+  SortRule.desc(int Function(T a, T b) compare) : this(compare, order: SortOrder.descending);
+}
+
+extension IterableSort<T extends Comparable> on Iterable<T> {
+  /// 排序
+  Iterable<T> sorted([List<SortRule<T>>? rules]) => List<T>.from(this)
+    ..sort((a, b) {
+      for (var rule in rules ?? []) {
+        int result = rule.compare(a, b);
+        if (result != 0) {
+          return rule.order == SortOrder.ascending ? result : -result;
+        }
+      }
+
+      return a.compareTo(b); // 默认按照自然顺序比较
+    });
+}

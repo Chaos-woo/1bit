@@ -51,3 +51,7 @@ class QKitUtils {
     return ValueKey(q0_.id_gen.uuidV4());
   }
 }
+
+extension ContextExtension on BuildContext {
+  bool get is_release_mode => QKitUtils.is_release_mode;
+}

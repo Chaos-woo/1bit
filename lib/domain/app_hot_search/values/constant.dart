@@ -9,6 +9,13 @@ const c_not_navigation_action_scheme = [
   'snssdk1128',
   'intent',
   'baiduboxapp',
+  'sspai',
+  'zhihu',
+];
+
+const c_not_navigation_action_keyword = [
+  'signin',
+  'login',
 ];
 
 /// webpage发布时间格式化

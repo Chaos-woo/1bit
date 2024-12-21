@@ -73,13 +73,14 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
     allowsInlineMediaPlayback: true,
     iframeAllow: "camera; microphone",
     iframeAllowFullscreen: true,
+    javaScriptEnabled: true,
     applicationNameForUserAgent:
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0',
   );
 
-  PullToRefreshController? pullToRefreshController;
+  PullToRefreshController? pull_to_refresh_controller;
   double progress = 0;
-  final GlobalKey webViewKey = GlobalKey();
+  final GlobalKey glob_webview_key = GlobalKey();
 
   late String url;
 
@@ -89,7 +90,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
     this.url = widget.url;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      pullToRefreshController = PullToRefreshController(
+      pull_to_refresh_controller = PullToRefreshController(
         settings: PullToRefreshSettings(
           color: FlutterFlowTheme.of(context).primary,
         ),
@@ -110,7 +111,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
 
   @override
   void dispose() {
-    pullToRefreshController?.dispose();
+    pull_to_refresh_controller?.dispose();
     webViewController?.dispose();
     super.dispose();
   }
@@ -182,10 +183,10 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                 child: Stack(
                                   children: [
                                     InAppWebView(
-                                      key: webViewKey,
+                                      key: glob_webview_key,
                                       initialUrlRequest: URLRequest(url: WebUri(this.url)),
                                       initialSettings: settings,
-                                      pullToRefreshController: pullToRefreshController,
+                                      pullToRefreshController: pull_to_refresh_controller,
                                       onWebViewCreated: (controller) {
                                         print('Webview created');
                                         webViewController = controller;
@@ -205,9 +206,11 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
 
                                         if (!["http", "https", "file", "chrome", "data", "javascript", "about"]
                                             .contains(uri.scheme)) {
-                                          if ((widget.not_navigation_action_scheme ?? <String>[])
-                                              .contains_case_insensitive(uri.scheme)) {
-                                            return NavigationActionPolicy.CANCEL;
+                                          var key_schemes = widget.not_navigation_action_scheme ?? <String>[];
+                                          for (var key_scheme in key_schemes) {
+                                            if (uri.scheme.contains(key_scheme)) {
+                                              return NavigationActionPolicy.CANCEL;
+                                            }
                                           }
 
                                           if (await canLaunchUrl(uri)) {
@@ -224,7 +227,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                       },
                                       onLoadStop: (controller, url) async {
                                         print('loading stopped loading: $url');
-                                        pullToRefreshController?.endRefreshing();
+                                        pull_to_refresh_controller?.endRefreshing();
                                         setState(() {
                                           this.url = url.toString();
                                         });
@@ -244,12 +247,12 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                       },
                                       onReceivedError: (controller, request, error) {
                                         print('received error occurred');
-                                        pullToRefreshController?.endRefreshing();
+                                        pull_to_refresh_controller?.endRefreshing();
                                       },
                                       onProgressChanged: (controller, progress) {
                                         print('loading progress: $progress');
                                         if (progress == 100) {
-                                          pullToRefreshController?.endRefreshing();
+                                          pull_to_refresh_controller?.endRefreshing();
                                         }
                                         setState(() {
                                           this.progress = progress / 100;
@@ -262,7 +265,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                         });
                                       },
                                       onConsoleMessage: (controller, consoleMessage) {
-                                        if (!QKitUtils.is_release_mode) {
+                                        if (!context.is_release_mode) {
                                           print(consoleMessage);
                                         }
                                       },
@@ -279,6 +282,7 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                             if (totalHeight != null && clientHeight != null) {
                                               double totalHeightDouble = totalHeight.toDouble();
                                               double scrollTopDouble = clientHeight.toDouble();
+                                              print('onScrollChanged: $scrollTopDouble, $totalHeightDouble');
                                               await widget.listener?.onViewScrollChanged
                                                   ?.call(controller, this.url, scrollTopDouble, totalHeightDouble);
                                             }

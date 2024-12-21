@@ -10,6 +10,8 @@ import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_group.dart';
 import 'package:cw2bit/infrastructure/database/entity/webpage/webpage_reading.dart';
 import 'package:cw2bit/infrastructure/database/entity_combination/comb_hot_search_group_apps.dart';
+import 'package:cw2bit/infrastructure/ext/my_extension.dart';
+import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:get/get.dart';
 
 class HotSearchMgr extends GetxService {
@@ -69,7 +71,12 @@ class HotSearchMgr extends GetxService {
   Future<List<String>> fetch_cloud_app_list(GithubRepo repo, String path) async {
     List<String> apps = (await c0_.mgr_github.list_contents(repo, path, type: GithubContentType.dir))
         .map((content) => content.name)
-        .toList();
+        .sorted(
+      [
+        SortRule.asc((a, b) => a.length.compareTo(b.length)),
+        SortRule.asc((a, b) => a.first.compareTo(b.first)),
+      ],
+    ).toList();
     return Future.value(apps);
   }
 

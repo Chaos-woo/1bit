@@ -83,10 +83,10 @@ class HistoryHotSearchState {
   }
 
   /// ============= 历史热搜的Github仓库文件 == 1 ==================
-  /// 当前的路径
+  /// 当前打开访问的文件夹路径
   String m_current_dir_path = HotSearchMgr.root_dir;
 
-  /// 当前打开的文件路径
+  /// 当前打开访问的文件路径，一般情况下在 [m_current_dir_path] 中选中的文件路径
   String m_current_file_path = '';
 
   /// 当前打开的文件是否是指定文件路径

@@ -1,12 +1,47 @@
 import 'dart:ui';
 
 import 'package:get/get.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 extension StringColorExtension on String {
   Color get to_color {
     String colorString = '${this.padLeft(8, 'F')}';
     return Color(int.parse(colorString, radix: 16));
   }
+
+  bool get is_blank => this.trim().isEmpty;
+
+  String pre_char(int n) {
+    if (n < 0) {
+      throw ArgumentError("n must be non-negative");
+    }
+    return substring(0, n < length ? n : length);
+  }
+
+  String last_char(int n) {
+    if (n < 0) {
+      throw ArgumentError("n must be non-negative");
+    }
+    return substring(length - n < 0 ? 0 : length - n, length);
+  }
+
+  String get first {
+    if (isEmpty) {
+      return '';
+    }
+    return this[0];
+  }
+
+  String get last {
+    if (isEmpty) {
+      return '';
+    }
+    return this[length - 1];
+  }
+}
+
+extension StringNullSafeExtension on String? {
+  bool get is_blank => this == null ? true : this!.trim().isEmpty;
 }
 
 extension StringListExtension on List<String> {

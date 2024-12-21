@@ -10,6 +10,12 @@ enum GithubContentType {
   all,
 }
 
+extension GithubContentTypeExtension on GithubContentType {
+  bool get is_dir => this == GithubContentType.dir;
+
+  bool get is_file => this == GithubContentType.file;
+}
+
 class GithubContentTypeConverter implements JsonConverter<GithubContentType, String> {
   final c_dir_string = "dir";
   final c_file_string = "file";
