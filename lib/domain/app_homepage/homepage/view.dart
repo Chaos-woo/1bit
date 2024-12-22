@@ -1,5 +1,5 @@
-import 'package:cw2bit/domain/my_homepage/explore_homepage/view.dart';
-import 'package:cw2bit/domain/my_homepage/text_homepage/view.dart';
+import 'package:cw2bit/domain/app_homepage/explore_homepage/view.dart';
+import 'package:cw2bit/domain/app_homepage/text_homepage/view.dart';
 import 'package:cw2bit/public/animation/faed_index_stack.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:flutter/material.dart';

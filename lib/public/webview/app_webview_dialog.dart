@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/public/ui/flutterflow_theme.dart';
 import 'package:cw2bit/public/webview/app_webview_listener.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,9 @@ Future<void> show_webview_dialog({
 
   /// 不需要webview导航的scheme
   List<String>? not_navigation_action_scheme,
+
+  /// 不需要webview导航的URL关键词
+  List<String>? not_navigation_action_keywords,
 }) async {
   var b_context = context ?? Get.context!;
   await showDialog(
@@ -35,6 +37,7 @@ Future<void> show_webview_dialog({
             url,
             title: title,
             not_navigation_action_scheme: not_navigation_action_scheme,
+            not_navigation_action_keywords: not_navigation_action_keywords,
             listener: listener,
           ),
         ),
@@ -50,6 +53,9 @@ class AppWebviewDialog extends StatefulWidget {
   /// 不需要webview导航的scheme
   final List<String>? not_navigation_action_scheme;
 
+  /// 不需要webview导航的URL关键词
+  final List<String>? not_navigation_action_keywords;
+
   /// 监听WebView的滚动事件
   final AppWebviewListener? listener;
 
@@ -58,6 +64,7 @@ class AppWebviewDialog extends StatefulWidget {
     super.key,
     this.title,
     this.not_navigation_action_scheme,
+    this.not_navigation_action_keywords,
     this.listener,
   });
 
@@ -204,8 +211,17 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                       shouldOverrideUrlLoading: (controller, navigationAction) async {
                                         var uri = navigationAction.request.url!;
 
-                                        if (!["http", "https", "file", "chrome", "data", "javascript", "about"]
-                                            .contains(uri.scheme)) {
+                                        var normal_scheme = const [
+                                          "http",
+                                          "https",
+                                          "file",
+                                          "chrome",
+                                          "data",
+                                          "javascript",
+                                          "about",
+                                        ];
+                                        if (!normal_scheme.contains(uri.scheme)) {
+                                          // 判断非通用的scheme，是否可以打开，支持自定义判断
                                           var key_schemes = widget.not_navigation_action_scheme ?? <String>[];
                                           for (var key_scheme in key_schemes) {
                                             if (uri.scheme.contains(key_scheme)) {
@@ -214,15 +230,25 @@ class _AppWebviewDialogState extends State<AppWebviewDialog> {
                                           }
 
                                           if (await canLaunchUrl(uri)) {
-                                            // Launch the App
+                                            // 支持打开外部应用
                                             await launchUrl(
                                               uri,
                                             );
-                                            // and cancel the request
+                                            // 同时取消当前web页面的打开
                                             return NavigationActionPolicy.CANCEL;
                                           }
                                         }
 
+                                        // 判断目标URL是否可以打开，使用自定义的关键词匹配，可以阻止某些网页自动跳转
+                                        var url_keywords = widget.not_navigation_action_keywords ?? <String>[];
+                                        for (var keyword in url_keywords) {
+                                          if (uri.path!.contains(keyword)) {
+                                            print('Target URL hit keyword: ${keyword}');
+                                            return NavigationActionPolicy.CANCEL;
+                                          }
+                                        }
+
+                                        // 默认情况下是允许跳转的
                                         return NavigationActionPolicy.ALLOW;
                                       },
                                       onLoadStop: (controller, url) async {

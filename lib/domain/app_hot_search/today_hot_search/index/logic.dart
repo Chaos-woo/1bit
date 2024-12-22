@@ -63,6 +63,7 @@ class TodayHotSearchLogic extends GetxController {
       url: model.url,
       title: '正在浏览：(${state.app})${model.content}',
       not_navigation_action_scheme: c_not_navigation_action_scheme,
+      not_navigation_action_keywords: c_not_navigation_action_keyword,
       listener: AppWebviewReadingListener(
         onWebviewLoaded: (webviewController, url) async {
           await c0_.local_data_repo.webpage.update_reading_update_time(url);

@@ -1,6 +1,6 @@
 import 'package:flustars_flutter3/flustars_flutter3.dart';
 
-/// 基于 app_hot_search_list
+/// 基于 app_hot_search_list / riibit
 /// 防止WebView自动打开三方应用或无法解析的导航
 const c_not_navigation_action_scheme = [
   'bilibili',
@@ -13,6 +13,8 @@ const c_not_navigation_action_scheme = [
   'zhihu',
 ];
 
+/// 基于 app_hot_search_list / riibit
+/// 防止WebView自动跳转一些登录等网站引流页面
 const c_not_navigation_action_keyword = [
   'signin',
   'login',

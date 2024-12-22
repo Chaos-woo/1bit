@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:cw2bit/domain/feature_explore/github_1bit/issues/components/github_setting/logic.dart';
-import 'package:cw2bit/domain/my_homepage/explore_homepage/components/tool_group/models/tool_group.dart';
-import 'package:cw2bit/domain/my_homepage/explore_homepage/components/tool_group/view.dart';
+import 'package:cw2bit/domain/app_homepage/explore_homepage/components/tool_group/models/tool_group.dart';
+import 'package:cw2bit/domain/app_homepage/explore_homepage/components/tool_group/view.dart';
 import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/infrastructure/ext/string_ext.dart';
 import 'package:cw2bit/infrastructure/router/rt0_.dart';
@@ -84,7 +84,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                     ),
                     ToolGroupItemClicker(
                       title: 'APP黑名单',
-                      subtitle: '全部/自定义组不再展示该APP',
+                      subtitle: '全部/自定义组不再展示该APP，将默认生成一个黑名单组展示这些APP',
                       type: EnumToolGroupItemType.clicker,
                       icon: Icon(Icons.playlist_remove_rounded),
                       on_tap: () async => await _on_tap_black_app(context),
@@ -109,6 +109,31 @@ class AppHotSearchSettingPage extends StatelessWidget {
                     ToolGroupItemClicker(
                       title: '热搜阅读进度阈值',
                       subtitle: '超过阈值被视为阅读完成，影响阅读进度/阅读中/归档的展示',
+                      type: EnumToolGroupItemType.clicker,
+                      icon: Icon(Icons.app_registration_rounded),
+                      on_tap: () async {
+                        await ui0_.dialog.show_single_input_dialog(
+                            title: '阈值设置',
+                            subtitle: '''
+1. 视为阅读完成的阈值默认值为80。
+2. 数值范围为0~90，部分网页很难达到95或100，所以建议设置80到90之间。
+                                ''',
+                            default_value: (await logic.get_read_progress_threshold()).toString(),
+                            on_cancel: () {},
+                            max_length: -1,
+                            on_confirm: (value) async {
+                              var threshold = int.tryParse(value);
+                              if (threshold == null || threshold < 0 || threshold > 90) {
+                                q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
+                              } else {
+                                logic.set_read_progress_threshold(threshold);
+                              }
+                            });
+                      },
+                    ),
+                    ToolGroupItemClicker(
+                      title: '热搜阅读进度记录白名单',
+                      subtitle: '设置哪些APP的热搜阅读进度需要记录',
                       type: EnumToolGroupItemType.clicker,
                       icon: Icon(Icons.app_registration_rounded),
                       on_tap: () async {

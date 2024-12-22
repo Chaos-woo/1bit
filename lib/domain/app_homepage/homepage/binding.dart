@@ -1,4 +1,4 @@
-import 'package:cw2bit/domain/my_homepage/text_homepage/logic.dart';
+import 'package:cw2bit/domain/app_homepage/text_homepage/logic.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';
