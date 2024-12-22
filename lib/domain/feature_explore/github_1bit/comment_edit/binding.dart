@@ -7,7 +7,7 @@ import 'logic.dart';
 class Github1bitCommentEditPageBinding extends Bindings {
   @override
   void dependencies() {
-    IssuesModel issuesModel = q0_.route.argument().force_as();
+    IssuesModel issuesModel = q0_.route.argument();
     Get.lazyPut(() {
       var logic = Github1bitCommentEditLogic();
       logic.state.issuesModel = issuesModel;

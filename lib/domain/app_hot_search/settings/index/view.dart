@@ -16,6 +16,7 @@ import 'logic.dart';
 
 class AppHotSearchSettingPage extends StatelessWidget {
   final black_app_scroll_view_key = GlobalKey();
+  final reading_record_white_app_scroll_view_key = GlobalKey();
   final default_app_scroll_view_key = GlobalKey();
 
   AppHotSearchSettingPage({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class AppHotSearchSettingPage extends StatelessWidget {
                   items: [
                     ToolGroupItemRouter(
                       title: 'APP · 组编辑',
-                      subtitle: 'APP分组或单个分组APP的新增/删除/排序',
+                      subtitle: 'APP分组或单个分组中APP的编辑',
                       type: EnumToolGroupItemType.router,
                       icon: Icon(Icons.app_registration_rounded),
                       on_tap: () async {
@@ -107,54 +108,38 @@ class AppHotSearchSettingPage extends StatelessWidget {
                   name: '热搜看点设置',
                   items: [
                     ToolGroupItemClicker(
-                      title: '热搜阅读进度阈值',
+                      title: '热搜归档阈值',
                       subtitle: '超过阈值被视为阅读完成，影响阅读进度/阅读中/归档的展示',
-                      type: EnumToolGroupItemType.clicker,
-                      icon: Icon(Icons.app_registration_rounded),
+                      type: EnumToolGroupItemType.router,
+                      icon: Icon(Icons.playlist_add),
                       on_tap: () async {
-                        await ui0_.dialog.show_single_input_dialog(
-                            title: '阈值设置',
-                            subtitle: '''
-1. 视为阅读完成的阈值默认值为80。
-2. 数值范围为0~90，部分网页很难达到95或100，所以建议设置80到90之间。
-                                ''',
-                            default_value: (await logic.get_read_progress_threshold()).toString(),
-                            on_cancel: () {},
-                            max_length: -1,
-                            on_confirm: (value) async {
-                              var threshold = int.tryParse(value);
-                              if (threshold == null || threshold < 0 || threshold > 90) {
-                                q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
-                              } else {
-                                logic.set_read_progress_threshold(threshold);
-                              }
-                            });
+                        /// 跳转设置页为每个APP进行设置
+                        await rout0_.app_reading_threshold_config.to_then_back();
+//                         await ui0_.dialog.show_single_input_dialog(
+//                             title: '阈值设置',
+//                             subtitle: '''
+// 1. 视为阅读完成的阈值默认值为80。
+// 2. 数值范围为0~90，部分网页很难达到95或100，所以建议设置80到90之间。
+//                                 ''',
+//                             default_value: (await logic.get_read_progress_threshold()).toString(),
+//                             on_cancel: () {},
+//                             max_length: -1,
+//                             on_confirm: (value) async {
+//                               var threshold = int.tryParse(value);
+//                               if (threshold == null || threshold < 0 || threshold > 90) {
+//                                 q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
+//                               } else {
+//                                 logic.set_read_progress_threshold(threshold);
+//                               }
+//                             });
                       },
                     ),
                     ToolGroupItemClicker(
-                      title: '热搜阅读进度记录白名单',
-                      subtitle: '设置哪些APP的热搜阅读进度需要记录',
+                      title: '热搜阅读记录白名单',
+                      subtitle: '记录指定APP的热搜文章阅读进度',
                       type: EnumToolGroupItemType.clicker,
                       icon: Icon(Icons.app_registration_rounded),
-                      on_tap: () async {
-                        await ui0_.dialog.show_single_input_dialog(
-                            title: '阈值设置',
-                            subtitle: '''
-1. 视为阅读完成的阈值默认值为80。
-2. 数值范围为0~90，部分网页很难达到95或100，所以建议设置80到90之间。
-                                ''',
-                            default_value: (await logic.get_read_progress_threshold()).toString(),
-                            on_cancel: () {},
-                            max_length: -1,
-                            on_confirm: (value) async {
-                              var threshold = int.tryParse(value);
-                              if (threshold == null || threshold < 0 || threshold > 90) {
-                                q0_.ui.toast.show('请输入有效的阅读完成阈值，范围为0~90');
-                              } else {
-                                logic.set_read_progress_threshold(threshold);
-                              }
-                            });
-                      },
+                      on_tap: () async => await _on_tap_reading_record_white_list(context),
                     ),
                   ],
                 ),
@@ -191,6 +176,143 @@ class AppHotSearchSettingPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  /// 热搜阅读进度白名单
+  Future<void> _on_tap_reading_record_white_list(BuildContext context) async {
+    var logic = Get.find<AppHotSearchSettingLogic>();
+
+    q0_.ui.loading.show(loading_tip: '正在获取APP记录白名单...');
+    Timer(600.milliseconds, () => q0_.ui.loading.dismiss());
+    var apps = await logic.list_reading_record_white_apps();
+
+    await ui0_.dialog.show_custom_dialog_with_ok_cancel_buttons(
+      title: '热搜阅读进度白名单',
+      cancel_text: '关闭',
+      on_cancel: () => logic.m_black_list = [],
+      barrier_dismissible: false,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Text(
+            '''
+1. 高亮的APP下的热搜文章，在阅读时根据阅读进度，进行记录并展示在【看点记录】中，其他APP的热搜文章仅展示“看过”。
+2. 默认情况下，不记录APP的热搜文章阅读进度。
+3. 若APP被设置【APP黑名单】，此处不可勾选APP。
+4. 若APP未在此处添加到白名单中，APP的阅读进度阈值设置页面无法设置该APP的阅读进度阈值，且无法生效。
+            ''',
+            maxLines: 8,
+            style: FlutterFlowTheme.of(context).bodySmall.override(
+                  letterSpacing: 0.0,
+                ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(),
+            child: SingleChildScrollView(
+              key: reading_record_white_app_scroll_view_key,
+              child: GetBuilder<AppHotSearchSettingLogic>(
+                id: logic.k_reading_record_white_list_view_id,
+                builder: (_) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Wrap(
+                        spacing: 5,
+                        runSpacing: 5,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        direction: Axis.horizontal,
+                        runAlignment: WrapAlignment.start,
+                        verticalDirection: VerticalDirection.down,
+                        clipBehavior: Clip.none,
+                        children: [
+                          for (var app in apps)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                /// 设置APP是否记录阅读进度，添加或删除
+                                await logic.add_or_delete_reading_record_app(app);
+                              },
+                              child: logic.m_reading_record_white_list.contains_case_insensitive(app)
+                                  ? Container(
+                                      height: 28,
+                                      constraints: BoxConstraints(
+                                        minWidth: 65,
+                                        maxWidth: 150,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).primary,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              app,
+                                              textAlign: TextAlign.justify,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 28,
+                                      constraints: BoxConstraints(
+                                        minWidth: 65,
+                                        maxWidth: 150,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              app,
+                                              textAlign: TextAlign.justify,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

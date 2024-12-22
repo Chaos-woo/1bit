@@ -4,6 +4,7 @@ import 'package:cw2bit/infrastructure/database/entity/app_hot_search/with_relati
 import 'package:cw2bit/infrastructure/database/entity/r1_database_import_mixin.dart';
 import 'package:cw2bit/infrastructure/database/entity_combination/comb_hot_search_group_apps.dart';
 import 'package:cw2bit/infrastructure/database/r_database.dart';
+import 'package:cw2bit/infrastructure/ext/drift_extension.dart';
 import 'package:drift/drift.dart';
 import 'package:get/get.dart' hide Value;
 
@@ -139,6 +140,13 @@ final class HotSearchRepo extends GetxService with R1DatabaseMixin {
         ..where((t) => t.id.isValue(ordered_groups[i].id!))
         ..write(HotSearchGroupsCompanion(order: Value(i), create_time: Value(now)));
     }
+  }
+
+  /// 更新APP组名字
+  Future<void> update_group_name(int id, String name) async {
+    await database.update(database.hotSearchGroups)
+      ..where((t) => t.id.isValue(id))
+      ..write(HotSearchGroupsCompanion(name: name.drift_value, update_time: DateTime.now().drift_value));
   }
 
   /// 获取APP分组下的所有APP

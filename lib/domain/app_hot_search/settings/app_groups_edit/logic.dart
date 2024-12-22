@@ -61,6 +61,11 @@ class AppHotSearchAppGroupsEditLogic extends GetxController {
     await refresh_all_app_groups();
   }
 
+  Future<void> update_app_group_name(int id, String new_name) async {
+    await c0_.local_data_repo.hot_search.update_group_name(id, new_name);
+    await refresh_all_app_groups();
+  }
+
   /// 切换为长按可排序列表
   Future<void> switch_sortable_or_not(bool is_long_press_dragging) async {
     this.is_sortable = is_long_press_dragging;

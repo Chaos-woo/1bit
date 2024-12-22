@@ -96,7 +96,23 @@ class AppHotSearchAppGroupsEditPage extends StatelessWidget {
                                   ui0_.icons.three_lines,
                                   color: Colors.black54,
                                 )
-                              : null,
+                              : ui0_.button.plant_button(
+                                  '编辑',
+                                  on_tap: () async {
+                                    await ui0_.dialog.show_single_input_dialog(
+                                      title: '编辑APP组',
+                                      subtitle: '自定义名字的分组，方便管理APP',
+                                      hint_text: '输入组名称',
+                                      label_text: '组名称',
+                                      context: context,
+                                      max_length: 3,
+                                      initial_value: e.name,
+                                      on_confirm: (String value) async {
+                                        await logic.update_app_group_name(e.id!, value);
+                                      },
+                                    );
+                                  },
+                                ),
                           title: InkWell(
                             highlightColor: Colors.transparent,
                             splashColor: Colors.transparent,

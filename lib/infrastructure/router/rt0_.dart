@@ -1,4 +1,7 @@
+import 'package:cw2bit/domain/app_homepage/homepage/binding.dart';
+import 'package:cw2bit/domain/app_homepage/homepage/view.dart';
 import 'package:cw2bit/domain/app_hot_search/settings/app_groups_edit/view.dart';
+import 'package:cw2bit/domain/app_hot_search/settings/app_reading_threshold_config/view.dart';
 import 'package:cw2bit/domain/app_hot_search/settings/group_apps_edit/binding.dart';
 import 'package:cw2bit/domain/app_hot_search/settings/group_apps_edit/view.dart';
 import 'package:cw2bit/domain/app_hot_search/settings/index/view.dart';
@@ -13,8 +16,6 @@ import 'package:cw2bit/domain/feature_explore/github_1bit/issues/view.dart';
 import 'package:cw2bit/domain/feature_explore/github_1bit/issues_detail/binding.dart';
 import 'package:cw2bit/domain/feature_explore/github_1bit/issues_detail/view.dart';
 import 'package:cw2bit/domain/feature_explore/github_1bit/issues_edit/view.dart';
-import 'package:cw2bit/domain/app_homepage/homepage/binding.dart';
-import 'package:cw2bit/domain/app_homepage/homepage/view.dart';
 import 'package:cw2bit/infrastructure/ext/my_extension.dart';
 import 'package:cw2bit/public/text_ocr/view.dart';
 import 'package:get/get.dart';
@@ -55,6 +56,7 @@ final class rout0_ {
     this.middlewares,
   });
 
+  /// 新路由在这里新增
   static get routes => [
         home,
         public_text_ocr,
@@ -199,6 +201,13 @@ final class rout0_ {
         RouteGroupNames.text,
         () => AppHotSearchGroupAppsEditPage(),
         binding: AppHotSearchGroupAppsBinding(),
+      );
+
+  /// APP热搜文章阅读阈值配置页
+  static rout0_ get app_reading_threshold_config => rout0_._(
+        '/app_hot_search/settings/reading_record_threshold',
+        RouteGroupNames.text,
+        () => AppReadingThresholdConfigPage(),
       );
 
   /// 封装路由的跳转方法，增强APP路由字符串

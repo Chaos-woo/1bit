@@ -8,7 +8,7 @@ class UiDialog {
   /// 展示带有输入框和提示信息的对话框
   Future<void> show_single_input_dialog({
     required String title,
-    String? default_value,
+    String? initial_value,
     String? subtitle,
     String? hint_text,
     String? label_text,
@@ -17,7 +17,7 @@ class UiDialog {
     Function()? on_cancel,
     int max_length = 500,
   }) async {
-    var controller = TextEditingController(text: default_value);
+    var controller = TextEditingController(text: initial_value);
     var ctx = context ?? Get.context!;
     await showDialog(
       barrierColor: Color(0x80000000),

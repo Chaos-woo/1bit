@@ -36,9 +36,21 @@ class HomepagePage extends StatelessWidget {
           children: [
             ToolHomepagePage(),
             TextbookHomepagePage(),
-            Container(),
-            Container(),
-            Container(),
+            Container(
+              child: Center(
+                child: Text('制作中...'),
+              ),
+            ),
+            Container(
+              child: Center(
+                child: Text('制作中...'),
+              ),
+            ),
+            Container(
+              child: Center(
+                child: Text('制作中...'),
+              ),
+            ),
           ],
         );
       }),

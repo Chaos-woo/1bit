@@ -29,6 +29,9 @@ const c_default_webpage_progress_finish_threshold = 0.8;
 /// APP黑名单的缓存数据Key
 const String k_pfs_app_hot_search_black_list = '__k_pfs_app_hot_search_black_list__';
 
+/// 设置APP是否记录阅读进度的缓存数据Key
+const String k_pfs_app_hot_search_reading_record_white_list = '__k_pfs_app_hot_search_reading_record_white_list__';
+
 /// 默认APP组的缓存数据Key
 const String k_pfs_app_hot_search_default_group = '__k_pfs_app_hot_search_default_group__';
 

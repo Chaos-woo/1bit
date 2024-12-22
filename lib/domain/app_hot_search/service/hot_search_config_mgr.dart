@@ -75,4 +75,21 @@ class HotSearchConfigMgr extends GetxService {
     );
     hot_search_read_progress_threshold = threshold;
   }
+
+  /// 获取设置APP是否记录阅读进度列表配置
+  Future<List<String>> get_reading_record_white_apps_config() async {
+    List<String> white_apps = await q0_.bridge.flustars.preferences.get_string_list(
+      k_pfs_app_hot_search_reading_record_white_list,
+      default_value: [],
+    )!;
+    return Future.value(white_apps);
+  }
+
+  /// 设置APP是否记录阅读进度列表配置
+  Future<void> set_reading_record_white_apps_config(List<String> white_apps) async {
+    await q0_.bridge.flustars.preferences.put_string_list(
+      k_pfs_app_hot_search_reading_record_white_list,
+      white_apps,
+    );
+  }
 }

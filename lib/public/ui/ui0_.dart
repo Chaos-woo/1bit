@@ -1,4 +1,5 @@
 import 'package:cw2bit/public/ui/impl/ui_appbar.dart';
+import 'package:cw2bit/public/ui/impl/ui_button.dart';
 import 'package:cw2bit/public/ui/impl/ui_dialog.dart';
 import 'package:cw2bit/public/ui/impl/ui_snackbar.dart';
 import 'package:cw2bit/public/ui/impl/ui_sticker.dart';
@@ -14,6 +15,7 @@ class ui0_ {
   static final UiDialog dialog = UiDialog();
   static final UiAppBar appbar = UiAppBar();
   static final UiSticker sticker = UiSticker();
+  static final UiButton button = UiButton();
 
   static final _ui_icons icons = _ui_icons();
 }
