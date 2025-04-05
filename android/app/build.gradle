@@ -51,7 +51,11 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main {
+            // 配置动态库路径
+            jniLibs.srcDirs = ['src/main/jniLibs']
+            java.srcDirs += 'src/main/kotlin'
+        }
     }
 
     defaultConfig {
@@ -59,7 +63,7 @@ android {
         applicationId "me.cw2.cw2bit"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

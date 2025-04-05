@@ -16,7 +16,7 @@ class JsonEpochMillisecondDateTimeConverter implements JsonConverter<DateTime, i
   }
 }
 
-/// json时间转换器
+/// Json时间转换器
 class JsonEpochSecondDateTimeConverter implements JsonConverter<DateTime, int> {
   const JsonEpochSecondDateTimeConverter();
 

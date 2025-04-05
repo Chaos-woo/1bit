@@ -1,29 +1,32 @@
-import 'package:cw2bit/infrastructure/api/apis.dart';
-import 'package:cw2bit/infrastructure/database/r_database.dart';
-import 'package:cw2bit/infrastructure/router/rt0_.dart';
+import 'package:cw2bit/infra/INK/INKs.dart';
+import 'package:cw2bit/infra/a_app_setup/default_app_starter.dart';
+import 'package:cw2bit/infra/a_ui/ok_toast_extension.dart';
+import 'package:cw2bit/infra/a_ui/smart_refresher_extension.dart';
+import 'package:cw2bit/modules/b_database_drift/app_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
-import 'package:qkit/qkit.dart';
+
+import 'modules/b_router/RTs.dart';
 
 void main() {
-  AppStarter.run(
+  DefaultAppStarter.run(
     const MyApp(),
     preprocessed: () {
       /// 初始化路由
-      rout0_.create_route_page();
+      RTs.createRoutePage();
     },
     initCompleted: () {
       /// 初始化数据库
-      DatabaseMgr.create_database_and_repository();
+      DatabaseMgr.initialDatabase();
 
       /// 初始化业务数据
       Apis.create_apis();
       Apis.create_services();
     },
-    afterRunAppProcessed: () {
+    processAfterRunApp: () {
       /// 配置easyloading配置
     },
     errorReporter: _errorReporter,
@@ -44,15 +47,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-            title: 'Re1inks',
+            title: '𝕚𝗡𝕜.065',
             scrollBehavior: const CupertinoScrollBehavior(),
             themeMode: ThemeMode.system,
-            initialRoute: rout0_.home.route_name,
-            getPages: RouteProxyDispatcher.m_getx_pages,
-            debugShowCheckedModeBanner: !QKitUtils.is_release_mode,
-            enableLog: !QKitUtils.is_release_mode,
+            initialRoute: RTs.home.routeName,
+            getPages: RouteProxyDispatcher._mGetxPages,
+            debugShowCheckedModeBanner: !INKs.isReleaseMode,
+            enableLog: !INKs.isReleaseMode,
             builder: EasyLoading.init())
-        .smartRefreshConfiguration(
+        .withSmartRefreshConfiguration(
           hideFooterWhenNotFull: false,
           enableLoadingWhenNoData: true,
           headerBuilder: () => const ClassicHeader(
@@ -62,7 +65,7 @@ class MyApp extends StatelessWidget {
             failedText: '刷新失败...',
             idleText: '继续深潜...',
           ),
-          footerBuilder: () => ClassicFooter(
+          footerBuilder: () => const ClassicFooter(
             loadingText: '加载中...',
             noDataText: '已经没有更多啦...',
             idleText: '',

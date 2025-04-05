@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.2.2
+version: 0.3.0
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -30,11 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  ###### 本地SDK ######
-  qkit:
-    path: ./corekit/qkit
-  ######
 
   ###### 依赖三方SDK ######
   flustars_flutter3: ^3.0.0
@@ -85,10 +80,10 @@ dependencies:
   adaptive_dialog: ^1.10.1
   # 基于dart扩展的链式调用组件嵌套写法优化 https://github.com/ReinBentdal/styled_widget
   styled_widget: ^0.4.1
-  # 元组 https://github.com/google/tuple.dart
-  tuple: ^2.0.2
   # https://github.com/FlutterFlow/flutterflow-ui
-  flutterflow_ui: ^0.3.1
+  flutterflow_ui:
+    git:
+      url: https://github.com/Chaos-woo/flutterflow-ui.git
   auto_size_text: 3.0.0
   # 文字识别ocr
   google_mlkit_text_recognition: ^0.8.1
@@ -103,8 +98,6 @@ dependencies:
   flutter_inappwebview: ^6.0.0
   # 动画图标
   flutter_animated_icons: ^1.0.1
-  # hooks
-  flutter_hooks: ^0.20.5
   # 底部导航栏
   flutter_snake_navigationbar: ^0.6.1
   # 数据库
@@ -121,10 +114,16 @@ dependencies:
   drift_db_viewer: ^2.1.0
   # 随机头像
   random_avatar: ^0.0.8
-  # Divider
-  styled_divider: ^1.0.5
   # 定位滚动的ListVew
   scrollable_positioned_list: ^0.3.8
+  # 文件选择
+  file_picker: ^5.0.0
+  # flutter动效
+  flutter_animate: ^4.5.2
+  fllama:
+    git:
+      url: https://github.com/Telosnex/fllama.git
+      ref: main
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本
@@ -136,7 +135,7 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-#  flutter_lints: ^3.0.0
+  flutter_lints: ^3.0.0
   # json序列化/反序列化代码生成处理器
   json_serializable: ^6.8.0
   # flutter packages pub run build_runner build --delete-conflicting-outputs

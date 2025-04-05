@@ -27,13 +27,13 @@ class Image {
   }
 
   Widget memory(
-      Uint8List bytes, {
-        double scale = 1.0,
-        double width = 48,
-        double height = 48,
-        EdgeInsetsGeometry? margin,
-        BorderRadius? radius,
-      }) {
+    Uint8List bytes, {
+    double scale = 1.0,
+    double width = 48,
+    double height = 48,
+    EdgeInsetsGeometry? margin,
+    BorderRadius? radius,
+  }) {
     return Container(
       height: height,
       width: width,
@@ -48,7 +48,7 @@ class Image {
     );
   }
 
-  Widget netCached(
+  Widget net_cached(
     String url, {
     double width = 48,
     double height = 48,
