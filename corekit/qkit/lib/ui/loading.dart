@@ -1,5 +1,6 @@
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+import 'package:qkit/qkit.dart';
 
 class Loader {
   /// 样式设置参考：https://github.com/nslogx/flutter_easyloading/blob/develop/README-zh_CN.md
@@ -18,11 +19,14 @@ class Loader {
   ///   ..dismissOnTap = false
   ///   ..customAnimation = CustomAnimation();
 
-  void show({String? status}) {
-    EasyLoading.show(status: status);
+  void show({String? loading_tip}) {
+    EasyLoading.show(status: loading_tip);
   }
 
-  void dismiss() {
+  void dismiss({String? dismiss_tip}) {
     EasyLoading.dismiss();
+    if (dismiss_tip != null && dismiss_tip.isNotEmpty) {
+      q0_.ui.toast.show(dismiss_tip!);
+    }
   }
 }

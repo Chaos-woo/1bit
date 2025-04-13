@@ -11,7 +11,7 @@ class Eventbus {
   Future<void> publish<T>(T event) async => _bus.fire(event);
 
   /// 在dart单线程时间循环的下一个循环触发一个事件
-  Future<void> publishImmediately<T>(T event) async {
+  Future<void> publish_immediately<T>(T event) async {
     Future.delayed(
       Duration.zero,
       () => _bus.fire(event),
@@ -19,7 +19,7 @@ class Eventbus {
   }
 
   /// 延时[duration]后触发一个事件
-  Future<void> publishDelay<T>(T event, {Duration? duration}) async {
+  Future<void> publish_delay<T>(T event, {Duration? duration}) async {
     Future.delayed(
       duration ?? Duration.zero,
       () => _bus.fire(event),
@@ -27,50 +27,51 @@ class Eventbus {
   }
 
   /// 订阅T类型事件，并在异常错误时自动取消订阅
-  StreamSubscription subscribeAutoCancelOnError<T>(
-    void Function(T event) onData, {
-    Function? onError,
-    void Function()? onDone,
+  StreamSubscription subscribe_cancelable_if_error<T>(
+    void Function(T event) on_data, {
+    Function? on_error,
+    void Function()? on_done,
   }) {
     return subscribe<T>(
-      onData,
-      onError: onError,
-      onDone: onDone,
-      cancelOnError: true,
+      on_data,
+      on_error: on_error,
+      on_done: on_done,
+      cancel_on_error: true,
     );
   }
 
   /// 订阅T类型事件
   StreamSubscription subscribe<T>(
-    void Function(T event) onData, {
-    Function? onError,
-    void Function()? onDone,
-    bool? cancelOnError,
+    void Function(T event) on_data, {
+    Function? on_error,
+    void Function()? on_done,
+    bool? cancel_on_error,
   }) {
     StreamSubscription subscription = _bus.on<T>().listen(
-          onData,
-          onError: onError,
-          onDone: onDone,
-          cancelOnError: cancelOnError,
+          on_data,
+          onError: on_error,
+          onDone: on_done,
+          cancelOnError: cancel_on_error,
         );
     return subscription;
   }
 
-  void log<T extends SubscribeEvent>(T e, {required String usage, String? dateFormat}) {
+  void log<T extends SubscribeEvent>(T e, {String? date_format}) {
     PPLog.singl.debug(
-      '接收【${e.publisher}\\.${e.runtimeType}】(${QKit.bridge.flustars.date.formatDate(
+      '接收【${e.publisher}\\.${e.runtimeType}】(${q0_.bridge.flustars.date.format_date(
         e.timestamp,
-        format: dateFormat ?? DateFormats.full,
-      )})，用途：【$usage】',
+        format: date_format ?? DateFormats.full,
+      )})，发布原因：${e.publish_reason}',
     );
   }
 }
 
 abstract class SubscribeEvent {
   final String publisher;
+  final String publish_reason;
   late final DateTime timestamp;
 
-  SubscribeEvent(this.publisher) {
+  SubscribeEvent(this.publisher, this.publish_reason) {
     timestamp = DateTime.now();
   }
 }

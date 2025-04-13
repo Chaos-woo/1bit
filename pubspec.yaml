@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.2.0
+version: 0.3.0
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -30,11 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  ###### 本地SDK ######
-  qkit:
-    path: ./corekit/qkit
-  ######
 
   ###### 依赖三方SDK ######
   flustars_flutter3: ^3.0.0
@@ -60,7 +55,7 @@ dependencies:
   network_info_plus: ^4.1.0
   # 网络库，相关插件见https://github.com/flutterchina/dio/blob/master/README-ZH.md
   # https://github.com/flutterchina/dio
-  dio: ^4.0.6
+  dio: ^5.8.0
   # 应用路径处理，例如临时目录、应用内部文件路径
   path_provider: ^2.1.3
   # 数字展示处理 https://github.com/entronad/number_display
@@ -85,10 +80,10 @@ dependencies:
   adaptive_dialog: ^1.10.1
   # 基于dart扩展的链式调用组件嵌套写法优化 https://github.com/ReinBentdal/styled_widget
   styled_widget: ^0.4.1
-  # 元组 https://github.com/google/tuple.dart
-  tuple: ^2.0.2
   # https://github.com/FlutterFlow/flutterflow-ui
-  flutterflow_ui: ^0.3.1
+  flutterflow_ui:
+    git:
+      url: https://github.com/Chaos-woo/flutterflow-ui.git
   auto_size_text: 3.0.0
   # 文字识别ocr
   google_mlkit_text_recognition: ^0.8.1
@@ -103,10 +98,32 @@ dependencies:
   flutter_inappwebview: ^6.0.0
   # 动画图标
   flutter_animated_icons: ^1.0.1
-  # hooks
-  flutter_hooks: ^0.20.5
   # 底部导航栏
   flutter_snake_navigationbar: ^0.6.1
+  # 数据库
+  drift_model_generator: ^0.7.0
+  drift: ^2.19.0
+  drift_flutter: '>=0.1.0 <0.2.0'
+  # 可拖拽列表
+  animated_reorderable_list: ^1.1.1
+  # APP开屏
+  flutter_native_splash: ^2.4.1
+  # 日历
+  calendar_date_picker2: ^1.1.7
+  # 三方drift数据库查看器
+  drift_db_viewer: ^2.1.0
+  # 随机头像
+  random_avatar: ^0.0.8
+  # 定位滚动的ListVew
+  scrollable_positioned_list: ^0.3.8
+  # 文件选择
+  file_picker: ^5.0.0
+  # flutter动效
+  flutter_animate: ^4.5.2
+  fllama:
+    git:
+      url: https://github.com/Telosnex/fllama.git
+      ref: main
 
 dependency_overrides:
   # flutterflow_ui,ocr_scan_text依赖冲突，高版本有破坏性改动，强制依赖较低版本
@@ -118,16 +135,25 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-#  flutter_lints: ^3.0.0
+  flutter_lints: ^3.0.0
   # json序列化/反序列化代码生成处理器
-  json_serializable: 6.6.2
+  json_serializable: ^6.8.0
   # flutter packages pub run build_runner build --delete-conflicting-outputs
   build_runner: any #^2.1.11
   build_runner_core: ^7.2.9
+  drift_dev: ^2.19.1
 
 # dart脚本运行IDE插件
 scripts:
-  build_runner_build: flutter packages pub run build_runner build --delete-conflicting-outputs
+  build_runner_clean: dart run build_runner clean
+  build_runner_build: dart run build_runner build --delete-conflicting-outputs
+  build_native_splash: dart run flutter_native_splash:create
+
+flutter_native_splash:
+  color: "#6CD9CC"
+  android_12:
+    icon_background_color: "#6CD9CC"
+    color: "#6CD9CC"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -141,9 +167,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+#    - assets/background.png
+    - assets/my/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

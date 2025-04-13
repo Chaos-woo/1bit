@@ -106,7 +106,7 @@ class Snackbar {
 
     if ((message != null && messageWidget == null) || (title != null && titleWidget == null)) {
       final iconPadding = padding.left > 16.0 ? padding.left : 0.0;
-      double minWidth = QKit.bridge.flustars.screen.screenWidth - (margin.vertical + padding.vertical);
+      double minWidth = q0_.bridge.flustars.screen.screenWidth - (margin.vertical + padding.vertical);
       if (icon != null) {
         minWidth -= iconPadding;
       }
@@ -125,7 +125,7 @@ class Snackbar {
         TextSpan messageSpan = TextSpan(text: message, style: const TextStyle(fontSize: 14.0, color: Colors.white));
         TextPainter painter =
             TextPainter(text: messageSpan, maxLines: messageMaxLines, textDirection: TextDirection.rtl);
-        double maxWidth = QKit.bridge.flustars.screen.screenWidth * 0.75;
+        double maxWidth = q0_.bridge.flustars.screen.screenWidth * 0.75;
         if (minWidth > maxWidth) {
           double tempWidth = maxWidth;
           maxWidth = minWidth;
@@ -154,7 +154,7 @@ class Snackbar {
               fontWeight: FontWeight.bold,
             ));
         TextPainter painter = TextPainter(text: titleSpan, maxLines: titleMaxLines, textDirection: TextDirection.rtl);
-        painter.layout(minWidth: minWidth, maxWidth: QKit.bridge.flustars.screen.screenWidth * 0.75);
+        painter.layout(minWidth: minWidth, maxWidth: q0_.bridge.flustars.screen.screenWidth * 0.75);
         if (painter.didExceedMaxLines) {
           titleWidget = Text(
             title,

@@ -38,9 +38,9 @@ extension WidgetTapExt on Widget {
     if (type == ClickType.throttle) {
       return onTap?.throttle();
     } else if (type == ClickType.throttleWithTimeout) {
-      return onTap?.throttleWithTimeout(timeoutMs: timeoutMs);
+      return onTap?.throttle_with_timeout(timeout_mill: timeoutMs);
     } else if (type == ClickType.debounce) {
-      return onTap?.debounce(timeoutMs: timeoutMs);
+      return onTap?.debounce(timeout_mill: timeoutMs);
     }
     return () => onTap?.call();
   }

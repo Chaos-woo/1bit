@@ -2,23 +2,23 @@ import 'package:get/get.dart';
 
 /// 路由对象
 class RouteProxy {
-  String routeName;
-  GetPageBuilder pageBuilder;
+  String route_name;
+  GetPageBuilder page_builder;
   Bindings? binding;
   List<Bindings> bindings;
   Transition? transition;
-  Duration? transitionDuration;
-  CustomTransition? customTransition;
+  Duration? transition_duration;
+  CustomTransition? override_transition;
   List<GetMiddleware>? middlewares;
 
   RouteProxy(
-    this.routeName,
-    this.pageBuilder, {
+    this.route_name,
+    this.page_builder, {
     this.binding,
     this.bindings = const [],
     this.transition,
-    this.transitionDuration,
-    this.customTransition,
+    this.transition_duration,
+    this.override_transition,
     this.middlewares,
   });
 }

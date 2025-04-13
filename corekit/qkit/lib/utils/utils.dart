@@ -48,6 +48,10 @@ class QKitUtils {
 
   /// 随机字符串Key
   static Key random_string_key() {
-    return ValueKey(QKit.id_gen.uuidV4());
+    return ValueKey(q0_.id_gen.uuidV4());
   }
+}
+
+extension ContextExtension on BuildContext {
+  bool get is_release_mode => QKitUtils.is_release_mode;
 }

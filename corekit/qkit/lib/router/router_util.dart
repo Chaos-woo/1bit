@@ -3,15 +3,18 @@ import 'package:get/get.dart';
 
 class RouteProxyKit {
   /// 转向至指定路由
+  /// [prevent_duplicates]：重复路由至同一路由时，设置为false，且对应的Controller注意处理tag
   Future<R?>? to<R>(
     String route, {
     dynamic argument,
-    Map<String, String>? pathVariables,
+    Map<String, String>? path_variables,
+    bool prevent_duplicates = true,
   }) {
     return Get.toNamed<R>(
       route,
       arguments: argument,
-      parameters: pathVariables,
+      preventDuplicates: prevent_duplicates,
+      parameters: path_variables,
     );
   }
 
@@ -19,12 +22,12 @@ class RouteProxyKit {
   Future<R?>? popAndTo<R>(
     String route, {
     dynamic argument,
-    Map<String, String>? pathVariables,
+    Map<String, String>? path_variables,
   }) {
     return Get.offAndToNamed<R>(
       route,
       arguments: argument,
-      parameters: pathVariables,
+      parameters: path_variables,
     );
   }
 
@@ -44,8 +47,8 @@ class RouteProxyKit {
   }
 
   /// 返回
-  void back({dynamic backValue}) {
-    Get.back(result: backValue);
+  void back({dynamic back_result}) {
+    Get.back(result: back_result);
   }
 
   /// 获取当前的路由参数
@@ -66,7 +69,7 @@ class RouteProxyKit {
   ///
   /// Get routing url parameter like web, or use Map
   /// struct to pack some properties, next page can use
-  /// [pathVariables] method to get it.
+  /// [path_variables] method to get it.
   ///
   /// Note: only can get [String] value.
   ///
@@ -76,7 +79,7 @@ class RouteProxyKit {
   ///   assert('Enzo' == name);
   /// ```
   ///
-  String? pathVariables(String name) {
+  String? path_variables(String name) {
     return Get.parameters[name];
   }
 }

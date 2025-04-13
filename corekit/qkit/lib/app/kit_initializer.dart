@@ -6,15 +6,15 @@ import 'package:qkit/qkit.dart';
 class KitInitializer {
   /// 启动框架
   /// - [preprocessed] : 应用数据初始化前回调自定义处理
-  /// - [initCompleted] : 应用数据初始化完成回调自定义处理
+  /// - [init_completed] : 应用数据初始化完成回调自定义处理
   static Future<void> startup({
     Function()? preprocessed,
-    Function()? initCompleted,
+    Function()? init_completed,
   }) async {
     await _bootstrap();
     await preprocessed?.call();
     await _startup();
-    await initCompleted?.call();
+    await init_completed?.call();
   }
 
   static _bootstrap() {

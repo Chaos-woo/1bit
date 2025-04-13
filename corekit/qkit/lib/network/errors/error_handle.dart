@@ -16,7 +16,7 @@ abstract class DioErrorHandle {
 
 /// 网络请求响应错误处理器
 abstract class DioResponseErrorHandle {
-  ContinuePaasErrorSelection? Function(String? responseStatusMessage)? handle;
+  EnumContinuePaasErrorSelection? Function(String? responseStatusMessage)? handle;
 
   DioResponseErrorHandle({this.handle});
 
@@ -55,4 +55,4 @@ class DefaultDioResponseErrorHandle extends DioResponseErrorHandle {
 }
 
 /// 是否继续向上传递错误
-enum ContinuePaasErrorSelection { yes, no }
+enum EnumContinuePaasErrorSelection { yes, no }

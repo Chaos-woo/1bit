@@ -2,31 +2,31 @@ import 'package:get/get.dart';
 
 abstract class PagingState<T> {
   /// 当前页
-  int currPage = 1;
+  int current_page = 1;
 
   /// 分页数量，可修改
-  int get pageSize => 20;
+  int get page_size => 20;
 
   /// 每次请求的数量
-  int fetchTotal = 0;
+  int fetch_total = 0;
 
   /// 下一页
-  int get nextPage => currPage + 1;
+  int get next_page => current_page + 1;
 
   /// 分页数据
-  RxList<T> dataList = <T>[].obs;
+  RxList<T> data_list = <T>[].obs;
 
   /// 是否需要请求更多
-  bool isLoadMore() => dataList.length < fetchTotal;
+  bool is_load_more() => data_list.length < fetch_total;
 }
 
-class SimplePageState<T> extends PagingState<T> {
+class EasyPageState<T> extends PagingState<T> {
   int size;
 
-  SimplePageState.create({
+  EasyPageState.create({
     this.size = 20,
   });
 
   @override
-  int get pageSize => size;
+  int get page_size => size;
 }

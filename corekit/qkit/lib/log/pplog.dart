@@ -57,7 +57,7 @@ class PPLog extends GetxService implements LogWriter {
   }
 
   dynamic printWithDatetime(dynamic message) {
-    var formatDatetime = '${QKit.bridge.flustars.date.formatDate(
+    var formatDatetime = '${q0_.bridge.flustars.date.format_date(
       DateTime.now(),
       format: DateFormats.full,
     )} : ';

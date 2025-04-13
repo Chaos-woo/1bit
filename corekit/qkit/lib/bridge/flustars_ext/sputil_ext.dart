@@ -22,8 +22,7 @@ class SpUtilBridge {
   }
 
   /// get obj list.
-  List<T>? getObjList<T>(String key, T Function(Map v) converter,
-      {List<T>? defValue = const []}) {
+  List<T>? getObjList<T>(String key, T Function(Map v) converter, {List<T>? defValue = const []}) {
     return SpUtil.getObjList(key, converter, defValue: defValue);
   }
 
@@ -33,8 +32,8 @@ class SpUtilBridge {
   }
 
   /// get string.
-  String? getString(String key, {String? defValue = ''}) {
-    return SpUtil.getString(key, defValue: defValue);
+  String? get_string(String key, {String? default_value = ''}) {
+    return SpUtil.getString(key, defValue: default_value);
   }
 
   /// put string.
@@ -53,33 +52,32 @@ class SpUtilBridge {
   }
 
   /// get int.
-  int? getInt(String key, {int? defValue = 0}) {
-    return SpUtil.getInt(key, defValue: defValue);
+  int? get_int(String key, {int? default_value = 0}) {
+    return SpUtil.getInt(key, defValue: default_value);
   }
 
   /// put int.
-  Future<bool>? putInt(String key, int value) {
+  Future<bool>? put_int(String key, int value) {
     return SpUtil.putInt(key, value);
   }
 
   /// get double.
-  double? getDouble(String key, {double? defValue = 0.0}) {
-    return SpUtil.getDouble(key, defValue: defValue);
+  double? get_double(String key, {double? default_value = 0.0}) {
+    return SpUtil.getDouble(key, defValue: default_value);
   }
 
   /// put double.
-  Future<bool>? putDouble(String key, double value) {
+  Future<bool>? put_double(String key, double value) {
     return SpUtil.putDouble(key, value);
   }
 
   /// get string list.
-  List<String>? getStringList(String key,
-      {List<String>? defValue = const []}) {
-    return SpUtil.getStringList(key, defValue: defValue);
+  List<String>? get_string_list(String key, {List<String>? default_value = const []}) {
+    return SpUtil.getStringList(key, defValue: default_value);
   }
 
   /// put string list.
-  Future<bool>? putStringList(String key, List<String> value) {
+  Future<bool>? put_string_list(String key, List<String> value) {
     return SpUtil.putStringList(key, value);
   }
 

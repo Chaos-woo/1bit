@@ -16,7 +16,7 @@ class JsonEpochMillisecondDateTimeConverter implements JsonConverter<DateTime, i
   }
 }
 
-/// json时间转换器
+/// Json时间转换器
 class JsonEpochSecondDateTimeConverter implements JsonConverter<DateTime, int> {
   const JsonEpochSecondDateTimeConverter();
 
@@ -36,7 +36,7 @@ abstract class GenericJsonDateTimeConverter implements JsonConverter<DateTime, S
 
   @override
   DateTime fromJson(String json) {
-    DateTime? datetime = QKit.bridge.flustars.date.getDateTime(json);
+    DateTime? datetime = q0_.bridge.flustars.date.getDateTime(json);
     if (datetime == null) {
       throw Exception('Can not parse datetime from from $json');
     } else {
@@ -46,7 +46,7 @@ abstract class GenericJsonDateTimeConverter implements JsonConverter<DateTime, S
 
   @override
   String toJson(DateTime object) {
-    return QKit.bridge.flustars.date.formatDate(object, format: datetimeFormat());
+    return q0_.bridge.flustars.date.format_date(object, format: datetimeFormat());
   }
 
   String datetimeFormat();
@@ -54,7 +54,6 @@ abstract class GenericJsonDateTimeConverter implements JsonConverter<DateTime, S
 
 /// 2011-04-22T13:33:48Z
 class YYYY_MM_dd_T_HH_mm_ss_Z_DateTimeConverter extends GenericJsonDateTimeConverter {
-
   const YYYY_MM_dd_T_HH_mm_ss_Z_DateTimeConverter();
 
   @override

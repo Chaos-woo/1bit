@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 
 /// 延时工具
 class Delayer {
-  Future<void> delay(VoidCallback callback) => delay_any(callback);
+  Future<void> delay(VoidCallback callback) => delay_until(callback);
 
-  Future<void> delay_any(
+  Future<void> delay_until(
     VoidCallback callback, {
     Duration? duration,
   }) =>
