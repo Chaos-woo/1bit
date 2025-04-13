@@ -18,7 +18,7 @@ final class INKs {
   static const bool isReleaseMode = kReleaseMode;
 
   static final INKSdk sdk = INKSdk();
-  static final INKLog log = INKLog.singl;
+  static final INKLog log = INKLog.getx;
   static final INKEventDispatcher events = INKEventDispatcher();
   static final INKStorageDirectory storageSpace = INKStorageDirectory();
   static final INKPermission permission = INKPermission();
@@ -27,5 +27,5 @@ final class INKs {
 
   /// 小工具
   static final INKTool tool = INKTool();
-  static final UiColor color = UiColor();
+  static final INKUiColor color = INKUiColor();
 }

@@ -16,7 +16,7 @@ class Router {
   static final NamedRouteGroup _mNamedRoutGroup = NamedRouteGroup('__m_named_default_group__');
 
   /// 用户自定义分组路由
-  List<GetPage> get getxPages => _mGetxPages;
+  static List<GetPage> get getxPages => _mGetxPages;
 
   static NamedRouteGroup createGroup(String name) {
     var group = NamedRouteGroup(name);

@@ -3,7 +3,7 @@ import 'package:cw2bit/modules/app_hot_search/reading_record/components/hot_sear
 import 'package:cw2bit/modules/app_hot_search/reading_record/components/hot_search_in_reading.dart';
 import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
 import 'package:cw2bit/infrastructure/router/RTs.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';

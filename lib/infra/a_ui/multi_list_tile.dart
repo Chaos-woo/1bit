@@ -1,5 +1,5 @@
 import 'package:cw2bit/infra/a_ui/animated_switcher.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';
@@ -44,6 +44,7 @@ class INKMultiListTile extends StatelessWidget {
                   SelectableListTileItem() => _buildSelectableListTile(item, context),
                   OnOffSwitcherListTileItem() => _buildSwitcherListTile(item, context),
                   ReadableListTileItem() => _buildReadableListTile(item, context),
+                  EditableListTileItem() => _buildEditableListTile(item, context),
                 }
             ],
           ),
@@ -146,12 +147,12 @@ class INKMultiListTile extends StatelessWidget {
   _buildSelectableListTile<T>(SelectableListTileItem<T> item, BuildContext context) {
     return ValueBuilder(
       initialValue: item.values,
-      builder: (newVal, updater) {
+      builder: (newVal, functionUpdate) {
         return InkWell(
           onTap: () async {
             List<T> newValue = await item.select(item.values);
             item.values = newValue;
-            updater(newValue);
+            functionUpdate(newValue);
           },
           child: Align(
             alignment: AlignmentDirectional(0, 0),
@@ -432,6 +433,128 @@ class INKMultiListTile extends StatelessWidget {
       ),
     );
   }
+
+  _buildEditableListTile<T>(EditableListTileItem<T> item, BuildContext context) {
+    return ValueBuilder(
+      initialValue: item.value,
+      builder: (newVal, functionUpdate) {
+        return InkWell(
+          onTap: () async {
+            T newValue = await item.edit(item.value);
+            item.value = newValue;
+            functionUpdate(newValue);
+          },
+          child: Align(
+            alignment: AlignmentDirectional(0, 0),
+            child: Container(
+              width: double.infinity,
+              constraints: BoxConstraints(
+                minHeight: 70,
+                maxHeight: 120,
+              ),
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 0,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    offset: Offset(
+                      0,
+                      1,
+                    ),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(0),
+                border: Border.all(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  width: 1,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0, -1),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                        child: Icon(
+                          item.icon,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 32,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 16, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  item.title,
+                                  style: FlutterFlowTheme.of(context).bodyLarge.override(letterSpacing: 0.0),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(4),
+                                        child: Text(
+                                          item.showEditedOptionValue,
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(letterSpacing: 0.0),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.chevron_right_rounded,
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ].divide(SizedBox(width: 8)),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                              child: Text(
+                                item.subtitle ?? '',
+                                style: FlutterFlowTheme.of(context).labelMedium.override(letterSpacing: 0.0),
+                                maxLines: 4,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 sealed class BaseListTileItem {
@@ -458,6 +581,7 @@ class SelectableListTileItem<T> extends BaseListTileItem {
     required super.icon,
     required this.values,
     required this.select,
+    this.selectedOptionShowTransformer,
   }) : super(onTap: null);
 
   String get showSelectedOptionValue => selectedOptionShowTransformer?.call(values) ?? '';
@@ -478,4 +602,21 @@ class OnOffSwitcherListTileItem extends BaseListTileItem {
 
 class ReadableListTileItem extends BaseListTileItem {
   ReadableListTileItem({required super.title, required super.subtitle, required super.icon, required super.onTap});
+}
+
+class EditableListTileItem<T> extends BaseListTileItem {
+  T value;
+  Future<T> Function(T) edit;
+  String Function(T)? editedContentShowTransformer;
+
+  EditableListTileItem({
+    required super.title,
+    required super.subtitle,
+    required super.icon,
+    required this.value,
+    required this.edit,
+    this.editedContentShowTransformer,
+  }) : super(onTap: null);
+
+  String get showEditedOptionValue => editedContentShowTransformer?.call(value) ?? '';
 }

@@ -22,7 +22,7 @@ final class INKEventDispatcher {
 
   /// 订阅
   StreamSubscription subscribe<T extends DomainEvent>(
-    void Function(T event) on_data, {
+    void Function(T event) onData, {
     Function? onError,
     void Function()? onDone,
     bool cancelOnError = true,
@@ -32,7 +32,7 @@ final class INKEventDispatcher {
       Received event(#${event.runtimeType}#) from #${event.publisher}# at ${INKs.sdk.date.formatDate(event.timestamp, format: DateFormats.full)}
       ''');
 
-      on_data.call(event);
+      onData.call(event);
     }
 
     return _bus.on<T>().listen(

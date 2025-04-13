@@ -1,6 +1,6 @@
 import 'package:cw2bit/modules/feature_explore/github_1bit/issues/components/github_issues/models/comment/comment_model.dart';
 import 'package:cw2bit/modules/feature_explore/github_1bit/values/constant.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:qkit/qkit.dart';

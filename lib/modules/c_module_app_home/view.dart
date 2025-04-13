@@ -1,6 +1,6 @@
 import 'package:cw2bit/infra/a_ui/state/fade_indexed_stack.dart';
 import 'package:cw2bit/modules/c_module_app_home/pages/my_home/view.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';

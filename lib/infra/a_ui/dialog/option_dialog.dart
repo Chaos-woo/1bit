@@ -1,6 +1,6 @@
 import 'package:cw2bit/infra/INK/INKs.dart';
 import 'package:cw2bit/infra/a_sdk_bridge/text_util_extension.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:get/get.dart';

@@ -1,13 +1,14 @@
 import 'dart:convert';
 
+import 'package:cw2bit/infra/a_extension/int_extension.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 /// HTTP请求配置选项
 class RequestOption {
-  late int connectTimeout;
-  late int readTimeout;
-  late int writeTimeout;
+  late Duration connectTimeout;
+  late Duration readTimeout;
+  late Duration writeTimeout;
   late String sendContentType;
   late ResponseType responseType;
   late HttpClientAdapter? httpClientAdapter;
@@ -16,9 +17,9 @@ class RequestOption {
   RequestOption();
 
   RequestOption.option() {
-    connectTimeout = 5000;
-    readTimeout = 30000;
-    writeTimeout = 10000;
+    connectTimeout = 5.seconds;
+    readTimeout = 30.seconds;
+    writeTimeout = 10.seconds;
     sendContentType = Headers.jsonContentType;
     responseType = ResponseType.json;
     httpClientAdapter = null;
@@ -26,9 +27,9 @@ class RequestOption {
   }
 
   RequestOption copyWith({
-    int? connectTimeout,
-    int? readTimeout,
-    int? writeTimeout,
+    Duration? connectTimeout,
+    Duration? readTimeout,
+    Duration? writeTimeout,
     String? sendContentType,
     ResponseType? responseType,
     HttpClientAdapter? httpClientAdapter,
@@ -46,8 +47,8 @@ class RequestOption {
 }
 
 final class OverrideRequestOption {
-  int? readTimeout;
-  int? writeTimeout;
+  Duration? readTimeout;
+  Duration? writeTimeout;
   String? sendContentType;
   Map<String, dynamic>? extra;
 

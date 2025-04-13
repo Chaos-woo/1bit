@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:cw2bit/infra/a_ui/multi_list_tile.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/infra/a_value/speial_values.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,8 +30,8 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   Align(
                     alignment: AlignmentDirectional(0.05, -1),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1286&q=80',
+                    child: Image.asset(
+                      'my_page_background.png',
                       width: double.infinity,
                       height: 500,
                       fit: BoxFit.cover,
@@ -46,24 +45,17 @@ class MyHomePage extends StatelessWidget {
                     ),
                     child: Align(
                       alignment: AlignmentDirectional(0, 0),
-                      child: Text(
-                        'Hello WorldHello World',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
-                              fontSize: 80,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w900,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 250,
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // 高斯模糊程度
-                      child: Container(
-                        color: Colors.transparent,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Text(
+                          'Hello World .. See Your Thoughts in Your life.',
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Inter',
+                                fontSize: 60,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w900,
+                              ),
+                        ),
                       ),
                     ),
                   ),
@@ -132,10 +124,20 @@ class MyHomePage extends StatelessWidget {
                 INKMultiListTile(
                   title: '实验室',
                   items: [
-                    JumpingListTileItem(
+                    EditableListTileItem<String>(
                       title: 'Github Access',
                       subtitle: '管理 GitHub 访问权限，项目内容通过GetHub Personal Access Token访问',
-                      onTap: () async {},
+                      edit: (_) async {
+                        // 跳转PAT设置页面，避免PAT泄露，使用脱敏字符串处理
+                        return MASKED_STRING;
+                      },
+                      value: MASKED_STRING,
+                      editedContentShowTransformer: (_) {
+                        // 使用Github工具判断是否已经保存PAT，
+                        // 已保存展示“已设置”
+                        // 未保存展示“未设置”
+                        return '';
+                      },
                       icon: Icons.bug_report_outlined,
                     ),
                     JumpingListTileItem(
@@ -163,7 +165,7 @@ class MyHomePage extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(16, 28, 16, 0),
               child: Text(
                 'Connect Words',
                 style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -199,7 +201,7 @@ class MyHomePage extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(86, 0, 16, 0),
               child: Text(
                 'Connect Worlds',
                 style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -216,9 +218,9 @@ class MyHomePage extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(32, 0, 16, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(62, 0, 16, 0),
               child: Text(
-                'with Your Style.',
+                'with Your Style ... ...',
                 style: FlutterFlowTheme.of(context).displaySmall.override(
                       fontFamily: 'Inter Tight',
                       color: Color(0xFFF2F2F2),

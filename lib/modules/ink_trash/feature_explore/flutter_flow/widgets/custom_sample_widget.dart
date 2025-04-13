@@ -1,4 +1,4 @@
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomSampleCompWidget extends StatelessWidget {

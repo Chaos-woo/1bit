@@ -1,7 +1,7 @@
 import 'package:cw2bit/modules/app_hot_search/reading_record/logic.dart';
 import 'package:cw2bit/modules/app_hot_search/values/constant.dart';
 import 'package:cw2bit/infrastructure/database/entity_combination/comb_webpage_reading_sticker.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';

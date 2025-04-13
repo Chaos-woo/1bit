@@ -1,6 +1,6 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
 import 'package:cw2bit/infrastructure/ext/icon_extension.dart';
-import 'package:cw2bit/modules/c_module_theme/flutterflow_theme.dart';
+import 'package:cw2bit/modules/c_module_app_theme/provider/flutterflow_theme.dart';
 import 'package:cw2bit/public/ui/ui0_.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,7 +3,7 @@ import 'package:cw2bit/modules/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/modules/github/services/github_mgr.dart';
 import 'package:cw2bit/modules/microsoft_bing/service/bing_mgr.dart';
 import 'package:cw2bit/infrastructure/api/github/github_api.dart';
-import 'package:cw2bit/public/ui/theme/themes.dart';
+import 'package:cw2bit/public/ui/theme/theme_aggregate.dart';
 import 'package:get/get.dart';
 
 final class Apis {

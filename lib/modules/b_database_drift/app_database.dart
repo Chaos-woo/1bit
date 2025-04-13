@@ -10,9 +10,6 @@ final class DatabaseMgr {
   /// 数据库实例
   static AppDatabase get getx => Get.find(tag: AppDatabase.mGetxTag);
 
-  /// 数据库仓库
-  static _Repos get repos => _Repos.repo;
-
   DatabaseMgr._();
 
   /// ###
@@ -22,6 +19,9 @@ final class DatabaseMgr {
     /// 初始化数据库
     Get.put(AppDatabase(), tag: AppDatabase.mGetxTag, permanent: true);
 
+    /// 初始化仓库管理器
+    Get.put(RepositoryMgr(), tag: RepositoryMgr.mGetxTag, permanent: true);
+
     /// 初始化仓库
     Get.put(StickerRepo(), tag: StickerRepo.getx_tag);
     Get.put(WebpageRepo(), tag: WebpageRepo.getx_tag);
@@ -29,10 +29,10 @@ final class DatabaseMgr {
   }
 }
 
-final class _Repos {
-  static final _Repos repo = _Repos._();
+final class RepositoryMgr {
+  static const String mGetxTag = '__getx_repository_mgr__';
 
-  _Repos._();
+  static RepositoryMgr get getx => Get.find(tag: RepositoryMgr.mGetxTag);
 
   /// ###
   /// ### 新增表在这里新增实例

@@ -8,7 +8,7 @@ import 'package:logger/logger.dart';
 class INKLog extends GetxService implements LogWriter {
   static const String tag = '__pretty_print_logger__';
 
-  static INKLog get singl => Get.find<INKLog>(tag: tag);
+  static INKLog get getx => Get.find<INKLog>(tag: tag);
 
   late Logger _logger;
 

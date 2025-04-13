@@ -1,14 +1,15 @@
 import 'package:cw2bit/infra/INK/INKs.dart';
 import 'package:cw2bit/infra/a_extension/function_stream_extension.dart';
+import 'package:cw2bit/infra/a_router/router.dart' as my_router;
 import 'package:cw2bit/modules/c_module_app_home/binding.dart';
 import 'package:cw2bit/modules/c_module_app_home/view.dart';
+import 'package:cw2bit/modules/c_module_app_theme/view.dart';
 import 'package:get/get.dart';
-import 'package:cw2bit/infra/a_router/router.dart' as my_router;
 
 enum RouteGroupNames {
   // 临时的，实验性质的，不知道如何处理的，例如新功能，新特性
   experimental('experimental'),
-  // 功能性的，设置类的，全局类的内容跟
+  // 功能性的，设置类的，全局类的内容
   functionality('functionality'),
   // 业务功能，功能玩法，已经成熟的、具体的内容
   feature('feature'),
@@ -46,24 +47,12 @@ final class RTs {
   /// 新路由在这里新增
   static get routes => [
         home,
+        // 主题
         ...[
-          public_text_ocr,
-          flutter_flow_home,
-          app_theme_home,
+          appTheme,
         ],
-        ...[
-          github_setting,
-          github_issues_home,
-          github_issues_detail,
-          github_issues_edit,
-          github_comment_edit,
-        ],
-        ...[
-          app_hot_search_settings_home,
-          app_hot_search_settings_app_groups,
-          app_hot_search_settings_group_apps,
-          app_reading_threshold_config,
-        ],
+        ...[],
+        ...[],
       ];
 
   /// 创建所有路由页面
@@ -115,6 +104,13 @@ final class RTs {
         bindings: [HomepageBinding()],
       );
 
+  /// APP主题模块
+  static RTs get appTheme => RTs._(
+        '/app_theme/home',
+        RouteGroupNames.feature,
+        () => AppThemePage(),
+      );
+
   /////////////////////
   /////////////////////
   /////////////////////
@@ -135,13 +131,6 @@ final class RTs {
         '/flutterflow/home',
         RouteGroupNames.feature,
         () => const FlutterFlowPage(),
-      );
-
-  /// APP主题模块
-  static RTs get app_theme_home => RTs._(
-        '/app_theme/home',
-        RouteGroupNames.feature,
-        () => AppThemePage(),
       );
 
   /// Github设置模块

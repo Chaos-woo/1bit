@@ -142,3 +142,25 @@ extension IterableSort<T extends Comparable> on Iterable<T> {
       return a.compareTo(b);
     });
 }
+
+extension IterableSplit<T> on Iterable<T> {
+  /// 将序列中的元素按照固定个数分为多个部分
+  List<List<T>> split(int size) {
+    if (size <= 0) {
+      throw ArgumentError('Size must be greater than zero');
+    }
+    List<List<T>> result = [];
+    List<T> currentChunk = [];
+    for (var item in this) {
+      currentChunk.add(item);
+      if (currentChunk.length == size) {
+        result.add(currentChunk);
+        currentChunk = [];
+      }
+    }
+    if (currentChunk.isNotEmpty) {
+      result.add(currentChunk);
+    }
+    return result;
+  }
+}

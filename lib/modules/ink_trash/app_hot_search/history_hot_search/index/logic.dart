@@ -4,7 +4,7 @@ import 'package:cw2bit/modules/app_hot_search/service/hot_search_mgr.dart';
 import 'package:cw2bit/modules/app_hot_search/values/constant.dart';
 import 'package:cw2bit/modules/github/models/github_repo.dart';
 import 'package:cw2bit/infrastructure/api/github/models/content/github_content.dart';
-import 'package:cw2bit/infrastructure/api/github/models/github_enum.dart';
+import 'package:cw2bit/infrastructure/api/github/models/github_content_type.dart';
 import 'package:cw2bit/infrastructure/c0_.dart';
 import 'package:cw2bit/infrastructure/database/entity/app_hot_search/hot_search_app.dart';
 import 'package:cw2bit/public/webview/app_webview_dialog.dart';

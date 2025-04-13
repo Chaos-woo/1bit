@@ -47,8 +47,8 @@ class INKRouter {
   }
 
   /// 返回
-  void back({dynamic back_result}) {
-    Get.back(result: back_result);
+  void back({dynamic backResult}) {
+    Get.back(result: backResult);
   }
 
   /// 获取当前的路由参数
